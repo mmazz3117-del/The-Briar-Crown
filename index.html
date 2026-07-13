@@ -299,7 +299,7 @@
       cursor: pointer;
     }
     .quick-btn {
-      min-height: 42px;
+      min-height: 36px;
       display: flex;
       align-items: center;
       justify-content: flex-start;
@@ -309,7 +309,7 @@
       background: linear-gradient(145deg, #2a203b, #191522);
       color: #e6cd8c;
       border-radius: 5px;
-      padding: 6px 8px;
+      padding: 4px 7px;
       cursor: pointer;
       box-shadow: inset 0 0 0 1px #17111e, inset 0 0 11px rgba(0,0,0,.42), 0 2px 6px rgba(0,0,0,.25);
       font-size: 12px;
@@ -470,7 +470,7 @@
       #log { min-height: 145px; max-height: 190px; padding-inline: 13px; }
       .controls { padding-inline: 9px; }
       .quick-row { gap: 6px; }
-      .quick-btn { min-height: 40px; font-size: 11px; padding: 5px 7px; }
+      .quick-btn { min-height: 34px; font-size: 11px; padding: 4px 6px; }
       .quick-btn .action-icon { font-size: 15px; }
       .command-line { grid-template-columns: 48px minmax(0,1fr) 48px; gap: 6px; }
       .move-pad { grid-template-columns: repeat(3, 32px); grid-template-rows: repeat(3, 29px); }
@@ -540,7 +540,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.6.8.3 • Compact Context Actions</small>
+        <small id="version-tag">Version 1.6.8.4 • Clear Entrances & Persistent Navigation</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -611,7 +611,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.6.8.3";
+    const BUILD_VERSION = "1.6.8.4";
 
     const itemInfo = {
       "iron hook": "A blacksmith's hook with a long, slightly bent handle.",
@@ -635,7 +635,7 @@
         name: "Willowmere Square",
         description: "Willowmere should be waking, but dawn has failed for seven days. A stone well stands beneath the village willow. The Briar Lantern Tavern lies north, Merrin's forge glows east, Saint Orla's chapel waits west, and the king's road descends south toward the sealed castle.",
         exits: { north: "tavernApproach", east: "forgeLane", west: "chapelYard", south: "castleRoad" },
-        actions: ["look at notice board", "talk to old woman"],
+        actions: ["look at notice board", "look at well"],
         hotspots: [
           { label: "Notice Board", command: "look at notice board", x: 18, y: 64, w: 24, h: 35 },
           { label: "Well", command: "look at well", x: 52, y: 61, w: 25, h: 32 },
@@ -785,7 +785,7 @@
       forestEdge: {
         name: "The Whispering Path",
         description: "An ancient oak leans over the trail, its roots forming a dark arch. A carved sign points east toward a crooked cottage. Something silver glints inside a hollow in the trunk. The road back to the Briar Lantern lies south, and the deeper forest waits north.",
-        exits: { north: "whisperingForest", east: "cottage", south: "tavernApproach" },
+        exits: { north: "whisperingForest", east: "cottageApproach", south: "tavernApproach" },
         actions: ["look at tree", "take silver token", "go east"],
         hotspots: [
           { label: "Tree Hollow", command: "look at tree", x: 76, y: 42, w: 20, h: 24 },
@@ -793,15 +793,25 @@
           { label: "Deep Forest", command: "north", x: 50, y: 30, w: 26, h: 22 }
         ]
       },
-      cottage: {
-        name: "The Witch's Cottage",
-        description: "The abandoned cottage smells of dust, herbs, and rain. A wooden cabinet stands near the window. A faded rug lies before the cold hearth.",
+      cottageApproach: {
+        name: "Outside the Witch's Cottage",
+        description: "A crooked cottage crouches beneath ancient trees. Warm light flickers behind one shutter, but the weathered front door is closed. The Whispering Path lies west.",
         exits: { west: "forestEdge" },
-        actions: ["open cabinet", "move rug", "look around"],
+        actions: ["open cottage door", "go west"],
+        hotspots: [
+          { label: "Cottage Door", command: "open cottage door", x: 51, y: 54, w: 20, h: 34 },
+          { label: "Whispering Path", command: "go west", x: 23, y: 79, w: 30, h: 20 }
+        ]
+      },
+      cottage: {
+        name: "Inside the Witch's Cottage",
+        description: "Inside, the abandoned cottage smells of dust, herbs, and rain. A wooden cabinet stands near the window. A faded rug lies before the cold hearth. The front door leads west.",
+        exits: { west: "cottageApproach" },
+        actions: ["open cabinet", "move rug", "look around", "go west"],
         hotspots: [
           { label: "Cabinet", command: "open cabinet", x: 67, y: 59, w: 20, h: 28 },
           { label: "Rug", command: "move rug", x: 50, y: 78, w: 28, h: 16 },
-          { label: "Door", command: "look at door", x: 52, y: 54, w: 16, h: 30 }
+          { label: "Front Door", command: "go west", x: 20, y: 54, w: 18, h: 32 }
         ]
       },
       cellar: {
@@ -896,6 +906,7 @@
         tavernDoorOpen: false,
         apothecaryDoorOpen: false,
         forgeDoorOpen: false,
+        cottageDoorOpen: false,
         cellarUnlocked: false,
         blacksmithGift: false,
         cabinetOpen: false,
@@ -946,13 +957,13 @@
       tavern: "assets/scenes/tavern.webp",
       forestEdge: "assets/scenes/forest.webp",
       whisperingForest: "assets/scenes/forest.webp",
-      cottage: "assets/scenes/cottage.webp",
+      cottageApproach: "assets/scenes/cottage.webp",
       moonfen: "assets/scenes/moonfen.webp",
       crypt: "assets/scenes/crypt.webp",
       castleGate: "assets/scenes/gate.webp"
     };
 
-    const sceneTourRooms = ["square", "forgeLane", "forgeDoor", "blacksmith", "castleRoad", "tavernApproach", "tavernDoor", "tavern", "apothecaryApproach", "apothecaryDoor", "apothecary", "apothecaryBackRoom", "forestEdge", "cottage", "moonfen", "crypt", "castleGate"];
+    const sceneTourRooms = ["square", "forgeLane", "forgeDoor", "blacksmith", "castleRoad", "tavernApproach", "tavernDoor", "tavern", "apothecaryApproach", "apothecaryDoor", "apothecary", "apothecaryBackRoom", "forestEdge", "cottageApproach", "cottage", "moonfen", "crypt", "castleGate"];
 
     const apothecaryViewImages = {
       center: "assets/scenes/apothecary-room.webp",
@@ -1211,7 +1222,9 @@
         chapelYard: { chapel:"chapel", forward:"chapel", square:"square", back:"square" },
         chapel: { outside:"chapelYard", yard:"chapelYard", back:"chapelYard" },
         castleRoad: { gate:"castleGate", castle:"castleGate", forward:"castleGate", square:"square", willowmere:"square", moonfen:"moonfen" },
-        forestEdge: { cottage:"cottage", "forest road":"whisperingForest", forest:"whisperingForest", forward:"whisperingForest", tavern:"tavernApproach", back:"tavernApproach" }
+        forestEdge: { cottage:"cottageApproach", "forest road":"whisperingForest", forest:"whisperingForest", forward:"whisperingForest", tavern:"tavernApproach", back:"tavernApproach" },
+        cottageApproach: { cottage:"cottage", inside:"cottage", door:"cottage", forward:"cottage", path:"forestEdge", forest:"forestEdge", back:"forestEdge" },
+        cottage: { outside:"cottageApproach", door:"cottageApproach", path:"cottageApproach", back:"cottageApproach" }
       };
 
       if (state.room === "forgeDoor" && /^(?:inside|forge|door|forward)$/.test(target)) {
@@ -1227,6 +1240,11 @@
       if (state.room === "apothecaryDoor" && /^(?:inside|apothecary|door|forward)$/.test(target)) {
         state.turns++;
         await enterTarget("apothecary");
+        return true;
+      }
+      if (state.room === "cottageApproach" && /^(?:inside|cottage|door|forward)$/.test(target)) {
+        state.turns++;
+        await enterTarget("cottage");
         return true;
       }
       if (state.room === "chapelYard" && target === "inside") target = "chapel";
@@ -1559,9 +1577,10 @@
         "crypt:reliquary": state.flags.reliquaryOpen ? "The reliquary stands open. Golden light spills from within." : "The lid is sealed. A round depression matches the silver token from the Whispering Path.",
         "forestEdge:tree": state.flags.silverTokenTaken ? "Old runes spiral around the empty hollow. The token is gone." : "The bark is etched with old runes. Inside the hollow, you spot a silver token.",
         "forestEdge:hollow": state.flags.silverTokenTaken ? "The hollow is empty." : "A silver token rests just within reach.",
+        "cottageApproach:door": state.flags.cottageDoorOpen ? "The weathered cottage door stands open." : "The cottage door is closed. Its old iron latch looks stiff but usable.",
         "cottage:cabinet": state.flags.cabinetOpen ? "The cabinet stands open." : "A small silver lock holds the warped cabinet doors shut. Years of damp have left it corroded and brittle—it would not survive a firm pull.",
         "cottage:rug": state.flags.rugMoved ? "The rug has been pulled aside, revealing an iron trapdoor." : "The rug is dusty except for a clean iron ring showing through one torn corner.",
-        "cottage:door": "The crooked door bears fresh scratches on the inside, as if something once tried to claw its way out.",
+        "cottage:door": "The crooked front door bears fresh scratches on the inside, as if something once tried to claw its way out.",
         "cellar:lantern": state.flags.lanternTaken ? "The peg where the lantern hung is empty." : "A brass lantern hangs from the wall. It appears to contain a little oil.",
         "cellar:coin": state.flags.coinTaken ? "Only a circular mark remains in the dust." : "The tiny coin bears the same winged figure shown in the chapel window.",
         "whisperingForest:whispers": "The voices are not threatening. They repeat a single phrase: Free her before you mend it.",
@@ -1604,6 +1623,13 @@
         addLog("You lift the iron latch and push the tavern door open. Warmth, firelight, and the murmur of travelers spill into the street. You may now ENTER TAVERN.", "success");
         return;
       }
+      if (state.room === "cottageApproach" && /(door|cottage)/.test(target)) {
+        if (state.flags.cottageDoorOpen) return addLog("The cottage door is already open.");
+        state.flags.cottageDoorOpen = true;
+        award("open-cottage-door", 1);
+        addLog("The stiff latch gives way. The cottage door creaks inward, revealing a dark, dusty room. You may now ENTER COTTAGE.", "success");
+        return;
+      }
       if (state.room === "cottage" && target.includes("cabinet")) {
         if (!state.flags.cabinetOpen) {
           state.flags.cabinetOpen = true;
@@ -1643,6 +1669,12 @@
         if (!state.flags.tavernDoorOpen) return addLog("The tavern door is closed. Open it first.", "warning");
         award("enter-tavern", 1);
         await transitionToRoom("tavern",{view:"center",note:"Warm firelight surrounds you as you enter the Briar Lantern.",countTurn:false});
+        return;
+      }
+      if (state.room === "cottageApproach" && /(cottage|door|house|inside)/.test(target)) {
+        if (!state.flags.cottageDoorOpen) return addLog("The cottage door is closed. Open it first.", "warning");
+        award("enter-cottage", 1);
+        await transitionToRoom("cottage",{note:"You step through the crooked doorway into the abandoned cottage.",countTurn:false});
         return;
       }
       addLog("You cannot enter that from here.", "warning");
@@ -1985,6 +2017,7 @@
         if (state.room === "forgeDoor") await enterTarget("forge");
         else if (state.room === "tavernDoor") await enterTarget("tavern");
         else if (state.room === "apothecaryDoor") await enterTarget("apothecary");
+        else if (state.room === "cottageApproach") await enterTarget("cottage");
         else addLog("There is nothing here you can enter. Try LOOK to review the scene.", "warning");
         return finishTurn();
       }
@@ -2074,7 +2107,14 @@
 
     function currentActions() {
       const config = directionalConfig();
-      const actions = config ? [...(config.actions[currentView()] || config.actions.center)] : [...(room().actions || [])];
+      let actions = config ? [...(config.actions[currentView()] || config.actions.center)] : [...(room().actions || [])];
+      const removeAction = unwanted => { actions = actions.filter(action => normalize(action) !== normalize(unwanted)); };
+
+      // Once an exterior door is open, immediately replace OPEN with ENTER.
+      if (state.room === "tavernDoor" && state.flags.tavernDoorOpen) { removeAction("open door"); actions.unshift("enter tavern"); }
+      if (state.room === "apothecaryDoor" && state.flags.apothecaryDoorOpen) { removeAction("open door"); actions.unshift("enter apothecary"); }
+      if (state.room === "forgeDoor" && state.flags.forgeDoorOpen) { removeAction("open door"); actions.unshift("enter forge"); }
+      if (state.room === "cottageApproach" && state.flags.cottageDoorOpen) { removeAction("open cottage door"); actions.unshift("enter cottage"); }
       if (state.room === "apothecary") actions.unshift("show wares", "talk to Elowen", "go in back room");
       if (state.room === "cottage" && state.flags.rugMoved && !state.flags.trapdoorUnlocked) actions.unshift("use silver key on trapdoor");
       if (state.room === "cottage" && state.flags.trapdoorUnlocked && !state.flags.trapdoorOpen) actions.unshift("open trapdoor");
@@ -2087,7 +2127,19 @@
       if (state.room === "crypt" && state.flags.reliquaryOpen && !state.flags.sigilTaken) actions.unshift("take sun sigil");
       if (state.room === "moonwell" && state.flags.sigilTaken && !state.flags.fairyFreed) actions.unshift("use sun sigil on cage");
       if (state.room === "moonwell" && state.flags.blacksmithGift && !state.flags.shardTaken) actions.unshift("use iron hook on well");
-      return [...new Set(actions)];
+      if (state.room === "cottage" && state.flags.cabinetOpen) removeAction("open cabinet");
+      if (state.room === "cottage" && state.flags.rugMoved) removeAction("move rug");
+      if (state.room === "cottage" && state.flags.cabinetOpen && !state.flags.keyTaken) actions.unshift("take silver key");
+
+      // Standard travel controls remain available even after examining an object.
+      Object.keys(room().exits || {}).forEach(direction => actions.push(`go ${direction}`));
+      const seen = new Set();
+      return actions.filter(action => {
+        const key = normalize(action);
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
     }
 
     let quickActionsExpanded = false;
@@ -2125,6 +2177,11 @@
       if (a === "look at herbs") return "Examine Herbs";
       if (a === "look at door") return "Examine Door";
       if (a === "look around") return "Look Around";
+      if (a === "enter tavern") return "Enter Tavern";
+      if (a === "enter apothecary") return "Enter Apothecary";
+      if (a === "enter forge") return "Enter Forge";
+      if (a === "enter cottage") return "Enter Cottage";
+      if (a === "take silver key") return "Take Silver Key";
       if (a === "go outside") return "Go Outside";
       if (a === "leave apothecary") return "Leave Shop";
       if (a === "leave tavern") return "Leave Tavern";
@@ -2180,6 +2237,7 @@
       const label = normalizeObjectName(hotspot.label);
       const examine = `look at ${label}`;
       if (!actions.some(action => normalize(action) === normalize(examine))) actions.push(examine);
+      Object.keys(room().exits || {}).forEach(direction => actions.push(`go ${direction}`));
       return [...new Set(actions)].sort((a, b) => quickPriority(a) - quickPriority(b));
     }
 
@@ -2215,7 +2273,7 @@
         quickActionsEl.appendChild(context);
       }
 
-      const visibleLimit = quickActionsExpanded ? 8 : 4;
+      const visibleLimit = quickActionsExpanded ? 10 : 6;
       actions.slice(0, visibleLimit).forEach(action => {
         const btn = document.createElement("button");
         btn.type = "button";
@@ -2224,11 +2282,11 @@
         btn.addEventListener("click", () => executeQuickAction(action));
         quickActionsEl.appendChild(btn);
       });
-      if (actions.length > 4) {
+      if (actions.length > 6) {
         const toggle = document.createElement("button");
         toggle.type = "button";
         toggle.className = "quick-btn more-toggle";
-        toggle.innerHTML = `<span class="action-icon">${quickActionsExpanded ? "−" : "+"}</span><span>${quickActionsExpanded ? "Show Fewer" : `More (${actions.length - 4})`}</span>`;
+        toggle.innerHTML = `<span class="action-icon">${quickActionsExpanded ? "−" : "+"}</span><span>${quickActionsExpanded ? "Show Fewer" : `More (${actions.length - 6})`}</span>`;
         toggle.addEventListener("click", () => {
           quickActionsExpanded = !quickActionsExpanded;
           renderQuickActions();
@@ -2256,6 +2314,17 @@
       if (state.room === "apothecaryDoor") {
         const door = spots.find(s => s.label === "Green Door");
         if (door && state.flags.apothecaryDoorOpen) door.command = "enter apothecary";
+      }
+      if (state.room === "forgeDoor") {
+        const door = spots.find(s => s.label === "Forge Door");
+        if (door && state.flags.forgeDoorOpen) door.command = "enter forge";
+      }
+      if (state.room === "cottageApproach") {
+        const door = spots.find(s => s.label === "Cottage Door");
+        if (door && state.flags.cottageDoorOpen) door.command = "enter cottage";
+      }
+      if (state.room === "cottage" && state.flags.cabinetOpen && !state.flags.keyTaken) {
+        spots.push({ label: "Silver Key", command: "take silver key", x: 68, y: 60, w: 16, h: 16 });
       }
       return spots;
     }
@@ -2649,6 +2718,7 @@
       state.skillUses = Object.assign({}, defaults.skillUses, state.skillUses || {});
       state.visited = Array.isArray(state.visited) ? state.visited : [state.room || "square"];
       state.flags = Object.assign({}, defaults.flags, state.flags || {});
+      if ((state.visited || []).some(roomId => roomId === "cottage" || roomId === "cellar") || state.flags.cabinetOpen || state.flags.rugMoved) state.flags.cottageDoorOpen = true;
       state.lastObject = typeof state.lastObject === "string" ? state.lastObject : "";
       state.lastPerson = typeof state.lastPerson === "string" ? state.lastPerson : "";
       state.lastCommand = typeof state.lastCommand === "string" ? state.lastCommand : "";
@@ -2660,7 +2730,7 @@
     function boot() {
       updateMusicButton();
       const vt = document.getElementById("version-tag");
-      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Interaction Consistency & Finale Safety`;
+      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Clear Entrances & Persistent Navigation`;
       const saved = storageGet(SAVE_KEY);
       if (saved) {
         try { state = JSON.parse(saved); migrateState(); restoreDynamicExits(); }
