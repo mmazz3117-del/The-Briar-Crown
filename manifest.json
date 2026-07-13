@@ -2,7 +2,7 @@
   "name": "The Briar Crown",
   "short_name": "Briar Crown",
   "description": "A mobile-first text-first fantasy adventure with an illustrated world and natural-language parser.",
-  "start_url": "./index.html?v=1.6.8.4",
+  "start_url": "./index.html?v=1.6.8.5",
   "display": "standalone",
   "background_color": "#07070b",
   "theme_color": "#0b0912",
@@ -19,5 +19,5 @@
       "type": "image/png"
     }
   ],
-  "version": "1.6.8.4"
+  "version": "1.6.8.5"
 }

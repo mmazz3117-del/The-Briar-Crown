@@ -540,7 +540,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.6.8.4 • Clear Entrances & Persistent Navigation</small>
+        <small id="version-tag">Version 1.6.8.5 • World Flow & Navigation Consistency</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -611,7 +611,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.6.8.4";
+    const BUILD_VERSION = "1.6.8.5";
 
     const itemInfo = {
       "iron hook": "A blacksmith's hook with a long, slightly bent handle.",
@@ -722,12 +722,22 @@
       },
       forgeLane: {
         name: "Forge Lane",
-        description: "You leave Willowmere Square and follow a narrow cobblestone lane toward Merrin's forge. Smoke rises above the rooftops, and the steady ring of hammer on iron grows louder. The forge stands east; the square lies west.",
-        exits: { east: "forgeDoor", west: "square" },
-        actions: ["approach forge", "look east", "look west", "go east", "go west"],
+        description: "You leave Willowmere Square and follow a narrow cobblestone lane past Merrin's forge. Smoke rises above the rooftops, and the steady ring of hammer on iron carries across the stones. The forge stands beside the lane, Willowmere Square lies west, and the road continues east.",
+        exits: { east: "eastRoad", west: "square" },
+        actions: ["approach forge", "look east", "look west"],
         hotspots: [
           { label: "Forge", command: "approach forge", x: 76, y: 48, w: 32, h: 47 },
           { label: "Willowmere Square", command: "go west", x: 18, y: 80, w: 31, h: 20 }
+        ]
+      },
+      eastRoad: {
+        name: "East Gate Road",
+        description: "Beyond Merrin's forge, the lane widens beside the old town wall. A sloping track turns south toward the King's Road, while thorn-choked stones block the eastern gate. Forge Lane lies west.",
+        exits: { west: "forgeLane", south: "castleRoad" },
+        actions: ["look at eastern gate", "look south"],
+        hotspots: [
+          { label: "Eastern Gate", command: "look at eastern gate", x: 67, y: 35, w: 28, h: 28 },
+          { label: "King's Road", command: "go south", x: 50, y: 78, w: 34, h: 20 }
         ]
       },
       forgeDoor: {
@@ -753,18 +763,38 @@
       },
       chapelYard: {
         name: "Chapel Yard",
-        description: "Crooked headstones crowd the path to Saint Orla's chapel. The chapel door hangs open, though no wind stirs. Willowmere Square lies east.",
-        exits: { north: "chapel", east: "square" },
-        actions: ["look at graves", "go north", "go east"],
+        description: "Crooked headstones crowd the path to Saint Orla's chapel. The chapel stands north beyond an iron gate, Willowmere Square lies east, and an older cemetery path continues west beneath the yew trees.",
+        exits: { north: "chapelApproach", east: "square", west: "oldCemeteryPath" },
+        actions: ["look at graves", "approach chapel"],
         hotspots: [
-          { label: "Chapel", command: "north", x: 50, y: 37, w: 32, h: 40 },
+          { label: "Chapel", command: "approach chapel", x: 50, y: 37, w: 32, h: 40 },
           { label: "Graves", command: "look at graves", x: 27, y: 66, w: 26, h: 24 }
+        ]
+      },
+      chapelApproach: {
+        name: "At Saint Orla's Chapel",
+        description: "You stand beneath the weathered stone arch of Saint Orla's chapel. The old door hangs open, and moonlight spills across the threshold. The chapel yard lies south. Enter the chapel when you are ready.",
+        exits: { south: "chapelYard" },
+        actions: ["enter chapel", "look inside"],
+        hotspots: [
+          { label: "Open Chapel Door", command: "enter chapel", x: 50, y: 38, w: 30, h: 42 },
+          { label: "Chapel Yard", command: "go south", x: 50, y: 82, w: 34, h: 18 }
+        ]
+      },
+      oldCemeteryPath: {
+        name: "Old Cemetery Path",
+        description: "The path continues west through older graves swallowed by moss and ivy. A collapsed boundary wall finally blocks the way ahead. Saint Orla's chapel lies back to the east.",
+        exits: { east: "chapelYard" },
+        actions: ["look at old graves", "look at collapsed wall"],
+        hotspots: [
+          { label: "Old Graves", command: "look at old graves", x: 36, y: 62, w: 28, h: 28 },
+          { label: "Collapsed Wall", command: "look at collapsed wall", x: 70, y: 48, w: 28, h: 26 }
         ]
       },
       chapel: {
         name: "Saint Orla's Chapel",
         description: "Moonlight leaks through a cracked stained-glass window. A stone statue of Saint Orla holds out one empty hand. A coin-shaped hollow marks her palm.",
-        exits: { south: "chapelYard" },
+        exits: { south: "chapelApproach" },
         actions: ["look at statue", "use fairy coin on statue", "go south"],
         hotspots: [
           { label: "Statue", command: "look at statue", x: 51, y: 54, w: 22, h: 36 },
@@ -950,9 +980,13 @@
       apothecary: "assets/scenes/apothecary-room.webp",
       apothecaryBackRoom: "assets/scenes/apothecary-east.webp",
       forgeLane: "assets/scenes/forge-lane.webp",
+      eastRoad: "assets/scenes/kings-road.webp",
       forgeDoor: "assets/scenes/forge-door.webp",
       blacksmith: "assets/scenes/forge.webp",
       chapelYard: "assets/scenes/chapel-yard.webp",
+      chapelApproach: "assets/scenes/chapel-approach.webp",
+      oldCemeteryPath: "assets/scenes/old-cemetery.webp",
+      chapel: "assets/scenes/chapel.webp",
       castleRoad: "assets/scenes/kings-road.webp",
       tavern: "assets/scenes/tavern.webp",
       forestEdge: "assets/scenes/forest.webp",
@@ -963,7 +997,7 @@
       castleGate: "assets/scenes/gate.webp"
     };
 
-    const sceneTourRooms = ["square", "forgeLane", "forgeDoor", "blacksmith", "castleRoad", "tavernApproach", "tavernDoor", "tavern", "apothecaryApproach", "apothecaryDoor", "apothecary", "apothecaryBackRoom", "forestEdge", "cottageApproach", "cottage", "moonfen", "crypt", "castleGate"];
+    const sceneTourRooms = ["square", "forgeLane", "eastRoad", "forgeDoor", "blacksmith", "chapelYard", "chapelApproach", "oldCemeteryPath", "chapel", "castleRoad", "tavernApproach", "tavernDoor", "tavern", "apothecaryApproach", "apothecaryDoor", "apothecary", "apothecaryBackRoom", "forestEdge", "cottageApproach", "cottage", "moonfen", "crypt", "castleGate"];
 
     const apothecaryViewImages = {
       center: "assets/scenes/apothecary-room.webp",
@@ -1094,10 +1128,16 @@
         south: "The king's road descends south toward the sealed Ironthorn Gate and the dark mountain castle."
       },
       forgeLane: {
-        east: "Merrin's stone forge stands at the end of the lane, its chimney breathing smoke and its windows glowing orange.",
+        east: "The cobblestone lane continues beyond Merrin's forge toward the old eastern gate.",
         west: "Willowmere Square lies behind you, framed by the village willow and the old stone well.",
         north: "Tightly packed cottages rise along the lane, their shutters trembling with each strike from the forge.",
         south: "Small kitchen gardens and stacked firewood fill the slope below the lane."
+      },
+      eastRoad: {
+        east: "The old eastern gate is sealed by a wall of thorn and fallen masonry.",
+        west: "Forge Lane runs back past Merrin's smoking chimney toward Willowmere Square.",
+        north: "The old town wall rises above a strip of neglected gardens.",
+        south: "A sloping track joins the King's Road below the village."
       },
       forgeDoor: {
         east: "Through the forge window, Merrin works beside the anvil as sparks leap into the rafters.",
@@ -1141,6 +1181,18 @@
         west: "Older graves vanish beneath yew trees and tangled ivy.",
         south: "A narrow path winds among weathered headstones."
       },
+      chapelApproach: {
+        north: "The open chapel doorway waits directly before you. Use ENTER CHAPEL to cross the threshold.",
+        east: "The chapel's stone wall is wrapped in ivy and old memorial plaques.",
+        west: "A row of narrow stained-glass windows catches the moonlight.",
+        south: "The path returns through the chapel yard toward Willowmere Square."
+      },
+      oldCemeteryPath: {
+        north: "Ancient yews form a dark wall between the oldest graves.",
+        east: "The path returns to Saint Orla's chapel yard.",
+        west: "A collapsed stone boundary wall marks the end of the old cemetery road.",
+        south: "The ground falls away into a bramble-filled drainage hollow."
+      },
       chapel: {
         north: "Saint Orla's stone statue stands before the altar with one hand extended.",
         south: "The open chapel door leads back to the moonlit yard.",
@@ -1167,6 +1219,91 @@
       }
     };
 
+    const outdoorRooms = new Set([
+      "square", "tavernApproach", "apothecaryApproach", "forgeLane", "eastRoad",
+      "forgeDoor", "tavernDoor", "apothecaryDoor", "chapelYard", "chapelApproach",
+      "oldCemeteryPath", "forestEdge", "whisperingForest", "cottageApproach",
+      "moonfen", "moonwell", "castleRoad", "castleGate"
+    ]);
+
+    const travelBoundaryResponses = {
+      square: {
+        north: "The northern way is taken up by the path to the Briar Lantern.",
+        east: "The eastern lane leads toward Merrin's forge.",
+        west: "The western path passes through Saint Orla's chapel yard.",
+        south: "The King's Road descends toward the castle."
+      },
+      forgeLane: {
+        north: "A row of private cottages blocks the northern side of the lane.",
+        south: "The lane drops into fenced kitchen gardens with no public path through.",
+      },
+      eastRoad: {
+        east: "The eastern road ends here at a collapsed gate choked with living thorn.",
+        north: "The old town wall has no gate on this side.",
+      },
+      forgeDoor: {
+        north: "The forge wall blocks the way. The entrance is here, but you must ENTER rather than walk through the wall.",
+        east: "The forge itself is directly ahead. Open the door and ENTER FORGE.",
+        south: "Coal bins and stacked scrap leave no through-road beside the forge."
+      },
+      tavernDoor: {
+        north: "The Briar Lantern is directly ahead. Open the door and ENTER TAVERN.",
+        east: "The wall of the tavern blocks a direct path; step south to the approach road to reach the forest road.",
+        west: "Barrels and a low stone wall close off the side passage."
+      },
+      apothecaryDoor: {
+        east: "The apothecary is directly ahead. Open the door and ENTER APOTHECARY.",
+        north: "The ivy-covered shop wall rises directly beside you.",
+        south: "Planters and a low garden wall block the narrow side path."
+      },
+      chapelYard: {
+        south: "The southern graveyard path ends at a locked iron service gate.",
+      },
+      chapelApproach: {
+        north: "The open chapel doorway is directly ahead. Use ENTER CHAPEL to cross the threshold.",
+        east: "The chapel wall and old memorial stones block the way east.",
+        west: "The chapel wall runs west beneath narrow stained-glass windows."
+      },
+      oldCemeteryPath: {
+        west: "The western cemetery road ends at a collapsed stone wall. Beyond it, brambles hide whatever path once continued there.",
+        north: "Ancient yew roots and tightly packed graves leave no safe path north.",
+        south: "The ground drops into a bramble-filled drainage hollow; there is no crossing here."
+      },
+      tavernApproach: {
+        west: "The tavern's outer wall, rain barrels, and stacked firewood block the western side.",
+      },
+      apothecaryApproach: {
+        north: "The apothecary wall and upper flower boxes leave no path north.",
+        south: "A fenced herb garden blocks the way south.",
+      },
+      forestEdge: {
+        west: "The trail ends beneath the ancient oak's roots. There is no path through the tangled hollow.",
+      },
+      whisperingForest: {
+        west: "The trees knot together into an impassable wall of roots and black thorn.",
+      },
+      cottageApproach: {
+        north: "The cottage wall and twisted roots block the northern side.",
+        south: "A fast stream cuts across the southern edge of the clearing.",
+        east: "The cottage stands directly ahead. Open the door and ENTER COTTAGE.",
+      },
+      moonfen: {
+        south: "The black water widens into a reed-choked bog with no safe footing.",
+      },
+      moonwell: {
+        north: "The clearing ends at a ring of white thorn that refuses to part.",
+        west: "A steep bank and tangled roots close off the western edge of the clearing.",
+      },
+      castleRoad: {
+        east: "The eastern slope ends in thorn-covered cliffs beneath the castle walls.",
+      },
+      castleGate: {
+        south: "The Ironthorn Gate bars the road south. The crown-shaped socket may be the only way through.",
+        east: "The guard wall and rusted winch block the eastern side.",
+        west: "A broken parapet drops sharply into the ravine."
+      }
+    };
+
     const discoveryLabels = {
       tavernApproach: "The Briar Lantern",
       tavernDoor: "The Briar Lantern",
@@ -1176,9 +1313,12 @@
       apothecary: "Willowmere Apothecary",
       apothecaryBackRoom: "Willowmere Apothecary",
       forgeLane: "Merrin's Forge",
+      eastRoad: "East Gate Road",
       forgeDoor: "Merrin's Forge",
       blacksmith: "Merrin's Forge",
       chapelYard: "Saint Orla's Chapel",
+      chapelApproach: "Saint Orla's Chapel",
+      oldCemeteryPath: "Old Cemetery Path",
       chapel: "Saint Orla's Chapel",
       crypt: "Saint Orla's Chapel"
     };
@@ -1210,7 +1350,8 @@
 
       const routes = {
         square: { tavern:"tavernApproach", apothecary:"apothecaryApproach", forge:"forgeLane", chapel:"chapelYard", "castle road":"castleRoad", castle:"castleRoad" },
-        forgeLane: { forge:"forgeDoor", door:"forgeDoor", forward:"forgeDoor", inside:"forgeDoor", square:"square", back:"square" },
+        forgeLane: { forge:"forgeDoor", door:"forgeDoor", forward:"eastRoad", "east road":"eastRoad", square:"square", back:"square" },
+        eastRoad: { forge:"forgeLane", "forge lane":"forgeLane", square:"forgeLane", "castle road":"castleRoad", back:"forgeLane" },
         forgeDoor: { lane:"forgeLane", square:"forgeLane", back:"forgeLane" },
         blacksmith: { outside:"forgeDoor", door:"forgeDoor", lane:"forgeDoor", back:"forgeDoor" },
         tavernApproach: { tavern:"tavernDoor", door:"tavernDoor", forward:"tavernDoor", inside:"tavernDoor", "forest road":"forestEdge", square:"square", back:"square" },
@@ -1219,8 +1360,10 @@
         apothecaryApproach: { apothecary:"apothecaryDoor", door:"apothecaryDoor", forward:"apothecaryDoor", inside:"apothecaryDoor", square:"square", back:"square" },
         apothecaryDoor: { square:"apothecaryApproach", back:"apothecaryApproach" },
         apothecary: { outside:"apothecaryDoor", door:"apothecaryDoor", back:"apothecaryDoor", "back room":"apothecaryBackRoom", workroom:"apothecaryBackRoom" },
-        chapelYard: { chapel:"chapel", forward:"chapel", square:"square", back:"square" },
-        chapel: { outside:"chapelYard", yard:"chapelYard", back:"chapelYard" },
+        chapelYard: { chapel:"chapelApproach", forward:"chapelApproach", square:"square", back:"square", cemetery:"oldCemeteryPath", "old cemetery":"oldCemeteryPath" },
+        chapelApproach: { chapel:"chapel", inside:"chapel", door:"chapel", yard:"chapelYard", outside:"chapelYard", back:"chapelYard" },
+        oldCemeteryPath: { chapel:"chapelYard", yard:"chapelYard", back:"chapelYard" },
+        chapel: { outside:"chapelApproach", door:"chapelApproach", yard:"chapelYard", back:"chapelApproach" },
         castleRoad: { gate:"castleGate", castle:"castleGate", forward:"castleGate", square:"square", willowmere:"square", moonfen:"moonfen" },
         forestEdge: { cottage:"cottageApproach", "forest road":"whisperingForest", forest:"whisperingForest", forward:"whisperingForest", tavern:"tavernApproach", back:"tavernApproach" },
         cottageApproach: { cottage:"cottage", inside:"cottage", door:"cottage", forward:"cottage", path:"forestEdge", forest:"forestEdge", back:"forestEdge" },
@@ -1247,7 +1390,12 @@
         await enterTarget("cottage");
         return true;
       }
-      if (state.room === "chapelYard" && target === "inside") target = "chapel";
+      if (state.room === "chapelApproach" && /^(?:inside|chapel|church|door|forward)$/.test(target)) {
+        state.turns++;
+        await enterTarget("chapel");
+        return true;
+      }
+      if (state.room === "chapelYard" && target === "inside") target = "chapelApproach";
       if (state.room === "apothecary" && /^(?:back room|workroom)$/.test(target)) {
         state.turns++;
         if (!(state.shopFlags&&state.shopFlags.backRoomAccess)) requestBackRoom();
@@ -1471,16 +1619,6 @@
         describeRoom(true);
         return;
       }
-      if (state.room === "tavernDoor" && direction === "north") {
-        state.turns++;
-        await enterTarget("tavern");
-        return;
-      }
-      if (state.room === "apothecaryDoor" && direction === "east") {
-        state.turns++;
-        await enterTarget("apothecary");
-        return;
-      }
       if (state.room === "chapel" && direction === "down") {
         if (!state.flags.cryptOpen) return addLog("There are no visible stairs leading down.", "warning");
         state.room = "crypt";
@@ -1491,7 +1629,9 @@
 
       const destination = room().exits[direction];
       if (!destination) {
-        addLog(`You cannot go ${direction} from here.`, "warning");
+        const response = travelBoundaryResponses[state.room] && travelBoundaryResponses[state.room][direction];
+        addLog(response || `You try the way ${direction}, but there is no safe route through from here.`, "system");
+        state.turns++;
         return;
       }
       await transitionToRoom(destination,{forceDescription:!state.visited.includes(destination)});
@@ -1566,7 +1706,11 @@
         "square:statue": "The statue depicts Queen Elowen before her coronation. Thorn marks have been scratched across her face.",
         "tavern:cellar door": "The heavy hatch is barred from below. Warm air and the scent of rosemary rise through the seams.",
         "tavern:stairs": "The upper rooms are quiet. A hand-lettered sign says: NO CREDIT, NO CURSES, NO DRAGONS.",
-        "forgeLane:forge": "Merrin's forge stands at the end of the lane, its stonework darkened by years of smoke.",
+        "forgeLane:forge": "Merrin's forge stands beside the lane, its stonework darkened by years of smoke. The public road continues beyond it toward the old eastern gate.",
+        "eastRoad:eastern gate": "The old gate has collapsed inward. Thick living thorn has grown through the fallen stones, ending the road for now.",
+        "chapelApproach:inside": "Beyond the open threshold, moonlight catches old pews and a cracked stained-glass window. You can ENTER CHAPEL.",
+        "oldCemeteryPath:old graves": "These stones are older than the village records. Most names are gone, but several bear the same small sunburst carved beneath Saint Orla's name.",
+        "oldCemeteryPath:collapsed wall": "The western cemetery road ends at the fallen wall. Beyond it, brambles and loose stone make the old route impassable.",
         "forgeDoor:door": state.flags.forgeDoorOpen ? "The heavy oak forge door stands open." : "The heavy oak door is closed but unlocked.",
         "forgeDoor:window": "Through the window you see Merrin working beside the anvil while sparks leap into the rafters.",
         "blacksmith:tools": "Tongs, hammers, horseshoes, and a long empty hook rack cover the wall.",
@@ -1675,6 +1819,11 @@
         if (!state.flags.cottageDoorOpen) return addLog("The cottage door is closed. Open it first.", "warning");
         award("enter-cottage", 1);
         await transitionToRoom("cottage",{note:"You step through the crooked doorway into the abandoned cottage.",countTurn:false});
+        return;
+      }
+      if (state.room === "chapelApproach" && /(chapel|church|door|inside)/.test(target)) {
+        award("enter-chapel", 1);
+        await transitionToRoom("chapel",{note:"You cross the threshold into Saint Orla's silent chapel.",countTurn:false});
         return;
       }
       addLog("You cannot enter that from here.", "warning");
@@ -1875,7 +2024,11 @@
     function locationSuggestions() {
       const actions = currentActions().slice(0,4).map(a => a.toUpperCase());
       if (state.room === "square") return ["LOOK EAST", "WALK TO FORGE", "WALK TO TAVERN", "WALK TO APOTHECARY"];
-      if (state.room === "forgeLane") return ["LOOK EAST", "APPROACH FORGE", "GO WEST", "LOOK AROUND"];
+      if (state.room === "forgeLane") return ["GO EAST", "APPROACH FORGE", "GO WEST", "LOOK EAST"];
+      if (state.room === "eastRoad") return ["GO WEST", "GO SOUTH", "GO EAST", "LOOK AT EASTERN GATE"];
+      if (state.room === "chapelYard") return ["APPROACH CHAPEL", "GO WEST", "GO EAST", "LOOK AT GRAVES"];
+      if (state.room === "chapelApproach") return ["ENTER CHAPEL", "GO SOUTH", "LOOK INSIDE", "GO NORTH"];
+      if (state.room === "oldCemeteryPath") return ["GO EAST", "GO WEST", "LOOK AT OLD GRAVES", "LOOK AT COLLAPSED WALL"];
       if (state.room === "forgeDoor") return ["OPEN DOOR", "LOOK INSIDE", "GO WEST", "ENTER FORGE"];
       if (state.room === "blacksmith") return ["TALK TO MERRIN", "LOOK AT TOOLS", "LOOK WEST", "LEAVE FORGE"];
       if (state.room === "tavern") return ["LOOK NORTH", "LOOK EAST", "LOOK WEST", "GO OUTSIDE"];
@@ -1985,6 +2138,8 @@
       if (/^go apothecary(?: door)?$/.test(command) && state.room === "square") { award("approach-apothecary",1); await transitionToRoom("apothecaryApproach",{note:"You cross the square toward Willowmere Apothecary."}); return finishTurn(); }
       if (/^go (?:forge|blacksmith|blacksmith shop)$/.test(command) && state.room === "square") { await move("east"); return finishTurn(); }
       if (/^go (?:chapel|church)$/.test(command) && state.room === "square") { await move("west"); return finishTurn(); }
+      if (/^(?:approach|walk to|go to) (?:the )?forge$/.test(command) && state.room === "forgeLane") { await transitionToRoom("forgeDoor",{note:"You step off the public lane and approach Merrin's forge door."}); return finishTurn(); }
+      if (/^(?:approach|walk to|go to) (?:the )?chapel$/.test(command) && state.room === "chapelYard") { await transitionToRoom("chapelApproach",{note:"You follow the graveyard path to Saint Orla's open doorway."}); return finishTurn(); }
       if (/^go (?:castle|castle road|king road)$/.test(command) && state.room === "square") { await move("south"); return finishTurn(); }
       if (/^(?:go outside|leave forge|exit forge|go door)$/.test(command) && state.room === "blacksmith") { await transitionToRoom("forgeDoor",{note:"You step outside into the cooler air."}); return finishTurn(); }
       if (/^(?:go|walk to|approach|move to) (?:innkeeper|bar|barkeep|bartender)$/.test(command) && state.room === "tavern") {
@@ -2018,6 +2173,7 @@
         else if (state.room === "tavernDoor") await enterTarget("tavern");
         else if (state.room === "apothecaryDoor") await enterTarget("apothecary");
         else if (state.room === "cottageApproach") await enterTarget("cottage");
+        else if (state.room === "chapelApproach") await enterTarget("chapel");
         else addLog("There is nothing here you can enter. Try LOOK to review the scene.", "warning");
         return finishTurn();
       }
@@ -2028,6 +2184,7 @@
 
       if ((match = command.match(/^(?:talk to|talk|speak to|speak with|ask) (.+)$/))) { state.turns++; talkTo(rememberPerson(match[1])); return finishTurn(); }
       if (/^look inside$/.test(command) && state.room === "forgeDoor") { state.turns++; lookAt(rememberObject("window")); return finishTurn(); }
+      if (/^look inside$/.test(command) && state.room === "chapelApproach") { state.turns++; lookAt(rememberObject("inside")); return finishTurn(); }
       if (/^(?:look out window|look through window)$/.test(command)) { state.turns++; lookAt(rememberObject("window")); return finishTurn(); }
       if (/^(?:read labels|read jar labels)$/.test(command)) { state.turns++; lookAt(rememberObject("labels")); return finishTurn(); }
       if (/^(?:search|open|check) crates$/.test(command) && state.room === "apothecary") { state.turns++; if(!state.shopFlags.cratesSearched){state.shopFlags.cratesSearched=true;addGold(3,"coins beneath a delivery crate");addItem("healing herb",1);addLog("You also find a loose healing herb. Elowen raises an eyebrow but allows you to keep it.","success");changeReputation("Elowen",1);}else lookAt(rememberObject("crates")); return finishTurn(); }
@@ -2131,8 +2288,13 @@
       if (state.room === "cottage" && state.flags.rugMoved) removeAction("move rug");
       if (state.room === "cottage" && state.flags.cabinetOpen && !state.flags.keyTaken) actions.unshift("take silver key");
 
-      // Standard travel controls remain available even after examining an object.
-      Object.keys(room().exits || {}).forEach(direction => actions.push(`go ${direction}`));
+      // Outdoor scenes keep the four cardinal directions visible. A direction may
+      // travel to another room or return an in-world boundary response.
+      if (outdoorRooms.has(state.room)) {
+        ["north", "east", "south", "west"].forEach(direction => actions.push(`go ${direction}`));
+      } else {
+        Object.keys(room().exits || {}).forEach(direction => actions.push(`go ${direction}`));
+      }
       const seen = new Set();
       return actions.filter(action => {
         const key = normalize(action);
@@ -2181,6 +2343,7 @@
       if (a === "enter apothecary") return "Enter Apothecary";
       if (a === "enter forge") return "Enter Forge";
       if (a === "enter cottage") return "Enter Cottage";
+      if (a === "enter chapel") return "Enter Chapel";
       if (a === "take silver key") return "Take Silver Key";
       if (a === "go outside") return "Go Outside";
       if (a === "leave apothecary") return "Leave Shop";
@@ -2237,7 +2400,11 @@
       const label = normalizeObjectName(hotspot.label);
       const examine = `look at ${label}`;
       if (!actions.some(action => normalize(action) === normalize(examine))) actions.push(examine);
-      Object.keys(room().exits || {}).forEach(direction => actions.push(`go ${direction}`));
+      if (outdoorRooms.has(state.room)) {
+        ["north", "east", "south", "west"].forEach(direction => actions.push(`go ${direction}`));
+      } else {
+        Object.keys(room().exits || {}).forEach(direction => actions.push(`go ${direction}`));
+      }
       return [...new Set(actions)].sort((a, b) => quickPriority(a) - quickPriority(b));
     }
 
@@ -2273,7 +2440,7 @@
         quickActionsEl.appendChild(context);
       }
 
-      const visibleLimit = quickActionsExpanded ? 10 : 6;
+      const visibleLimit = quickActionsExpanded ? 12 : 8;
       actions.slice(0, visibleLimit).forEach(action => {
         const btn = document.createElement("button");
         btn.type = "button";
@@ -2282,11 +2449,11 @@
         btn.addEventListener("click", () => executeQuickAction(action));
         quickActionsEl.appendChild(btn);
       });
-      if (actions.length > 6) {
+      if (actions.length > 8) {
         const toggle = document.createElement("button");
         toggle.type = "button";
         toggle.className = "quick-btn more-toggle";
-        toggle.innerHTML = `<span class="action-icon">${quickActionsExpanded ? "−" : "+"}</span><span>${quickActionsExpanded ? "Show Fewer" : `More (${actions.length - 6})`}</span>`;
+        toggle.innerHTML = `<span class="action-icon">${quickActionsExpanded ? "−" : "+"}</span><span>${quickActionsExpanded ? "Show Fewer" : `More (${actions.length - 8})`}</span>`;
         toggle.addEventListener("click", () => {
           quickActionsExpanded = !quickActionsExpanded;
           renderQuickActions();
@@ -2730,7 +2897,7 @@
     function boot() {
       updateMusicButton();
       const vt = document.getElementById("version-tag");
-      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Clear Entrances & Persistent Navigation`;
+      if (vt) vt.textContent = `Version ${BUILD_VERSION} • World Flow & Navigation Consistency`;
       const saved = storageGet(SAVE_KEY);
       if (saved) {
         try { state = JSON.parse(saved); migrateState(); restoreDynamicExits(); }

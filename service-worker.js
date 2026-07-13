@@ -1,4 +1,4 @@
-const CACHE = "briar-crown-v1.6.8.4";
+const CACHE = "briar-crown-v1.6.8.5";
 const ASSETS = [
   "./",
   "./index.html",
@@ -18,6 +18,9 @@ const ASSETS = [
   "./assets/scenes/forge-lane.webp",
   "./assets/scenes/forge-door.webp",
   "./assets/scenes/chapel-yard.webp",
+  "./assets/scenes/chapel-approach.webp",
+  "./assets/scenes/old-cemetery.webp",
+  "./assets/scenes/chapel.webp",
   "./assets/scenes/kings-road.webp",
   "./assets/scenes/apothecary-door.webp",
   "./assets/scenes/apothecary-room.webp",
