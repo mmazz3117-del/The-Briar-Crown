@@ -271,27 +271,54 @@
     .quick-row {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
+      gap: 6px;
       overflow: visible;
-      padding: 7px 0 10px;
+      padding: 5px 0 7px;
     }
     .quick-row.is-hidden { display: none; }
+    .quick-context-label {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 26px;
+      padding: 3px 7px;
+      border: 1px solid rgba(141,107,50,.7);
+      border-radius: 5px;
+      background: rgba(18,14,25,.9);
+      color: #ead59d;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .quick-context-label button {
+      border: 0;
+      background: transparent;
+      color: #d5bb78;
+      font: inherit;
+      padding: 2px 4px;
+      cursor: pointer;
+    }
     .quick-btn {
-      min-height: 60px;
-      border: 2px solid #8d6b32;
+      min-height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 7px;
+      border: 1px solid #8d6b32;
       outline: 1px solid #251a13;
       background: linear-gradient(145deg, #2a203b, #191522);
       color: #e6cd8c;
-      border-radius: 6px;
-      padding: 8px 5px;
+      border-radius: 5px;
+      padding: 6px 8px;
       cursor: pointer;
-      box-shadow: inset 0 0 0 2px #17111e, inset 0 0 16px rgba(0,0,0,.45), 0 4px 10px rgba(0,0,0,.28);
-      font-size: 13px;
-      line-height: 1.15;
+      box-shadow: inset 0 0 0 1px #17111e, inset 0 0 11px rgba(0,0,0,.42), 0 2px 6px rgba(0,0,0,.25);
+      font-size: 12px;
+      line-height: 1.08;
       font-weight: 700;
+      text-align: left;
     }
-    .quick-btn .action-icon { display: block; font-size: 22px; margin-bottom: 3px; }
-    .quick-btn.more-toggle { background: linear-gradient(145deg, #3a294f, #1c1627); }
+    .quick-btn .action-icon { display: inline-block; flex: 0 0 auto; font-size: 16px; margin: 0; }
+    .quick-btn.more-toggle { min-height: 34px; justify-content: center; background: linear-gradient(145deg, #3a294f, #1c1627); }
     .quick-btn:active { background: #39294e; transform: translateY(1px); }
 
     .command-line {
@@ -443,8 +470,8 @@
       #log { min-height: 145px; max-height: 190px; padding-inline: 13px; }
       .controls { padding-inline: 9px; }
       .quick-row { gap: 6px; }
-      .quick-btn { min-height: 56px; font-size: 11px; }
-      .quick-btn .action-icon { font-size: 19px; }
+      .quick-btn { min-height: 40px; font-size: 11px; padding: 5px 7px; }
+      .quick-btn .action-icon { font-size: 15px; }
       .command-line { grid-template-columns: 48px minmax(0,1fr) 48px; gap: 6px; }
       .move-pad { grid-template-columns: repeat(3, 32px); grid-template-rows: repeat(3, 29px); }
       .backpack-btn { height: 47px; }
@@ -513,7 +540,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.6.8.2 • Interaction Consistency & Finale Safety</small>
+        <small id="version-tag">Version 1.6.8.3 • Compact Context Actions</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -584,7 +611,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.6.8.2";
+    const BUILD_VERSION = "1.6.8.3";
 
     const itemInfo = {
       "iron hook": "A blacksmith's hook with a long, slightly bent handle.",
@@ -2064,6 +2091,7 @@
     }
 
     let quickActionsExpanded = false;
+    let selectedHotspotContext = null;
 
     function actionIcon(action) {
       if (action === "inventory") return "🎒";
@@ -2079,7 +2107,7 @@
     function quickPriority(action) {
       const a = normalize(action);
       if (/^(talk|speak|show wares|buy|sell|barter|open|pick|use|take|enter tavern|enter apothecary|go in back room|go outside|leave)/.test(a)) return 1;
-      if (/^(look at|read|search|examine|listen)/.test(a)) return 2;
+      if (/^(look at|look in|look inside|look out|look through|read|search|examine|listen|move )/.test(a)) return 2;
       if (/^(look north|look east|look west|look south|look around|look$)/.test(a)) return 3;
       if (/^(walk|go|approach|enter|head|move closer)/.test(a)) return 4;
       return 5;
@@ -2115,7 +2143,6 @@
         && !state.flags.ending;
 
       if (needsFinaleConfirmation) {
-        inputEl.value = action;
         const endingName = state.flags.fairyFreed ? "Dawnkeeper" : "Thorn Crown";
         const confirmed = window.confirm(
           `Use the Crown Shard on the Ironthorn Gate?\n\nThis will complete the ${endingName} ending.\n\nChoose Cancel to keep exploring.`
@@ -2127,25 +2154,73 @@
         }
       }
 
+      selectedHotspotContext = null;
+      quickActionsExpanded = false;
       inputEl.value = "";
+      inputEl.blur();
       processCommand(action);
+    }
+
+    function hotspotKeywords(hotspot) {
+      const common = new Set(["the","a","an","to","at","in","inside","out","through","on","of","door","room"]);
+      return `${hotspot.label} ${hotspot.command}`
+        .toLowerCase()
+        .replace(/[^a-z0-9 ]/g, " ")
+        .split(/\s+/)
+        .filter(word => word.length > 2 && !common.has(word));
+    }
+
+    function contextualActionsForHotspot(hotspot) {
+      const keywords = hotspotKeywords(hotspot);
+      const actions = [hotspot.command];
+      currentActions().forEach(action => {
+        const normalizedAction = normalize(action);
+        if (keywords.some(keyword => normalizedAction.includes(keyword))) actions.push(action);
+      });
+      const label = normalizeObjectName(hotspot.label);
+      const examine = `look at ${label}`;
+      if (!actions.some(action => normalize(action) === normalize(examine))) actions.push(examine);
+      return [...new Set(actions)].sort((a, b) => quickPriority(a) - quickPriority(b));
     }
 
     function renderQuickActions() {
       quickActionsEl.innerHTML = "";
-      const actions = [...currentActions()].sort((a, b) => quickPriority(a) - quickPriority(b));
+      if (selectedHotspotContext && (selectedHotspotContext.room !== state.room || selectedHotspotContext.view !== currentView())) {
+        selectedHotspotContext = null;
+      }
+      const sourceActions = selectedHotspotContext
+        ? contextualActionsForHotspot(selectedHotspotContext.hotspot)
+        : currentActions();
+      const actions = [...sourceActions].sort((a, b) => quickPriority(a) - quickPriority(b));
       if (!actions.length) {
         quickActionsEl.classList.add("is-hidden");
         return;
       }
       quickActionsEl.classList.remove("is-hidden");
+
+      if (selectedHotspotContext) {
+        const context = document.createElement("div");
+        context.className = "quick-context-label";
+        const title = document.createElement("span");
+        title.textContent = selectedHotspotContext.hotspot.label;
+        const clear = document.createElement("button");
+        clear.type = "button";
+        clear.textContent = "All actions";
+        clear.addEventListener("click", () => {
+          selectedHotspotContext = null;
+          quickActionsExpanded = false;
+          renderQuickActions();
+        });
+        context.append(title, clear);
+        quickActionsEl.appendChild(context);
+      }
+
       const visibleLimit = quickActionsExpanded ? 8 : 4;
-      const visible = actions.slice(0, visibleLimit);
-      visible.forEach(action => {
+      actions.slice(0, visibleLimit).forEach(action => {
         const btn = document.createElement("button");
         btn.type = "button";
         btn.className = "quick-btn";
-        btn.innerHTML = `<span class="action-icon">${actionIcon(action)}</span>${quickActionLabel(action)}`;
+        btn.innerHTML = `<span class="action-icon">${actionIcon(action)}</span><span>${quickActionLabel(action)}</span>`;
         btn.addEventListener("click", () => executeQuickAction(action));
         quickActionsEl.appendChild(btn);
       });
@@ -2153,7 +2228,7 @@
         const toggle = document.createElement("button");
         toggle.type = "button";
         toggle.className = "quick-btn more-toggle";
-        toggle.innerHTML = `<span class="action-icon">${quickActionsExpanded ? "−" : "+"}</span>${quickActionsExpanded ? "Show Fewer" : `More (${actions.length - 4})`}`;
+        toggle.innerHTML = `<span class="action-icon">${quickActionsExpanded ? "−" : "+"}</span><span>${quickActionsExpanded ? "Show Fewer" : `More (${actions.length - 4})`}</span>`;
         toggle.addEventListener("click", () => {
           quickActionsExpanded = !quickActionsExpanded;
           renderQuickActions();
@@ -2201,20 +2276,15 @@
         btn.addEventListener("click", () => {
           hotspotsEl.querySelectorAll(".hotspot.revealed").forEach(other => other.classList.remove("revealed"));
           state.lastObject = normalizeObjectName(h.label);
-          inputEl.value = h.command;
-          inputEl.setSelectionRange(inputEl.value.length, inputEl.value.length);
+          selectedHotspotContext = { hotspot: h, room: state.room, view: currentView() };
+          quickActionsExpanded = false;
+          inputEl.value = "";
+          inputEl.blur();
           btn.classList.add("revealed");
           clearTimeout(hideTimer);
           hideTimer = setTimeout(() => btn.classList.remove("revealed"), 2800);
+          renderQuickActions();
           if (navigator.vibrate) navigator.vibrate(12);
-          const hotspotCommand = normalize(h.command);
-          const isObjectMove = /^move (?!closer\b|toward\b|towards\b|to\b|north\b|south\b|east\b|west\b)/.test(hotspotCommand);
-          const executesImmediately = /^(talk|speak|look at|look in|look inside|look out|look through|read|search|examine|open|ring|pick|use|take|listen)/.test(hotspotCommand) || isObjectMove;
-          if (executesImmediately) {
-            executeQuickAction(h.command);
-          } else {
-            inputEl.focus();
-          }
         });
         hotspotsEl.appendChild(btn);
       });
