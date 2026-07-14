@@ -1078,7 +1078,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.6.9.4 • Baseline Stabilization</small>
+        <small id="version-tag">Version 1.6.9.4.2 • Interaction Contract & Audit Pass</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -1156,7 +1156,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.6.9.4";
+    const BUILD_VERSION = "1.6.9.4.2";
 
     const itemInfo = {
       "iron hook": "A blacksmith's hook with a long, slightly bent handle.",
@@ -1273,12 +1273,13 @@
       },
       secretTunnel: {
         name: "Hidden Passage",
-        description: "A cramped stone passage runs beneath the tavern. Old torch brackets line the walls, but a fall of rock blocks the far arch. The tunnel may once have connected to another part of Willowmere.",
+        description: "A cramped stone passage runs beneath the tavern. An old wall lantern glows beside a loose floor stone, while a fall of rock blocks the far arch. The tunnel may once have connected to another part of Willowmere.",
         exits: { west: "tavernCellar" },
-        actions: ["look at blocked arch", "search tunnel", "go west"],
+        actions: ["look at blocked arch", "search loose stone", "go west"],
         hotspots: [
-          { label: "Blocked Arch", command: "look at blocked arch", x: 50, y: 39, w: 25, h: 28 },
-          { label: "Tunnel Floor", command: "search tunnel", x: 50, y: 78, w: 42, h: 22 }
+          { label: "Blocked Arch", command: "look at blocked arch", x: 78, y: 35, w: 34, h: 50 },
+          { label: "Loose Stone", command: "search loose stone", x: 49, y: 83, w: 34, h: 22 },
+          { label: "Wall Lantern", command: "look at lantern", x: 24, y: 45, w: 25, h: 42 }
         ]
       },
       apothecaryBackRoom: {
@@ -1316,10 +1317,10 @@
         name: "At Merrin's Forge Door",
         description: "You stand before Merrin's heavy oak forge door. Heat and hammer-song spill through the cracks, and sparks glow behind the window. The door is closed but unlocked. Forge Lane lies west.",
         exits: { west: "forgeLane" },
-        actions: ["open door", "look inside", "go west"],
+        actions: ["open door", "look inside window", "go west"],
         hotspots: [
           { label: "Forge Door", command: "open door", x: 59, y: 49, w: 30, h: 48 },
-          { label: "Window", command: "look inside", x: 75, y: 39, w: 18, h: 25 },
+          { label: "Window", command: "look inside window", x: 75, y: 39, w: 18, h: 25 },
           { label: "Forge Lane", command: "go west", x: 20, y: 81, w: 30, h: 18 }
         ]
       },
@@ -1593,6 +1594,7 @@
         cellarDraftFound: false,
         cellarPassageRevealed: false,
         tavernCellarOpen: false,
+        tunnelCoinsFound: false,
         tunnelCoinsTaken: false,
         silverTokenTaken: false,
         cryptOpen: false,
@@ -2390,9 +2392,13 @@
         state.flags.cellarDraftFound = true; award("find-secret-passage-clue",1);
         return addLog("You inspect the wine rack closely. A cold draft slips from behind it, and the floor shows long scrape marks. You could MOVE WINE RACK.","success");
       }
-      if (state.room === "secretTunnel" && /search|floor|tunnel/.test(target)) {
-        if (!state.flags.tunnelCoinsTaken) { state.flags.tunnelCoinsTaken=true; addGold(7,"old coins beneath a loose stone"); return addLog("You search the passage and find seven old silver coins beneath a loose stone.","success"); }
-        return addLog("You search the tunnel again but find only dust, roots, and broken mortar.");
+      if (state.room === "secretTunnel" && /loose stone|tunnel floor|floor|search|tunnel/.test(target)) {
+        if (!state.flags.tunnelCoinsFound) {
+          state.flags.tunnelCoinsFound = true;
+          return addLog("You work the loose stone free and uncover seven old silver coins. You may now TAKE COINS.","success");
+        }
+        if (!state.flags.tunnelCoinsTaken) return addLog("Seven old silver coins lie exposed beside the loose stone. You may TAKE COINS.");
+        return addLog("The loose stone rests beside an empty hiding place. You already collected the coins.");
       }
       if (state.room === "tavern") {
         if (/fireplace|hearth/.test(target)) return addLog("Orange flames roll over split oak logs. A soot-dark iron poker rests beside the hearth.");
@@ -2417,6 +2423,8 @@
         "tavernCellar:barrels": "Most barrels hold ale or old rainwater. One bears a faded royal courier mark.",
         "tavernCellar:wall": "A narrow vertical seam cuts through the stonework behind the wine rack.",
         "secretTunnel:blocked arch": "The far arch has collapsed. Fresh scratches on one stone suggest someone tried to clear it recently.",
+        "secretTunnel:loose stone": state.flags.tunnelCoinsTaken ? "The hiding place beneath the loose stone is empty." : (state.flags.tunnelCoinsFound ? "Seven old silver coins lie exposed beside the loose stone." : "One floor stone sits slightly higher than the others."),
+        "secretTunnel:wall lantern": "The iron lantern is fixed to the wall. Its small flame gives just enough light to reveal the blocked arch and the uneven floor.",
         "chapel:altar": "The altar bears a carved sunburst and a nearly erased line: BRING THE WINGED COIN TO THE OPEN HAND.",
         "chapel:candles": "Most candles are cold. One burns with a pale blue flame that bends toward Saint Orla's statue.",
         "chapel:stained glass": "The cracked glass shows a fairy carrying a silver coin through a marsh toward Saint Orla.",
@@ -2643,6 +2651,14 @@
         if (state.flags.shardTaken) return addLog("You already recovered the crown shard.");
         return addLog("The shard lies too deep in the well to reach by hand.", "warning");
       }
+      if (state.room === "secretTunnel" && /(?:old |silver )?coins?/.test(target)) {
+        if (!state.flags.tunnelCoinsFound) return addLog("You have not uncovered any coins here yet. Search the loose stone first.", "warning");
+        if (state.flags.tunnelCoinsTaken) return addLog("You already collected the seven silver coins.");
+        state.flags.tunnelCoinsTaken = true;
+        addGold(7,"old coins beneath the loose stone");
+        addLog("You gather the seven old silver coins and place them in your purse.","success");
+        return;
+      }
       addLog("You cannot take that.", "warning");
     }
 
@@ -2735,7 +2751,7 @@
 
     function triggerEnding() {
       if (state.flags.ending) return addLog("The gate has already answered the crown shard. This tale is told—choose RESTART from the menu to seek the other ending.", "system");
-      if (!state.flags.shardTaken) return addLog("You do not possess the missing crown shard.", "warning");
+      if (!has("crown shard")) return addLog("You do not possess the missing crown shard.", "warning");
       state.flags.ending = state.flags.fairyFreed ? "dawn" : "thorn";
       state.turns++;
       if (state.flags.fairyFreed) {
@@ -3175,6 +3191,11 @@
       if (state.room === "moonfen" && has("ferry crank") && !state.flags.ferryRepaired) actions.unshift("use ferry crank on winch");
       if (state.room === "moonfen" && state.flags.ferryRepaired) actions.unshift("cross ferry", "go east");
       if (state.room === "hutInterior" && !state.flags.coinTaken) actions.unshift("take fairy coin");
+      if (state.room === "secretTunnel") {
+        if (!state.flags.tunnelCoinsFound) actions.unshift("search loose stone");
+        else if (!state.flags.tunnelCoinsTaken) actions.unshift("take coins");
+        else removeAction("search loose stone");
+      }
 
       // Outdoor scenes keep the four cardinal directions visible. A direction may
       // travel to another room or return an in-world boundary response.
@@ -3313,7 +3334,7 @@
     }
 
     function hotspotKeywords(hotspot) {
-      const common = new Set(["the","a","an","to","at","in","inside","out","through","on","of","door","room"]);
+      const common = new Set(["the","a","an","to","at","in","inside","out","through","on","of","door","room","look","examine","inspect","search","talk","ask","walk","move","use","open","take","go","enter","leave","approach","cross"]);
       return `${hotspot.label} ${hotspot.command}`
         .toLowerCase()
         .replace(/[^a-z0-9 ]/g, " ")
@@ -3324,78 +3345,175 @@
     function contextualActionsForHotspot(hotspot) {
       const label = normalizeObjectName(hotspot.label);
       const labelKey = normalize(label);
-      const exact = [];
+      const actions = [];
+      const add = (...items) => items.filter(Boolean).forEach(item => actions.push(item));
 
-      // Exterior locations never expose interior merchant or NPC actions.
-      if (state.room === "square") {
-        if (labelKey === "apothecary") exact.push("look at apothecary", "walk to apothecary");
-        else if (labelKey === "tavern") exact.push("look at tavern", "walk to tavern door");
-        else if (labelKey === "notice board") exact.push("look at notice board");
-        else if (labelKey === "well") exact.push("look at well");
-      } else if (state.room === "apothecaryApproach") {
-        if (/door/.test(labelKey)) exact.push("look at apothecary door", "walk to apothecary door");
-        else if (/square/.test(labelKey)) exact.push("go west");
-      } else if (state.room === "apothecaryDoor") {
-        if (/green door|door/.test(labelKey)) {
-          exact.push("look at door");
-          exact.push(state.flags.apothecaryDoorOpen ? "enter apothecary" : "open apothecary door");
-        } else if (/bell/.test(labelKey)) exact.push("ring bell", "look at bell");
-        else if (/square/.test(labelKey)) exact.push("go west");
-      } else if (state.room === "tavernApproach") {
-        if (/tavern door|door/.test(labelKey)) exact.push("look at tavern door", "walk to tavern door");
-        else if (/forest road/.test(labelKey)) exact.push("look at forest road", "go east");
-        else if (/square/.test(labelKey)) exact.push("go south");
-      } else if (state.room === "tavernDoor") {
-        if (/tavern door|door/.test(labelKey)) {
-          exact.push("look at tavern door");
-          exact.push(state.flags.tavernDoorOpen ? "enter tavern" : "open door");
-        } else if (/square/.test(labelKey)) exact.push("go south");
-      } else if (state.room === "forgeLane" && /forge/.test(labelKey)) {
-        exact.push("look at forge", "approach forge");
-      } else if (state.room === "forgeDoor" && /door|forge/.test(labelKey)) {
-        exact.push("look at forge door");
-        exact.push(state.flags.forgeDoorOpen ? "enter forge" : "open forge door");
+      // Interaction contracts are intentionally room- and state-specific.
+      // No fuzzy action matching is used here; this prevents actions from
+      // leaking between nearby objects or from interiors to exteriors.
+      switch (state.room) {
+        case "square":
+          if (labelKey === "apothecary") add("look at apothecary", "walk to apothecary");
+          else if (labelKey === "tavern") add("look at tavern", "walk to tavern door");
+          else if (labelKey === "notice board") add("look at notice board");
+          else if (labelKey === "well") add("look at well");
+          else add(hotspot.command);
+          break;
+        case "apothecaryApproach":
+          if (/door|apothecary/.test(labelKey)) add("look at apothecary door", "walk to apothecary door");
+          else add(hotspot.command);
+          break;
+        case "apothecaryDoor":
+          if (/green door|door/.test(labelKey)) add("look at door", state.flags.apothecaryDoorOpen ? "enter apothecary" : "open apothecary door");
+          else if (/bell/.test(labelKey)) add("look at bell", "ring bell");
+          else add(hotspot.command);
+          break;
+        case "apothecary":
+          if (/elowen|apothecary/.test(labelKey)) {
+            add("talk to Elowen", "show wares", "barter", "ask Elowen about back room");
+            if (has("healing herb")) add("sell healing herb");
+            if (has("moonfen reed")) add("give moonfen reed to Elowen");
+          } else if (/back room/.test(labelKey)) {
+            add("look at back room");
+            if (state.shopFlags && state.shopFlags.backRoomAccess) add("go in back room");
+          } else if (/front door|door/.test(labelKey)) add("look at door", "go outside");
+          else add(hotspot.command);
+          break;
+        case "tavernApproach":
+          if (/tavern door|door/.test(labelKey)) add("look at tavern door", "walk to tavern door");
+          else add(hotspot.command);
+          break;
+        case "tavernDoor":
+          if (/tavern door|door/.test(labelKey)) add("look at tavern door", state.flags.tavernDoorOpen ? "enter tavern" : "open door");
+          else add(hotspot.command);
+          break;
+        case "tavern":
+          if (/innkeeper/.test(labelKey)) {
+            add("talk to innkeeper");
+            if (!state.flags.cellarUnlocked) add("ask innkeeper about cellar");
+          } else if (/cellar hatch|cellar door|hatch/.test(labelKey)) {
+            add("look at cellar door");
+            if (state.flags.tavernCellarOpen) add("go down");
+            else if (state.flags.cellarUnlocked) add("open cellar hatch");
+            else add(has("lockpicks") ? "pick cellar lock" : "ask innkeeper about cellar");
+          } else if (/travelers/.test(labelKey)) add("talk to travelers");
+          else if (/tavern door|entrance/.test(labelKey)) add("look at door", "go outside");
+          else add(hotspot.command);
+          break;
+        case "tavernCellar":
+          if (/wine rack|rack/.test(labelKey)) {
+            add("look at wine rack");
+            if (state.flags.cellarPassageRevealed) add("enter hidden passage");
+            else if (state.flags.cellarDraftFound) add("move wine rack");
+          } else if (/barrels?/.test(labelKey)) add("look at barrels");
+          else if (/stone seam|seam|wall/.test(labelKey)) add("look at wall");
+          else if (/hidden passage|passage|tunnel/.test(labelKey)) add("look at hidden passage", "enter hidden passage");
+          else add(hotspot.command);
+          break;
+        case "secretTunnel":
+          if (/blocked arch/.test(labelKey)) add("look at blocked arch");
+          else if (/loose stone|tunnel floor|floor/.test(labelKey)) {
+            add("look at loose stone");
+            if (!state.flags.tunnelCoinsFound) add("search loose stone");
+            else if (!state.flags.tunnelCoinsTaken) add("take coins");
+          } else if (/lantern/.test(labelKey)) add("look at lantern");
+          else add(hotspot.command);
+          break;
+        case "forgeLane":
+          if (/forge/.test(labelKey)) add("look at forge", "approach forge");
+          else add(hotspot.command);
+          break;
+        case "forgeDoor":
+          if (/door|forge/.test(labelKey)) add("look at forge door", state.flags.forgeDoorOpen ? "enter forge" : "open forge door");
+          else if (/window/.test(labelKey)) add("look inside window");
+          else add(hotspot.command);
+          break;
+        case "blacksmith":
+          if (/merrin|blacksmith|smith/.test(labelKey)) add("talk to blacksmith", "browse forge wares");
+          else add(hotspot.command);
+          break;
+        case "cottageApproach":
+          if (/door|cottage/.test(labelKey)) add("look at cottage door", state.flags.cottageDoorOpen ? "enter cottage" : "open cottage door");
+          else add(hotspot.command);
+          break;
+        case "cottage":
+          if (/cabinet/.test(labelKey)) {
+            add("look at cabinet");
+            if (!state.flags.cabinetOpen) add("open cabinet");
+            else if (!state.flags.keyTaken) add("take silver key");
+          } else if (/silver key|key/.test(labelKey)) add(state.flags.keyTaken ? "look at silver key" : "take silver key");
+          else if (/rug/.test(labelKey)) add("look at rug", state.flags.rugMoved ? null : "move rug");
+          else if (/trapdoor/.test(labelKey)) {
+            add("look at trapdoor");
+            if (state.flags.trapdoorOpen) add("go down");
+            else if (state.flags.trapdoorUnlocked) add("open trapdoor");
+            else if (has("silver key")) add("use silver key on trapdoor");
+          } else add(hotspot.command);
+          break;
+        case "cellar":
+          if (/lantern/.test(labelKey)) add(state.flags.lanternTaken ? "look at lantern" : "take lantern");
+          else if (/ferry crank|crank/.test(labelKey)) add(state.flags.ferryCrankTaken ? "look at ferry crank" : "take ferry crank");
+          else add(hotspot.command);
+          break;
+        case "chapel":
+          if (/statue/.test(labelKey)) {
+            add("look at statue");
+            if (has("fairy coin") && !state.flags.cryptOpen) add("use fairy coin on statue");
+          } else if (/stairs/.test(labelKey) && state.flags.cryptOpen) add("go down");
+          else add(hotspot.command);
+          break;
+        case "crypt":
+          if (/reliquary/.test(labelKey)) {
+            add("look at reliquary");
+            if (!state.flags.reliquaryOpen && has("silver token")) add("use silver token on reliquary");
+            if (state.flags.reliquaryOpen && !state.flags.sigilTaken) add("take sun sigil");
+          } else add(hotspot.command);
+          break;
+        case "moonfen":
+          if (/winch/.test(labelKey)) {
+            add("look at winch");
+            if (!state.flags.ferryRepaired && has("ferry crank")) add("use ferry crank on winch");
+          } else if (/rope ferry|ferry/.test(labelKey)) {
+            add("look at ferry");
+            if (state.flags.ferryRepaired) add("cross ferry");
+          } else if (/hut/.test(labelKey)) add("look at hut", "look across water");
+          else add(hotspot.command);
+          break;
+        case "hutExterior":
+          if (/hut door|door|hut/.test(labelKey)) add("look at hut", "enter hut");
+          else add(hotspot.command);
+          break;
+        case "hutInterior":
+          if (/fairy coin|coin/.test(labelKey)) add(state.flags.coinTaken ? "look at fairy coin" : "take fairy coin");
+          else add(hotspot.command);
+          break;
+        case "moonwell":
+          if (/fairy cage|cage|thorns/.test(labelKey)) {
+            add("look at fairy cage");
+            if (has("sun sigil") && !state.flags.fairyFreed) add("use sun sigil on cage");
+          } else if (/well/.test(labelKey)) {
+            add("look in well");
+            if (has("iron hook") && !state.flags.shardTaken) add("use iron hook on well");
+          } else add(hotspot.command);
+          break;
+        case "castleGate":
+          if (/gate|socket/.test(labelKey)) {
+            add("look at socket");
+            if (has("crown shard")) add("use crown shard on gate");
+          } else add(hotspot.command);
+          break;
+        case "forestEdge":
+          if (/tree hollow|tree/.test(labelKey)) {
+            add("look at tree");
+            if (!state.flags.silverTokenTaken) add("take silver token");
+          } else add(hotspot.command);
+          break;
+        default:
+          add(hotspot.command);
       }
 
-      if (exact.length) {
-        const seen = new Set();
-        return exact.filter(action => {
-          const key = canonicalActionKey(action);
-          if (seen.has(key)) return false;
-          seen.add(key);
-          return true;
-        }).sort((a,b)=>quickPriority(a)-quickPriority(b));
-      }
-
-      const keywords = hotspotKeywords(hotspot);
-      const actions = [hotspot.command];
-      currentActions().forEach(action => {
-        const normalizedAction = normalize(action);
-        if (keywords.some(keyword => normalizedAction.includes(keyword))) actions.push(action);
-      });
-
-      // Interior-only merchant actions.
-      if (state.room === "apothecary" && /elowen|apothecary/.test(labelKey)) {
-        actions.push("show wares", "talk to Elowen", "barter", "ask Elowen about back room");
-        if (has("healing herb")) actions.push("sell healing herb");
-      }
-      if (state.room === "blacksmith" && /merrin|blacksmith|smith/.test(labelKey)) actions.push("browse forge wares");
-
-      if (state.room === "tavern" && /cellar hatch|cellar door|hatch/.test(labelKey)) {
-        if (state.flags.tavernCellarOpen) actions.unshift("go down");
-        else if (state.flags.cellarUnlocked) actions.unshift("open cellar hatch");
-        else actions.push("pick cellar lock");
-      }
-      if (state.room === "tavernCellar" && /wine rack|rack/.test(labelKey)) {
-        if (state.flags.cellarPassageRevealed) actions.unshift("enter hidden passage");
-        else if (state.flags.cellarDraftFound) actions.unshift("move wine rack");
-      }
-      if (state.room === "tavernCellar" && /hidden passage|passage|tunnel/.test(labelKey)) actions.unshift("enter hidden passage");
-
-      const examine = `look at ${label}`;
-      if (!actions.some(action => normalize(action) === normalize(examine))) actions.push(examine);
       const seen = new Set();
-      return actions.filter(action => {
+      return actions.filter(Boolean).filter(action => {
         const key = canonicalActionKey(action);
         if (seen.has(key)) return false;
         seen.add(key);
@@ -3556,6 +3674,10 @@
         const rack = spots.find(s => s.label === "Wine Rack");
         if (rack) { rack.x = 20; rack.y = 46; rack.w = 23; rack.h = 39; }
         spots.push({ label: "Hidden Passage", command: "enter hidden passage", x: 38, y: 48, w: 22, h: 46 });
+      }
+      if (state.room === "secretTunnel") {
+        const stone = spots.find(s => s.label === "Loose Stone");
+        if (stone) stone.command = state.flags.tunnelCoinsTaken ? "look at loose stone" : (state.flags.tunnelCoinsFound ? "take coins" : "search loose stone");
       }
       return spots;
     }
@@ -3964,6 +4086,7 @@
       state.skillUses = Object.assign({}, defaults.skillUses, state.skillUses || {});
       state.visited = Array.isArray(state.visited) ? state.visited : [state.room || "square"];
       state.flags = Object.assign({}, defaults.flags, state.flags || {});
+      if (state.flags.tunnelCoinsTaken) state.flags.tunnelCoinsFound = true;
       if (!state.flags.classSkillStartApplied && state.player && state.player.classKey) {
         Object.entries(classSkillStarts[state.player.classKey]||{}).forEach(([name,level])=>{state.skills[name]=Math.max(state.skills[name]||0,level);});
         state.flags.classSkillStartApplied=true;
@@ -3979,9 +4102,8 @@
 
     function boot() {
       updateMusicButton();
-      updateAmbientButton();
       const vt = document.getElementById("version-tag");
-      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Story Scrolling, Scene Controls & Exploration`;
+      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Interaction Contract & Audit Pass`;
       const saved = storageGet(SAVE_KEY);
       if (saved) {
         try { state = JSON.parse(saved); migrateState(); restoreDynamicExits(); }
