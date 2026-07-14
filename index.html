@@ -203,6 +203,8 @@
     .health-pill[data-condition="critical"] { color:#fff0e6; background:#8e2830; border-color:#5e1117; animation:pulseHealth 1.2s ease-in-out infinite alternate; }
     @keyframes pulseHealth { from{box-shadow:0 0 0 rgba(142,40,48,0)} to{box-shadow:0 0 10px rgba(142,40,48,.55)} }
     .gold-pill { color:#725019; background:rgba(255,244,190,.48); font-weight:800; }
+    .gold-coin-icon { width:16px; height:16px; display:inline-block; border-radius:50%; margin-right:5px; vertical-align:-3px; background:radial-gradient(circle at 32% 30%, #fff8cf 0 14%, #f3d373 15%, #d5a439 50%, #8d6621 90%); border:1px solid rgba(122,87,23,.75); box-shadow: inset 0 0 0 2px rgba(255,235,163,.38), 0 0 0 1px rgba(73,50,15,.25); position:relative; }
+    .gold-coin-icon::after { content:""; position:absolute; inset:3px; border-radius:50%; border:1px solid rgba(255,243,190,.5); opacity:.85; }
     .actions-toggle {
       width:100%; min-height:30px; border:1px solid #8d6b32; border-radius:5px;
       background:linear-gradient(145deg,#21182e,#12101a); color:#e8d08e;
@@ -251,27 +253,29 @@
     .ambient-fireplace {
       position:absolute; left:var(--fire-x); top:var(--fire-y); width:var(--fire-w); height:var(--fire-h);
       transform:translate(-50%,-50%); pointer-events:none; mix-blend-mode:screen;
-      filter:saturate(1.08); opacity:.58;
+      filter:saturate(1.2) brightness(1.08); opacity:.92;
+      animation:fireplaceShift .9s ease-in-out infinite alternate;
     }
     .ambient-fireplace .fire-glow {
-      position:absolute; inset:-48%; border-radius:50%;
-      background:radial-gradient(circle,rgba(255,198,86,.26) 0 16%,rgba(255,111,28,.12) 34%,transparent 70%);
-      animation:fireGlow 1.65s ease-in-out infinite alternate;
+      position:absolute; inset:-55%; border-radius:50%;
+      background:radial-gradient(circle,rgba(255,224,138,.42) 0 15%,rgba(255,164,48,.28) 28%,rgba(255,108,22,.18) 42%,transparent 72%);
+      animation:fireGlow .95s ease-in-out infinite alternate;
     }
     .ambient-fireplace .flame {
-      position:absolute; bottom:12%; width:25%; height:56%; border-radius:58% 42% 60% 40% / 68% 62% 38% 32%;
-      background:linear-gradient(180deg,rgba(255,248,170,.62),rgba(255,151,38,.48) 48%,rgba(220,59,11,.12) 82%,transparent);
-      filter:blur(.55px) drop-shadow(0 0 4px rgba(255,154,43,.38)); transform-origin:50% 100%;
-      animation:flameDance .76s ease-in-out infinite alternate;
+      position:absolute; bottom:8%; width:27%; height:62%; border-radius:58% 42% 60% 40% / 68% 62% 38% 32%;
+      background:linear-gradient(180deg,rgba(255,253,205,.9),rgba(255,188,70,.72) 34%,rgba(255,118,22,.58) 60%,rgba(202,50,8,.14) 84%,transparent);
+      filter:blur(.2px) drop-shadow(0 0 7px rgba(255,170,56,.62)); transform-origin:50% 100%;
+      animation:flameDance .38s ease-in-out infinite alternate;
     }
     .ambient-fireplace .flame.one { left:22%; animation-delay:-.18s; }
     .ambient-fireplace .flame.two { left:43%; height:72%; width:28%; animation-duration:.93s; }
     .ambient-fireplace .flame.three { left:66%; height:48%; animation-duration:.68s; animation-delay:-.34s; }
-    @keyframes fireGlow { from{opacity:.48;transform:scale(.92)} to{opacity:.92;transform:scale(1.08)} }
-    @keyframes flameDance { from{opacity:.55;transform:skewX(-5deg) scaleY(.84)} to{opacity:.96;transform:skewX(6deg) scaleY(1.12)} }
+    @keyframes fireGlow { from{opacity:.55;transform:scale(.92)} to{opacity:1;transform:scale(1.12)} }
+    @keyframes flameDance { from{opacity:.72;transform:translateY(2%) skewX(-7deg) scale(.9,.82)} to{opacity:1;transform:translateY(-6%) skewX(8deg) scale(1.05,1.22)} }
+    @keyframes fireplaceShift { from{transform:translate(-50%,-50%) rotate(-1deg)} to{transform:translate(-50.5%,-49.5%) rotate(1deg)} }
     @media (prefers-reduced-motion: reduce) {
-      .ambient-fireplace .fire-glow,.ambient-fireplace .flame { animation:none !important; }
-      .ambient-fireplace { opacity:.48; }
+      .ambient-fireplace, .ambient-fireplace .fire-glow,.ambient-fireplace .flame { animation:none !important; }
+      .ambient-fireplace { opacity:.62; }
     }
     .skills-modal-body { background:radial-gradient(circle at 50% 0,rgba(92,61,119,.18),transparent 38%); }
     .hero-summary-card {
@@ -597,6 +601,9 @@
       .shop-item { grid-template-columns:46px minmax(0,1fr) auto; gap:7px; }
       .shop-item-icon { width:44px;height:44px;font-size:24px; }
       .quick-btn .action-icon { font-size: 15px; }
+      .scene-nav-overlay { width:min(132px, 38vw); right:8px; bottom:8px; }
+      .scene-nav-pad { grid-template-rows:repeat(3,38px); gap:4px; padding:6px; }
+      .scene-nav-mode button { min-height:26px; font-size:10px; }
       .command-line { grid-template-columns: 48px minmax(0,1fr) 48px; gap: 6px; }
       .move-pad { grid-template-columns: repeat(3, 32px); grid-template-rows: repeat(3, 29px); }
       .backpack-btn { height: 47px; }
@@ -644,6 +651,37 @@
     .ambient-layer { z-index:2; }
     .scene-label { z-index:4; }
     .hotspots { z-index:5; }
+    .scene-nav-overlay {
+      position:absolute; right:10px; bottom:10px; z-index:7; display:grid; gap:6px;
+      width:min(148px, 34vw); pointer-events:none;
+    }
+    .scene-nav-mode {
+      display:grid; grid-template-columns:1fr 1fr; gap:5px;
+      background:rgba(10,8,15,.76); border:1px solid rgba(151,118,60,.72); border-radius:10px;
+      padding:5px; box-shadow:0 8px 18px rgba(0,0,0,.35); backdrop-filter: blur(4px);
+      pointer-events:auto;
+    }
+    .scene-nav-mode button, .scene-nav-pad button {
+      border:1px solid #9b773d; border-radius:8px; background:linear-gradient(145deg,rgba(48,36,64,.92),rgba(20,15,28,.96));
+      color:#edd79a; cursor:pointer; box-shadow:inset 0 0 0 1px rgba(10,7,13,.72);
+      font-family:Georgia,serif;
+    }
+    .scene-nav-mode button { min-height:28px; font-size:11px; font-weight:700; }
+    .scene-nav-mode button.active { background:linear-gradient(145deg,#604177,#2a1d34); color:#fff1be; border-color:#e0bf68; }
+    .scene-nav-pad {
+      display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(3,42px); gap:5px;
+      padding:7px; border-radius:12px; border:1px solid rgba(151,118,60,.72);
+      background:radial-gradient(circle at center, rgba(74,54,90,.92), rgba(13,10,20,.95) 78%);
+      box-shadow:0 10px 18px rgba(0,0,0,.38); pointer-events:auto;
+    }
+    .scene-nav-pad button { display:grid; place-items:center; font-size:20px; font-weight:700; }
+    .scene-nav-pad button small { display:block; font-size:7px; line-height:1; color:#b9a77f; text-transform:uppercase; letter-spacing:.05em; margin-top:-1px; }
+    .scene-nav-pad .north { grid-column:2; grid-row:1; }
+    .scene-nav-pad .west { grid-column:1; grid-row:2; }
+    .scene-nav-pad .center { grid-column:2; grid-row:2; background:radial-gradient(circle,#593c70,#22172c 74%); }
+    .scene-nav-pad .east { grid-column:3; grid-row:2; }
+    .scene-nav-pad .south { grid-column:2; grid-row:3; }
+    .scene-nav-pad button:active, .scene-nav-mode button:active { transform:translateY(1px); }
     .scene-loader,.scene-transition-note { z-index:6; }
     .gold-pill { display:inline-flex; align-items:center; gap:5px; }
     .gold-coin-icon {
@@ -737,7 +775,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.6.8.9 • Compact Navigation & Scene Polish</small>
+        <small id="version-tag">Version 1.6.9.0 • Scene Navigation & Flat Actions</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -747,6 +785,7 @@
     <section class="scene-shell" aria-label="Current illustrated scene">
       <div id="scene-art"></div>
       <div class="ambient-layer" id="ambient-layer" aria-hidden="true"></div>
+      <div class="scene-nav-overlay" id="scene-nav-overlay" aria-label="Directional controls"></div>
       <div class="scene-label" id="scene-label"></div>
       <div class="hotspots" id="hotspots"></div><div class="scene-loader" id="scene-loader">Loading scene…</div><div class="scene-transition-note" id="scene-transition-note" hidden></div>
     </section>
@@ -758,7 +797,7 @@
           <span class="skills-icon">▥</span><span class="skills-copy"><strong>Skills</strong><small id="skills-summary">Lv 1 • 0/10 XP</small></span>
         </button>
         <span class="status-pill health-pill" id="health-count" aria-label="Health">♥ 20/20</span>
-        <span class="status-pill gold-pill" id="gold-count" aria-label="Gold"><span class="gold-coin-icon" aria-hidden="true">✦</span><span id="gold-value">20</span></span>
+        <span class="status-pill gold-pill" id="gold-count" aria-label="Gold"><span class="gold-coin-icon" aria-hidden="true"></span><span id="gold-value">20</span></span>
       </div>
       <div id="log" role="log" aria-live="polite"></div>
     </section>
@@ -815,7 +854,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.6.8.9";
+    const BUILD_VERSION = "1.6.9.0";
 
     const itemInfo = {
       "iron hook": "A blacksmith's hook with a long, slightly bent handle.",
@@ -1730,6 +1769,7 @@
     const quickActionsEl = document.getElementById("quick-actions");
     const actionsToggleEl = document.getElementById("actions-toggle");
     const ambientLayerEl = document.getElementById("ambient-layer");
+    const sceneNavOverlayEl = document.getElementById("scene-nav-overlay");
     const hotspotsEl = document.getElementById("hotspots");
     const sceneLoaderEl = document.getElementById("scene-loader");
     let sceneRenderToken = 0;
@@ -2972,51 +3012,43 @@
         const key=canonicalActionKey(action); if(seen.has(key)) return false; seen.add(key); return true;
       }).sort((a,b)=>quickPriority(a)-quickPriority(b));
     }
-    function renderCompactNavigation() {
-      const shell=document.createElement("div");
-      shell.className="compact-nav";
+    function renderSceneNavigation() {
+      if (!sceneNavOverlayEl) return;
+      sceneNavOverlayEl.replaceChildren();
 
-      const modes=document.createElement("div");
-      modes.className="nav-mode-toggle";
-      [["look","◉ Look"],["move","➜ Move"]].forEach(([mode,label])=>{
+      const modeWrap=document.createElement("div");
+      modeWrap.className="scene-nav-mode";
+      [["look","Look"],["move","Move"]].forEach(([mode,label])=>{
         const btn=document.createElement("button");
         btn.type="button";
-        btn.className=mode===navigationMode?"active":"";
         btn.textContent=label;
+        btn.className=mode===navigationMode?"active":"";
         btn.setAttribute("aria-pressed",String(mode===navigationMode));
         btn.addEventListener("click",()=>{
           navigationMode=mode;
           storageSet(NAV_MODE_PREF_KEY,navigationMode);
-          renderQuickActions();
+          renderSceneNavigation();
         });
-        modes.appendChild(btn);
+        modeWrap.appendChild(btn);
       });
-      shell.appendChild(modes);
+      sceneNavOverlayEl.appendChild(modeWrap);
 
       const pad=document.createElement("div");
-      pad.className="compact-nav-pad";
+      pad.className="scene-nav-pad";
       const options=[
         ["north","↑","North"],["west","←","West"],["center","◎","Around"],["east","→","East"],["south","↓","South"]
       ];
       options.forEach(([direction,mark,name])=>{
         const btn=document.createElement("button");
         btn.type="button";
-        btn.className=`compact-nav-btn ${direction}`;
-        const command=direction==="center" ? "look around" : `${navigationMode} ${direction}`;
+        btn.className=direction;
+        const command=direction==="center" ? "look around" : `${navigationMode==="look"?"look":"go"} ${direction}`;
         btn.innerHTML=`<span>${mark}</span><small>${direction==="center"?"Around":name}</small>`;
         btn.setAttribute("aria-label",direction==="center"?"Look around":`${navigationMode==="look"?"Look":"Move"} ${direction}`);
         btn.addEventListener("click",()=>executeQuickAction(command));
         pad.appendChild(btn);
       });
-      shell.appendChild(pad);
-
-      const modeNote=document.createElement("div");
-      modeNote.className="compact-nav-note";
-      modeNote.textContent=navigationMode==="look"
-        ? "Look mode: turn your view without leaving the area."
-        : "Move mode: travel or test a direction.";
-      shell.appendChild(modeNote);
-      quickActionsEl.appendChild(shell);
+      sceneNavOverlayEl.appendChild(pad);
     }
 
     function renderQuickActions() {
@@ -3024,8 +3056,8 @@
       if(selectedHotspotContext&&(selectedHotspotContext.room!==state.room||selectedHotspotContext.view!==currentView())) selectedHotspotContext=null;
 
       const selectedActions=selectedHotspotContext?contextualActionsForHotspot(selectedHotspotContext.hotspot):[];
-      const displayCount=selectedHotspotContext?selectedActions.length:1;
-      actionsToggleEl.textContent=actionsPanelExpanded?"Hide Actions ▲":`Show Actions (${displayCount}) ▼`;
+      const displayCount=selectedHotspotContext?selectedActions.length:0;
+      actionsToggleEl.textContent=actionsPanelExpanded?"Hide Actions ▲":(displayCount?`Show Actions (${displayCount}) ▼`:"Show Actions ▼");
       actionsToggleEl.setAttribute("aria-expanded",String(actionsPanelExpanded));
       quickActionsEl.classList.toggle("is-hidden",!actionsPanelExpanded);
       if(!actionsPanelExpanded)return;
@@ -3037,15 +3069,13 @@
         clear.addEventListener("click",()=>{selectedHotspotContext=null;expandedActionCategory=null;renderQuickActions();});
         context.append(title,clear); quickActionsEl.appendChild(context);
         const note=document.createElement("div"); note.className="context-actions-note";
-        note.textContent="Actions for the selected person or object"; quickActionsEl.appendChild(note);
+        note.textContent="Tap an action below, or use the scene arrows to look and move."; quickActionsEl.appendChild(note);
         selectedActions.forEach(a=>appendActionButton(a,isCriticalAction(a)?"critical-action":""));
       } else {
         const hint=document.createElement("div"); hint.className="scene-discovery-hint";
-        hint.textContent="Tap a visible person or object in the scene to discover interactions.";
+        hint.textContent="Tap a visible person or object in the scene to reveal actions.";
         quickActionsEl.appendChild(hint);
       }
-
-      renderCompactNavigation();
     }
 
     function currentHotspots() {
@@ -3128,6 +3158,7 @@
       renderQuickActions();
       renderHotspots();
       renderScene();
+      renderSceneNavigation();
       renderQuests();
     }
 
@@ -3139,9 +3170,9 @@
       if (!ambientLayerEl) return;
       ambientLayerEl.replaceChildren();
       const presets = {
-        "tavern:center": {x:14.2,y:52.5,w:15,h:22},
-        "tavern:west": {x:16.8,y:44.5,w:17,h:25},
-        "tavern:south": {x:14.2,y:52.5,w:15,h:22}
+        "tavern:center": {x:14.5,y:52.5,w:17,h:24},
+        "tavern:west": {x:16.6,y:44.5,w:18,h:27},
+        "tavern:south": {x:14.5,y:52.5,w:17,h:24}
       };
       const preset = presets[`${state.room}:${currentView()}`];
       if (!preset) return;
@@ -3183,11 +3214,13 @@
         img.style.objectPosition = sceneObjectPositions[`${state.room}:${currentView()}`] || "center";
         sceneArtEl.replaceChildren(img);
         renderAmbientEffects();
+        renderSceneNavigation();
         requestAnimationFrame(()=>shell.classList.remove("is-loading"));
       } catch (error) {
         if (token !== sceneRenderToken) return;
         sceneArtEl.innerHTML = sceneSvg(state.room);
         renderAmbientEffects();
+        renderSceneNavigation();
         shell.classList.remove("is-loading");
       }
     }
