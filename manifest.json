@@ -1,8 +1,8 @@
 {
   "name": "The Briar Crown",
   "short_name": "Briar Crown",
-  "description": "A mobile-first illustrated fantasy adventure with scene-first discovery, compass navigation, color-coded skills, visual shops, and subtle ambient motion.",
-  "start_url": "./index.html?v=1.6.8.8",
+  "description": "A mobile-first illustrated fantasy adventure with scene-first discovery, compact look/move navigation, color-coded skills, visual shops, and subtle ambient motion.",
+  "start_url": "./index.html?v=1.6.8.9",
   "display": "standalone",
   "background_color": "#07070b",
   "theme_color": "#0b0912",
@@ -19,5 +19,5 @@
       "type": "image/png"
     }
   ],
-  "version": "1.6.8.8"
+  "version": "1.6.8.9"
 }

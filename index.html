@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-title" content="Briar Crown" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <title>The Briar Crown — Mobile Adventure v1.6.8.8</title>
+  <title>The Briar Crown — Mobile Adventure v1.6.8.9</title>
   <style>
 
     :root {
@@ -638,6 +638,78 @@
     .player-summary { margin:10px 0 0; padding:10px; border:1px solid rgba(200,163,86,.35); border-radius:6px; color:#cfbea0; background:rgba(255,255,255,.025); }
     @media (min-width:620px){ .class-grid{grid-template-columns:repeat(3,minmax(0,1fr));} }
 
+  
+    /* v1.6.8.9 compact navigation and status polish */
+    #scene-art { position:absolute; inset:0; z-index:0; }
+    .ambient-layer { z-index:2; }
+    .scene-label { z-index:4; }
+    .hotspots { z-index:5; }
+    .scene-loader,.scene-transition-note { z-index:6; }
+    .gold-pill { display:inline-flex; align-items:center; gap:5px; }
+    .gold-coin-icon {
+      width:17px; height:17px; border-radius:50%; display:inline-grid; place-items:center;
+      color:#6f4510; font-size:9px; line-height:1; font-weight:900;
+      background:radial-gradient(circle at 34% 28%,#fff2a8 0 10%,#f5c34e 26%,#c78319 67%,#7b470d 100%);
+      border:1px solid #7b4f14;
+      box-shadow:inset 0 0 0 2px rgba(255,226,120,.32),0 1px 2px rgba(0,0,0,.35);
+    }
+    .compact-nav {
+      grid-column:1/-1; display:grid; gap:6px; padding:7px;
+      border:1px solid #725936; border-radius:8px;
+      background:linear-gradient(145deg,rgba(39,28,50,.96),rgba(15,12,20,.98));
+      box-shadow:inset 0 0 18px rgba(0,0,0,.35);
+    }
+    .nav-mode-toggle { display:grid; grid-template-columns:1fr 1fr; gap:5px; }
+    .nav-mode-toggle button {
+      min-height:29px; border:1px solid #725936; border-radius:5px;
+      background:#17121f; color:#bfae83; font:700 10px Georgia,serif; cursor:pointer;
+    }
+    .nav-mode-toggle button.active {
+      color:#fff0b4; border-color:#dbb65d;
+      background:linear-gradient(145deg,#4d345f,#271b32);
+      box-shadow:inset 0 0 0 1px rgba(255,226,130,.12);
+    }
+    .compact-nav-pad {
+      width:min(100%,300px); margin:0 auto; display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-rows:repeat(3,34px); gap:4px;
+    }
+    .compact-nav-btn {
+      border:1px solid #8c6c38; border-radius:5px; background:linear-gradient(145deg,#30223e,#17121f);
+      color:#efd58e; cursor:pointer; display:grid; place-items:center; align-content:center;
+      padding:1px; line-height:.9; box-shadow:inset 0 0 0 1px #100c15;
+    }
+    .compact-nav-btn span { font-size:18px; line-height:.85; }
+    .compact-nav-btn small { font-size:7px; color:#a99872; text-transform:uppercase; letter-spacing:.05em; }
+    .compact-nav-btn.north { grid-column:2; grid-row:1; }
+    .compact-nav-btn.west { grid-column:1; grid-row:2; }
+    .compact-nav-btn.center { grid-column:2; grid-row:2; color:#fff0b4; background:radial-gradient(circle,#503764,#23172d 72%); }
+    .compact-nav-btn.east { grid-column:3; grid-row:2; }
+    .compact-nav-btn.south { grid-column:2; grid-row:3; }
+    .compact-nav-btn:active { transform:translateY(1px); background:#4b345c; }
+    .compact-nav-note { color:#9f9275; font-size:9px; text-align:center; }
+    .ambient-fireplace { opacity:.96; filter:saturate(1.35) brightness(1.2); }
+    .ambient-fireplace .fire-glow {
+      inset:-68%;
+      background:radial-gradient(circle,rgba(255,225,130,.42) 0 13%,rgba(255,140,35,.24) 28%,rgba(213,56,8,.08) 50%,transparent 72%);
+    }
+    .ambient-fireplace .flame {
+      background:linear-gradient(180deg,rgba(255,255,205,.96),rgba(255,183,48,.88) 45%,rgba(234,68,8,.45) 80%,transparent);
+      filter:blur(.25px) drop-shadow(0 0 5px rgba(255,151,37,.72));
+    }
+    .ambient-fireplace .ember {
+      position:absolute; width:5%; aspect-ratio:1; border-radius:50%;
+      background:#ffd66c; box-shadow:0 0 5px #ff8d1f; bottom:18%;
+      animation:emberRise 1.55s ease-out infinite;
+    }
+    .ambient-fireplace .ember.e1 { left:28%; animation-delay:-.3s; }
+    .ambient-fireplace .ember.e2 { left:53%; animation-delay:-.85s; }
+    .ambient-fireplace .ember.e3 { left:70%; animation-delay:-1.2s; }
+    @keyframes emberRise { from{opacity:.85;transform:translateY(0) scale(1)} to{opacity:0;transform:translateY(-250%) translateX(35%) scale(.45)} }
+    @media (prefers-reduced-motion: reduce) {
+      .ambient-fireplace .ember { display:none; }
+      .ambient-fireplace { opacity:.8; }
+    }
+
   </style>
 </head>
 <body>
@@ -665,7 +737,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.6.8.8 • Scene-First Interaction & Ambient Life</small>
+        <small id="version-tag">Version 1.6.8.9 • Compact Navigation & Scene Polish</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -686,7 +758,7 @@
           <span class="skills-icon">▥</span><span class="skills-copy"><strong>Skills</strong><small id="skills-summary">Lv 1 • 0/10 XP</small></span>
         </button>
         <span class="status-pill health-pill" id="health-count" aria-label="Health">♥ 20/20</span>
-        <span class="status-pill gold-pill" id="gold-count" aria-label="Gold">◆ 20</span>
+        <span class="status-pill gold-pill" id="gold-count" aria-label="Gold"><span class="gold-coin-icon" aria-hidden="true">✦</span><span id="gold-value">20</span></span>
       </div>
       <div id="log" role="log" aria-live="polite"></div>
     </section>
@@ -743,7 +815,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.6.8.8";
+    const BUILD_VERSION = "1.6.8.9";
 
     const itemInfo = {
       "iron hook": "A blacksmith's hook with a long, slightly bent handle.",
@@ -1206,7 +1278,7 @@
       hutExterior: "assets/scenes/hut.webp",
       hutInterior: "assets/scenes/hut-interior.webp",
       moonwell: "assets/scenes/moonwell.webp",
-      tavernCellar: "assets/scenes/tavern-cellar.webp",
+      tavernCellar: "assets/scenes/tavern-cellar-v2.webp",
       secretTunnel: "assets/scenes/secret-tunnel.webp",
       crypt: "assets/scenes/crypt.webp",
       castleGate: "assets/scenes/gate.webp"
@@ -1654,6 +1726,7 @@
     const skillsBtnEl = document.getElementById("skills-btn");
     const healthCountEl = document.getElementById("health-count");
     const goldCountEl = document.getElementById("gold-count");
+    const goldValueEl = document.getElementById("gold-value");
     const quickActionsEl = document.getElementById("quick-actions");
     const actionsToggleEl = document.getElementById("actions-toggle");
     const ambientLayerEl = document.getElementById("ambient-layer");
@@ -1814,7 +1887,7 @@
       sceneLabelEl.textContent = currentSceneName();
       document.getElementById("skills-summary").textContent = `Lv ${state.level || 1} • ${(state.score || 0) % 10}/10 XP`;
       healthCountEl.textContent = `♥ ${state.health || 0}/${state.maxHealth || 20}`;
-      goldCountEl.textContent = `◆ ${state.gold || 0}`;
+      goldValueEl.textContent = String(state.gold || 0);
       const ratio=(state.health||0)/Math.max(1,state.maxHealth||20);
       healthCountEl.dataset.condition = ratio<=.25?"critical":ratio<=.55?"injured":"healthy";
     }
@@ -2504,6 +2577,14 @@
         setDirectionalView("center");
         return finishTurn();
       }
+      if (/^(?:enter|explore|go into|walk into) (?:hidden )?(?:passage|tunnel)$/.test(command) && state.room === "tavernCellar") {
+        if (!state.flags.cellarPassageRevealed) {
+          addLog("You have not discovered an open passage here.", "warning");
+          return finishTurn();
+        }
+        await transitionToRoom("secretTunnel",{note:"You slip through the narrow opening behind the wine rack."});
+        return finishTurn();
+      }
       if (await handleDestinationCommand(command)) return finishTurn();
       if (/^go (?:tavern|tavern door)$/.test(command) && state.room === "square") { state.room = command.endsWith("door") ? "tavernDoor" : "tavernApproach"; state.turns++; award(command.endsWith("door")?"reach-tavern-door":"approach-tavern",1); describeRoom(true); showSceneNote(command.endsWith("door")?"You stand before the tavern door.":"You walk toward the Briar Lantern."); return finishTurn(); }
       if (/^go (?:forest|forest road|woods|whispering path)$/.test(command) && state.room === "tavernApproach") { await move("east"); return finishTurn(); }
@@ -2608,7 +2689,7 @@
     }
 
     function showHelp() {
-      addLog("Tap visible people and objects in the artwork to discover their actions. Use the <strong>Compass</strong> for LOOK NORTH, EAST, SOUTH, WEST, or LOOK AROUND, and use <strong>Move</strong> for travel. The parser still accepts natural phrases such as <strong>EXAMINE WELL</strong>, <strong>TALK TO INNKEEPER</strong>, <strong>OPEN THE DOOR</strong>, <strong>USE KEY ON TRAPDOOR</strong>, <strong>INVENTORY</strong>, <strong>JOURNAL</strong>, <strong>SAVE</strong>, and <strong>LOAD</strong>. Type <strong>AGAIN</strong> to repeat your previous command.", "system");
+      addLog("Tap visible people and objects in the artwork to discover their actions. Use the compact direction pad and switch between <strong>LOOK</strong> and <strong>MOVE</strong>. The center button looks around. The parser still accepts natural phrases such as <strong>EXAMINE WELL</strong>, <strong>TALK TO INNKEEPER</strong>, <strong>OPEN THE DOOR</strong>, <strong>USE KEY ON TRAPDOOR</strong>, <strong>INVENTORY</strong>, <strong>JOURNAL</strong>, <strong>SAVE</strong>, and <strong>LOAD</strong>. Type <strong>AGAIN</strong> to repeat your previous command.", "system");
     }
 
     function saveGame() {
@@ -2686,7 +2767,7 @@
       if (state.room === "tavern" && state.flags.cellarUnlocked && !state.flags.tavernCellarOpen) actions.unshift("open cellar hatch");
       if (state.room === "tavern" && state.flags.tavernCellarOpen) actions.unshift("go down");
       if (state.room === "tavernCellar" && state.flags.cellarDraftFound && !state.flags.cellarPassageRevealed) actions.unshift("move wine rack");
-      if (state.room === "tavernCellar" && state.flags.cellarPassageRevealed) actions.unshift("go east");
+      if (state.room === "tavernCellar" && state.flags.cellarPassageRevealed) actions.unshift("enter hidden passage");
       if (state.room === "moonfen" && has("ferry crank") && !state.flags.ferryRepaired) actions.unshift("use ferry crank on winch");
       if (state.room === "moonfen" && state.flags.ferryRepaired) actions.unshift("cross ferry", "go east");
       if (state.room === "hutInterior" && !state.flags.coinTaken) actions.unshift("take fairy coin");
@@ -2721,7 +2802,9 @@
     let selectedHotspotContext = null;
     let expandedActionCategory = null;
     const ACTION_PANEL_PREF_KEY="briar-crown-actions-expanded";
+    const NAV_MODE_PREF_KEY="briar-crown-nav-mode";
     let actionsPanelExpanded = storageGet(ACTION_PANEL_PREF_KEY) !== "false";
+    let navigationMode = storageGet(NAV_MODE_PREF_KEY) === "move" ? "move" : "look";
 
     function actionIcon(action) {
       if (action === "inventory") return "🎒";
@@ -2767,6 +2850,8 @@
       if (a === "cross ferry") return "Cross the Ferry";
       if (a === "ask innkeeper about cellar") return "Ask About Cellar";
       if (a === "open cellar hatch") return "Open Cellar Hatch";
+      if (a === "enter hidden passage") return "Enter Hidden Passage";
+      if (a === "go down") return "Go Down";
       if (a === "go outside") return "Go Outside";
       if (a === "leave apothecary") return "Leave Shop";
       if (a === "leave tavern") return "Leave Tavern";
@@ -2808,7 +2893,6 @@
       await processCommand(action);
 
       if (compassCommand && state.room === previousRoom) {
-        expandedActionCategory = "Compass";
         renderQuickActions();
         return;
       }
@@ -2845,6 +2929,18 @@
         if (has("healing herb")) actions.push("sell healing herb");
       }
       if (/merrin|blacksmith|smith/.test(labelKey)) actions.push("browse forge wares");
+      if (state.room === "tavern" && /cellar hatch|cellar door|hatch/.test(labelKey)) {
+        if (state.flags.tavernCellarOpen) actions.unshift("go down");
+        else if (state.flags.cellarUnlocked) actions.unshift("open cellar hatch");
+        else actions.push("pick cellar lock");
+      }
+      if (state.room === "tavernCellar" && /wine rack|rack/.test(labelKey)) {
+        if (state.flags.cellarPassageRevealed) actions.unshift("enter hidden passage");
+        else if (state.flags.cellarDraftFound) actions.unshift("move wine rack");
+      }
+      if (state.room === "tavernCellar" && /hidden passage|passage|tunnel/.test(labelKey)) {
+        actions.unshift("enter hidden passage");
+      }
       const examine = `look at ${label}`;
       if (!actions.some(action => normalize(action) === normalize(examine))) actions.push(examine);
       const seen=new Set();
@@ -2876,30 +2972,59 @@
         const key=canonicalActionKey(action); if(seen.has(key)) return false; seen.add(key); return true;
       }).sort((a,b)=>quickPriority(a)-quickPriority(b));
     }
-    function renderCompassPanel() {
-      const label=document.createElement("div"); label.className="quick-category-label";
-      label.textContent="Turn and look"; quickActionsEl.appendChild(label);
-      const wrap=document.createElement("div"); wrap.className="compass-wrap";
+    function renderCompactNavigation() {
+      const shell=document.createElement("div");
+      shell.className="compact-nav";
+
+      const modes=document.createElement("div");
+      modes.className="nav-mode-toggle";
+      [["look","◉ Look"],["move","➜ Move"]].forEach(([mode,label])=>{
+        const btn=document.createElement("button");
+        btn.type="button";
+        btn.className=mode===navigationMode?"active":"";
+        btn.textContent=label;
+        btn.setAttribute("aria-pressed",String(mode===navigationMode));
+        btn.addEventListener("click",()=>{
+          navigationMode=mode;
+          storageSet(NAV_MODE_PREF_KEY,navigationMode);
+          renderQuickActions();
+        });
+        modes.appendChild(btn);
+      });
+      shell.appendChild(modes);
+
+      const pad=document.createElement("div");
+      pad.className="compact-nav-pad";
       const options=[
-        ["north","N","North"],["west","W","West"],["center","◎","Around"],["east","E","East"],["south","S","South"]
+        ["north","↑","North"],["west","←","West"],["center","◎","Around"],["east","→","East"],["south","↓","South"]
       ];
       options.forEach(([direction,mark,name])=>{
-        const btn=document.createElement("button"); btn.type="button"; btn.className=`compass-btn ${direction}`;
-        btn.innerHTML=`<span>${mark}</span><small>${name}</small>`;
-        btn.setAttribute("aria-label", direction==="center" ? "Look around" : `Look ${direction}`);
-        btn.addEventListener("click",()=>executeQuickAction(direction==="center"?"look around":`look ${direction}`));
-        wrap.appendChild(btn);
+        const btn=document.createElement("button");
+        btn.type="button";
+        btn.className=`compact-nav-btn ${direction}`;
+        const command=direction==="center" ? "look around" : `${navigationMode} ${direction}`;
+        btn.innerHTML=`<span>${mark}</span><small>${direction==="center"?"Around":name}</small>`;
+        btn.setAttribute("aria-label",direction==="center"?"Look around":`${navigationMode==="look"?"Look":"Move"} ${direction}`);
+        btn.addEventListener("click",()=>executeQuickAction(command));
+        pad.appendChild(btn);
       });
-      quickActionsEl.appendChild(wrap);
+      shell.appendChild(pad);
+
+      const modeNote=document.createElement("div");
+      modeNote.className="compact-nav-note";
+      modeNote.textContent=navigationMode==="look"
+        ? "Look mode: turn your view without leaving the area."
+        : "Move mode: travel or test a direction.";
+      shell.appendChild(modeNote);
+      quickActionsEl.appendChild(shell);
     }
+
     function renderQuickActions() {
       quickActionsEl.innerHTML="";
       if(selectedHotspotContext&&(selectedHotspotContext.room!==state.room||selectedHotspotContext.view!==currentView())) selectedHotspotContext=null;
 
-      const moveActions=movementActionsForScene();
-      const defaultCount=1+(moveActions.length?1:0);
       const selectedActions=selectedHotspotContext?contextualActionsForHotspot(selectedHotspotContext.hotspot):[];
-      const displayCount=selectedHotspotContext?selectedActions.length:defaultCount;
+      const displayCount=selectedHotspotContext?selectedActions.length:1;
       actionsToggleEl.textContent=actionsPanelExpanded?"Hide Actions ▲":`Show Actions (${displayCount}) ▼`;
       actionsToggleEl.setAttribute("aria-expanded",String(actionsPanelExpanded));
       quickActionsEl.classList.toggle("is-hidden",!actionsPanelExpanded);
@@ -2914,32 +3039,13 @@
         const note=document.createElement("div"); note.className="context-actions-note";
         note.textContent="Actions for the selected person or object"; quickActionsEl.appendChild(note);
         selectedActions.forEach(a=>appendActionButton(a,isCriticalAction(a)?"critical-action":""));
-        return;
+      } else {
+        const hint=document.createElement("div"); hint.className="scene-discovery-hint";
+        hint.textContent="Tap a visible person or object in the scene to discover interactions.";
+        quickActionsEl.appendChild(hint);
       }
 
-      const hint=document.createElement("div"); hint.className="scene-discovery-hint";
-      hint.textContent="Tap a visible person or object in the scene to discover interactions.";
-      quickActionsEl.appendChild(hint);
-
-      const compass=document.createElement("button"); compass.type="button";
-      compass.className=`quick-btn scene-nav-btn ${expandedActionCategory==="Compass"?"is-open":""}`;
-      compass.innerHTML='<span class="action-icon">✥</span><span>Compass</span>';
-      compass.addEventListener("click",()=>{expandedActionCategory=expandedActionCategory==="Compass"?null:"Compass";renderQuickActions();});
-      quickActionsEl.appendChild(compass);
-
-      if(moveActions.length){
-        const move=document.createElement("button"); move.type="button";
-        move.className=`quick-btn scene-nav-btn ${expandedActionCategory==="Move"?"is-open":""}`;
-        move.innerHTML=`<span class="action-icon">➜</span><span>Move (${moveActions.length})</span>`;
-        move.addEventListener("click",()=>{expandedActionCategory=expandedActionCategory==="Move"?null:"Move";renderQuickActions();});
-        quickActionsEl.appendChild(move);
-      }
-
-      if(expandedActionCategory==="Compass") renderCompassPanel();
-      if(expandedActionCategory==="Move"){
-        const label=document.createElement("div"); label.className="quick-category-label"; label.textContent="Movement options"; quickActionsEl.appendChild(label);
-        moveActions.forEach(a=>appendActionButton(a));
-      }
+      renderCompactNavigation();
     }
 
     function currentHotspots() {
@@ -2972,6 +3078,15 @@
       }
       if (state.room === "cottage" && state.flags.cabinetOpen && !state.flags.keyTaken) {
         spots.push({ label: "Silver Key", command: "take silver key", x: 68, y: 60, w: 16, h: 16 });
+      }
+      if (state.room === "tavern" && state.flags.tavernCellarOpen) {
+        const hatch = spots.find(s => s.label === "Cellar Hatch");
+        if (hatch) hatch.command = "go down";
+      }
+      if (state.room === "tavernCellar" && state.flags.cellarPassageRevealed) {
+        const rack = spots.find(s => s.label === "Wine Rack");
+        if (rack) { rack.x = 20; rack.y = 46; rack.w = 23; rack.h = 39; }
+        spots.push({ label: "Hidden Passage", command: "enter hidden passage", x: 38, y: 48, w: 22, h: 46 });
       }
       return spots;
     }
@@ -3024,9 +3139,9 @@
       if (!ambientLayerEl) return;
       ambientLayerEl.replaceChildren();
       const presets = {
-        "tavern:center": {x:15,y:49,w:13,h:15},
-        "tavern:west": {x:18,y:48,w:15,h:18},
-        "tavern:south": {x:15,y:49,w:13,h:15}
+        "tavern:center": {x:14.2,y:52.5,w:15,h:22},
+        "tavern:west": {x:16.8,y:44.5,w:17,h:25},
+        "tavern:south": {x:14.2,y:52.5,w:15,h:22}
       };
       const preset = presets[`${state.room}:${currentView()}`];
       if (!preset) return;
@@ -3035,7 +3150,7 @@
       fire.style.setProperty("--fire-y",`${preset.y}%`);
       fire.style.setProperty("--fire-w",`${preset.w}%`);
       fire.style.setProperty("--fire-h",`${preset.h}%`);
-      fire.innerHTML='<span class="fire-glow"></span><span class="flame one"></span><span class="flame two"></span><span class="flame three"></span>';
+      fire.innerHTML='<span class="fire-glow"></span><span class="flame one"></span><span class="flame two"></span><span class="flame three"></span><span class="ember e1"></span><span class="ember e2"></span><span class="ember e3"></span>';
       ambientLayerEl.appendChild(fire);
     }
 
@@ -3045,7 +3160,10 @@
       const config = directionalConfig();
       shell.classList.toggle("directional-room", !!config);
       shell.classList.add("scene-ambient");
-      const imagePath = config ? (config.images[currentView()] || config.images.center) : sceneImageMap[state.room];
+      let imagePath = config ? (config.images[currentView()] || config.images.center) : sceneImageMap[state.room];
+      if (state.room === "tavernCellar" && state.flags.cellarPassageRevealed) {
+        imagePath = "assets/scenes/tavern-cellar-passage.webp";
+      }
       const token = ++sceneRenderToken;
       if (!imagePath) {
         sceneArtEl.innerHTML = sceneSvg(state.room);
@@ -3111,6 +3229,7 @@
 
     function preloadImportantScenes() {
       const paths = new Set(Object.values(sceneImageMap));
+      paths.add("assets/scenes/tavern-cellar-passage.webp");
       Object.values(directionalRooms).forEach(config=>Object.values(config.images).forEach(path=>paths.add(path)));
       paths.forEach(path=>preloadScene(path).catch(()=>{}));
     }
@@ -3412,7 +3531,7 @@
     function boot() {
       updateMusicButton();
       const vt = document.getElementById("version-tag");
-      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Scene-First Interaction & Ambient Life`;
+      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Compact Navigation & Scene Polish`;
       const saved = storageGet(SAVE_KEY);
       if (saved) {
         try { state = JSON.parse(saved); migrateState(); restoreDynamicExits(); }
