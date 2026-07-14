@@ -1,4 +1,4 @@
-const CACHE = "briar-crown-v1.6.9.4.2";
+const CACHE = "briar-crown-v1.6.9.4.3";
 const ASSETS = [
   "./",
   "./index.html",
@@ -46,7 +46,11 @@ const ASSETS = [
   "./assets/scenes/flower-clearing.webp",
   "./assets/scenes/fallen-log.webp",
   "./assets/scenes/moonwell-v2.webp",
-  "./assets/scenes/secret-tunnel.webp"
+  "./assets/scenes/secret-tunnel.webp",
+  "./assets/scenes/chapel-road.webp",
+  "./assets/scenes/hidden-passage-v2.webp",
+  "./assets/scenes/hidden-alcove.webp",
+  "./assets/scenes/hidden-alcove-coins.webp"
 ];
 
 self.addEventListener("install", event => {

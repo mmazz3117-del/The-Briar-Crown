@@ -142,7 +142,7 @@
     #scene-art img.scene-image {
       object-fit: cover;
       object-position: center;
-      image-rendering: pixelated;
+      image-rendering: auto;
     }
     #scene-art svg { image-rendering: pixelated; }
     .scene-label {
@@ -203,6 +203,19 @@
     .skills-launch .skills-copy strong { font-size:10px;color:#f6df9f;text-transform:uppercase;letter-spacing:.06em; }
     .skills-launch .skills-copy small { font-size:9px;color:#d3b978;margin-top:3px; }
     .status-strip { grid-template-columns: minmax(0,1fr) auto auto auto !important; }
+    .location-block { display:grid; gap:2px; min-width:0; }
+    #world-time { color:#765d3c; font-size:8px; letter-spacing:.04em; white-space:nowrap; }
+    .log-scroll-cushion { height:110px; pointer-events:none; }
+    .scene-shell.long-night-filter #scene-art img.scene-image { filter: brightness(.78) saturate(.88) contrast(1.03) hue-rotate(4deg); }
+    .scene-shell.long-night-filter::after {
+      content:""; position:absolute; inset:0; z-index:3; pointer-events:none;
+      background:linear-gradient(180deg,rgba(20,27,58,.14),rgba(7,10,23,.20)); mix-blend-mode:multiply;
+    }
+    .scene-shell.long-night-filter .scene-label,
+    .scene-shell.long-night-filter .hotspots,
+    .scene-shell.long-night-filter .scene-nav-overlay,
+    .scene-shell.long-night-filter .scene-transition-note { z-index:6; }
+
     #location-name { min-width:0; line-height:1.15; }
     .health-pill { color:#7f242a; background:rgba(255,238,224,.5); font-weight:800; }
     .health-pill[data-condition="injured"] { color:#9b4f18; background:rgba(255,224,170,.58); }
@@ -1015,6 +1028,7 @@
       touch-action: pan-y;
       padding: 14px 16px 18px !important;
       scroll-padding-top: 12px;
+      scroll-behavior: auto !important;
     }
     .controls {
       grid-row: 4;
@@ -1078,7 +1092,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.6.9.4.2 • Interaction Contract & Audit Pass</small>
+        <small id="version-tag">Version 1.6.9.4.3 • Scene Flow & Interaction Repair</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -1094,7 +1108,7 @@
 
     <section class="story-panel">
       <div class="status-strip">
-        <span><strong id="location-name">Willowmere Square</strong></span>
+        <span class="location-block"><strong id="location-name">Willowmere Square</strong><small id="world-time">Dusk • 6:30 PM</small></span>
         <button class="skills-launch" id="skills-btn" type="button" aria-label="Open skills and character stats">
           <span class="skills-icon">▥</span><span class="skills-copy"><strong>Skills</strong><small id="skills-summary">Lv 1 • 0/10 XP</small></span>
         </button>
@@ -1156,7 +1170,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.6.9.4.2";
+    const BUILD_VERSION = "1.6.9.4.3";
 
     const itemInfo = {
       "iron hook": "A blacksmith's hook with a long, slightly bent handle.",
@@ -1185,7 +1199,7 @@
       square: {
         name: "Willowmere Square",
         description: "Willowmere should be waking, but dawn has failed for seven days. A stone well stands beneath the village willow. The Briar Lantern Tavern lies north, Merrin's forge glows east, Saint Orla's chapel waits west, and the king's road descends south toward the sealed castle.",
-        exits: { north: "tavernApproach", east: "forgeLane", west: "chapelYard", south: "castleRoad" },
+        exits: { north: "tavernApproach", east: "forgeLane", west: "chapelRoad", south: "castleRoad" },
         actions: ["look at notice board", "look at well"],
         hotspots: [
           { label: "Notice Board", command: "look at notice board", x: 18, y: 64, w: 24, h: 35 },
@@ -1273,13 +1287,24 @@
       },
       secretTunnel: {
         name: "Hidden Passage",
-        description: "A cramped stone passage runs beneath the tavern. An old wall lantern glows beside a loose floor stone, while a fall of rock blocks the far arch. The tunnel may once have connected to another part of Willowmere.",
-        exits: { west: "tavernCellar" },
-        actions: ["look at blocked arch", "search loose stone", "go west"],
+        description: "A narrow stone passage continues beneath the tavern. The cellar opening is behind you to the west, while a weak lantern glow and cooler air draw you east toward a collapsed alcove. You will need to walk farther before there is anywhere useful to search.",
+        exits: { west: "tavernCellar", east: "secretAlcove" },
+        actions: ["go east", "go west", "look at passage", "look at lantern"],
         hotspots: [
-          { label: "Blocked Arch", command: "look at blocked arch", x: 78, y: 35, w: 34, h: 50 },
-          { label: "Loose Stone", command: "search loose stone", x: 49, y: 83, w: 34, h: 22 },
-          { label: "Wall Lantern", command: "look at lantern", x: 24, y: 45, w: 25, h: 42 }
+          { label: "Passage Ahead", command: "go east", x: 35, y: 41, w: 28, h: 42 },
+          { label: "Wall Lantern", command: "look at lantern", x: 76, y: 39, w: 18, h: 28 },
+          { label: "Cellar Opening", command: "go west", x: 14, y: 78, w: 25, h: 20 }
+        ]
+      },
+      secretAlcove: {
+        name: "Collapsed Passage Alcove",
+        description: "After a short walk, the passage opens into a cramped alcove. A rockfall seals the far arch, an iron lantern burns on the wall, and several floor stones sit unevenly beneath the rubble. The hidden passage returns west.",
+        exits: { west: "secretTunnel" },
+        actions: ["look at blocked arch", "look at loose stone", "search loose stone", "go west"],
+        hotspots: [
+          { label: "Blocked Arch", command: "look at blocked arch", x: 78, y: 42, w: 34, h: 48 },
+          { label: "Loose Stone", command: "search loose stone", x: 51, y: 71, w: 34, h: 24 },
+          { label: "Wall Lantern", command: "look at lantern", x: 26, y: 48, w: 24, h: 42 }
         ]
       },
       apothecaryBackRoom: {
@@ -1334,10 +1359,21 @@
           { label: "Tools", command: "look at tools", x: 24, y: 43, w: 26, h: 26 }
         ]
       },
+      chapelRoad: {
+        name: "West Chapel Road",
+        description: "You follow a lantern-lit road west from Willowmere. The cottages thin, yew branches meet overhead, and old headstones begin to appear beside the stones. Saint Orla's chapel yard lies farther west; Willowmere Square is east.",
+        exits: { east: "square", west: "chapelYard" },
+        actions: ["go west", "go east", "look at chapel", "look at roadside graves"],
+        hotspots: [
+          { label: "Chapel Road", command: "go west", x: 56, y: 56, w: 36, h: 42 },
+          { label: "Roadside Graves", command: "look at roadside graves", x: 24, y: 69, w: 30, h: 28 },
+          { label: "Willowmere", command: "go east", x: 18, y: 84, w: 30, h: 18 }
+        ]
+      },
       chapelYard: {
         name: "Chapel Yard",
         description: "Crooked headstones crowd the path to Saint Orla's chapel. The chapel stands north beyond an iron gate, Willowmere Square lies east, and an older cemetery path continues west beneath the yew trees.",
-        exits: { north: "chapelApproach", east: "square", west: "oldCemeteryPath" },
+        exits: { north: "chapelApproach", east: "chapelRoad", west: "oldCemeteryPath" },
         actions: ["look at graves", "approach chapel"],
         hotspots: [
           { label: "Chapel", command: "approach chapel", x: 50, y: 37, w: 32, h: 40 },
@@ -1350,8 +1386,8 @@
         exits: { south: "chapelYard" },
         actions: ["enter chapel", "look inside"],
         hotspots: [
-          { label: "Open Chapel Door", command: "enter chapel", x: 50, y: 38, w: 30, h: 42 },
-          { label: "Chapel Yard", command: "go south", x: 50, y: 82, w: 34, h: 18 }
+          { label: "Open Chapel Door", command: "enter chapel", x: 50, y: 52, w: 44, h: 60 },
+          { label: "Chapel Yard", command: "go south", x: 22, y: 88, w: 30, h: 16 }
         ]
       },
       oldCemeteryPath: {
@@ -1542,7 +1578,7 @@
         name: "The Ironthorn Gate",
         description: "An immense portcullis blocks the castle entrance beneath royal banners. A rusted chain winch stands beside the guard post. At the center of the gate is a jagged crown-shaped socket.",
         exits: { north: "castleRoad" },
-        actions: ["look at winch", "look at socket", "use crown shard on gate"],
+        actions: ["look at gate", "look at winch", "look at socket", "use crown shard on gate", "go north"],
         hotspots: [
           { label: "Winch", command: "look at winch", x: 80, y: 60, w: 18, h: 24 },
           { label: "Socket", command: "look at socket", x: 50, y: 51, w: 14, h: 10 },
@@ -1639,10 +1675,11 @@
       apothecaryDoor: "assets/scenes/apothecary-door.webp",
       apothecary: "assets/scenes/apothecary-room.webp",
       apothecaryBackRoom: "assets/scenes/apothecary-east.webp",
-      forgeLane: "assets/scenes/forge-lane-v2.webp",
+      forgeLane: "assets/scenes/forge-lane.webp",
       eastRoad: "assets/scenes/kings-road.webp",
       forgeDoor: "assets/scenes/forge-door.webp",
       blacksmith: "assets/scenes/forge.webp",
+      chapelRoad: "assets/scenes/chapel-road.webp",
       chapelYard: "assets/scenes/chapel-yard.webp",
       chapelApproach: "assets/scenes/chapel-approach.webp",
       oldCemeteryPath: "assets/scenes/old-cemetery.webp",
@@ -1662,12 +1699,13 @@
       hutInterior: "assets/scenes/hut-interior.webp",
       moonwell: "assets/scenes/moonwell-v2.webp",
       tavernCellar: "assets/scenes/tavern-cellar-v2.webp",
-      secretTunnel: "assets/scenes/secret-tunnel.webp",
+      secretTunnel: "assets/scenes/hidden-passage-v2.webp",
+      secretAlcove: "assets/scenes/hidden-alcove.webp",
       crypt: "assets/scenes/crypt.webp",
       castleGate: "assets/scenes/gate.webp"
     };
 
-    const sceneTourRooms = ["square", "forgeLane", "eastRoad", "forgeDoor", "blacksmith", "chapelYard", "chapelApproach", "oldCemeteryPath", "chapel", "castleRoad", "tavernApproach", "tavernDoor", "tavern", "apothecaryApproach", "apothecaryDoor", "apothecary", "apothecaryBackRoom", "forestEdge", "willowTrail", "flowerClearing", "fallenLog", "whisperingForest", "cottageApproach", "cottage", "cellar", "moonfen", "hutExterior", "hutInterior", "moonwell", "tavernCellar", "secretTunnel", "crypt", "castleGate"];
+    const sceneTourRooms = ["square", "forgeLane", "eastRoad", "forgeDoor", "blacksmith", "chapelRoad", "chapelYard", "chapelApproach", "oldCemeteryPath", "chapel", "castleRoad", "tavernApproach", "tavernDoor", "tavern", "apothecaryApproach", "apothecaryDoor", "apothecary", "apothecaryBackRoom", "forestEdge", "willowTrail", "flowerClearing", "fallenLog", "whisperingForest", "cottageApproach", "cottage", "cellar", "moonfen", "hutExterior", "hutInterior", "moonwell", "tavernCellar", "secretTunnel", "secretAlcove", "crypt", "castleGate"];
 
     const apothecaryViewImages = {
       center: "assets/scenes/apothecary-room.webp",
@@ -1845,6 +1883,12 @@
         north: "Bundles of lavender hang above the doorway beside a brass bell.",
         south: "A sleeping cat curls beside pots of rosemary and mint."
       },
+      chapelRoad: {
+        west: "The lantern-lit road continues toward Saint Orla's graveyard and chapel.",
+        east: "Willowmere Square glows faintly behind you beneath the endless night.",
+        north: "Yew branches and a low cemetery wall border the road.",
+        south: "Old cottages and bramble-filled gardens leave no public path south."
+      },
       chapelYard: {
         north: "Saint Orla's chapel stands ahead with its door hanging open.",
         east: "Willowmere Square lies east beyond the graveyard wall.",
@@ -1891,7 +1935,7 @@
 
     const outdoorRooms = new Set([
       "square", "tavernApproach", "apothecaryApproach", "forgeLane", "eastRoad",
-      "forgeDoor", "tavernDoor", "apothecaryDoor", "chapelYard", "chapelApproach",
+      "forgeDoor", "tavernDoor", "apothecaryDoor", "chapelRoad", "chapelYard", "chapelApproach",
       "oldCemeteryPath", "forestEdge", "willowTrail", "flowerClearing", "fallenLog", "whisperingForest", "cottageApproach",
       "moonfen", "hutExterior", "moonwell", "castleRoad", "castleGate"
     ]);
@@ -1925,6 +1969,10 @@
         east: "The apothecary is directly ahead. Open the door and ENTER APOTHECARY.",
         north: "The ivy-covered shop wall rises directly beside you.",
         south: "Planters and a low garden wall block the narrow side path."
+      },
+      chapelRoad: {
+        north: "A low cemetery wall and tangled yew roots block the northern shoulder.",
+        south: "Private gardens and brambles leave no road south."
       },
       chapelYard: {
         south: "The southern graveyard path ends at a locked iron service gate.",
@@ -1998,6 +2046,7 @@
       eastRoad: "East Gate Road",
       forgeDoor: "Merrin's Forge",
       blacksmith: "Merrin's Forge",
+      chapelRoad: "West Chapel Road",
       chapelYard: "Saint Orla's Chapel",
       chapelApproach: "Saint Orla's Chapel",
       oldCemeteryPath: "Old Cemetery Path",
@@ -2037,7 +2086,7 @@
       if (/^(?:closer|forward|ahead)$/.test(target)) target = "forward";
 
       const routes = {
-        square: { tavern:"tavernApproach", apothecary:"apothecaryApproach", forge:"forgeLane", chapel:"chapelYard", "castle road":"castleRoad", castle:"castleRoad" },
+        square: { tavern:"tavernApproach", apothecary:"apothecaryApproach", forge:"forgeLane", chapel:"chapelRoad", "chapel road":"chapelRoad", "castle road":"castleRoad", castle:"castleRoad" },
         forgeLane: { forge:"forgeDoor", door:"forgeDoor", forward:"eastRoad", "east road":"eastRoad", square:"square", back:"square" },
         eastRoad: { forge:"forgeLane", "forge lane":"forgeLane", square:"forgeLane", "castle road":"castleRoad", back:"forgeLane" },
         forgeDoor: { lane:"forgeLane", square:"forgeLane", back:"forgeLane" },
@@ -2048,7 +2097,8 @@
         apothecaryApproach: { apothecary:"apothecaryDoor", door:"apothecaryDoor", forward:"apothecaryDoor", inside:"apothecaryDoor", square:"square", back:"square" },
         apothecaryDoor: { square:"apothecaryApproach", back:"apothecaryApproach" },
         apothecary: { outside:"apothecaryDoor", door:"apothecaryDoor", back:"apothecaryDoor", "back room":"apothecaryBackRoom", workroom:"apothecaryBackRoom" },
-        chapelYard: { chapel:"chapelApproach", forward:"chapelApproach", square:"square", back:"square", cemetery:"oldCemeteryPath", "old cemetery":"oldCemeteryPath" },
+        chapelRoad: { chapel:"chapelYard", yard:"chapelYard", forward:"chapelYard", square:"square", willowmere:"square", back:"square" },
+        chapelYard: { chapel:"chapelApproach", forward:"chapelApproach", square:"chapelRoad", road:"chapelRoad", back:"chapelRoad", cemetery:"oldCemeteryPath", "old cemetery":"oldCemeteryPath" },
         chapelApproach: { chapel:"chapel", inside:"chapel", door:"chapel", yard:"chapelYard", outside:"chapelYard", back:"chapelYard" },
         oldCemeteryPath: { chapel:"chapelYard", yard:"chapelYard", back:"chapelYard" },
         chapel: { outside:"chapelApproach", door:"chapelApproach", yard:"chapelYard", back:"chapelApproach" },
@@ -2060,7 +2110,8 @@
         hutExterior: { hut:"hutInterior", inside:"hutInterior", ferry:"moonfen", west:"moonfen", back:"moonfen" },
         hutInterior: { outside:"hutExterior", door:"hutExterior", back:"hutExterior" },
         tavernCellar: { passage:"secretTunnel", tunnel:"secretTunnel", up:"tavern", back:"tavern" },
-        secretTunnel: { cellar:"tavernCellar", back:"tavernCellar" }
+        secretTunnel: { alcove:"secretAlcove", forward:"secretAlcove", east:"secretAlcove", cellar:"tavernCellar", back:"tavernCellar" },
+        secretAlcove: { passage:"secretTunnel", tunnel:"secretTunnel", west:"secretTunnel", back:"secretTunnel" }
       };
 
       if (state.room === "forgeDoor" && /^(?:inside|forge|door|forward)$/.test(target)) {
@@ -2106,6 +2157,7 @@
     const sceneArtEl = document.getElementById("scene-art");
     const sceneLabelEl = document.getElementById("scene-label");
     const locationNameEl = document.getElementById("location-name");
+    const worldTimeEl = document.getElementById("world-time");
     const skillsBtnEl = document.getElementById("skills-btn");
     const healthCountEl = document.getElementById("health-count");
     const goldCountEl = document.getElementById("gold-count");
@@ -2186,7 +2238,15 @@
         p.innerHTML = entry.text;
         logEl.appendChild(p);
       });
-      requestAnimationFrame(() => { logEl.scrollTop = logEl.scrollHeight; });
+      const cushion = document.createElement("div");
+      cushion.className = "log-scroll-cushion";
+      cushion.setAttribute("aria-hidden", "true");
+      logEl.appendChild(cushion);
+      requestAnimationFrame(() => {
+        const entries = logEl.querySelectorAll(".entry");
+        const last = entries.length ? entries[entries.length - 1] : null;
+        logEl.scrollTop = last ? Math.max(0, last.offsetTop - 10) : 0;
+      });
     }
 
     function has(item) { return state.inventory.includes(item) || ((state.itemCounts||{})[item]||0) > 0; }
@@ -2265,8 +2325,18 @@
       ].filter(Boolean).length;
     }
 
+    function worldTimeLabel() {
+      const total=(18*60+30)+((state.turns||0)*8);
+      const minutes=((total%1440)+1440)%1440;
+      const hour24=Math.floor(minutes/60), mins=minutes%60;
+      const hour12=hour24%12||12, suffix=hour24>=12?"PM":"AM";
+      const phase=hour24>=18&&hour24<21?"Dusk":hour24>=21||hour24<2?"Long Night":hour24<5?"Deep Night":"False Dawn";
+      return `${phase} • ${hour12}:${String(mins).padStart(2,"0")} ${suffix}`;
+    }
+
     function updateStatus() {
       locationNameEl.textContent = currentSceneName();
+      if(worldTimeEl) worldTimeEl.textContent=worldTimeLabel();
       sceneLabelEl.textContent = currentSceneName();
       document.getElementById("skills-summary").textContent = `Lv ${state.level || 1} • ${(state.score || 0) % 10}/10 XP`;
       healthCountEl.textContent = `♥ ${state.health || 0}/${state.maxHealth || 20}`;
@@ -2392,7 +2462,7 @@
         state.flags.cellarDraftFound = true; award("find-secret-passage-clue",1);
         return addLog("You inspect the wine rack closely. A cold draft slips from behind it, and the floor shows long scrape marks. You could MOVE WINE RACK.","success");
       }
-      if (state.room === "secretTunnel" && /loose stone|tunnel floor|floor|search|tunnel/.test(target)) {
+      if (state.room === "secretAlcove" && /loose stone|tunnel floor|floor|search|alcove/.test(target)) {
         if (!state.flags.tunnelCoinsFound) {
           state.flags.tunnelCoinsFound = true;
           return addLog("You work the loose stone free and uncover seven old silver coins. You may now TAKE COINS.","success");
@@ -2422,9 +2492,11 @@
         "tavernCellar:wine rack": state.flags.cellarPassageRevealed ? "The wine rack has been dragged aside, exposing the hidden passage." : (state.flags.cellarDraftFound ? "The scrape marks and cold draft confirm that the wine rack can be moved." : "Dust lies thick on the bottles, but the floor beneath the rack is strangely clean."),
         "tavernCellar:barrels": "Most barrels hold ale or old rainwater. One bears a faded royal courier mark.",
         "tavernCellar:wall": "A narrow vertical seam cuts through the stonework behind the wine rack.",
-        "secretTunnel:blocked arch": "The far arch has collapsed. Fresh scratches on one stone suggest someone tried to clear it recently.",
-        "secretTunnel:loose stone": state.flags.tunnelCoinsTaken ? "The hiding place beneath the loose stone is empty." : (state.flags.tunnelCoinsFound ? "Seven old silver coins lie exposed beside the loose stone." : "One floor stone sits slightly higher than the others."),
-        "secretTunnel:wall lantern": "The iron lantern is fixed to the wall. Its small flame gives just enough light to reveal the blocked arch and the uneven floor.",
+        "secretTunnel:passage": "The hidden corridor slopes gently east. Dust lies undisturbed except for a narrow trail leading toward the colder alcove.",
+        "secretTunnel:lantern": "The lantern is fixed to an iron hook. Its flame leans east in a faint underground draft.",
+        "secretAlcove:blocked arch": "The far arch has collapsed. Fresh scratches on one stone suggest someone tried to clear it recently.",
+        "secretAlcove:loose stone": state.flags.tunnelCoinsTaken ? "The hiding place beneath the loose stone is empty." : (state.flags.tunnelCoinsFound ? "Seven old silver coins lie exposed beside the loose stone." : "One floor stone sits slightly higher than the others."),
+        "secretAlcove:lantern": "The iron lantern is fixed to the wall. Its small flame gives just enough light to study the rubble and uneven floor.",
         "chapel:altar": "The altar bears a carved sunburst and a nearly erased line: BRING THE WINGED COIN TO THE OPEN HAND.",
         "chapel:candles": "Most candles are cold. One burns with a pale blue flame that bends toward Saint Orla's statue.",
         "chapel:stained glass": "The cracked glass shows a fairy carrying a silver coin through a marsh toward Saint Orla.",
@@ -2469,6 +2541,9 @@
         "tavern:stairs": "The upper rooms are quiet. A hand-lettered sign says: NO CREDIT, NO CURSES, NO DRAGONS.",
         "forgeLane:forge": "Merrin's forge stands beside the lane, its stonework darkened by years of smoke. The public road continues beyond it toward the old eastern gate.",
         "eastRoad:eastern gate": "The old gate has collapsed inward. Thick living thorn has grown through the fallen stones, ending the road for now.",
+        "chapelRoad:chapel": "The chapel roof and cross appear between the yew branches farther west. The road continues through an older line of graves.",
+        "chapelRoad:roadside graves": "The roadside stones are older than Willowmere. Most names are gone, but every carving faces Saint Orla's chapel.",
+        "chapelYard:chapel": "Saint Orla's small stone chapel stands beyond the graves. Its open door glows with warm candlelight.",
         "chapelApproach:inside": "Beyond the open threshold, moonlight catches old pews and a cracked stained-glass window. You can ENTER CHAPEL.",
         "oldCemeteryPath:old graves": "These stones are older than the village records. Most names are gone, but several bear the same small sunburst carved beneath Saint Orla's name.",
         "oldCemeteryPath:collapsed wall": "The western cemetery road ends at the fallen wall. Beyond it, brambles and loose stone make the old route impassable.",
@@ -2494,6 +2569,7 @@
         "moonwell:well": state.flags.shardTaken ? "The water has gone still. Nothing else shines below." : "Far below, a crystal shard rests on a narrow stone ledge beyond your reach.",
         "moonwell:fairy": state.flags.fairyFreed ? "The fairy hovers above the flowers, free and radiant." : "The fairy's wings are pinned by thorny vines. She points frantically at the golden sigil you carry.",
         "castleRoad:thorns": "The vines recoil slightly from the sun sigil, as though remembering daylight.",
+        "castleGate:gate": "The iron portcullis is fused with thorn-black rust. Royal banners hang above it, and the crown-shaped socket sits at the center of the locking plate.",
         "castleGate:winch": "The chain is rusted tight. A crest-shaped lock suggests the winch once answered to the royal crown.",
         "castleGate:socket": "The crown-shaped hollow matches the crystal shard from the moonwell. Fine writing circles it: WHAT IS MENDED MUST BE CHOSEN AGAIN."
       };
@@ -2651,7 +2727,7 @@
         if (state.flags.shardTaken) return addLog("You already recovered the crown shard.");
         return addLog("The shard lies too deep in the well to reach by hand.", "warning");
       }
-      if (state.room === "secretTunnel" && /(?:old |silver )?coins?/.test(target)) {
+      if (state.room === "secretAlcove" && /(?:old |silver )?coins?/.test(target)) {
         if (!state.flags.tunnelCoinsFound) return addLog("You have not uncovered any coins here yet. Search the loose stone first.", "warning");
         if (state.flags.tunnelCoinsTaken) return addLog("You already collected the seven silver coins.");
         state.flags.tunnelCoinsTaken = true;
@@ -2789,9 +2865,9 @@
 
     function renderDiscoveredMap() {
       const nodes = [
-        ["oldCemeteryPath",1,2,"Old Cemetery"],["chapelYard",2,2,"Chapel Yard"],["square",3,2,"Willowmere"],["forgeLane",4,2,"Forge Lane"],["eastRoad",5,2,"East Road"],
+        ["oldCemeteryPath",0,2,"Old Cemetery"],["chapelYard",1,2,"Chapel Yard"],["chapelRoad",2,2,"Chapel Road"],["square",3,2,"Willowmere"],["forgeLane",4,2,"Forge Lane"],["eastRoad",5,2,"East Road"],
         ["chapelApproach",2,1,"Chapel Door"],["chapel",2,0,"Saint Orla"],["crypt",2,3,"Crypt"],
-        ["tavernApproach",3,1,"Tavern Road"],["tavern",3,0,"Briar Lantern"],["tavernCellar",4,0,"Tavern Cellar"],["secretTunnel",5,0,"Hidden Passage"],
+        ["tavernApproach",3,1,"Tavern Road"],["tavern",3,0,"Briar Lantern"],["tavernCellar",4,0,"Tavern Cellar"],["secretTunnel",5,0,"Hidden Passage"],["secretAlcove",6,0,"Collapsed Alcove"],
         ["forestEdge",4,1,"Whispering Path"],["willowTrail",5,1,"Willow Trail"],["flowerClearing",6,1,"Flower Clearing"],["fallenLog",7,1,"Log Crossing"],["whisperingForest",8,1,"Deep Forest"],["moonwell",9,0,"Moonwell"],["moonfen",9,1,"Ferry Landing"],
         ["hutExterior",6,2,"Across Moonfen"],["hutInterior",6,3,"Moonfen Hut"],["cottageApproach",5,2,"Witch's Cottage"],["cottage",5,3,"Cottage Interior"],["cellar",5,4,"Cottage Cellar"],
         ["castleRoad",3,3,"King's Road"],["castleGate",3,4,"Ironthorn Gate"]
@@ -2849,6 +2925,7 @@
       if (state.room === "square") return ["LOOK EAST", "WALK TO FORGE", "WALK TO TAVERN", "WALK TO APOTHECARY"];
       if (state.room === "forgeLane") return ["GO EAST", "APPROACH FORGE", "GO WEST", "LOOK EAST"];
       if (state.room === "eastRoad") return ["GO WEST", "GO SOUTH", "GO EAST", "LOOK AT EASTERN GATE"];
+      if (state.room === "chapelRoad") return ["GO WEST", "GO EAST", "LOOK AT CHAPEL", "LOOK AT ROADSIDE GRAVES"];
       if (state.room === "chapelYard") return ["APPROACH CHAPEL", "GO WEST", "GO EAST", "LOOK AT GRAVES"];
       if (state.room === "chapelApproach") return ["ENTER CHAPEL", "GO SOUTH", "LOOK INSIDE", "GO NORTH"];
       if (state.room === "oldCemeteryPath") return ["GO EAST", "GO WEST", "LOOK AT OLD GRAVES", "LOOK AT COLLAPSED WALL"];
@@ -2858,7 +2935,8 @@
       if (state.room === "apothecary") return ["TALK TO ELOWEN", "SHOW WARES", "GO IN BACK ROOM", "GO OUTSIDE"];
       if (state.room === "apothecaryBackRoom") return ["LOOK", "LOOK AT RECIPE CHEST", "LOOK AT BREWING TABLE", "GO SOUTH"];
       if (state.room === "tavernCellar") return ["LOOK AT WINE RACK", "MOVE WINE RACK", "SEARCH CRATES", "GO UP"];
-      if (state.room === "secretTunnel") return ["SEARCH TUNNEL", "LOOK AT BLOCKED ARCH", "GO WEST"];
+      if (state.room === "secretTunnel") return ["GO EAST", "GO WEST", "LOOK AT PASSAGE", "LOOK AT LANTERN"];
+      if (state.room === "secretAlcove") return ["SEARCH LOOSE STONE", "LOOK AT BLOCKED ARCH", "GO WEST"];
       if (state.room === "willowTrail") return ["LOOK AT DEER", "LOOK AT OWL", "TAKE BLUEBELL SPRIG", "GO NORTH"];
       if (state.room === "flowerClearing") return ["LOOK AT RABBIT", "TAKE MOONWORT", "LOOK AT FLOWERS", "GO NORTH"];
       if (state.room === "fallenLog") return ["LOOK AT FALLEN LOG", "LOOK AT TRACKS", "LISTEN TO STREAM", "GO NORTH"];
@@ -3012,7 +3090,7 @@
       if (/^(?:walk to|go to|head to|approach|visit) (?:the )?apothecary(?: door)?$/.test(command) && state.room === "square") { award("approach-apothecary",1); await transitionToRoom("apothecaryApproach",{note:"You cross the square toward Willowmere Apothecary."}); return finishTurn(); }
       if (/^go apothecary(?: door)?$/.test(command) && state.room === "square") { award("approach-apothecary",1); await transitionToRoom("apothecaryApproach",{note:"You cross the square toward Willowmere Apothecary."}); return finishTurn(); }
       if (/^go (?:forge|blacksmith|blacksmith shop)$/.test(command) && state.room === "square") { await move("east"); return finishTurn(); }
-      if (/^go (?:chapel|church)$/.test(command) && state.room === "square") { await move("west"); return finishTurn(); }
+      if (/^go (?:chapel|church)$/.test(command) && state.room === "square") { await transitionToRoom("chapelRoad",{note:"You take the lantern-lit western road toward Saint Orla’s chapel."}); return finishTurn(); }
       if (/^(?:approach|walk to|go to) (?:the )?forge$/.test(command) && state.room === "forgeLane") { await transitionToRoom("forgeDoor",{note:"You step off the public lane and approach Merrin's forge door."}); return finishTurn(); }
       if (/^(?:approach|walk to|go to) (?:the )?chapel$/.test(command) && state.room === "chapelYard") { await transitionToRoom("chapelApproach",{note:"You follow the graveyard path to Saint Orla's open doorway."}); return finishTurn(); }
       if (/^go (?:castle|castle road|king road)$/.test(command) && state.room === "square") { await move("south"); return finishTurn(); }
@@ -3191,10 +3269,12 @@
       if (state.room === "moonfen" && has("ferry crank") && !state.flags.ferryRepaired) actions.unshift("use ferry crank on winch");
       if (state.room === "moonfen" && state.flags.ferryRepaired) actions.unshift("cross ferry", "go east");
       if (state.room === "hutInterior" && !state.flags.coinTaken) actions.unshift("take fairy coin");
-      if (state.room === "secretTunnel") {
+      if (state.room === "secretTunnel") actions.unshift("go east", "go west", "look at passage");
+      if (state.room === "secretAlcove") {
         if (!state.flags.tunnelCoinsFound) actions.unshift("search loose stone");
         else if (!state.flags.tunnelCoinsTaken) actions.unshift("take coins");
         else removeAction("search loose stone");
+        actions.unshift("go west", "look at blocked arch");
       }
 
       // Outdoor scenes keep the four cardinal directions visible. A direction may
@@ -3411,6 +3491,12 @@
           else add(hotspot.command);
           break;
         case "secretTunnel":
+          if (/passage ahead|passage/.test(labelKey)) add("look at passage", "go east");
+          else if (/cellar opening|cellar/.test(labelKey)) add("go west");
+          else if (/lantern/.test(labelKey)) add("look at lantern");
+          else add(hotspot.command);
+          break;
+        case "secretAlcove":
           if (/blocked arch/.test(labelKey)) add("look at blocked arch");
           else if (/loose stone|tunnel floor|floor/.test(labelKey)) {
             add("look at loose stone");
@@ -3429,7 +3515,23 @@
           else add(hotspot.command);
           break;
         case "blacksmith":
-          if (/merrin|blacksmith|smith/.test(labelKey)) add("talk to blacksmith", "browse forge wares");
+          if (/merrin|blacksmith|smith/.test(labelKey)) add("talk to blacksmith", "browse forge wares", "leave forge");
+          else add(hotspot.command);
+          break;
+        case "chapelRoad":
+          if (/chapel road|chapel/.test(labelKey)) add("look at chapel", "go west");
+          else if (/willowmere/.test(labelKey)) add("go east");
+          else if (/grave/.test(labelKey)) add("look at roadside graves");
+          else add(hotspot.command);
+          break;
+        case "chapelYard":
+          if (/chapel/.test(labelKey)) add("look at chapel", "approach chapel");
+          else if (/grave/.test(labelKey)) add("look at graves");
+          else add(hotspot.command);
+          break;
+        case "chapelApproach":
+          if (/open chapel door|chapel door|door|chapel/.test(labelKey)) add("look inside", "enter chapel");
+          else if (/chapel yard|yard/.test(labelKey)) add("go south");
           else add(hotspot.command);
           break;
         case "cottageApproach":
@@ -3497,10 +3599,14 @@
           } else add(hotspot.command);
           break;
         case "castleGate":
-          if (/gate|socket/.test(labelKey)) {
+          if (/gate/.test(labelKey)) {
+            add("look at gate", "look at socket");
+            if (has("crown shard")) add("use crown shard on gate");
+          } else if (/socket/.test(labelKey)) {
             add("look at socket");
             if (has("crown shard")) add("use crown shard on gate");
-          } else add(hotspot.command);
+          } else if (/winch/.test(labelKey)) add("look at winch");
+          else add(hotspot.command);
           break;
         case "forestEdge":
           if (/tree hollow|tree/.test(labelKey)) {
@@ -3523,7 +3629,7 @@
 
     function isCriticalAction(action) {
       const a=normalize(action);
-      return /^(enter |open (?:door|cellar hatch|trapdoor|reliquary)|take |repair ferry|cross ferry|use (?:fairy coin|sun sigil|iron hook|silver token|silver key|ferry crank)|move wine rack|go down|light lantern)/.test(a);
+      return /^(enter |open (?:door|cellar hatch|trapdoor|reliquary)|take |repair ferry|cross ferry|use (?:fairy coin|sun sigil|iron hook|silver token|silver key|ferry crank)|move wine rack|go down|go outside|leave |approach chapel|look at gate|light lantern)/.test(a);
     }
     function actionCategory(action) {
       const a=normalize(action);
@@ -3608,12 +3714,28 @@
       sceneNavOverlayEl.appendChild(tools);
     }
 
+    function defaultSceneActions() {
+      const preferred = {
+        blacksmith:["leave forge","talk to blacksmith","browse forge wares"],
+        chapelRoad:["go west","go east","look at chapel"],
+        chapelYard:["approach chapel","go east","go west"],
+        chapelApproach:["enter chapel","look inside","go south"],
+        castleGate:["look at gate","look at winch","look at socket","go north"],
+        secretTunnel:["go east","go west","look at passage"],
+        secretAlcove:[state.flags.tunnelCoinsFound&&!state.flags.tunnelCoinsTaken?"take coins":"search loose stone","look at blocked arch","go west"]
+      };
+      const source=preferred[state.room] || currentActions().filter(a=>isCriticalAction(a));
+      const seen=new Set();
+      return source.filter(Boolean).filter(action=>{ const key=canonicalActionKey(action); if(seen.has(key))return false; seen.add(key); return true; }).slice(0,4);
+    }
+
     function renderQuickActions() {
       quickActionsEl.innerHTML="";
       if(selectedHotspotContext&&(selectedHotspotContext.room!==state.room||selectedHotspotContext.view!==currentView())) selectedHotspotContext=null;
 
       const selectedActions=selectedHotspotContext?contextualActionsForHotspot(selectedHotspotContext.hotspot):[];
-      const displayCount=selectedHotspotContext?selectedActions.length:0;
+      const defaultActions=selectedHotspotContext?[]:defaultSceneActions();
+      const displayCount=selectedHotspotContext?selectedActions.length:defaultActions.length;
       actionsToggleEl.textContent=actionsPanelExpanded?"Hide Actions ▲":(displayCount?`Show Actions (${displayCount}) ▼`:"Show Actions ▼");
       actionsToggleEl.setAttribute("aria-expanded",String(actionsPanelExpanded));
       quickActionsEl.classList.toggle("is-hidden",!actionsPanelExpanded);
@@ -3629,8 +3751,13 @@
         note.textContent="Tap an action below, or use the scene arrows to look and move."; quickActionsEl.appendChild(note);
         selectedActions.forEach(a=>appendActionButton(a,isCriticalAction(a)?"critical-action":""));
       } else {
+        const defaults=defaultActions;
+        if(defaults.length){
+          const label=document.createElement("div"); label.className="quick-category-label"; label.textContent="Available actions"; quickActionsEl.appendChild(label);
+          defaults.forEach(a=>appendActionButton(a,isCriticalAction(a)?"critical-action":""));
+        }
         const hint=document.createElement("div"); hint.className="scene-discovery-hint";
-        hint.textContent="Tap a visible person or object in the scene to reveal actions.";
+        hint.textContent=defaults.length?"Tap another visible person or object for more choices.":"Tap a visible person or object in the scene to reveal actions.";
         quickActionsEl.appendChild(hint);
       }
     }
@@ -3675,7 +3802,7 @@
         if (rack) { rack.x = 20; rack.y = 46; rack.w = 23; rack.h = 39; }
         spots.push({ label: "Hidden Passage", command: "enter hidden passage", x: 38, y: 48, w: 22, h: 46 });
       }
-      if (state.room === "secretTunnel") {
+      if (state.room === "secretAlcove") {
         const stone = spots.find(s => s.label === "Loose Stone");
         if (stone) stone.command = state.flags.tunnelCoinsTaken ? "look at loose stone" : (state.flags.tunnelCoinsFound ? "take coins" : "search loose stone");
       }
@@ -3731,9 +3858,16 @@
       const shell = document.querySelector(".scene-shell");
       const config = directionalConfig();
       shell.classList.toggle("directional-room", !!config);
+      const longNightArtworkRooms = new Set(["square","forgeLane","eastRoad","forgeDoor","apothecaryApproach","apothecaryDoor","willowTrail","flowerClearing","fallenLog","cottageApproach"]);
+      shell.classList.toggle("long-night-filter", longNightArtworkRooms.has(state.room));
       let imagePath = config ? (config.images[currentView()] || config.images.center) : sceneImageMap[state.room];
       if (state.room === "tavernCellar" && state.flags.cellarPassageRevealed) {
         imagePath = "assets/scenes/tavern-cellar-passage.webp";
+      }
+      if (state.room === "secretAlcove") {
+        imagePath = state.flags.tunnelCoinsFound && !state.flags.tunnelCoinsTaken
+          ? "assets/scenes/hidden-alcove-coins.webp"
+          : "assets/scenes/hidden-alcove.webp";
       }
       const token = ++sceneRenderToken;
       if (!imagePath) {
@@ -3801,6 +3935,7 @@
     function preloadImportantScenes() {
       const paths = new Set(Object.values(sceneImageMap));
       paths.add("assets/scenes/tavern-cellar-passage.webp");
+      paths.add("assets/scenes/hidden-alcove-coins.webp");
       Object.values(directionalRooms).forEach(config=>Object.values(config.images).forEach(path=>paths.add(path)));
       paths.forEach(path=>preloadScene(path).catch(()=>{}));
     }
@@ -4087,6 +4222,7 @@
       state.visited = Array.isArray(state.visited) ? state.visited : [state.room || "square"];
       state.flags = Object.assign({}, defaults.flags, state.flags || {});
       if (state.flags.tunnelCoinsTaken) state.flags.tunnelCoinsFound = true;
+      if (state.room === "secretTunnel" && state.flags.tunnelCoinsFound) state.room = "secretAlcove";
       if (!state.flags.classSkillStartApplied && state.player && state.player.classKey) {
         Object.entries(classSkillStarts[state.player.classKey]||{}).forEach(([name,level])=>{state.skills[name]=Math.max(state.skills[name]||0,level);});
         state.flags.classSkillStartApplied=true;
@@ -4103,7 +4239,7 @@
     function boot() {
       updateMusicButton();
       const vt = document.getElementById("version-tag");
-      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Interaction Contract & Audit Pass`;
+      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Scene Flow & Interaction Repair`;
       const saved = storageGet(SAVE_KEY);
       if (saved) {
         try { state = JSON.parse(saved); migrateState(); restoreDynamicExits(); }
