@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-title" content="Briar Crown" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <title>The Briar Crown — Mobile Adventure v1.6.9.2</title>
+  <title>The Briar Crown — Mobile Adventure v1.6.9.3</title>
   <style>
 
     :root {
@@ -759,7 +759,6 @@
 
 
     /* v1.6.9.2 compact overlay, subtle fire, and flexible story layout */
-    .scene-shell, .story-panel, .controls { overflow-anchor: none; }
     .story-panel {
       flex: 1 0 auto;
       min-height: 235px;
@@ -875,6 +874,65 @@
       .scene-nav-pad { grid-template-columns:repeat(3,24px); grid-template-rows:repeat(3,24px); }
     }
 
+
+    /* v1.6.9.3 independent story scrolling, refined controls, and natural fire */
+    html, body { height: 100%; overflow: hidden; }
+    .app { height: 100dvh; min-height: 0; overflow: hidden; }
+    .game-header, .scene-shell, .controls { flex: 0 0 auto; }
+    .scene-shell { flex-shrink: 1; }
+    .story-panel {
+      flex: 1 1 auto;
+      min-height: 150px !important;
+      overflow: hidden;
+      grid-template-rows: auto minmax(0,1fr);
+    }
+    #log {
+      min-height: 0 !important;
+      max-height: none !important;
+      height: 100%;
+      overflow-y: auto !important;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      touch-action: pan-y;
+      overflow-anchor: none;
+    }
+    .controls { position: relative; bottom: auto; margin-top: 6px; }
+    .scene-nav-overlay { width: 98px !important; right: 15px !important; bottom: 9px !important; }
+    .scene-nav-pad { grid-template-columns:repeat(3,28px) !important; grid-template-rows:repeat(3,28px) !important; gap:3px !important; }
+    .scene-nav-pad button { font-size:17px !important; border-radius:7px !important; }
+    .scene-nav-tools { grid-template-columns:1fr 1fr 27px !important; gap:3px !important; }
+    .scene-nav-tools button { min-height:26px !important; font-size:9px !important; }
+    .scene-nav-tools .scene-nav-toggle { width:27px !important; height:26px !important; }
+    .ambient-fireplace {
+      opacity:.46 !important;
+      filter:saturate(1.04) brightness(1.02) !important;
+      animation:fireBreath 1.7s ease-in-out infinite alternate !important;
+    }
+    .ambient-fireplace .fire-glow {
+      inset:-32% !important;
+      background:radial-gradient(circle,rgba(255,218,115,.15) 0 20%,rgba(255,132,28,.07) 40%,transparent 70%) !important;
+      animation:gentleGlow 1.35s ease-in-out infinite alternate !important;
+    }
+    .ambient-fireplace .flame {
+      bottom:8% !important;
+      width:24% !important;
+      background:linear-gradient(180deg,rgba(255,247,177,.48),rgba(255,169,48,.34) 50%,rgba(214,62,9,.10) 84%,transparent) !important;
+      filter:blur(.12px) drop-shadow(0 0 2px rgba(255,148,34,.22)) !important;
+      animation:gentleFlame .76s ease-in-out infinite alternate !important;
+    }
+    .ambient-fireplace .flame.one { left:7% !important; height:48% !important; animation-duration:.66s !important; }
+    .ambient-fireplace .flame.two { left:38% !important; height:62% !important; animation-duration:.87s !important; }
+    .ambient-fireplace .flame.three { left:69% !important; height:44% !important; animation-duration:.58s !important; }
+    .ambient-fireplace .ember { width:2.5% !important; opacity:.18 !important; }
+    @keyframes gentleGlow { from{opacity:.45;transform:scale(.985)} to{opacity:.72;transform:scale(1.02)} }
+    @keyframes gentleFlame { from{opacity:.38;transform:translateY(1%) skewX(-2deg) scale(.98,.95)} to{opacity:.60;transform:translateY(-3%) skewX(2deg) scale(1.01,1.07)} }
+    @keyframes fireBreath { from{transform:translate(-50%,-50%)} to{transform:translate(-50.2%,-49.8%)} }
+    @media (max-width:470px) {
+      .scene-nav-overlay { width:96px !important; right:13px !important; bottom:8px !important; }
+      .scene-nav-pad { grid-template-columns:repeat(3,27px) !important; grid-template-rows:repeat(3,27px) !important; }
+      .story-panel { min-height:145px !important; }
+    }
+
   </style>
 </head>
 <body>
@@ -902,7 +960,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.6.9.2 • Compact Overlay & Layout Stability</small>
+        <small id="version-tag">Version 1.6.9.3 • Story Scrolling, Scene Controls & Exploration</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -982,7 +1040,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.6.9.2";
+    const BUILD_VERSION = "1.6.9.3";
 
     const itemInfo = {
       "iron hook": "A blacksmith's hook with a long, slightly bent handle.",
@@ -999,6 +1057,8 @@
       "spell crystal": "A violet crystal that grows warm near hidden magic.",
       "lockpicks": "A compact roll of slender picks and tension tools.",
       "healing herbs": "A fragrant bundle of leaves used to mend minor wounds.",
+      "moonwort": "A pale forest flower whose leaves gleam softly in moonlight.",
+      "bluebell sprig": "A fragrant sprig of bluebells gathered along the Willow Trail.",
       "small lute": "A travel-worn lute with a clear, bright voice.",
       "iron dagger": "A balanced iron dagger suited to close work.",
       "short sword": "A dependable short sword made in Merrin's forge.",
@@ -1213,8 +1273,8 @@
       },
       forestEdge: {
         name: "The Whispering Path",
-        description: "An ancient oak leans over the trail, its roots forming a dark arch. A carved sign points east toward a crooked cottage. Something silver glints inside a hollow in the trunk. The road back to the Briar Lantern lies south, and the deeper forest waits north.",
-        exits: { north: "whisperingForest", east: "cottageApproach", south: "tavernApproach" },
+        description: "An ancient oak leans over the trail, its roots forming a dark arch. A carved sign points east toward a crooked cottage. Something silver glints inside a hollow in the trunk. The road back to the Briar Lantern lies south, and the Willow Trail winds north into the deeper forest.",
+        exits: { north: "willowTrail", east: "cottageApproach", south: "tavernApproach" },
         actions: ["look at tree", "take silver token", "go east"],
         hotspots: [
           { label: "Tree Hollow", command: "look at tree", x: 76, y: 42, w: 20, h: 24 },
@@ -1257,6 +1317,41 @@
           { label: "Shelves", command: "search shelves", x: 23, y: 38, w: 31, h: 43 }
         ]
       },
+      willowTrail: {
+        name: "Willow Trail",
+        description: "The path narrows beneath silver-barked willows. A young deer watches from the ferns, bluebells grow beside the stones, and an owl studies you from a low branch. The Whispering Path lies south; a flower-filled clearing opens north.",
+        exits: { south: "forestEdge", north: "flowerClearing" },
+        actions: ["look at deer", "look at owl", "take bluebell sprig", "go north", "go south"],
+        hotspots: [
+          { label: "Young Deer", command: "look at deer", x: 84, y: 58, w: 26, h: 40 },
+          { label: "Bluebells", command: "take bluebell sprig", x: 24, y: 72, w: 34, h: 28 },
+          { label: "Owl", command: "look at owl", x: 82, y: 20, w: 20, h: 24 },
+          { label: "Northern Trail", command: "go north", x: 55, y: 24, w: 28, h: 28 }
+        ]
+      },
+      flowerClearing: {
+        name: "Flower Clearing",
+        description: "Wildflowers spill across a quiet clearing. A white rabbit pauses in the path, and pale moonwort blooms among the bluebells. The Willow Trail lies south; the sound of running water comes from the north.",
+        exits: { south: "willowTrail", north: "fallenLog" },
+        actions: ["look at rabbit", "take moonwort", "look at flowers", "go north", "go south"],
+        hotspots: [
+          { label: "White Rabbit", command: "look at rabbit", x: 58, y: 58, w: 26, h: 32 },
+          { label: "Moonwort", command: "take moonwort", x: 25, y: 72, w: 36, h: 28 },
+          { label: "Wildflowers", command: "look at flowers", x: 72, y: 72, w: 42, h: 30 },
+          { label: "Stream Path", command: "go north", x: 76, y: 20, w: 28, h: 28 }
+        ]
+      },
+      fallenLog: {
+        name: "Fallen Log Crossing",
+        description: "A moss-covered tree has fallen across a narrow stream. The water is shallow but quick, and tiny paw prints cross the log toward the deeper forest. The flower clearing lies south; the Whispering Forest waits north.",
+        exits: { south: "flowerClearing", north: "whisperingForest" },
+        actions: ["look at fallen log", "look at tracks", "listen to stream", "go north", "go south"],
+        hotspots: [
+          { label: "Fallen Log", command: "look at fallen log", x: 52, y: 45, w: 72, h: 45 },
+          { label: "Animal Tracks", command: "look at tracks", x: 72, y: 70, w: 28, h: 22 },
+          { label: "Stream", command: "listen to stream", x: 50, y: 78, w: 65, h: 26 }
+        ]
+      },
       whisperingForest: {
         name: "The Whispering Forest",
         description: "Your lantern pushes back the living dark. Pale moths drift between the trunks, and every path seems to whisper your name. A silver glow waits farther north, while marsh lights shimmer through the trees to the east.",
@@ -1274,7 +1369,7 @@
         exits: { west: "whisperingForest", north: "moonwell" },
         actions: ["look at hut", "look at ferry", "look at winch", "look across water", "take moonfen reed", "go north"],
         hotspots: [
-          { label: "Hut Across Water", command: "look at hut", x: 86, y: 36, w: 22, h: 28 },
+          { label: "Hut Across Water", command: "look at hut", x: 73, y: 35, w: 52, h: 58 },
           { label: "Rope Ferry", command: "look at ferry", x: 66, y: 70, w: 35, h: 22 },
           { label: "Ferry Winch", command: "look at winch", x: 46, y: 61, w: 20, h: 25 },
           { label: "Moonfen Reeds", command: "take moonfen reed", x: 20, y: 73, w: 26, h: 24 },
@@ -1437,6 +1532,9 @@
       castleRoad: "assets/scenes/kings-road.webp",
       tavern: "assets/scenes/tavern.webp",
       forestEdge: "assets/scenes/forest.webp",
+      willowTrail: "assets/scenes/willow-trail.webp",
+      flowerClearing: "assets/scenes/flower-clearing.webp",
+      fallenLog: "assets/scenes/fallen-log.webp",
       whisperingForest: "assets/scenes/forest.webp",
       cottageApproach: "assets/scenes/cottage.webp",
       cottage: "assets/scenes/cottage-interior.webp",
@@ -1444,14 +1542,14 @@
       moonfen: "assets/scenes/ferry-landing.webp",
       hutExterior: "assets/scenes/hut.webp",
       hutInterior: "assets/scenes/hut-interior.webp",
-      moonwell: "assets/scenes/moonwell.webp",
+      moonwell: "assets/scenes/moonwell-v2.webp",
       tavernCellar: "assets/scenes/tavern-cellar-v2.webp",
       secretTunnel: "assets/scenes/secret-tunnel.webp",
       crypt: "assets/scenes/crypt.webp",
       castleGate: "assets/scenes/gate.webp"
     };
 
-    const sceneTourRooms = ["square", "forgeLane", "eastRoad", "forgeDoor", "blacksmith", "chapelYard", "chapelApproach", "oldCemeteryPath", "chapel", "castleRoad", "tavernApproach", "tavernDoor", "tavern", "apothecaryApproach", "apothecaryDoor", "apothecary", "apothecaryBackRoom", "forestEdge", "cottageApproach", "cottage", "cellar", "moonfen", "hutExterior", "hutInterior", "moonwell", "tavernCellar", "secretTunnel", "crypt", "castleGate"];
+    const sceneTourRooms = ["square", "forgeLane", "eastRoad", "forgeDoor", "blacksmith", "chapelYard", "chapelApproach", "oldCemeteryPath", "chapel", "castleRoad", "tavernApproach", "tavernDoor", "tavern", "apothecaryApproach", "apothecaryDoor", "apothecary", "apothecaryBackRoom", "forestEdge", "willowTrail", "flowerClearing", "fallenLog", "whisperingForest", "cottageApproach", "cottage", "cellar", "moonfen", "hutExterior", "hutInterior", "moonwell", "tavernCellar", "secretTunnel", "crypt", "castleGate"];
 
     const apothecaryViewImages = {
       center: "assets/scenes/apothecary-room.webp",
@@ -1676,7 +1774,7 @@
     const outdoorRooms = new Set([
       "square", "tavernApproach", "apothecaryApproach", "forgeLane", "eastRoad",
       "forgeDoor", "tavernDoor", "apothecaryDoor", "chapelYard", "chapelApproach",
-      "oldCemeteryPath", "forestEdge", "whisperingForest", "cottageApproach",
+      "oldCemeteryPath", "forestEdge", "willowTrail", "flowerClearing", "fallenLog", "whisperingForest", "cottageApproach",
       "moonfen", "hutExterior", "moonwell", "castleRoad", "castleGate"
     ]);
 
@@ -2191,6 +2289,15 @@
       const key = `${state.room}:${target}`;
       const responses = {
 
+        "willowTrail:deer": "The deer watches without fear, then steps quietly into the ferns. Its tracks point toward the flower clearing.",
+        "willowTrail:owl": "The owl blinks once and turns its head toward the northern trail, as if urging you onward.",
+        "willowTrail:bluebells": state.flags.bluebellsTaken ? "Only a few bluebells remain beside the path." : "The bluebells are fresh and fragrant. A careful traveler could TAKE BLUEBELL SPRIG.",
+        "flowerClearing:rabbit": "The rabbit noses the earth near a patch of pale moonwort, then hops a few steps toward the stream.",
+        "flowerClearing:flowers": "Bluebells, foxglove, and moonwort fill the clearing. The moonwort leaves shine faintly despite the daylight.",
+        "flowerClearing:moonwort": state.flags.moonwortTaken ? "You already gathered the strongest moonwort here." : "The pale moonwort looks useful. You could TAKE MOONWORT.",
+        "fallenLog:fallen log": "The mossy trunk is broad and stable enough to cross. Small claw marks score the bark.",
+        "fallenLog:tracks": "The tiny tracks belong to a fox. They cross the log and vanish into the Whispering Forest.",
+        "fallenLog:stream": "Cold water runs over black stones. Beneath the rush you hear a distant bell from the Moonfen.",
         "tavernCellar:wine rack": state.flags.cellarPassageRevealed ? "The wine rack has been dragged aside, exposing the hidden passage." : (state.flags.cellarDraftFound ? "The scrape marks and cold draft confirm that the wine rack can be moved." : "Dust lies thick on the bottles, but the floor beneath the rack is strangely clean."),
         "tavernCellar:barrels": "Most barrels hold ale or old rainwater. One bears a faded royal courier mark.",
         "tavernCellar:wall": "A narrow vertical seam cuts through the stonework behind the wine rack.",
@@ -2369,6 +2476,16 @@
     }
 
     function takeTarget(target) {
+      if (state.room === "willowTrail" && /(bluebell|bluebell sprig|flowers)/.test(target)) {
+        if (state.flags.bluebellsTaken) return addLog("You already gathered a bluebell sprig here.");
+        state.flags.bluebellsTaken=true; addItem("bluebell sprig",1); useSkill("Survival"); award("gather-bluebells",1);
+        addLog("You gather a fragrant sprig of bluebells without disturbing the roots.","success"); return;
+      }
+      if (state.room === "flowerClearing" && /(moonwort|flower)/.test(target)) {
+        if (state.flags.moonwortTaken) return addLog("You already gathered the strongest moonwort in the clearing.");
+        state.flags.moonwortTaken=true; addItem("moonwort",1); useSkill("Survival"); award("gather-moonwort",2);
+        addLog("You carefully gather a pale moonwort flower. Its leaves feel cool even in your hand.","success"); return;
+      }
       if (state.room === "moonfen" && /(moonfen reed|reed|reeds)/.test(target)) {
         if (has("moonfen reed")) return addLog("You already gathered a moonfen reed.");
         addItem("moonfen reed",1); useSkill("Survival"); addLog("You cut a silver-green moonfen reed and place it carefully in your backpack.","success"); award("gather-moonfen-reed",2); return;
@@ -2544,7 +2661,7 @@
         ["oldCemeteryPath",1,2,"Old Cemetery"],["chapelYard",2,2,"Chapel Yard"],["square",3,2,"Willowmere"],["forgeLane",4,2,"Forge Lane"],["eastRoad",5,2,"East Road"],
         ["chapelApproach",2,1,"Chapel Door"],["chapel",2,0,"Saint Orla"],["crypt",2,3,"Crypt"],
         ["tavernApproach",3,1,"Tavern Road"],["tavern",3,0,"Briar Lantern"],["tavernCellar",4,0,"Tavern Cellar"],["secretTunnel",5,0,"Hidden Passage"],
-        ["forestEdge",4,1,"Whispering Path"],["whisperingForest",5,1,"Deep Forest"],["moonwell",6,0,"Moonwell"],["moonfen",6,1,"Ferry Landing"],
+        ["forestEdge",4,1,"Whispering Path"],["willowTrail",5,1,"Willow Trail"],["flowerClearing",6,1,"Flower Clearing"],["fallenLog",7,1,"Log Crossing"],["whisperingForest",8,1,"Deep Forest"],["moonwell",9,0,"Moonwell"],["moonfen",9,1,"Ferry Landing"],
         ["hutExterior",6,2,"Across Moonfen"],["hutInterior",6,3,"Moonfen Hut"],["cottageApproach",5,2,"Witch's Cottage"],["cottage",5,3,"Cottage Interior"],["cellar",5,4,"Cottage Cellar"],
         ["castleRoad",3,3,"King's Road"],["castleGate",3,4,"Ironthorn Gate"]
       ];
@@ -2611,6 +2728,9 @@
       if (state.room === "apothecaryBackRoom") return ["LOOK", "LOOK AT RECIPE CHEST", "LOOK AT BREWING TABLE", "GO SOUTH"];
       if (state.room === "tavernCellar") return ["LOOK AT WINE RACK", "MOVE WINE RACK", "SEARCH CRATES", "GO UP"];
       if (state.room === "secretTunnel") return ["SEARCH TUNNEL", "LOOK AT BLOCKED ARCH", "GO WEST"];
+      if (state.room === "willowTrail") return ["LOOK AT DEER", "LOOK AT OWL", "TAKE BLUEBELL SPRIG", "GO NORTH"];
+      if (state.room === "flowerClearing") return ["LOOK AT RABBIT", "TAKE MOONWORT", "LOOK AT FLOWERS", "GO NORTH"];
+      if (state.room === "fallenLog") return ["LOOK AT FALLEN LOG", "LOOK AT TRACKS", "LISTEN TO STREAM", "GO NORTH"];
       if (state.room === "moonfen") return ["LOOK AT FERRY", "LOOK AT WINCH", "USE FERRY CRANK ON WINCH", "GO WEST"];
       if (state.room === "hutExterior") return ["ENTER HUT", "LOOK AT DOCK", "GO WEST"];
       if (state.room === "hutInterior") return ["TAKE FAIRY COIN", "READ DIARY", "LOOK AT MAP", "GO WEST"];
@@ -2645,7 +2765,7 @@
       apothecary:{title:"Elowen's Wares",merchant:"Elowen",items:apothecaryShop},
       blacksmith:{title:"Merrin's Forge",merchant:"Merrin",items:forgeShop}
     };
-    const sellPrices = { "healing herb":8, "clover":4, "dried moss":3, "moonfen reed":12 };
+    const sellPrices = { "healing herb":8, "clover":4, "dried moss":3, "moonfen reed":12, "moonwort":10, "bluebell sprig":5 };
     let activeShopKey="apothecary", activeShopTab="buy";
     function elowenPrice(item) { const base=apothecaryShop[item].price; const rep=(state.reputation&&state.reputation.Elowen)||0; const discount=(state.shopFlags&&state.shopFlags.elowenDiscount)||rep>=40; return Math.max(1, Math.round(base*(discount?0.8:1))); }
     function shopPrice(shopKey,item) { return shopKey==="apothecary"?elowenPrice(item):(shopCatalogs[shopKey].items[item]||{}).price; }
@@ -2817,6 +2937,7 @@
 
       const movement = command.match(/^(?:go |walk |move |travel )?(north|south|east|west|up|down|n|s|e|w|u|d)$/);
       if (movement) { await move(movement[1]); return finishTurn(); }
+      if (/^(?:listen to|listen at) (?:the )?stream$/.test(command) && state.room === "fallenLog") { state.turns++; lookAt("stream"); return finishTurn(); }
 
       if ((match = command.match(/^(?:talk to|talk|speak to|speak with|ask) (.+)$/))) { state.turns++; talkTo(rememberPerson(match[1])); return finishTurn(); }
       if (/^look inside$/.test(command) && state.room === "forgeDoor") { state.turns++; lookAt(rememberObject("window")); return finishTurn(); }
@@ -3056,7 +3177,6 @@
       const previousContext = selectedHotspotContext;
       const previousRoom = state.room;
       const previousView = currentView();
-      const previousWindowScroll = window.scrollY;
       const compassCommand = /^(?:look|face|turn)(?: toward| towards| to)? (?:north|east|south|west)$/.test(command) || /^(?:look around|look)$/.test(command);
       const movementCommand = /^(?:go |walk |enter|leave|approach|cross)/.test(command);
 
@@ -3067,7 +3187,6 @@
 
       if (compassCommand && state.room === previousRoom) {
         renderQuickActions();
-        requestAnimationFrame(()=>window.scrollTo(0, previousWindowScroll));
         return;
       }
 
@@ -3328,9 +3447,9 @@
       ambientLayerEl.replaceChildren();
       if (!ambientMotionEnabled) return;
       const presets = {
-        "tavern:center": {x:14.2,y:50.8,w:9.4,h:13.5},
-        "tavern:west": {x:16.3,y:43.8,w:10.2,h:14.8},
-        "tavern:south": {x:14.2,y:50.8,w:9.4,h:13.5}
+        "tavern:center": {x:17.0,y:50.0,w:14.5,h:19.0},
+        "tavern:west": {x:18.0,y:43.8,w:15.5,h:20.0},
+        "tavern:south": {x:17.0,y:50.0,w:14.5,h:19.0}
       };
       const preset = presets[`${state.room}:${currentView()}`];
       if (!preset) return;
@@ -3739,7 +3858,7 @@
       updateMusicButton();
       updateAmbientButton();
       const vt = document.getElementById("version-tag");
-      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Header Fit, Minimal Navigation & Ambient Motion`;
+      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Story Scrolling, Scene Controls & Exploration`;
       const saved = storageGet(SAVE_KEY);
       if (saved) {
         try { state = JSON.parse(saved); migrateState(); restoreDynamicExits(); }
