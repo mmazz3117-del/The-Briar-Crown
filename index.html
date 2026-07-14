@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-title" content="Briar Crown" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <title>The Briar Crown — Mobile Adventure v1.6.8.9</title>
+  <title>The Briar Crown — Mobile Adventure v1.6.9.2</title>
   <style>
 
     :root {
@@ -756,6 +756,125 @@
     .ambient-fireplace .ember.e4 { left:42%; animation-delay:-1.55s; }
     @keyframes emberRise { from{opacity:.85;transform:translateY(0) scale(1)} to{opacity:0;transform:translateY(-250%) translateX(35%) scale(.45)} }
 
+
+
+    /* v1.6.9.2 compact overlay, subtle fire, and flexible story layout */
+    .scene-shell, .story-panel, .controls { overflow-anchor: none; }
+    .story-panel {
+      flex: 1 0 auto;
+      min-height: 235px;
+    }
+    #log {
+      min-height: clamp(180px, 28dvh, 340px);
+      max-height: none;
+    }
+    .controls {
+      flex: 0 0 auto;
+    }
+    .scene-nav-overlay {
+      width: 86px;
+      right: 6px;
+      bottom: 6px;
+      gap: 3px;
+    }
+    .scene-nav-pad {
+      grid-template-columns: repeat(3, 25px);
+      grid-template-rows: repeat(3, 25px);
+      justify-content: end;
+      gap: 2px;
+    }
+    .scene-nav-pad button,
+    .scene-nav-mode button,
+    .scene-nav-toggle {
+      background: rgba(19,14,27,.27);
+      border-color: rgba(231,199,117,.66);
+      box-shadow: 0 1px 5px rgba(0,0,0,.28), inset 0 0 0 1px rgba(5,4,8,.22);
+      backdrop-filter: blur(1.5px);
+      -webkit-backdrop-filter: blur(1.5px);
+      touch-action: manipulation;
+    }
+    .scene-nav-pad button {
+      font-size: 15px;
+      border-radius: 6px;
+    }
+    .scene-nav-tools {
+      display: grid;
+      grid-template-columns: 1fr 1fr 24px;
+      gap: 3px;
+      pointer-events: auto;
+    }
+    .scene-nav-tools button {
+      min-height: 23px;
+      padding: 1px 3px;
+      border: 1px solid rgba(231,199,117,.66);
+      border-radius: 6px;
+      background: rgba(19,14,27,.27);
+      color: #f0d99c;
+      font: 700 8px Georgia,serif;
+      box-shadow: 0 1px 5px rgba(0,0,0,.28), inset 0 0 0 1px rgba(5,4,8,.22);
+      backdrop-filter: blur(1.5px);
+      -webkit-backdrop-filter: blur(1.5px);
+      touch-action: manipulation;
+    }
+    .scene-nav-tools button.active {
+      color: #fff2bd;
+      border-color: #efd078;
+      background: rgba(77,49,95,.48);
+    }
+    .scene-nav-tools .scene-nav-toggle {
+      width: 24px;
+      height: 23px;
+      justify-self: auto;
+      font-size: 12px;
+    }
+    .scene-nav-overlay.is-collapsed {
+      width: auto;
+    }
+    .scene-nav-overlay.is-collapsed .scene-nav-toggle {
+      width: 27px;
+      height: 27px;
+      background: rgba(19,14,27,.40);
+    }
+    .ambient-fireplace {
+      opacity: .34 !important;
+      filter: saturate(1.02) brightness(1.02) !important;
+      animation: none !important;
+    }
+    .ambient-fireplace .fire-glow {
+      inset: -24% !important;
+      background: radial-gradient(circle,rgba(255,215,112,.12) 0 18%,rgba(255,137,30,.055) 38%,transparent 68%) !important;
+      animation: subtleGlow 1.35s ease-in-out infinite alternate !important;
+    }
+    .ambient-fireplace .flame {
+      bottom: 11% !important;
+      width: 22% !important;
+      height: 48% !important;
+      background: linear-gradient(180deg,rgba(255,248,178,.36),rgba(255,167,46,.26) 52%,rgba(212,62,9,.08) 84%,transparent) !important;
+      filter: blur(.15px) drop-shadow(0 0 2px rgba(255,151,37,.20)) !important;
+      animation: subtleFlame .72s ease-in-out infinite alternate !important;
+    }
+    .ambient-fireplace .flame.two { height: 57% !important; animation-duration: .91s !important; }
+    .ambient-fireplace .flame.three { height: 40% !important; animation-duration: .63s !important; }
+    .ambient-fireplace .flame.four { display: none !important; }
+    .ambient-fireplace .ember { width: 3% !important; opacity: .25; }
+    .ambient-fireplace .ember.e2,
+    .ambient-fireplace .ember.e3,
+    .ambient-fireplace .ember.e4 { display: none; }
+    @keyframes subtleGlow {
+      from { opacity: .38; transform: scale(.98); }
+      to { opacity: .62; transform: scale(1.025); }
+    }
+    @keyframes subtleFlame {
+      from { opacity: .32; transform: translateY(1%) skewX(-2deg) scale(.97,.94); }
+      to { opacity: .54; transform: translateY(-2%) skewX(2deg) scale(1.01,1.06); }
+    }
+    @media (max-width: 470px) {
+      .story-panel { min-height: 250px; }
+      #log { min-height: clamp(185px, 30dvh, 345px); max-height: none; }
+      .scene-nav-overlay { width: 82px; right: 5px; bottom: 5px; }
+      .scene-nav-pad { grid-template-columns:repeat(3,24px); grid-template-rows:repeat(3,24px); }
+    }
+
   </style>
 </head>
 <body>
@@ -783,7 +902,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.6.9.1 • Header Fit, Minimal Navigation & Ambient Motion</small>
+        <small id="version-tag">Version 1.6.9.2 • Compact Overlay & Layout Stability</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -863,7 +982,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.6.9.1";
+    const BUILD_VERSION = "1.6.9.2";
 
     const itemInfo = {
       "iron hook": "A blacksmith's hook with a long, slightly bent handle.",
@@ -2937,6 +3056,7 @@
       const previousContext = selectedHotspotContext;
       const previousRoom = state.room;
       const previousView = currentView();
+      const previousWindowScroll = window.scrollY;
       const compassCommand = /^(?:look|face|turn)(?: toward| towards| to)? (?:north|east|south|west)$/.test(command) || /^(?:look around|look)$/.test(command);
       const movementCommand = /^(?:go |walk |enter|leave|approach|cross)/.test(command);
 
@@ -2947,6 +3067,7 @@
 
       if (compassCommand && state.room === previousRoom) {
         renderQuickActions();
+        requestAnimationFrame(()=>window.scrollTo(0, previousWindowScroll));
         return;
       }
 
@@ -3036,6 +3157,7 @@
       toggle.textContent=sceneNavigationVisible?"×":"◉";
       toggle.setAttribute("aria-label",sceneNavigationVisible?"Hide navigation controls":"Show navigation controls");
       toggle.title=sceneNavigationVisible?"Hide navigation":"Show navigation";
+      toggle.addEventListener("pointerdown",event=>event.preventDefault());
       toggle.addEventListener("click",()=>{
         sceneNavigationVisible=!sceneNavigationVisible;
         storageSet(NAV_VISIBLE_PREF_KEY,String(sceneNavigationVisible));
@@ -3047,23 +3169,6 @@
         return;
       }
 
-      const modeWrap=document.createElement("div");
-      modeWrap.className="scene-nav-mode";
-      [["look","Look"],["move","Move"]].forEach(([mode,label])=>{
-        const btn=document.createElement("button");
-        btn.type="button";
-        btn.textContent=label;
-        btn.className=mode===navigationMode?"active":"";
-        btn.setAttribute("aria-pressed",String(mode===navigationMode));
-        btn.addEventListener("click",()=>{
-          navigationMode=mode;
-          storageSet(NAV_MODE_PREF_KEY,navigationMode);
-          renderSceneNavigation();
-        });
-        modeWrap.appendChild(btn);
-      });
-      sceneNavOverlayEl.appendChild(modeWrap);
-
       const pad=document.createElement("div");
       pad.className="scene-nav-pad";
       const options=[["north","↑"],["west","←"],["center","◎"],["east","→"],["south","↓"]];
@@ -3074,11 +3179,33 @@
         const command=direction==="center" ? "look around" : `${navigationMode==="look"?"look":"go"} ${direction}`;
         btn.textContent=mark;
         btn.setAttribute("aria-label",direction==="center"?"Look around":`${navigationMode==="look"?"Look":"Move"} ${direction}`);
-        btn.addEventListener("click",()=>executeQuickAction(command));
+        btn.addEventListener("pointerdown",event=>event.preventDefault());
+        btn.addEventListener("click",async()=>{
+          await executeQuickAction(command);
+          btn.blur();
+        });
         pad.appendChild(btn);
       });
       sceneNavOverlayEl.appendChild(pad);
-      sceneNavOverlayEl.appendChild(toggle);
+
+      const tools=document.createElement("div");
+      tools.className="scene-nav-tools";
+      [["look","Look"],["move","Move"]].forEach(([mode,label])=>{
+        const btn=document.createElement("button");
+        btn.type="button";
+        btn.textContent=label;
+        btn.className=mode===navigationMode?"active":"";
+        btn.setAttribute("aria-pressed",String(mode===navigationMode));
+        btn.addEventListener("pointerdown",event=>event.preventDefault());
+        btn.addEventListener("click",()=>{
+          navigationMode=mode;
+          storageSet(NAV_MODE_PREF_KEY,navigationMode);
+          renderSceneNavigation();
+        });
+        tools.appendChild(btn);
+      });
+      tools.appendChild(toggle);
+      sceneNavOverlayEl.appendChild(tools);
     }
 
     function renderQuickActions() {
@@ -3201,42 +3328,20 @@
       ambientLayerEl.replaceChildren();
       if (!ambientMotionEnabled) return;
       const presets = {
-        "tavern:center": {x:14.5,y:52.5,w:17,h:24},
-        "tavern:west": {x:16.6,y:44.5,w:18,h:27},
-        "tavern:south": {x:14.5,y:52.5,w:17,h:24}
+        "tavern:center": {x:14.2,y:50.8,w:9.4,h:13.5},
+        "tavern:west": {x:16.3,y:43.8,w:10.2,h:14.8},
+        "tavern:south": {x:14.2,y:50.8,w:9.4,h:13.5}
       };
       const preset = presets[`${state.room}:${currentView()}`];
       if (!preset) return;
-      const fire=document.createElement("div"); fire.className="ambient-fireplace";
+      const fire=document.createElement("div");
+      fire.className="ambient-fireplace";
       fire.style.setProperty("--fire-x",`${preset.x}%`);
       fire.style.setProperty("--fire-y",`${preset.y}%`);
       fire.style.setProperty("--fire-w",`${preset.w}%`);
       fire.style.setProperty("--fire-h",`${preset.h}%`);
-      fire.innerHTML='<span class="fire-glow"></span><span class="flame one"></span><span class="flame two"></span><span class="flame three"></span><span class="flame four"></span><span class="ember e1"></span><span class="ember e2"></span><span class="ember e3"></span><span class="ember e4"></span>';
+      fire.innerHTML='<span class="fire-glow"></span><span class="flame one"></span><span class="flame two"></span><span class="flame three"></span><span class="ember e1"></span>';
       ambientLayerEl.appendChild(fire);
-
-      const glow=fire.querySelector(".fire-glow");
-      glow.animate([
-        {opacity:.42,transform:"scale(.88)"},
-        {opacity:1,transform:"scale(1.14)"},
-        {opacity:.64,transform:"scale(.98)"}
-      ],{duration:820,iterations:Infinity,easing:"ease-in-out"});
-
-      fire.querySelectorAll(".flame").forEach((flame,index)=>{
-        flame.animate([
-          {opacity:.58,transform:`translate(${index%2?2:-2}px,4%) skewX(-8deg) scale(.86,.72)`},
-          {opacity:1,transform:`translate(${index%2?-3:3}px,-10%) skewX(9deg) scale(1.08,1.28)`},
-          {opacity:.78,transform:"translate(0,-2%) skewX(-2deg) scale(.96,1.02)"}
-        ],{duration:310+index*73,delay:-index*91,iterations:Infinity,direction:"alternate",easing:"ease-in-out"});
-      });
-
-      fire.querySelectorAll(".ember").forEach((ember,index)=>{
-        ember.animate([
-          {opacity:0,transform:"translate(0,0) scale(.5)"},
-          {opacity:.95,offset:.15,transform:`translate(${index%2?2:-2}px,-18%) scale(1)`},
-          {opacity:0,transform:`translate(${index%2?9:-8}px,-250%) scale(.35)`}
-        ],{duration:1050+index*170,delay:-index*260,iterations:Infinity,easing:"ease-out"});
-      });
     }
 
     function updateAmbientButton(){

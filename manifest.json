@@ -2,7 +2,7 @@
   "name": "The Briar Crown",
   "short_name": "Briar Crown",
   "description": "A mobile-first illustrated fantasy adventure with scene-first discovery, responsive mobile header, minimal scene-mounted navigation, flat contextual actions, color-coded skills, visual shops, and ambient motion enabled by default.",
-  "start_url": "./index.html?v=1.6.9.1",
+  "start_url": "./index.html?v=1.6.9.2",
   "display": "standalone",
   "background_color": "#07070b",
   "theme_color": "#0b0912",
@@ -19,5 +19,5 @@
       "type": "image/png"
     }
   ],
-  "version": "1.6.9.1"
+  "version": "1.6.9.2"
 }
