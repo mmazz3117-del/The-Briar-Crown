@@ -59,11 +59,11 @@
     .game-header {
       position: relative;
       display: grid;
-      grid-template-columns: 76px 1fr 76px;
+      grid-template-columns: 70px minmax(0, 1fr) 70px;
       align-items: center;
-      gap: 8px;
-      padding: calc(10px + env(safe-area-inset-top)) 10px 10px;
-      min-height: 94px;
+      gap: 7px;
+      padding: calc(9px + env(safe-area-inset-top)) 8px 9px;
+      min-height: 92px;
       border-bottom: 2px solid #3f3020;
       background:
         radial-gradient(circle at center, rgba(63,43,81,.42), transparent 48%),
@@ -79,24 +79,30 @@
       height: 1px;
       background: linear-gradient(90deg, transparent, rgba(200,163,86,.55), transparent);
     }
-    .title-wrap { text-align: center; min-width: 0; }
-    .title-wrap .crown { color: var(--gold-light); font-size: 25px; line-height: 1; filter: drop-shadow(0 2px 1px #000); }
+    .title-wrap { text-align: center; min-width: 0; overflow: hidden; }
+    .title-wrap .crown { color: var(--gold-light); font-size: 23px; line-height: 1; filter: drop-shadow(0 2px 1px #000); }
     .title-wrap h1 {
       margin: 0;
       color: #ead59c;
-      font-size: clamp(25px, 7vw, 43px);
+      font-size: clamp(24px, 6.1vw, 39px);
       line-height: .98;
-      letter-spacing: .015em;
+      letter-spacing: 0;
       text-shadow: 0 2px #20170c, 0 0 12px rgba(200,163,86,.16);
       white-space: nowrap;
+      max-width: 100%;
+      overflow: hidden;
     }
     .title-wrap small {
       display: block;
       color: #a89165;
-      margin-top: 6px;
-      font-size: 9px;
-      letter-spacing: .16em;
+      margin-top: 5px;
+      font-size: 8px;
+      letter-spacing: .12em;
+      line-height: 1.2;
       text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .ornate-header-btn {
@@ -270,13 +276,10 @@
     .ambient-fireplace .flame.one { left:22%; animation-delay:-.18s; }
     .ambient-fireplace .flame.two { left:43%; height:72%; width:28%; animation-duration:.93s; }
     .ambient-fireplace .flame.three { left:66%; height:48%; animation-duration:.68s; animation-delay:-.34s; }
+    .ambient-fireplace .flame.four { left:50%; height:42%; width:20%; bottom:9%; }
     @keyframes fireGlow { from{opacity:.55;transform:scale(.92)} to{opacity:1;transform:scale(1.12)} }
     @keyframes flameDance { from{opacity:.72;transform:translateY(2%) skewX(-7deg) scale(.9,.82)} to{opacity:1;transform:translateY(-6%) skewX(8deg) scale(1.05,1.22)} }
     @keyframes fireplaceShift { from{transform:translate(-50%,-50%) rotate(-1deg)} to{transform:translate(-50.5%,-49.5%) rotate(1deg)} }
-    @media (prefers-reduced-motion: reduce) {
-      .ambient-fireplace, .ambient-fireplace .fire-glow,.ambient-fireplace .flame { animation:none !important; }
-      .ambient-fireplace { opacity:.62; }
-    }
     .skills-modal-body { background:radial-gradient(circle at 50% 0,rgba(92,61,119,.18),transparent 38%); }
     .hero-summary-card {
       border:1px solid #806436; border-radius:9px; padding:13px; margin-bottom:12px;
@@ -584,11 +587,13 @@
     @keyframes water { 0% { transform: translateX(-8px); } 100% { transform: translateX(8px); } }
 
     @media (max-width: 470px) {
-      .game-header { grid-template-columns: 64px 1fr 64px; min-height: 84px; padding-inline: 8px; }
-      .ornate-header-btn { height: 60px; }
-      .ornate-header-btn .label { font-size: 10px; }
-      .title-wrap h1 { font-size: clamp(23px, 7.3vw, 34px); }
-      .title-wrap small { font-size: 7px; letter-spacing: .12em; }
+      .game-header { grid-template-columns: 58px minmax(0,1fr) 58px; gap:6px; min-height: 80px; padding-inline: 6px; }
+      .ornate-header-btn { height: 56px; }
+      .ornate-header-btn .icon { font-size:21px; }
+      .ornate-header-btn .label { font-size: 9px; }
+      .title-wrap .crown { font-size:20px; }
+      .title-wrap h1 { font-size: clamp(21px, 6.25vw, 29px); }
+      .title-wrap small { font-size: 6px; letter-spacing: .08em; margin-top:4px; }
       .scene-shell { min-height: 245px; }
       .story-panel { margin-inline: 9px; }
       #log { min-height: 145px; max-height: 190px; padding-inline: 13px; }
@@ -601,9 +606,9 @@
       .shop-item { grid-template-columns:46px minmax(0,1fr) auto; gap:7px; }
       .shop-item-icon { width:44px;height:44px;font-size:24px; }
       .quick-btn .action-icon { font-size: 15px; }
-      .scene-nav-overlay { width:min(132px, 38vw); right:8px; bottom:8px; }
-      .scene-nav-pad { grid-template-rows:repeat(3,38px); gap:4px; padding:6px; }
-      .scene-nav-mode button { min-height:26px; font-size:10px; }
+      .scene-nav-overlay { width:92px; right:7px; bottom:7px; }
+      .scene-nav-pad { grid-template-rows:repeat(3,27px); gap:3px; }
+      .scene-nav-mode button { min-height:22px; font-size:9px; }
       .command-line { grid-template-columns: 48px minmax(0,1fr) 48px; gap: 6px; }
       .move-pad { grid-template-columns: repeat(3, 32px); grid-template-rows: repeat(3, 29px); }
       .backpack-btn { height: 47px; }
@@ -646,42 +651,48 @@
     @media (min-width:620px){ .class-grid{grid-template-columns:repeat(3,minmax(0,1fr));} }
 
   
-    /* v1.6.8.9 compact navigation and status polish */
+    /* v1.6.9.1 minimal scene navigation, responsive header, and ambient motion */
     #scene-art { position:absolute; inset:0; z-index:0; }
     .ambient-layer { z-index:2; }
     .scene-label { z-index:4; }
     .hotspots { z-index:5; }
     .scene-nav-overlay {
-      position:absolute; right:10px; bottom:10px; z-index:7; display:grid; gap:6px;
-      width:min(148px, 34vw); pointer-events:none;
+      position:absolute; right:8px; bottom:8px; z-index:7; display:grid; gap:4px;
+      width:102px; pointer-events:none;
     }
+    .scene-nav-overlay.is-collapsed { width:auto; }
     .scene-nav-mode {
-      display:grid; grid-template-columns:1fr 1fr; gap:5px;
-      background:rgba(10,8,15,.76); border:1px solid rgba(151,118,60,.72); border-radius:10px;
-      padding:5px; box-shadow:0 8px 18px rgba(0,0,0,.35); backdrop-filter: blur(4px);
+      display:grid; grid-template-columns:1fr 1fr; gap:3px;
+      padding:0; background:transparent; border:0; box-shadow:none;
       pointer-events:auto;
     }
-    .scene-nav-mode button, .scene-nav-pad button {
-      border:1px solid #9b773d; border-radius:8px; background:linear-gradient(145deg,rgba(48,36,64,.92),rgba(20,15,28,.96));
-      color:#edd79a; cursor:pointer; box-shadow:inset 0 0 0 1px rgba(10,7,13,.72);
+    .scene-nav-mode button, .scene-nav-pad button, .scene-nav-toggle {
+      border:1px solid rgba(225,190,104,.78); border-radius:7px;
+      background:rgba(25,18,34,.50); color:#f1d99a; cursor:pointer;
+      box-shadow:0 2px 7px rgba(0,0,0,.34), inset 0 0 0 1px rgba(5,4,8,.38);
+      backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px);
       font-family:Georgia,serif;
     }
-    .scene-nav-mode button { min-height:28px; font-size:11px; font-weight:700; }
-    .scene-nav-mode button.active { background:linear-gradient(145deg,#604177,#2a1d34); color:#fff1be; border-color:#e0bf68; }
+    .scene-nav-mode button { min-height:24px; font-size:9px; font-weight:700; padding:2px 4px; }
+    .scene-nav-mode button.active { background:rgba(79,51,97,.72); color:#fff1bd; border-color:#f0cd75; }
     .scene-nav-pad {
-      display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(3,42px); gap:5px;
-      padding:7px; border-radius:12px; border:1px solid rgba(151,118,60,.72);
-      background:radial-gradient(circle at center, rgba(74,54,90,.92), rgba(13,10,20,.95) 78%);
-      box-shadow:0 10px 18px rgba(0,0,0,.38); pointer-events:auto;
+      display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(3,29px); gap:3px;
+      padding:0; border:0; border-radius:0; background:transparent; box-shadow:none;
+      pointer-events:auto;
     }
-    .scene-nav-pad button { display:grid; place-items:center; font-size:20px; font-weight:700; }
-    .scene-nav-pad button small { display:block; font-size:7px; line-height:1; color:#b9a77f; text-transform:uppercase; letter-spacing:.05em; margin-top:-1px; }
+    .scene-nav-pad button { display:grid; place-items:center; align-content:center; padding:0; font-size:17px; font-weight:700; }
+    .scene-nav-pad button small { display:none; }
     .scene-nav-pad .north { grid-column:2; grid-row:1; }
     .scene-nav-pad .west { grid-column:1; grid-row:2; }
-    .scene-nav-pad .center { grid-column:2; grid-row:2; background:radial-gradient(circle,#593c70,#22172c 74%); }
+    .scene-nav-pad .center { grid-column:2; grid-row:2; background:rgba(67,43,82,.58); }
     .scene-nav-pad .east { grid-column:3; grid-row:2; }
     .scene-nav-pad .south { grid-column:2; grid-row:3; }
-    .scene-nav-pad button:active, .scene-nav-mode button:active { transform:translateY(1px); }
+    .scene-nav-toggle {
+      pointer-events:auto; justify-self:end; width:27px; height:27px; padding:0;
+      display:grid; place-items:center; font-size:15px; line-height:1;
+      background:rgba(19,14,27,.56);
+    }
+    .scene-nav-pad button:active, .scene-nav-mode button:active, .scene-nav-toggle:active { transform:translateY(1px); background:rgba(91,60,111,.78); }
     .scene-loader,.scene-transition-note { z-index:6; }
     .gold-pill { display:inline-flex; align-items:center; gap:5px; }
     .gold-coin-icon {
@@ -742,11 +753,8 @@
     .ambient-fireplace .ember.e1 { left:28%; animation-delay:-.3s; }
     .ambient-fireplace .ember.e2 { left:53%; animation-delay:-.85s; }
     .ambient-fireplace .ember.e3 { left:70%; animation-delay:-1.2s; }
+    .ambient-fireplace .ember.e4 { left:42%; animation-delay:-1.55s; }
     @keyframes emberRise { from{opacity:.85;transform:translateY(0) scale(1)} to{opacity:0;transform:translateY(-250%) translateX(35%) scale(.45)} }
-    @media (prefers-reduced-motion: reduce) {
-      .ambient-fireplace .ember { display:none; }
-      .ambient-fireplace { opacity:.8; }
-    }
 
   </style>
 </head>
@@ -775,7 +783,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.6.9.0 • Scene Navigation & Flat Actions</small>
+        <small id="version-tag">Version 1.6.9.1 • Header Fit, Minimal Navigation & Ambient Motion</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -839,6 +847,7 @@
         <button id="help-btn">Command Help</button>
         <button id="scene-tour-btn">Scene Test</button>
         <button id="music-toggle-btn" aria-pressed="true">♫ Music: On</button>
+        <button id="ambient-toggle-btn" aria-pressed="true">✦ Ambient Motion: On</button>
         <button id="restart-btn" class="danger">Restart</button>
       </div>
     </div>
@@ -854,7 +863,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.6.9.0";
+    const BUILD_VERSION = "1.6.9.1";
 
     const itemInfo = {
       "iron hook": "A blacksmith's hook with a long, slightly bent handle.",
@@ -2843,8 +2852,12 @@
     let expandedActionCategory = null;
     const ACTION_PANEL_PREF_KEY="briar-crown-actions-expanded";
     const NAV_MODE_PREF_KEY="briar-crown-nav-mode";
+    const NAV_VISIBLE_PREF_KEY="briar-crown-nav-visible";
+    const AMBIENT_PREF_KEY="briar-crown-ambient-motion";
     let actionsPanelExpanded = storageGet(ACTION_PANEL_PREF_KEY) !== "false";
     let navigationMode = storageGet(NAV_MODE_PREF_KEY) === "move" ? "move" : "look";
+    let sceneNavigationVisible = storageGet(NAV_VISIBLE_PREF_KEY) !== "false";
+    let ambientMotionEnabled = storageGet(AMBIENT_PREF_KEY) !== "false";
 
     function actionIcon(action) {
       if (action === "inventory") return "🎒";
@@ -3015,6 +3028,24 @@
     function renderSceneNavigation() {
       if (!sceneNavOverlayEl) return;
       sceneNavOverlayEl.replaceChildren();
+      sceneNavOverlayEl.classList.toggle("is-collapsed", !sceneNavigationVisible);
+
+      const toggle=document.createElement("button");
+      toggle.type="button";
+      toggle.className="scene-nav-toggle";
+      toggle.textContent=sceneNavigationVisible?"×":"◉";
+      toggle.setAttribute("aria-label",sceneNavigationVisible?"Hide navigation controls":"Show navigation controls");
+      toggle.title=sceneNavigationVisible?"Hide navigation":"Show navigation";
+      toggle.addEventListener("click",()=>{
+        sceneNavigationVisible=!sceneNavigationVisible;
+        storageSet(NAV_VISIBLE_PREF_KEY,String(sceneNavigationVisible));
+        renderSceneNavigation();
+      });
+
+      if(!sceneNavigationVisible){
+        sceneNavOverlayEl.appendChild(toggle);
+        return;
+      }
 
       const modeWrap=document.createElement("div");
       modeWrap.className="scene-nav-mode";
@@ -3035,20 +3066,19 @@
 
       const pad=document.createElement("div");
       pad.className="scene-nav-pad";
-      const options=[
-        ["north","↑","North"],["west","←","West"],["center","◎","Around"],["east","→","East"],["south","↓","South"]
-      ];
-      options.forEach(([direction,mark,name])=>{
+      const options=[["north","↑"],["west","←"],["center","◎"],["east","→"],["south","↓"]];
+      options.forEach(([direction,mark])=>{
         const btn=document.createElement("button");
         btn.type="button";
         btn.className=direction;
         const command=direction==="center" ? "look around" : `${navigationMode==="look"?"look":"go"} ${direction}`;
-        btn.innerHTML=`<span>${mark}</span><small>${direction==="center"?"Around":name}</small>`;
+        btn.textContent=mark;
         btn.setAttribute("aria-label",direction==="center"?"Look around":`${navigationMode==="look"?"Look":"Move"} ${direction}`);
         btn.addEventListener("click",()=>executeQuickAction(command));
         pad.appendChild(btn);
       });
       sceneNavOverlayEl.appendChild(pad);
+      sceneNavOverlayEl.appendChild(toggle);
     }
 
     function renderQuickActions() {
@@ -3169,6 +3199,7 @@
     function renderAmbientEffects() {
       if (!ambientLayerEl) return;
       ambientLayerEl.replaceChildren();
+      if (!ambientMotionEnabled) return;
       const presets = {
         "tavern:center": {x:14.5,y:52.5,w:17,h:24},
         "tavern:west": {x:16.6,y:44.5,w:18,h:27},
@@ -3181,8 +3212,45 @@
       fire.style.setProperty("--fire-y",`${preset.y}%`);
       fire.style.setProperty("--fire-w",`${preset.w}%`);
       fire.style.setProperty("--fire-h",`${preset.h}%`);
-      fire.innerHTML='<span class="fire-glow"></span><span class="flame one"></span><span class="flame two"></span><span class="flame three"></span><span class="ember e1"></span><span class="ember e2"></span><span class="ember e3"></span>';
+      fire.innerHTML='<span class="fire-glow"></span><span class="flame one"></span><span class="flame two"></span><span class="flame three"></span><span class="flame four"></span><span class="ember e1"></span><span class="ember e2"></span><span class="ember e3"></span><span class="ember e4"></span>';
       ambientLayerEl.appendChild(fire);
+
+      const glow=fire.querySelector(".fire-glow");
+      glow.animate([
+        {opacity:.42,transform:"scale(.88)"},
+        {opacity:1,transform:"scale(1.14)"},
+        {opacity:.64,transform:"scale(.98)"}
+      ],{duration:820,iterations:Infinity,easing:"ease-in-out"});
+
+      fire.querySelectorAll(".flame").forEach((flame,index)=>{
+        flame.animate([
+          {opacity:.58,transform:`translate(${index%2?2:-2}px,4%) skewX(-8deg) scale(.86,.72)`},
+          {opacity:1,transform:`translate(${index%2?-3:3}px,-10%) skewX(9deg) scale(1.08,1.28)`},
+          {opacity:.78,transform:"translate(0,-2%) skewX(-2deg) scale(.96,1.02)"}
+        ],{duration:310+index*73,delay:-index*91,iterations:Infinity,direction:"alternate",easing:"ease-in-out"});
+      });
+
+      fire.querySelectorAll(".ember").forEach((ember,index)=>{
+        ember.animate([
+          {opacity:0,transform:"translate(0,0) scale(.5)"},
+          {opacity:.95,offset:.15,transform:`translate(${index%2?2:-2}px,-18%) scale(1)`},
+          {opacity:0,transform:`translate(${index%2?9:-8}px,-250%) scale(.35)`}
+        ],{duration:1050+index*170,delay:-index*260,iterations:Infinity,easing:"ease-out"});
+      });
+    }
+
+    function updateAmbientButton(){
+      const btn=document.getElementById("ambient-toggle-btn");
+      if(!btn)return;
+      btn.textContent=ambientMotionEnabled?"✦ Ambient Motion: On":"✦ Ambient Motion: Off";
+      btn.setAttribute("aria-pressed",String(ambientMotionEnabled));
+    }
+
+    function toggleAmbientMotion(){
+      ambientMotionEnabled=!ambientMotionEnabled;
+      storageSet(AMBIENT_PREF_KEY,String(ambientMotionEnabled));
+      updateAmbientButton();
+      renderAmbientEffects();
     }
 
     async function renderScene() {
@@ -3510,6 +3578,7 @@
     document.getElementById("load-btn").addEventListener("click", loadGame);
     document.getElementById("help-btn").addEventListener("click", () => { document.getElementById("menu-dialog").close(); showHelp(); });
     document.getElementById("music-toggle-btn").addEventListener("click", toggleMusic);
+    document.getElementById("ambient-toggle-btn").addEventListener("click", toggleAmbientMotion);
     document.getElementById("scene-tour-btn").addEventListener("click", () => {
       document.getElementById("menu-dialog").close();
       renderSceneTour();
@@ -3563,8 +3632,9 @@
 
     function boot() {
       updateMusicButton();
+      updateAmbientButton();
       const vt = document.getElementById("version-tag");
-      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Compact Navigation & Scene Polish`;
+      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Header Fit, Minimal Navigation & Ambient Motion`;
       const saved = storageGet(SAVE_KEY);
       if (saved) {
         try { state = JSON.parse(saved); migrateState(); restoreDynamicExits(); }
