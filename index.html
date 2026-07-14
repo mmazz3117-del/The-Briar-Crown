@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-title" content="Briar Crown" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <title>The Briar Crown — Mobile Adventure v1.6.8.2</title>
+  <title>The Briar Crown — Mobile Adventure v1.6.8.8</title>
   <style>
 
     :root {
@@ -217,6 +217,62 @@
       color:#d8bd78; background:rgba(28,20,38,.78); font-size:11px; font-weight:700;
     }
     .critical-action { border-color:#c69a44; background:linear-gradient(145deg,#37243f,#1d1424); }
+    .scene-discovery-hint {
+      grid-column:1/-1; min-height:34px; display:flex; align-items:center; justify-content:center;
+      padding:7px 10px; border:1px dashed rgba(200,163,86,.58); border-radius:6px;
+      color:#cdbb8b; background:rgba(19,15,25,.72); font-size:11px; line-height:1.3; text-align:center;
+    }
+    .scene-nav-btn { justify-content:center; min-height:40px; background:linear-gradient(145deg,#352547,#191421); }
+    .scene-nav-btn.is-open { border-color:#ebcb73; background:linear-gradient(145deg,#503663,#261a31); }
+    .compass-wrap {
+      grid-column:1/-1; display:grid; grid-template-columns:repeat(3,minmax(0,1fr));
+      grid-template-rows:repeat(3,42px); gap:5px; padding:8px;
+      border:1px solid #735a34; border-radius:8px;
+      background:radial-gradient(circle at center,rgba(79,56,99,.38),rgba(16,12,22,.95) 68%);
+      box-shadow:inset 0 0 24px rgba(0,0,0,.42);
+    }
+    .compass-btn {
+      border:1px solid #98763c; border-radius:6px; background:linear-gradient(145deg,#2e2340,#17121f);
+      color:#ecd391; font-weight:800; cursor:pointer; box-shadow:inset 0 0 0 1px #120d18;
+      display:grid; place-items:center; line-height:1.02; padding:3px;
+    }
+    .compass-btn small { display:block; color:#af9d75; font-size:8px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; }
+    .compass-btn.north { grid-column:2; grid-row:1; }
+    .compass-btn.west { grid-column:1; grid-row:2; }
+    .compass-btn.center { grid-column:2; grid-row:2; color:#fff0b5; background:radial-gradient(circle,#4a365b,#23182f 72%); }
+    .compass-btn.east { grid-column:3; grid-row:2; }
+    .compass-btn.south { grid-column:2; grid-row:3; }
+    .compass-btn:active { transform:translateY(1px); background:#4a345c; }
+    .context-actions-note {
+      grid-column:1/-1; padding:6px 8px; color:#bfae83; font-size:10px; line-height:1.3;
+      border-left:3px solid #c8a356; background:rgba(31,22,40,.78);
+    }
+    .ambient-layer { position:absolute; inset:0; z-index:1; pointer-events:none; overflow:hidden; }
+    .ambient-fireplace {
+      position:absolute; left:var(--fire-x); top:var(--fire-y); width:var(--fire-w); height:var(--fire-h);
+      transform:translate(-50%,-50%); pointer-events:none; mix-blend-mode:screen;
+      filter:saturate(1.08); opacity:.58;
+    }
+    .ambient-fireplace .fire-glow {
+      position:absolute; inset:-48%; border-radius:50%;
+      background:radial-gradient(circle,rgba(255,198,86,.26) 0 16%,rgba(255,111,28,.12) 34%,transparent 70%);
+      animation:fireGlow 1.65s ease-in-out infinite alternate;
+    }
+    .ambient-fireplace .flame {
+      position:absolute; bottom:12%; width:25%; height:56%; border-radius:58% 42% 60% 40% / 68% 62% 38% 32%;
+      background:linear-gradient(180deg,rgba(255,248,170,.62),rgba(255,151,38,.48) 48%,rgba(220,59,11,.12) 82%,transparent);
+      filter:blur(.55px) drop-shadow(0 0 4px rgba(255,154,43,.38)); transform-origin:50% 100%;
+      animation:flameDance .76s ease-in-out infinite alternate;
+    }
+    .ambient-fireplace .flame.one { left:22%; animation-delay:-.18s; }
+    .ambient-fireplace .flame.two { left:43%; height:72%; width:28%; animation-duration:.93s; }
+    .ambient-fireplace .flame.three { left:66%; height:48%; animation-duration:.68s; animation-delay:-.34s; }
+    @keyframes fireGlow { from{opacity:.48;transform:scale(.92)} to{opacity:.92;transform:scale(1.08)} }
+    @keyframes flameDance { from{opacity:.55;transform:skewX(-5deg) scaleY(.84)} to{opacity:.96;transform:skewX(6deg) scaleY(1.12)} }
+    @media (prefers-reduced-motion: reduce) {
+      .ambient-fireplace .fire-glow,.ambient-fireplace .flame { animation:none !important; }
+      .ambient-fireplace { opacity:.48; }
+    }
     .skills-modal-body { background:radial-gradient(circle at 50% 0,rgba(92,61,119,.18),transparent 38%); }
     .hero-summary-card {
       border:1px solid #806436; border-radius:9px; padding:13px; margin-bottom:12px;
@@ -609,7 +665,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.6.8.7 • Skills, Status & Action Interface</small>
+        <small id="version-tag">Version 1.6.8.8 • Scene-First Interaction & Ambient Life</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -618,6 +674,7 @@
 
     <section class="scene-shell" aria-label="Current illustrated scene">
       <div id="scene-art"></div>
+      <div class="ambient-layer" id="ambient-layer" aria-hidden="true"></div>
       <div class="scene-label" id="scene-label"></div>
       <div class="hotspots" id="hotspots"></div><div class="scene-loader" id="scene-loader">Loading scene…</div><div class="scene-transition-note" id="scene-transition-note" hidden></div>
     </section>
@@ -686,7 +743,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.6.8.7";
+    const BUILD_VERSION = "1.6.8.8";
 
     const itemInfo = {
       "iron hook": "A blacksmith's hook with a long, slightly bent handle.",
@@ -1599,6 +1656,7 @@
     const goldCountEl = document.getElementById("gold-count");
     const quickActionsEl = document.getElementById("quick-actions");
     const actionsToggleEl = document.getElementById("actions-toggle");
+    const ambientLayerEl = document.getElementById("ambient-layer");
     const hotspotsEl = document.getElementById("hotspots");
     const sceneLoaderEl = document.getElementById("scene-loader");
     let sceneRenderToken = 0;
@@ -1738,6 +1796,7 @@
         return true;
       }
       if (!config.images[view]) { addLog("You cannot look that way from here.","warning"); return false; }
+      selectedHotspotContext = null;
       state.view=view; state.turns++; addLog(config.descriptions[view],"narrative"); return true;
     }
 
@@ -2549,7 +2608,7 @@
     }
 
     function showHelp() {
-      addLog("The parser accepts natural phrases and synonyms. Try <strong>LOOK</strong>, <strong>WHAT DO I SEE</strong>, <strong>WALK TO TAVERN</strong>, <strong>HEAD TO APOTHECARY</strong>, <strong>OPEN THE DOOR</strong>, <strong>ENTER</strong>, <strong>GO OUTSIDE</strong>, <strong>EXAMINE WELL</strong>, <strong>READ NOTICE BOARD</strong>, <strong>TALK TO INNKEEPER</strong>, <strong>TAKE TOKEN</strong>, <strong>USE KEY ON TRAPDOOR</strong>, <strong>INVENTORY</strong>, <strong>JOURNAL</strong>, <strong>SAVE</strong>, or <strong>LOAD</strong>. You can use <strong>LOOK NORTH</strong>, <strong>LOOK EAST</strong>, <strong>LOOK WEST</strong>, and <strong>LOOK SOUTH</strong> in every location. Where a separate view exists, the artwork changes; otherwise the game describes that direction without moving you. Inside the apothecary, try <strong>SHOW WARES</strong>, <strong>BUY HEALING SALVE</strong>, <strong>SELL HEALING HERB</strong>, <strong>BARTER</strong>, or <strong>ASK ELOWEN ABOUT BACK ROOM</strong>. Type <strong>AGAIN</strong> to repeat your previous command. Use the keyboard’s ↑ and ↓ keys to revisit command history.", "system");
+      addLog("Tap visible people and objects in the artwork to discover their actions. Use the <strong>Compass</strong> for LOOK NORTH, EAST, SOUTH, WEST, or LOOK AROUND, and use <strong>Move</strong> for travel. The parser still accepts natural phrases such as <strong>EXAMINE WELL</strong>, <strong>TALK TO INNKEEPER</strong>, <strong>OPEN THE DOOR</strong>, <strong>USE KEY ON TRAPDOOR</strong>, <strong>INVENTORY</strong>, <strong>JOURNAL</strong>, <strong>SAVE</strong>, and <strong>LOAD</strong>. Type <strong>AGAIN</strong> to repeat your previous command.", "system");
     }
 
     function saveGame() {
@@ -2608,7 +2667,6 @@
       if (state.room === "cottageApproach" && state.flags.cottageDoorOpen) { removeAction("open cottage door"); actions.unshift("enter cottage"); }
       if (state.room === "apothecary") actions.unshift("show wares", "buy healing salve", ...(has("healing herb")?["sell healing herb"]:[]), ...(has("moonfen reed")?["give moonfen reed to Elowen"]:[]), "barter", "ask Elowen about back room", "talk to Elowen", "go in back room");
       if (state.room === "blacksmith") actions.unshift("browse forge wares");
-      if (state.room === "tavern") actions.push("talk to flutist", "talk to waitress", "talk to old lady");
       if (state.room === "cottage" && state.flags.rugMoved && !state.flags.trapdoorUnlocked) actions.unshift("use silver key on trapdoor");
       if (state.room === "cottage" && state.flags.trapdoorUnlocked && !state.flags.trapdoorOpen) actions.unshift("open trapdoor");
       if (state.room === "cottage" && state.flags.trapdoorOpen) actions.unshift("go down");
@@ -2655,6 +2713,8 @@
       if(key==="show wares"||key==="browse wares"||key==="browse forge wares") key=`shop:${state.room}`;
       if(key==="leave apothecary") key="go outside";
       if(key==="leave tavern") key="go outside";
+      if(state.room==="tavern" && (key==="go south" || key==="go outside")) key="move:tavern-outside";
+      if(state.room==="apothecary" && (key==="go south" || key==="go west" || key==="go outside")) key="move:apothecary-outside";
       return key;
     }
 
@@ -2686,6 +2746,7 @@
     function quickActionLabel(action) {
       const a = normalize(action);
       if (a === "talk to innkeeper") return "Talk to Innkeeper";
+      if (a === "talk to travelers") return "Talk to Travelers";
       if (a === "talk to apothecary" || a === "talk to elowen") return "Talk to Elowen";
       if (a === "show wares" || a === "browse forge wares") return "Browse Wares";
       if (a === "go in back room") return "Go to Back Room";
@@ -2716,7 +2777,7 @@
       return normalize(action) === "use crown shard on gate";
     }
 
-    function executeQuickAction(action) {
+    async function executeQuickAction(action) {
       const command = normalize(action);
       const needsFinaleConfirmation = isFinaleAction(command)
         && state.room === "castleGate"
@@ -2735,11 +2796,30 @@
         }
       }
 
-      selectedHotspotContext = null;
-      expandedActionCategory = null;
+      const previousContext = selectedHotspotContext;
+      const previousRoom = state.room;
+      const previousView = currentView();
+      const compassCommand = /^(?:look|face|turn)(?: toward| towards| to)? (?:north|east|south|west)$/.test(command) || /^(?:look around|look)$/.test(command);
+      const movementCommand = /^(?:go |walk |enter|leave|approach|cross)/.test(command);
+
+      if (movementCommand || compassCommand) selectedHotspotContext = null;
       inputEl.value = "";
       inputEl.blur();
-      processCommand(action);
+      await processCommand(action);
+
+      if (compassCommand && state.room === previousRoom) {
+        expandedActionCategory = "Compass";
+        renderQuickActions();
+        return;
+      }
+
+      if (previousContext && !movementCommand && state.room === previousRoom && currentView() === previousView) {
+        const refreshed = currentHotspots().find(h => normalize(h.label) === normalize(previousContext.hotspot.label));
+        selectedHotspotContext = refreshed ? { hotspot: refreshed, room: state.room, view: currentView() } : null;
+        renderQuickActions();
+      } else if (movementCommand) {
+        expandedActionCategory = null;
+      }
     }
 
     function hotspotKeywords(hotspot) {
@@ -2759,6 +2839,12 @@
         if (keywords.some(keyword => normalizedAction.includes(keyword))) actions.push(action);
       });
       const label = normalizeObjectName(hotspot.label);
+      const labelKey = normalize(label);
+      if (/elowen|apothecary/.test(labelKey)) {
+        actions.push("show wares", "talk to Elowen", "barter", "ask Elowen about back room");
+        if (has("healing herb")) actions.push("sell healing herb");
+      }
+      if (/merrin|blacksmith|smith/.test(labelKey)) actions.push("browse forge wares");
       const examine = `look at ${label}`;
       if (!actions.some(action => normalize(action) === normalize(examine))) actions.push(examine);
       const seen=new Set();
@@ -2771,52 +2857,88 @@
     }
     function actionCategory(action) {
       const a=normalize(action);
-      if(/^(talk|speak|ask)/.test(a)) return "Talk";
-      if(/^(look|examine|inspect|listen|read)/.test(a)) return "Look";
       if(/^(go |walk |enter|leave|approach|cross)/.test(a)) return "Move";
+      if(/^(talk|speak|ask)/.test(a)) return "Talk";
       if(/^(show wares|browse forge wares|buy|sell|barter|haggle)/.test(a)) return "Shop";
       if(/^(search|check)/.test(a)) return "Search";
+      if(/^(look|examine|inspect|listen|read)/.test(a)) return "Look";
       if(/^(use|open|move|light|pick|ring)/.test(a)) return "Use";
       return "Other";
     }
-    function categoryIcon(category) { return ({Talk:"●●●",Look:"◉",Move:"➜",Shop:"¤",Use:"☝",Search:"⌕",Other:"✦"})[category]||"✦"; }
     function appendActionButton(action,extraClass="") {
       const btn=document.createElement("button"); btn.type="button"; btn.className=`quick-btn ${extraClass}`.trim();
       btn.innerHTML=`<span class="action-icon">${actionIcon(action)}</span><span>${quickActionLabel(action)}</span>`;
       btn.addEventListener("click",()=>executeQuickAction(action)); quickActionsEl.appendChild(btn);
     }
+    function movementActionsForScene() {
+      const seen=new Set();
+      return currentActions().filter(action=>actionCategory(action)==="Move").filter(action=>{
+        const key=canonicalActionKey(action); if(seen.has(key)) return false; seen.add(key); return true;
+      }).sort((a,b)=>quickPriority(a)-quickPriority(b));
+    }
+    function renderCompassPanel() {
+      const label=document.createElement("div"); label.className="quick-category-label";
+      label.textContent="Turn and look"; quickActionsEl.appendChild(label);
+      const wrap=document.createElement("div"); wrap.className="compass-wrap";
+      const options=[
+        ["north","N","North"],["west","W","West"],["center","◎","Around"],["east","E","East"],["south","S","South"]
+      ];
+      options.forEach(([direction,mark,name])=>{
+        const btn=document.createElement("button"); btn.type="button"; btn.className=`compass-btn ${direction}`;
+        btn.innerHTML=`<span>${mark}</span><small>${name}</small>`;
+        btn.setAttribute("aria-label", direction==="center" ? "Look around" : `Look ${direction}`);
+        btn.addEventListener("click",()=>executeQuickAction(direction==="center"?"look around":`look ${direction}`));
+        wrap.appendChild(btn);
+      });
+      quickActionsEl.appendChild(wrap);
+    }
     function renderQuickActions() {
       quickActionsEl.innerHTML="";
       if(selectedHotspotContext&&(selectedHotspotContext.room!==state.room||selectedHotspotContext.view!==currentView())) selectedHotspotContext=null;
-      const sourceActions=selectedHotspotContext?contextualActionsForHotspot(selectedHotspotContext.hotspot):currentActions();
-      const seen=new Set();
-      const actions=sourceActions.filter(a=>{const key=canonicalActionKey(a);if(seen.has(key))return false;seen.add(key);return true;}).sort((a,b)=>quickPriority(a)-quickPriority(b));
-      actionsToggleEl.textContent=actionsPanelExpanded?"Hide Actions ▲":`Show Actions (${actions.length}) ▼`;
+
+      const moveActions=movementActionsForScene();
+      const defaultCount=1+(moveActions.length?1:0);
+      const selectedActions=selectedHotspotContext?contextualActionsForHotspot(selectedHotspotContext.hotspot):[];
+      const displayCount=selectedHotspotContext?selectedActions.length:defaultCount;
+      actionsToggleEl.textContent=actionsPanelExpanded?"Hide Actions ▲":`Show Actions (${displayCount}) ▼`;
       actionsToggleEl.setAttribute("aria-expanded",String(actionsPanelExpanded));
-      quickActionsEl.classList.toggle("is-hidden",!actionsPanelExpanded||!actions.length);
-      if(!actionsPanelExpanded||!actions.length)return;
+      quickActionsEl.classList.toggle("is-hidden",!actionsPanelExpanded);
+      if(!actionsPanelExpanded)return;
 
       if(selectedHotspotContext){
-        const context=document.createElement("div");context.className="quick-context-label";
-        const title=document.createElement("span");title.textContent=selectedHotspotContext.hotspot.label;
-        const clear=document.createElement("button");clear.type="button";clear.textContent="All actions";clear.addEventListener("click",()=>{selectedHotspotContext=null;expandedActionCategory=null;renderQuickActions();});
-        context.append(title,clear);quickActionsEl.appendChild(context);
-        actions.forEach(a=>appendActionButton(a,isCriticalAction(a)?"critical-action":""));return;
+        const context=document.createElement("div"); context.className="quick-context-label";
+        const title=document.createElement("span"); title.textContent=`Selected: ${selectedHotspotContext.hotspot.label}`;
+        const clear=document.createElement("button"); clear.type="button"; clear.textContent="Clear";
+        clear.addEventListener("click",()=>{selectedHotspotContext=null;expandedActionCategory=null;renderQuickActions();});
+        context.append(title,clear); quickActionsEl.appendChild(context);
+        const note=document.createElement("div"); note.className="context-actions-note";
+        note.textContent="Actions for the selected person or object"; quickActionsEl.appendChild(note);
+        selectedActions.forEach(a=>appendActionButton(a,isCriticalAction(a)?"critical-action":""));
+        return;
       }
 
-      const critical=actions.filter(isCriticalAction);
-      critical.forEach(a=>appendActionButton(a,"critical-action"));
-      const groups=new Map();
-      actions.filter(a=>!isCriticalAction(a)).forEach(a=>{const category=actionCategory(a);if(!groups.has(category))groups.set(category,[]);groups.get(category).push(a);});
-      const categoryOrder=["Talk","Look","Move","Shop","Use","Search","Other"];
-      categoryOrder.filter(c=>groups.has(c)).forEach(category=>{
-        const btn=document.createElement("button");btn.type="button";btn.className=`quick-btn quick-category ${expandedActionCategory===category?"is-open":""}`;
-        btn.innerHTML=`<span class="action-icon">${categoryIcon(category)}</span><span>${category} (${groups.get(category).length})</span>`;
-        btn.addEventListener("click",()=>{expandedActionCategory=expandedActionCategory===category?null:category;renderQuickActions();});quickActionsEl.appendChild(btn);
-      });
-      if(expandedActionCategory&&groups.has(expandedActionCategory)){
-        const label=document.createElement("div");label.className="quick-category-label";label.textContent=`${expandedActionCategory} options`;quickActionsEl.appendChild(label);
-        groups.get(expandedActionCategory).forEach(a=>appendActionButton(a));
+      const hint=document.createElement("div"); hint.className="scene-discovery-hint";
+      hint.textContent="Tap a visible person or object in the scene to discover interactions.";
+      quickActionsEl.appendChild(hint);
+
+      const compass=document.createElement("button"); compass.type="button";
+      compass.className=`quick-btn scene-nav-btn ${expandedActionCategory==="Compass"?"is-open":""}`;
+      compass.innerHTML='<span class="action-icon">✥</span><span>Compass</span>';
+      compass.addEventListener("click",()=>{expandedActionCategory=expandedActionCategory==="Compass"?null:"Compass";renderQuickActions();});
+      quickActionsEl.appendChild(compass);
+
+      if(moveActions.length){
+        const move=document.createElement("button"); move.type="button";
+        move.className=`quick-btn scene-nav-btn ${expandedActionCategory==="Move"?"is-open":""}`;
+        move.innerHTML=`<span class="action-icon">➜</span><span>Move (${moveActions.length})</span>`;
+        move.addEventListener("click",()=>{expandedActionCategory=expandedActionCategory==="Move"?null:"Move";renderQuickActions();});
+        quickActionsEl.appendChild(move);
+      }
+
+      if(expandedActionCategory==="Compass") renderCompassPanel();
+      if(expandedActionCategory==="Move"){
+        const label=document.createElement("div"); label.className="quick-category-label"; label.textContent="Movement options"; quickActionsEl.appendChild(label);
+        moveActions.forEach(a=>appendActionButton(a));
       }
     }
 
@@ -2872,6 +2994,7 @@
           state.lastObject = normalizeObjectName(h.label);
           selectedHotspotContext = { hotspot: h, room: state.room, view: currentView() };
           expandedActionCategory = null;
+          actionsPanelExpanded = true;
           inputEl.value = "";
           inputEl.blur();
           btn.classList.add("revealed");
@@ -2897,8 +3020,28 @@
       "tavern:east": "center bottom"
     };
 
+    function renderAmbientEffects() {
+      if (!ambientLayerEl) return;
+      ambientLayerEl.replaceChildren();
+      const presets = {
+        "tavern:center": {x:15,y:49,w:13,h:15},
+        "tavern:west": {x:18,y:48,w:15,h:18},
+        "tavern:south": {x:15,y:49,w:13,h:15}
+      };
+      const preset = presets[`${state.room}:${currentView()}`];
+      if (!preset) return;
+      const fire=document.createElement("div"); fire.className="ambient-fireplace";
+      fire.style.setProperty("--fire-x",`${preset.x}%`);
+      fire.style.setProperty("--fire-y",`${preset.y}%`);
+      fire.style.setProperty("--fire-w",`${preset.w}%`);
+      fire.style.setProperty("--fire-h",`${preset.h}%`);
+      fire.innerHTML='<span class="fire-glow"></span><span class="flame one"></span><span class="flame two"></span><span class="flame three"></span>';
+      ambientLayerEl.appendChild(fire);
+    }
+
     async function renderScene() {
       const shell = document.querySelector(".scene-shell");
+      if (ambientLayerEl) ambientLayerEl.replaceChildren();
       const config = directionalConfig();
       shell.classList.toggle("directional-room", !!config);
       shell.classList.add("scene-ambient");
@@ -2921,10 +3064,12 @@
         img.decoding = "sync";
         img.style.objectPosition = sceneObjectPositions[`${state.room}:${currentView()}`] || "center";
         sceneArtEl.replaceChildren(img);
+        renderAmbientEffects();
         requestAnimationFrame(()=>shell.classList.remove("is-loading"));
       } catch (error) {
         if (token !== sceneRenderToken) return;
         sceneArtEl.innerHTML = sceneSvg(state.room);
+        renderAmbientEffects();
         shell.classList.remove("is-loading");
       }
     }
@@ -2932,6 +3077,8 @@
     async function transitionToRoom(destination, options = {}) {
       if (transitionLocked || !rooms[destination]) return false;
       transitionLocked = true;
+      selectedHotspotContext = null;
+      expandedActionCategory = null;
       const previousRoom = state.room;
       const previousView = state.view;
       const destinationConfig = directionalRooms[destination];
@@ -3265,7 +3412,7 @@
     function boot() {
       updateMusicButton();
       const vt = document.getElementById("version-tag");
-      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Skills, Status & Action Interface`;
+      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Scene-First Interaction & Ambient Life`;
       const saved = storageGet(SAVE_KEY);
       if (saved) {
         try { state = JSON.parse(saved); migrateState(); restoreDynamicExits(); }
