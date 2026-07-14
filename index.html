@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-title" content="Briar Crown" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <title>The Briar Crown — Mobile Adventure v1.6.9.3</title>
+  <title>The Briar Crown — Mobile Adventure v1.6.9.4</title>
   <style>
 
     :root {
@@ -933,6 +933,124 @@
       .story-panel { min-height:145px !important; }
     }
 
+
+    /* v1.6.9.4 protected baseline: fixed scene, isolated status, stable story scrolling */
+    html, body {
+      height: 100%;
+      min-height: 100%;
+      overflow: hidden !important;
+    }
+    body { position: fixed; inset: 0; width: 100%; }
+    .app {
+      height: 100dvh !important;
+      min-height: 0 !important;
+      display: grid !important;
+      grid-template-rows: auto auto minmax(0, 1fr) auto !important;
+      overflow: hidden !important;
+    }
+    .game-header,
+    .scene-shell,
+    .story-panel,
+    .controls { min-width: 0; }
+    .game-header { grid-row: 1; }
+    .scene-shell {
+      grid-row: 2;
+      flex: none !important;
+      flex-shrink: 0 !important;
+      width: 100%;
+      height: auto !important;
+      min-height: 0 !important;
+      aspect-ratio: 941 / 726;
+      position: relative;
+      z-index: 2;
+    }
+    .scene-shell.directional-room { aspect-ratio: 941 / 529; }
+    .story-panel {
+      grid-row: 3;
+      min-height: 0 !important;
+      height: auto !important;
+      margin: 8px 10px 0 !important;
+      display: grid !important;
+      grid-template-rows: auto minmax(0,1fr) !important;
+      overflow: hidden !important;
+      position: relative;
+      z-index: 1;
+      flex: none !important;
+    }
+    .story-panel::before {
+      content: none !important;
+      display: none !important;
+    }
+    .status-strip {
+      grid-row: 1 !important;
+      position: relative !important;
+      z-index: 5 !important;
+      min-height: 48px;
+      align-items: center;
+      background: linear-gradient(180deg, rgba(238,220,174,.98), rgba(216,192,139,.98)) !important;
+      border-bottom: 2px solid rgba(96,63,29,.42) !important;
+      box-shadow: 0 2px 0 rgba(255,246,208,.28), 0 4px 9px rgba(62,38,16,.12);
+      padding: 7px 10px !important;
+      overflow: visible;
+    }
+    #location-name {
+      display: block;
+      min-width: 0;
+      max-height: 2.35em;
+      overflow: hidden;
+      overflow-wrap: anywhere;
+      line-height: 1.12;
+    }
+    #log {
+      grid-row: 2 !important;
+      position: relative !important;
+      z-index: 1 !important;
+      min-height: 0 !important;
+      max-height: none !important;
+      height: auto !important;
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      touch-action: pan-y;
+      padding: 14px 16px 18px !important;
+      scroll-padding-top: 12px;
+    }
+    .controls {
+      grid-row: 4;
+      position: relative !important;
+      bottom: auto !important;
+      min-height: 0;
+      max-height: 42dvh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      margin-top: 6px !important;
+      padding-top: 4px !important;
+    }
+    .quick-row {
+      min-height: 0;
+      overflow-y: auto !important;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+    }
+    .command-line,
+    .actions-toggle { flex: 0 0 auto; }
+    .ambient-layer,
+    .scene-ambient::after { display: none !important; }
+
+    @media (max-width: 470px) {
+      .story-panel { min-height: 0 !important; margin-inline: 9px !important; }
+      .status-strip {
+        grid-template-columns: minmax(78px,1fr) auto auto auto !important;
+        gap: 4px !important;
+        padding: 6px 7px !important;
+      }
+      #location-name { font-size: 9px; }
+      #log { padding: 12px 13px 16px !important; }
+      .controls { max-height: 44dvh; }
+    }
+
   </style>
 </head>
 <body>
@@ -960,7 +1078,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.6.9.3 • Story Scrolling, Scene Controls & Exploration</small>
+        <small id="version-tag">Version 1.6.9.4 • Baseline Stabilization</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -969,7 +1087,6 @@
 
     <section class="scene-shell" aria-label="Current illustrated scene">
       <div id="scene-art"></div>
-      <div class="ambient-layer" id="ambient-layer" aria-hidden="true"></div>
       <div class="scene-nav-overlay" id="scene-nav-overlay" aria-label="Directional controls"></div>
       <div class="scene-label" id="scene-label"></div>
       <div class="hotspots" id="hotspots"></div><div class="scene-loader" id="scene-loader">Loading scene…</div><div class="scene-transition-note" id="scene-transition-note" hidden></div>
@@ -1024,7 +1141,6 @@
         <button id="help-btn">Command Help</button>
         <button id="scene-tour-btn">Scene Test</button>
         <button id="music-toggle-btn" aria-pressed="true">♫ Music: On</button>
-        <button id="ambient-toggle-btn" aria-pressed="true">✦ Ambient Motion: On</button>
         <button id="restart-btn" class="danger">Restart</button>
       </div>
     </div>
@@ -1040,7 +1156,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.6.9.3";
+    const BUILD_VERSION = "1.6.9.4";
 
     const itemInfo = {
       "iron hook": "A blacksmith's hook with a long, slightly bent handle.",
@@ -1994,7 +2110,6 @@
     const goldValueEl = document.getElementById("gold-value");
     const quickActionsEl = document.getElementById("quick-actions");
     const actionsToggleEl = document.getElementById("actions-toggle");
-    const ambientLayerEl = document.getElementById("ambient-layer");
     const sceneNavOverlayEl = document.getElementById("scene-nav-overlay");
     const hotspotsEl = document.getElementById("hotspots");
     const sceneLoaderEl = document.getElementById("scene-loader");
@@ -3093,11 +3208,9 @@
     const ACTION_PANEL_PREF_KEY="briar-crown-actions-expanded";
     const NAV_MODE_PREF_KEY="briar-crown-nav-mode";
     const NAV_VISIBLE_PREF_KEY="briar-crown-nav-visible";
-    const AMBIENT_PREF_KEY="briar-crown-ambient-motion";
     let actionsPanelExpanded = storageGet(ACTION_PANEL_PREF_KEY) !== "false";
     let navigationMode = storageGet(NAV_MODE_PREF_KEY) === "move" ? "move" : "look";
     let sceneNavigationVisible = storageGet(NAV_VISIBLE_PREF_KEY) !== "false";
-    let ambientMotionEnabled = storageGet(AMBIENT_PREF_KEY) !== "false";
 
     function actionIcon(action) {
       if (action === "inventory") return "🎒";
@@ -3209,19 +3322,65 @@
     }
 
     function contextualActionsForHotspot(hotspot) {
+      const label = normalizeObjectName(hotspot.label);
+      const labelKey = normalize(label);
+      const exact = [];
+
+      // Exterior locations never expose interior merchant or NPC actions.
+      if (state.room === "square") {
+        if (labelKey === "apothecary") exact.push("look at apothecary", "walk to apothecary");
+        else if (labelKey === "tavern") exact.push("look at tavern", "walk to tavern door");
+        else if (labelKey === "notice board") exact.push("look at notice board");
+        else if (labelKey === "well") exact.push("look at well");
+      } else if (state.room === "apothecaryApproach") {
+        if (/door/.test(labelKey)) exact.push("look at apothecary door", "walk to apothecary door");
+        else if (/square/.test(labelKey)) exact.push("go west");
+      } else if (state.room === "apothecaryDoor") {
+        if (/green door|door/.test(labelKey)) {
+          exact.push("look at door");
+          exact.push(state.flags.apothecaryDoorOpen ? "enter apothecary" : "open apothecary door");
+        } else if (/bell/.test(labelKey)) exact.push("ring bell", "look at bell");
+        else if (/square/.test(labelKey)) exact.push("go west");
+      } else if (state.room === "tavernApproach") {
+        if (/tavern door|door/.test(labelKey)) exact.push("look at tavern door", "walk to tavern door");
+        else if (/forest road/.test(labelKey)) exact.push("look at forest road", "go east");
+        else if (/square/.test(labelKey)) exact.push("go south");
+      } else if (state.room === "tavernDoor") {
+        if (/tavern door|door/.test(labelKey)) {
+          exact.push("look at tavern door");
+          exact.push(state.flags.tavernDoorOpen ? "enter tavern" : "open door");
+        } else if (/square/.test(labelKey)) exact.push("go south");
+      } else if (state.room === "forgeLane" && /forge/.test(labelKey)) {
+        exact.push("look at forge", "approach forge");
+      } else if (state.room === "forgeDoor" && /door|forge/.test(labelKey)) {
+        exact.push("look at forge door");
+        exact.push(state.flags.forgeDoorOpen ? "enter forge" : "open forge door");
+      }
+
+      if (exact.length) {
+        const seen = new Set();
+        return exact.filter(action => {
+          const key = canonicalActionKey(action);
+          if (seen.has(key)) return false;
+          seen.add(key);
+          return true;
+        }).sort((a,b)=>quickPriority(a)-quickPriority(b));
+      }
+
       const keywords = hotspotKeywords(hotspot);
       const actions = [hotspot.command];
       currentActions().forEach(action => {
         const normalizedAction = normalize(action);
         if (keywords.some(keyword => normalizedAction.includes(keyword))) actions.push(action);
       });
-      const label = normalizeObjectName(hotspot.label);
-      const labelKey = normalize(label);
-      if (/elowen|apothecary/.test(labelKey)) {
+
+      // Interior-only merchant actions.
+      if (state.room === "apothecary" && /elowen|apothecary/.test(labelKey)) {
         actions.push("show wares", "talk to Elowen", "barter", "ask Elowen about back room");
         if (has("healing herb")) actions.push("sell healing herb");
       }
-      if (/merrin|blacksmith|smith/.test(labelKey)) actions.push("browse forge wares");
+      if (state.room === "blacksmith" && /merrin|blacksmith|smith/.test(labelKey)) actions.push("browse forge wares");
+
       if (state.room === "tavern" && /cellar hatch|cellar door|hatch/.test(labelKey)) {
         if (state.flags.tavernCellarOpen) actions.unshift("go down");
         else if (state.flags.cellarUnlocked) actions.unshift("open cellar hatch");
@@ -3231,13 +3390,17 @@
         if (state.flags.cellarPassageRevealed) actions.unshift("enter hidden passage");
         else if (state.flags.cellarDraftFound) actions.unshift("move wine rack");
       }
-      if (state.room === "tavernCellar" && /hidden passage|passage|tunnel/.test(labelKey)) {
-        actions.unshift("enter hidden passage");
-      }
+      if (state.room === "tavernCellar" && /hidden passage|passage|tunnel/.test(labelKey)) actions.unshift("enter hidden passage");
+
       const examine = `look at ${label}`;
       if (!actions.some(action => normalize(action) === normalize(examine))) actions.push(examine);
-      const seen=new Set();
-      return actions.filter(action=>{const key=canonicalActionKey(action);if(seen.has(key))return false;seen.add(key);return true;}).sort((a, b) => quickPriority(a) - quickPriority(b));
+      const seen = new Set();
+      return actions.filter(action => {
+        const key = canonicalActionKey(action);
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      }).sort((a,b)=>quickPriority(a)-quickPriority(b));
     }
 
     function isCriticalAction(action) {
@@ -3442,47 +3605,10 @@
       "tavern:east": "center bottom"
     };
 
-    function renderAmbientEffects() {
-      if (!ambientLayerEl) return;
-      ambientLayerEl.replaceChildren();
-      if (!ambientMotionEnabled) return;
-      const presets = {
-        "tavern:center": {x:17.0,y:50.0,w:14.5,h:19.0},
-        "tavern:west": {x:18.0,y:43.8,w:15.5,h:20.0},
-        "tavern:south": {x:17.0,y:50.0,w:14.5,h:19.0}
-      };
-      const preset = presets[`${state.room}:${currentView()}`];
-      if (!preset) return;
-      const fire=document.createElement("div");
-      fire.className="ambient-fireplace";
-      fire.style.setProperty("--fire-x",`${preset.x}%`);
-      fire.style.setProperty("--fire-y",`${preset.y}%`);
-      fire.style.setProperty("--fire-w",`${preset.w}%`);
-      fire.style.setProperty("--fire-h",`${preset.h}%`);
-      fire.innerHTML='<span class="fire-glow"></span><span class="flame one"></span><span class="flame two"></span><span class="flame three"></span><span class="ember e1"></span>';
-      ambientLayerEl.appendChild(fire);
-    }
-
-    function updateAmbientButton(){
-      const btn=document.getElementById("ambient-toggle-btn");
-      if(!btn)return;
-      btn.textContent=ambientMotionEnabled?"✦ Ambient Motion: On":"✦ Ambient Motion: Off";
-      btn.setAttribute("aria-pressed",String(ambientMotionEnabled));
-    }
-
-    function toggleAmbientMotion(){
-      ambientMotionEnabled=!ambientMotionEnabled;
-      storageSet(AMBIENT_PREF_KEY,String(ambientMotionEnabled));
-      updateAmbientButton();
-      renderAmbientEffects();
-    }
-
     async function renderScene() {
       const shell = document.querySelector(".scene-shell");
-      if (ambientLayerEl) ambientLayerEl.replaceChildren();
       const config = directionalConfig();
       shell.classList.toggle("directional-room", !!config);
-      shell.classList.add("scene-ambient");
       let imagePath = config ? (config.images[currentView()] || config.images.center) : sceneImageMap[state.room];
       if (state.room === "tavernCellar" && state.flags.cellarPassageRevealed) {
         imagePath = "assets/scenes/tavern-cellar-passage.webp";
@@ -3505,13 +3631,11 @@
         img.decoding = "sync";
         img.style.objectPosition = sceneObjectPositions[`${state.room}:${currentView()}`] || "center";
         sceneArtEl.replaceChildren(img);
-        renderAmbientEffects();
         renderSceneNavigation();
         requestAnimationFrame(()=>shell.classList.remove("is-loading"));
       } catch (error) {
         if (token !== sceneRenderToken) return;
         sceneArtEl.innerHTML = sceneSvg(state.room);
-        renderAmbientEffects();
         renderSceneNavigation();
         shell.classList.remove("is-loading");
       }
@@ -3802,7 +3926,6 @@
     document.getElementById("load-btn").addEventListener("click", loadGame);
     document.getElementById("help-btn").addEventListener("click", () => { document.getElementById("menu-dialog").close(); showHelp(); });
     document.getElementById("music-toggle-btn").addEventListener("click", toggleMusic);
-    document.getElementById("ambient-toggle-btn").addEventListener("click", toggleAmbientMotion);
     document.getElementById("scene-tour-btn").addEventListener("click", () => {
       document.getElementById("menu-dialog").close();
       renderSceneTour();
