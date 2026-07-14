@@ -196,7 +196,64 @@
     .skills-launch .skills-copy { display:grid;line-height:1;text-align:left; }
     .skills-launch .skills-copy strong { font-size:10px;color:#f6df9f;text-transform:uppercase;letter-spacing:.06em; }
     .skills-launch .skills-copy small { font-size:9px;color:#d3b978;margin-top:3px; }
-    .status-strip { grid-template-columns: 1fr auto auto auto !important; }
+    .status-strip { grid-template-columns: minmax(0,1fr) auto auto auto !important; }
+    #location-name { min-width:0; line-height:1.15; }
+    .health-pill { color:#7f242a; background:rgba(255,238,224,.5); font-weight:800; }
+    .health-pill[data-condition="injured"] { color:#9b4f18; background:rgba(255,224,170,.58); }
+    .health-pill[data-condition="critical"] { color:#fff0e6; background:#8e2830; border-color:#5e1117; animation:pulseHealth 1.2s ease-in-out infinite alternate; }
+    @keyframes pulseHealth { from{box-shadow:0 0 0 rgba(142,40,48,0)} to{box-shadow:0 0 10px rgba(142,40,48,.55)} }
+    .gold-pill { color:#725019; background:rgba(255,244,190,.48); font-weight:800; }
+    .actions-toggle {
+      width:100%; min-height:30px; border:1px solid #8d6b32; border-radius:5px;
+      background:linear-gradient(145deg,#21182e,#12101a); color:#e8d08e;
+      font:700 11px Georgia,serif; letter-spacing:.04em; cursor:pointer;
+      box-shadow:inset 0 0 0 1px #100c16;
+    }
+    .actions-toggle:active { transform:translateY(1px); }
+    .quick-category { justify-content:center; background:linear-gradient(145deg,#352547,#1b1525); }
+    .quick-category.is-open { border-color:#e0bf68; background:linear-gradient(145deg,#4a315d,#24182f); }
+    .quick-category-label {
+      grid-column:1/-1; padding:5px 8px; border-left:3px solid #c8a356;
+      color:#d8bd78; background:rgba(28,20,38,.78); font-size:11px; font-weight:700;
+    }
+    .critical-action { border-color:#c69a44; background:linear-gradient(145deg,#37243f,#1d1424); }
+    .skills-modal-body { background:radial-gradient(circle at 50% 0,rgba(92,61,119,.18),transparent 38%); }
+    .hero-summary-card {
+      border:1px solid #806436; border-radius:9px; padding:13px; margin-bottom:12px;
+      background:linear-gradient(145deg,#30213e,#18121f);
+    }
+    .hero-summary-top { display:flex; justify-content:space-between; gap:10px; align-items:flex-start; }
+    .hero-summary-card h3 { margin:0; color:#f0d795; font-size:20px; }
+    .hero-summary-card p { margin:4px 0 0; color:#c7b78e; font-size:12px; line-height:1.4; }
+    .hero-level-badge { border:1px solid #9d7940; border-radius:999px; padding:5px 9px; color:#f1d98f; white-space:nowrap; font-size:12px; }
+    .skill-card {
+      --skill:#c8a356; border:1px solid color-mix(in srgb,var(--skill) 66%,#35273f);
+      border-left:5px solid var(--skill); border-radius:8px; padding:11px 12px; margin-bottom:9px;
+      background:linear-gradient(135deg,rgba(54,39,69,.92),rgba(22,17,29,.96));
+      box-shadow:inset 0 0 18px rgba(0,0,0,.18);
+    }
+    .skill-card-head { display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:9px; align-items:center; }
+    .skill-icon { width:34px;height:34px;border-radius:8px;display:grid;place-items:center;background:color-mix(in srgb,var(--skill) 20%,#17121e);border:1px solid var(--skill);font-size:19px; }
+    .skill-name { color:#f0dda7; font-weight:800; font-size:16px; }
+    .skill-rank { color:var(--skill); font-size:11px; font-weight:800; margin-top:2px; }
+    .skill-level { border:1px solid var(--skill);border-radius:999px;padding:4px 8px;color:#f4e3b4;font-size:11px;white-space:nowrap; }
+    .skill-description { margin:8px 0 7px; color:#c8bc9c; font-size:12px; line-height:1.4; }
+    .skill-progress-meta { display:flex; justify-content:space-between; gap:8px; color:#a99b7d; font-size:10px; }
+    .skill-progress { height:8px;background:#0e0b12;border:1px solid #5d4930;border-radius:999px;overflow:hidden;margin-top:5px; }
+    .skill-progress span { display:block;height:100%;background:linear-gradient(90deg,color-mix(in srgb,var(--skill) 55%,#3e2b4a),var(--skill)); }
+    .shop-toolbar { display:flex;align-items:center;justify-content:space-between;gap:9px;margin-bottom:10px; }
+    .shop-gold { border:1px solid #9a773d;border-radius:999px;padding:6px 10px;color:#f1d48a;background:#18121f;font-weight:800; }
+    .shop-tabs { display:flex;gap:6px; }
+    .shop-tabs button { border:1px solid #775d34;border-radius:6px;background:#1c1626;color:#cdbd94;padding:7px 10px;cursor:pointer; }
+    .shop-tabs button.active { color:#fff0b6;border-color:#d0a94f;background:#3a2948; }
+    .shop-list { display:grid;gap:9px; }
+    .shop-item { display:grid;grid-template-columns:54px minmax(0,1fr) auto;gap:10px;align-items:center;border:1px solid #6e5733;border-radius:8px;padding:9px;background:linear-gradient(145deg,#2c2138,#17121f); }
+    .shop-item-icon { width:52px;height:52px;border-radius:8px;display:grid;place-items:center;font-size:28px;background:radial-gradient(circle,#4c3c59,#17121f 72%);border:1px solid #8a6c39; }
+    .shop-item h3 { margin:0;color:#edcf83;font-size:15px; }
+    .shop-item p { margin:3px 0;color:#bfb18e;font-size:11px;line-height:1.3; }
+    .shop-owned { color:#8e8168;font-size:10px; }
+    .shop-buy { min-width:66px;border:1px solid #a77f3c;border-radius:6px;background:#251a31;color:#f0d58f;padding:8px 7px;font-weight:800;cursor:pointer; }
+    .shop-buy:disabled { opacity:.42;cursor:not-allowed; }
     .scene-transition-note { position:absolute;left:50%;bottom:14px;transform:translateX(-50%);z-index:4;background:rgba(9,8,13,.88);border:1px solid #c8a356;color:#f2dca2;padding:7px 12px;border-radius:4px;font-size:12px;box-shadow:0 6px 18px rgba(0,0,0,.55);max-width:88%;text-align:center; }
     .scene-loader { position:absolute; inset:0; z-index:3; display:grid; place-items:center; background:radial-gradient(circle at center,rgba(30,24,38,.72),rgba(7,6,10,.94)); color:#eed896; letter-spacing:.08em; text-transform:uppercase; font-size:11px; opacity:0; pointer-events:none; transition:opacity .18s ease; }
     .scene-shell.is-loading .scene-loader { opacity:1; }
@@ -439,6 +496,13 @@
     .scene-card img { width: 100%; aspect-ratio: 1.3; object-fit: cover; border-radius: 4px; display: block; margin-bottom: 6px; border: 1px solid #6d5430; }
     .scene-card strong { display: block; color: #ebd398; font-size: 13px; }
     .scene-note { color: #bdaf8d; font-size: 12px; margin-top: 0; }
+    .world-map-card { background:linear-gradient(145deg,#17121d,#0d0b11);border:1px solid #7d6132;border-radius:8px;padding:10px;margin:10px 0 14px;overflow:auto; }
+    .world-map-grid { display:grid;grid-template-columns:repeat(7,minmax(58px,1fr));grid-auto-rows:minmax(50px,auto);gap:6px;min-width:470px;align-items:center; }
+    .map-node { border:1px solid #6b5432;background:#241b2d;color:#d9c18a;border-radius:6px;padding:6px 4px;text-align:center;font-size:11px;line-height:1.15;min-height:42px;display:grid;place-items:center; }
+    .map-node.current { outline:2px solid #e4c56e;background:#3a2947;color:#fff0ba; }
+    .map-node.unknown { opacity:.45;border-style:dashed; }
+    .map-legend { color:#bcae8f;font-size:11px;margin:6px 0 0; }
+
 
     .ending-banner {
       margin-top: 12px;
@@ -471,6 +535,11 @@
       .controls { padding-inline: 9px; }
       .quick-row { gap: 6px; }
       .quick-btn { min-height: 34px; font-size: 11px; padding: 4px 6px; }
+      .status-strip { gap:4px; padding:6px 8px; }
+      .status-pill { padding:3px 5px; font-size:9px; }
+      .skills-launch { padding-right:6px; }
+      .shop-item { grid-template-columns:46px minmax(0,1fr) auto; gap:7px; }
+      .shop-item-icon { width:44px;height:44px;font-size:24px; }
       .quick-btn .action-icon { font-size: 15px; }
       .command-line { grid-template-columns: 48px minmax(0,1fr) 48px; gap: 6px; }
       .move-pad { grid-template-columns: repeat(3, 32px); grid-template-rows: repeat(3, 29px); }
@@ -540,7 +609,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.6.8.5 • World Flow & Navigation Consistency</small>
+        <small id="version-tag">Version 1.6.8.7 • Skills, Status & Action Interface</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -557,15 +626,16 @@
       <div class="status-strip">
         <span><strong id="location-name">Willowmere Square</strong></span>
         <button class="skills-launch" id="skills-btn" type="button" aria-label="Open skills and character stats">
-          <span class="skills-icon">▥</span><span class="skills-copy"><strong>Skills</strong><small id="skills-summary">Lv 1 • 0 XP</small></span>
+          <span class="skills-icon">▥</span><span class="skills-copy"><strong>Skills</strong><small id="skills-summary">Lv 1 • 0/10 XP</small></span>
         </button>
-        <button class="status-pill button-pill" id="level-score-btn" type="button" aria-label="Open experience and skills">Lv 1 • XP 0/10</button>
-        <span class="status-pill" id="turn-count">Turn 0</span>
+        <span class="status-pill health-pill" id="health-count" aria-label="Health">♥ 20/20</span>
+        <span class="status-pill gold-pill" id="gold-count" aria-label="Gold">◆ 20</span>
       </div>
       <div id="log" role="log" aria-live="polite"></div>
     </section>
 
     <section class="controls">
+      <button class="actions-toggle" id="actions-toggle" type="button" aria-expanded="true">Hide Actions ▲</button>
       <div class="quick-row" id="quick-actions"></div>
       <div class="command-line">
         <button id="backpack-btn" class="backpack-btn" aria-label="Open backpack"><span>🎒</span><small>Pack</small></button>
@@ -582,7 +652,12 @@
 
   <dialog id="skills-dialog">
     <div class="modal-head"><h2>Hero Skills</h2><button class="close-btn" data-close="skills-dialog">×</button></div>
-    <div class="modal-body" id="skills-body"></div>
+    <div class="modal-body skills-modal-body" id="skills-body"></div>
+  </dialog>
+
+  <dialog id="shop-dialog">
+    <div class="modal-head"><h2 id="shop-title">Merchant Wares</h2><button class="close-btn" data-close="shop-dialog">×</button></div>
+    <div class="modal-body" id="shop-body"></div>
   </dialog>
 
   <dialog id="menu-dialog">
@@ -611,7 +686,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.6.8.5";
+    const BUILD_VERSION = "1.6.8.7";
 
     const itemInfo = {
       "iron hook": "A blacksmith's hook with a long, slightly bent handle.",
@@ -619,6 +694,7 @@
       "silver key": "A tarnished key engraved with curling thorns.",
       "lantern": "An old brass lantern. It smells faintly of rosemary smoke.",
       "fairy coin": "A tiny silver coin stamped with a winged crown.",
+      "ferry crank": "A heavy iron crank sized for an old rope-ferry winch.",
       "silver token": "A small silver token etched with the same runes found in the Whispering Path.",
       "sun sigil": "A warm golden emblem shaped like a rising sun.",
       "crown shard": "A broken piece of crystal that glows like dawn through ice.",
@@ -627,7 +703,10 @@
       "spell crystal": "A violet crystal that grows warm near hidden magic.",
       "lockpicks": "A compact roll of slender picks and tension tools.",
       "healing herbs": "A fragrant bundle of leaves used to mend minor wounds.",
-      "small lute": "A travel-worn lute with a clear, bright voice."
+      "small lute": "A travel-worn lute with a clear, bright voice.",
+      "iron dagger": "A balanced iron dagger suited to close work.",
+      "short sword": "A dependable short sword made in Merrin's forge.",
+      "rope": "Thirty feet of strong braided rope."
     };
 
     const rooms = {
@@ -699,14 +778,35 @@
       },
       tavern: {
         name: "The Briar Lantern",
-        description: "The full tavern common room opens around you. The innkeeper works behind the bar to the north, a broad fireplace glows to the west, stairs and the cellar hatch lie east, and the entrance is behind you to the south. Try LOOK NORTH, LOOK EAST, LOOK WEST, LOOK SOUTH, or LOOK AROUND.",
+        description: "The full tavern common room opens around you. The innkeeper works behind the bar to the north, a broad fireplace glows to the west, stairs and an iron-bound cellar hatch lie east, and the entrance is behind you to the south. The room rewards a closer look.",
         exits: { south: "tavernDoor" },
-        actions: ["look north", "look east", "look west", "look south", "talk to innkeeper", "go outside"],
+        actions: ["look north", "look east", "look west", "look south", "talk to innkeeper", "look at fireplace", "look at cellar door", "talk to travelers", "go outside"],
         hotspots: [
           { label: "Innkeeper", command: "talk to innkeeper", x: 78, y: 48, w: 22, h: 34 },
           { label: "Cellar Hatch", command: "look at cellar door", x: 52, y: 83, w: 36, h: 24 },
           { label: "Fireplace", command: "look west", x: 17, y: 47, w: 27, h: 36 },
           { label: "Entrance", command: "look south", x: 46, y: 27, w: 18, h: 38 }
+        ]
+      },
+      tavernCellar: {
+        name: "Briar Lantern Cellar",
+        description: "Cool stone walls surround rows of dusty bottles, old barrels, and a heavy wine rack. A faint draft slips through the stones behind the rack. The hatch back to the tavern is above.",
+        exits: { up: "tavern" },
+        actions: ["look at wine rack", "look at barrels", "search crates", "go up"],
+        hotspots: [
+          { label: "Wine Rack", command: "look at wine rack", x: 24, y: 47, w: 31, h: 45 },
+          { label: "Barrels", command: "look at barrels", x: 72, y: 62, w: 28, h: 35 },
+          { label: "Stone Seam", command: "look at wall", x: 49, y: 46, w: 19, h: 48 }
+        ]
+      },
+      secretTunnel: {
+        name: "Hidden Passage",
+        description: "A cramped stone passage runs beneath the tavern. Old torch brackets line the walls, but a fall of rock blocks the far arch. The tunnel may once have connected to another part of Willowmere.",
+        exits: { west: "tavernCellar" },
+        actions: ["look at blocked arch", "search tunnel", "go west"],
+        hotspots: [
+          { label: "Blocked Arch", command: "look at blocked arch", x: 50, y: 39, w: 25, h: 28 },
+          { label: "Tunnel Floor", command: "search tunnel", x: 50, y: 78, w: 42, h: 22 }
         ]
       },
       apothecaryBackRoom: {
@@ -795,10 +895,13 @@
         name: "Saint Orla's Chapel",
         description: "Moonlight leaks through a cracked stained-glass window. A stone statue of Saint Orla holds out one empty hand. A coin-shaped hollow marks her palm.",
         exits: { south: "chapelApproach" },
-        actions: ["look at statue", "use fairy coin on statue", "go south"],
+        actions: ["look at statue", "look at altar", "look at candles", "look at stained glass", "look at stone chest", "use fairy coin on statue", "go south"],
         hotspots: [
           { label: "Statue", command: "look at statue", x: 51, y: 54, w: 22, h: 36 },
-          { label: "Window", command: "look at window", x: 74, y: 34, w: 18, h: 30 }
+          { label: "Altar", command: "look at altar", x: 48, y: 35, w: 28, h: 22 },
+          { label: "Candles", command: "look at candles", x: 38, y: 53, w: 24, h: 18 },
+          { label: "Stained Glass", command: "look at stained glass", x: 12, y: 25, w: 18, h: 28 },
+          { label: "Stone Chest", command: "look at stone chest", x: 78, y: 62, w: 25, h: 24 }
         ]
       },
       crypt: {
@@ -835,23 +938,27 @@
       },
       cottage: {
         name: "Inside the Witch's Cottage",
-        description: "Inside, the abandoned cottage smells of dust, herbs, and rain. A wooden cabinet stands near the window. A faded rug lies before the cold hearth. The front door leads west.",
+        description: "Inside, the abandoned cottage smells of dust, herbs, and rain. A wooden cabinet stands near the window, herb bundles hang from the beams, and a faded rug lies before the cold hearth. The front door leads west.",
         exits: { west: "cottageApproach" },
-        actions: ["open cabinet", "move rug", "look around", "go west"],
+        actions: ["open cabinet", "move rug", "look at hearth", "look at herbs", "search desk", "look around", "go west"],
         hotspots: [
-          { label: "Cabinet", command: "open cabinet", x: 67, y: 59, w: 20, h: 28 },
-          { label: "Rug", command: "move rug", x: 50, y: 78, w: 28, h: 16 },
-          { label: "Front Door", command: "go west", x: 20, y: 54, w: 18, h: 32 }
+          { label: "Cabinet", command: "open cabinet", x: 80, y: 50, w: 24, h: 38 },
+          { label: "Rug", command: "move rug", x: 50, y: 82, w: 45, h: 18 },
+          { label: "Hearth", command: "look at hearth", x: 50, y: 52, w: 30, h: 40 },
+          { label: "Herbs", command: "look at herbs", x: 20, y: 16, w: 26, h: 20 },
+          { label: "Desk", command: "search desk", x: 20, y: 67, w: 28, h: 24 }
         ]
       },
       cellar: {
         name: "Cottage Cellar",
-        description: "A ladder descends into a root-walled cellar. An old brass lantern hangs from a peg. A fairy coin glints beside a cracked jar.",
+        description: "A ladder descends into a root-walled cellar. An old brass lantern hangs from a peg, dusty shelves crowd the wall, and a heavy iron ferry crank rests beside a water-stained note.",
         exits: { up: "cottage" },
-        actions: ["take lantern", "take fairy coin", "go up"],
+        actions: ["take lantern", "take ferry crank", "read water stained note", "search shelves", "go up"],
         hotspots: [
-          { label: "Lantern", command: "take lantern", x: 30, y: 44, w: 16, h: 22 },
-          { label: "Coin", command: "take fairy coin", x: 69, y: 71, w: 16, h: 14 }
+          { label: "Lantern", command: "take lantern", x: 44, y: 36, w: 16, h: 23 },
+          { label: "Ferry Crank", command: "take ferry crank", x: 79, y: 56, w: 24, h: 25 },
+          { label: "Water-Stained Note", command: "read water stained note", x: 26, y: 62, w: 25, h: 20 },
+          { label: "Shelves", command: "search shelves", x: 23, y: 38, w: 31, h: 43 }
         ]
       },
       whisperingForest: {
@@ -866,24 +973,51 @@
         ]
       },
       moonfen: {
-        name: "Moonfen Crossing",
-        description: "Fog curls above black water while reeds whisper in the dusk. A crooked hut rises on stilts to the east, and a rope ferry waits at the shore. The forest lies west, and an old pilgrim path runs north toward the moonwell.",
-        exits: { west: "whisperingForest", north: "moonwell", east: "castleRoad" },
-        actions: ["look at hut", "look at ferry", "go north"],
+        name: "Moonfen Ferry Landing",
+        description: "Fog curls above black water while reeds whisper in the dusk. A rope ferry rests at the landing, but its winch is missing a crank. Across the water, a crooked hut glows beneath the moon. The forest lies west and the pilgrim path runs north toward the Moonwell.",
+        exits: { west: "whisperingForest", north: "moonwell" },
+        actions: ["look at hut", "look at ferry", "look at winch", "look across water", "take moonfen reed", "go north"],
         hotspots: [
-          { label: "Hut", command: "look at hut", x: 69, y: 44, w: 22, h: 26 },
-          { label: "Ferry", command: "look at ferry", x: 74, y: 73, w: 22, h: 18 },
-          { label: "Moonwell Path", command: "north", x: 45, y: 26, w: 26, h: 18 }
+          { label: "Hut Across Water", command: "look at hut", x: 86, y: 36, w: 22, h: 28 },
+          { label: "Rope Ferry", command: "look at ferry", x: 66, y: 70, w: 35, h: 22 },
+          { label: "Ferry Winch", command: "look at winch", x: 46, y: 61, w: 20, h: 25 },
+          { label: "Moonfen Reeds", command: "take moonfen reed", x: 20, y: 73, w: 26, h: 24 },
+          { label: "Moonwell Path", command: "north", x: 40, y: 26, w: 26, h: 18 }
+        ]
+      },
+      hutExterior: {
+        name: "Across the Moonfen",
+        description: "The ferry bumps against a narrow dock. A crooked hut stands ahead on timber stilts, its windows warm against the cold marsh. The ferry can carry you back west.",
+        exits: { west: "moonfen" },
+        actions: ["enter hut", "look at hut", "look at dock", "go west"],
+        hotspots: [
+          { label: "Hut Door", command: "enter hut", x: 51, y: 57, w: 24, h: 36 },
+          { label: "Dock", command: "look at dock", x: 50, y: 82, w: 50, h: 18 }
+        ]
+      },
+      hutInterior: {
+        name: "Moonfen Hut",
+        description: "The hut is cramped but carefully kept. A dead fire rests in the hearth, an old diary and hand-drawn map lie on a round table, and a tiny silver fairy coin gleams on the shelf beside a locked chest.",
+        exits: { west: "hutExterior" },
+        actions: ["take fairy coin", "read diary", "look at map", "look at locked chest", "look at fireplace", "go west"],
+        hotspots: [
+          { label: "Fairy Coin", command: "take fairy coin", x: 45, y: 22, w: 16, h: 16 },
+          { label: "Diary", command: "read diary", x: 45, y: 57, w: 22, h: 18 },
+          { label: "Map", command: "look at map", x: 58, y: 57, w: 22, h: 18 },
+          { label: "Locked Chest", command: "look at locked chest", x: 82, y: 34, w: 24, h: 25 },
+          { label: "Fireplace", command: "look at fireplace", x: 18, y: 56, w: 24, h: 34 }
         ]
       },
       moonwell: {
         name: "The Moonwell",
-        description: "A stone well stands in a clearing of white flowers. A tiny fairy is trapped inside a cage of living thorns. Deep in the water, something crystalline catches the lantern light.",
+        description: "A stone well stands in a clearing of white flowers. A tiny fairy is trapped inside a cage of living thorns. Carved standing stones ring the clearing, and deep in the water something crystalline catches the lantern light.",
         exits: { south: "whisperingForest", east: "moonfen" },
-        actions: ["look in well", "use iron hook on well", "use sun sigil on cage"],
+        actions: ["look in well", "look at fairy cage", "look at white flowers", "look at carved stones", "use iron hook on well", "use sun sigil on cage"],
         hotspots: [
-          { label: "Well", command: "look in well", x: 49, y: 65, w: 28, h: 24 },
-          { label: "Fairy", command: "look at fairy", x: 73, y: 42, w: 18, h: 24 }
+          { label: "Well", command: "look in well", x: 48, y: 62, w: 34, h: 28 },
+          { label: "Fairy Cage", command: "look at fairy cage", x: 83, y: 49, w: 24, h: 34 },
+          { label: "White Flowers", command: "look at white flowers", x: 48, y: 86, w: 60, h: 18 },
+          { label: "Carved Stones", command: "look at carved stones", x: 20, y: 56, w: 22, h: 30 }
         ]
       },
       castleRoad: {
@@ -947,6 +1081,12 @@
         lanternTaken: false,
         lanternLit: false,
         coinTaken: false,
+        ferryCrankTaken: false,
+        ferryRepaired: false,
+        cellarDraftFound: false,
+        cellarPassageRevealed: false,
+        tavernCellarOpen: false,
+        tunnelCoinsTaken: false,
         silverTokenTaken: false,
         cryptOpen: false,
         reliquaryOpen: false,
@@ -968,6 +1108,17 @@
       druid: { name:"Druid", icon:"🌿", tagline:"A keeper of wild places", stats:{Strength:5,Agility:6,Wisdom:9,Charisma:6}, item:"healing herbs", gift:"Healing Herbs" },
       bard: { name:"Bard", icon:"🎵", tagline:"A persuasive teller of tales", stats:{Strength:4,Agility:6,Wisdom:7,Charisma:10}, item:"small lute", gift:"Small Lute" }
     };
+    const classSkillStarts = {
+      knight:{Combat:2,Survival:1}, ranger:{Survival:2,Combat:1}, wizard:{Magic:2,Persuasion:1},
+      rogue:{Lockpicking:2,Combat:1}, druid:{Survival:2,Magic:1}, bard:{Persuasion:2,Magic:1}
+    };
+    const skillMeta = {
+      Lockpicking:{icon:"🗝️",color:"#d7a43d",description:"Locks, traps, sealed chests and hidden mechanisms."},
+      Combat:{icon:"⚔️",color:"#c64b50",description:"Fighting, forcing obstacles and surviving physical confrontations."},
+      Survival:{icon:"🌿",color:"#55a563",description:"Tracking, foraging, wilderness hazards and repairing field equipment."},
+      Magic:{icon:"✦",color:"#9a68d6",description:"Sigils, wards, enchanted objects and magical creatures."},
+      Persuasion:{icon:"◈",color:"#4da8ba",description:"Dialogue, bargaining, earning trust and calming difficult characters."}
+    };
     let selectedHeroClass = null;
     let commandHistoryIndex = 0;
 
@@ -979,7 +1130,7 @@
       apothecaryDoor: "assets/scenes/apothecary-door.webp",
       apothecary: "assets/scenes/apothecary-room.webp",
       apothecaryBackRoom: "assets/scenes/apothecary-east.webp",
-      forgeLane: "assets/scenes/forge-lane.webp",
+      forgeLane: "assets/scenes/forge-lane-v2.webp",
       eastRoad: "assets/scenes/kings-road.webp",
       forgeDoor: "assets/scenes/forge-door.webp",
       blacksmith: "assets/scenes/forge.webp",
@@ -992,12 +1143,19 @@
       forestEdge: "assets/scenes/forest.webp",
       whisperingForest: "assets/scenes/forest.webp",
       cottageApproach: "assets/scenes/cottage.webp",
-      moonfen: "assets/scenes/moonfen.webp",
+      cottage: "assets/scenes/cottage-interior.webp",
+      cellar: "assets/scenes/cottage-cellar.webp",
+      moonfen: "assets/scenes/ferry-landing.webp",
+      hutExterior: "assets/scenes/hut.webp",
+      hutInterior: "assets/scenes/hut-interior.webp",
+      moonwell: "assets/scenes/moonwell.webp",
+      tavernCellar: "assets/scenes/tavern-cellar.webp",
+      secretTunnel: "assets/scenes/secret-tunnel.webp",
       crypt: "assets/scenes/crypt.webp",
       castleGate: "assets/scenes/gate.webp"
     };
 
-    const sceneTourRooms = ["square", "forgeLane", "eastRoad", "forgeDoor", "blacksmith", "chapelYard", "chapelApproach", "oldCemeteryPath", "chapel", "castleRoad", "tavernApproach", "tavernDoor", "tavern", "apothecaryApproach", "apothecaryDoor", "apothecary", "apothecaryBackRoom", "forestEdge", "cottageApproach", "cottage", "moonfen", "crypt", "castleGate"];
+    const sceneTourRooms = ["square", "forgeLane", "eastRoad", "forgeDoor", "blacksmith", "chapelYard", "chapelApproach", "oldCemeteryPath", "chapel", "castleRoad", "tavernApproach", "tavernDoor", "tavern", "apothecaryApproach", "apothecaryDoor", "apothecary", "apothecaryBackRoom", "forestEdge", "cottageApproach", "cottage", "cellar", "moonfen", "hutExterior", "hutInterior", "moonwell", "tavernCellar", "secretTunnel", "crypt", "castleGate"];
 
     const apothecaryViewImages = {
       center: "assets/scenes/apothecary-room.webp",
@@ -1223,7 +1381,7 @@
       "square", "tavernApproach", "apothecaryApproach", "forgeLane", "eastRoad",
       "forgeDoor", "tavernDoor", "apothecaryDoor", "chapelYard", "chapelApproach",
       "oldCemeteryPath", "forestEdge", "whisperingForest", "cottageApproach",
-      "moonfen", "moonwell", "castleRoad", "castleGate"
+      "moonfen", "hutExterior", "moonwell", "castleRoad", "castleGate"
     ]);
 
     const travelBoundaryResponses = {
@@ -1304,6 +1462,18 @@
       }
     };
 
+    // v1.6.8.6 exploration-specific route boundaries
+    travelBoundaryResponses.moonfen = Object.assign({}, travelBoundaryResponses.moonfen, {
+      east: "Across the water, the hut waits in the fog. The ferry cannot cross until its missing crank is replaced.",
+      south: "The marsh deepens into black water and sucking mud. The marked paths run north and west."
+    });
+    travelBoundaryResponses.hutExterior = {
+      north: "Dense reeds and deep water hem in the northern side of the hut.",
+      east: "The boardwalk ends at the hut wall.",
+      south: "Black marsh water spreads beyond the dock pilings.",
+      west: "The ferry waits to carry you back across the Moonfen."
+    };
+
     const discoveryLabels = {
       tavernApproach: "The Briar Lantern",
       tavernDoor: "The Briar Lantern",
@@ -1320,6 +1490,12 @@
       chapelApproach: "Saint Orla's Chapel",
       oldCemeteryPath: "Old Cemetery Path",
       chapel: "Saint Orla's Chapel",
+      tavernCellar: "Briar Lantern Cellar",
+      secretTunnel: "Hidden Passage",
+      cellar: "Cottage Cellar",
+      hutExterior: "Across the Moonfen",
+      hutInterior: "Moonfen Hut",
+      moonwell: "The Moonwell",
       crypt: "Saint Orla's Chapel"
     };
 
@@ -1367,7 +1543,12 @@
         castleRoad: { gate:"castleGate", castle:"castleGate", forward:"castleGate", square:"square", willowmere:"square", moonfen:"moonfen" },
         forestEdge: { cottage:"cottageApproach", "forest road":"whisperingForest", forest:"whisperingForest", forward:"whisperingForest", tavern:"tavernApproach", back:"tavernApproach" },
         cottageApproach: { cottage:"cottage", inside:"cottage", door:"cottage", forward:"cottage", path:"forestEdge", forest:"forestEdge", back:"forestEdge" },
-        cottage: { outside:"cottageApproach", door:"cottageApproach", path:"cottageApproach", back:"cottageApproach" }
+        cottage: { outside:"cottageApproach", door:"cottageApproach", path:"cottageApproach", back:"cottageApproach" },
+        moonfen: { hut:"hutExterior", ferry:"hutExterior", west:"whisperingForest", north:"moonwell" },
+        hutExterior: { hut:"hutInterior", inside:"hutInterior", ferry:"moonfen", west:"moonfen", back:"moonfen" },
+        hutInterior: { outside:"hutExterior", door:"hutExterior", back:"hutExterior" },
+        tavernCellar: { passage:"secretTunnel", tunnel:"secretTunnel", up:"tavern", back:"tavern" },
+        secretTunnel: { cellar:"tavernCellar", back:"tavernCellar" }
       };
 
       if (state.room === "forgeDoor" && /^(?:inside|forge|door|forward)$/.test(target)) {
@@ -1414,8 +1595,10 @@
     const sceneLabelEl = document.getElementById("scene-label");
     const locationNameEl = document.getElementById("location-name");
     const skillsBtnEl = document.getElementById("skills-btn");
-    const turnCountEl = document.getElementById("turn-count");
+    const healthCountEl = document.getElementById("health-count");
+    const goldCountEl = document.getElementById("gold-count");
     const quickActionsEl = document.getElementById("quick-actions");
+    const actionsToggleEl = document.getElementById("actions-toggle");
     const hotspotsEl = document.getElementById("hotspots");
     const sceneLoaderEl = document.getElementById("scene-loader");
     let sceneRenderToken = 0;
@@ -1529,7 +1712,8 @@
       const threshold = 3 + (state.skills[name] || 0) * 2;
       if (state.skillUses[name] >= threshold) {
         state.skillUses[name] = 0; state.skills[name] = (state.skills[name] || 0) + 1;
-        addLog(`<strong>${name} increased to ${state.skills[name]}.</strong>`, "success");
+        const meta=skillMeta[name]||{icon:"✦",color:"#c8a356"};
+        addLog(`<strong style="color:${meta.color}">${meta.icon} ${name} increased to Level ${state.skills[name]}.</strong>`, "success");
       }
     }
     function room() { return rooms[state.room]; }
@@ -1569,9 +1753,11 @@
     function updateStatus() {
       locationNameEl.textContent = currentSceneName();
       sceneLabelEl.textContent = currentSceneName();
-      turnCountEl.textContent = `Turn ${state.turns}`;
       document.getElementById("skills-summary").textContent = `Lv ${state.level || 1} • ${(state.score || 0) % 10}/10 XP`;
-      document.getElementById("level-score-btn").textContent = `Lv ${state.level || 1} • XP ${(state.score || 0) % 10}/10`;
+      healthCountEl.textContent = `♥ ${state.health || 0}/${state.maxHealth || 20}`;
+      goldCountEl.textContent = `◆ ${state.gold || 0}`;
+      const ratio=(state.health||0)/Math.max(1,state.maxHealth||20);
+      healthCountEl.dataset.condition = ratio<=.25?"critical":ratio<=.55?"injured":"healthy";
     }
 
     function storageGet(key) {
@@ -1662,8 +1848,20 @@
       }
       if (state.room === "tavern" && /(innkeeper|keeper|barkeep|bartender)/.test(target)) {
         award("spoke-innkeeper", 2);
-        addLog("The innkeeper lowers his voice. “The safest forest road begins behind the tavern. If the Moonfen fog finds you, follow the lanterns—not the voices.”", "system");
+        addLog("The innkeeper lowers his voice. “The safest forest road begins behind the tavern. If the Moonfen fog finds you, follow the lanterns—not the voices. And if you're poking around my cellar, ask first.”", "system");
         return;
+      }
+      if (state.room === "tavern" && /(flutist|musician)/.test(target)) {
+        state.lastPerson="flutist"; useSkill("Persuasion");
+        addLog("The flutist lowers her instrument. “The tune came from the marsh. It only resolves when the ferry bell answers.”", "system"); return;
+      }
+      if (state.room === "tavern" && /(waitress|server)/.test(target)) {
+        state.lastPerson="waitress"; useSkill("Persuasion");
+        addLog("The waitress balances three mugs in one hand. “That cellar hatch sticks, but the wine rack below moves more often than the innkeeper admits.”", "system"); return;
+      }
+      if (state.room === "tavern" && /(old lady|old woman|elderly woman)/.test(target)) {
+        state.lastPerson="old lady"; useSkill("Persuasion");
+        addLog("The old lady taps the table twice. “Saint Orla never asked for gold. She asked for the coin that remembers wings.”", "system"); return;
       }
       if (state.room === "tavern" && /(travelers|patrons|guests)/.test(target)) {
         state.lastPerson = "travelers"; useSkill("Persuasion");
@@ -1675,6 +1873,14 @@
 
     function lookAt(target) {
       if (!target || /^(around|room|area|here)$/.test(target)) return describeRoom(true);
+      if (state.room === "tavernCellar" && /wine rack|rack/.test(target) && !state.flags.cellarDraftFound) {
+        state.flags.cellarDraftFound = true; award("find-secret-passage-clue",1);
+        return addLog("You inspect the wine rack closely. A cold draft slips from behind it, and the floor shows long scrape marks. You could MOVE WINE RACK.","success");
+      }
+      if (state.room === "secretTunnel" && /search|floor|tunnel/.test(target)) {
+        if (!state.flags.tunnelCoinsTaken) { state.flags.tunnelCoinsTaken=true; addGold(7,"old coins beneath a loose stone"); return addLog("You search the passage and find seven old silver coins beneath a loose stone.","success"); }
+        return addLog("You search the tunnel again but find only dust, roots, and broken mortar.");
+      }
       if (state.room === "tavern") {
         if (/fireplace|hearth/.test(target)) return addLog("Orange flames roll over split oak logs. A soot-dark iron poker rests beside the hearth.");
         if (/stairs/.test(target)) return addLog("The stairs climb to rented rooms. A painted sign warns: NO CREDIT, NO CURSES, NO DRAGONS.");
@@ -1684,7 +1890,32 @@
       }
       const key = `${state.room}:${target}`;
       const responses = {
-        "square:notice board": "A fresh posting offers silver for news of the missing royal courier. Someone has added a smaller note beneath it: LAST SEEN NEAR MOONFEN.",
+
+        "tavernCellar:wine rack": state.flags.cellarPassageRevealed ? "The wine rack has been dragged aside, exposing the hidden passage." : (state.flags.cellarDraftFound ? "The scrape marks and cold draft confirm that the wine rack can be moved." : "Dust lies thick on the bottles, but the floor beneath the rack is strangely clean."),
+        "tavernCellar:barrels": "Most barrels hold ale or old rainwater. One bears a faded royal courier mark.",
+        "tavernCellar:wall": "A narrow vertical seam cuts through the stonework behind the wine rack.",
+        "secretTunnel:blocked arch": "The far arch has collapsed. Fresh scratches on one stone suggest someone tried to clear it recently.",
+        "chapel:altar": "The altar bears a carved sunburst and a nearly erased line: BRING THE WINGED COIN TO THE OPEN HAND.",
+        "chapel:candles": "Most candles are cold. One burns with a pale blue flame that bends toward Saint Orla's statue.",
+        "chapel:stained glass": "The cracked glass shows a fairy carrying a silver coin through a marsh toward Saint Orla.",
+        "chapel:stone chest": "The chest is sealed and far too heavy to move. Three carved waves match the marsh beyond the Whispering Forest.",
+        "cottage:hearth": "Cold ash fills the hearth. Beneath it, someone scratched a crude drawing of a ferry wheel.",
+        "cottage:herbs": "Most bundles have dried to dust, but moonwort and rosemary still hold a faint scent.",
+        "cottage:desk": "The desk contains broken quills and a ferry receipt addressed to 'M. Vale, Moonfen Hut.'",
+        "cellar:water stained note": "The note reads: 'Took the crank before the ferryman could lose it again. Left it below the cottage. The coin stays across the fen.'",
+        "cellar:shelves": "Behind cracked jars you find old ferry rope, beeswax, and an empty coin pouch stamped with a winged crown.",
+        "moonfen:winch": state.flags.ferryRepaired ? "The iron crank turns smoothly now. The ferry rope is taut across the black water." : "The winch is intact, but the removable iron crank is missing.",
+        "moonfen:water": "The black water is too deep to cross safely. The rope ferry is the only reliable route to the hut.",
+        "moonfen:across water": "The hut stands across the black water, too far to reach without the ferry.",
+        "moonwell:fairy cage": state.flags.fairyFreed ? "The living thorns have opened and curled harmlessly into the grass." : "The thorns tighten whenever you touch them. A small sun-shaped socket is woven into the cage.",
+        "moonwell:white flowers": "The flowers turn slowly toward the trapped fairy rather than toward the moon.",
+        "moonwell:carved stones": "The stones depict a ferry, a winged coin, Saint Orla's open hand, and finally a rising sun.",
+        "hutExterior:hut": "The hut is older than the ferry landing. Someone has recently swept the steps, though no footprints remain.",
+        "hutExterior:dock": "The dock timbers are slick with marsh water. The ferry rope runs west through the fog.",
+        "hutInterior:diary": "The last readable page says: 'Orla hid the path below the chapel. The fairy coin opens the way, but the coin must never return to the crown.'",
+        "hutInterior:map": "The hand-drawn map links the Moonfen hut, Moonwell, Saint Orla's chapel, and an old tunnel beneath the Briar Lantern.",
+        "hutInterior:locked chest": "A crescent-shaped keyhole seals the chest. Whatever is inside can wait for another adventure.",
+        "hutInterior:fireplace": "The ashes are cold, but a single blue feather lies beneath the grate.",        "square:notice board": "A fresh posting offers silver for news of the missing royal courier. Someone has added a smaller note beneath it: LAST SEEN NEAR MOONFEN.",
         "square:well": "The village well is cold and clear. A faint reflection of sunrise shimmers in it, though the sky remains dark.",
         "square:tavern": "The Briar Lantern is Willowmere's tavern—the timbered building with the tankard sign. Touch it again or type WALK TO TAVERN.",
         "apothecary:herbs": "Lavender, moonwort, feverfew, and several plants you cannot name hang in carefully tied bundles.",
@@ -1726,10 +1957,10 @@
         "cottage:rug": state.flags.rugMoved ? "The rug has been pulled aside, revealing an iron trapdoor." : "The rug is dusty except for a clean iron ring showing through one torn corner.",
         "cottage:door": "The crooked front door bears fresh scratches on the inside, as if something once tried to claw its way out.",
         "cellar:lantern": state.flags.lanternTaken ? "The peg where the lantern hung is empty." : "A brass lantern hangs from the wall. It appears to contain a little oil.",
-        "cellar:coin": state.flags.coinTaken ? "Only a circular mark remains in the dust." : "The tiny coin bears the same winged figure shown in the chapel window.",
+        "cellar:ferry crank": state.flags.ferryCrankTaken ? "The stone where the crank rested is empty." : "A heavy iron crank rests against the wall, its teeth marked with the same crescent symbol as the Moonfen ferry.",
         "whisperingForest:whispers": "The voices are not threatening. They repeat a single phrase: Free her before you mend it.",
-        "moonfen:hut": "Bundles of herbs hang from the eaves. Someone inside is watching through the smoke.",
-        "moonfen:ferry": "The rope ferry is old but sound. A lantern on its bow burns without oil.",
+        "moonfen:hut": "Across the black water, the hut windows glow faintly. The ferry is the only safe way to reach it.",
+        "moonfen:ferry": state.flags.ferryRepaired ? "The rope ferry is repaired and ready to cross." : "The ferry itself is sound, but the shoreline winch is missing its crank.",
         "moonwell:well": state.flags.shardTaken ? "The water has gone still. Nothing else shines below." : "Far below, a crystal shard rests on a narrow stone ledge beyond your reach.",
         "moonwell:fairy": state.flags.fairyFreed ? "The fairy hovers above the flowers, free and radiant." : "The fairy's wings are pinned by thorny vines. She points frantically at the golden sigil you carry.",
         "castleRoad:thorns": "The vines recoil slightly from the sun sigil, as though remembering daylight.",
@@ -1757,8 +1988,16 @@
         addLog("The brass bell jingles as you open the green door. You may now ENTER APOTHECARY.", "success"); return;
       }
       if (state.room === "tavern" && /(cellar|cellar door|hatch)/.test(target)) {
-        if (state.flags.cellarUnlocked) return addLog("The cellar hatch is unlocked, though the deeper cellar is not part of this test build yet.", "system");
-        return addLog("A difficult lock holds the cellar hatch. It appears to require Lockpicking 2—or another clever solution.", "warning");
+        if (state.flags.cellarUnlocked) {
+          state.flags.tavernCellarOpen=true; rooms.tavern.exits.down = "tavernCellar";
+          return addLog("The lock clicks free. You pull the heavy hatch open, revealing stone steps into the cellar. You may GO DOWN.", "success");
+        }
+        return addLog("A difficult lock holds the cellar hatch. A skilled hand—or the innkeeper's permission—might open it.", "warning");
+      }
+      if (state.room === "tavernCellar" && /wine rack|rack/.test(target)) {
+        if (!state.flags.cellarDraftFound) return addLog("The rack is too heavy to move blindly. Inspect it first.", "warning");
+        if (!state.flags.cellarPassageRevealed) { state.flags.cellarPassageRevealed=true; rooms.tavernCellar.exits.east = "secretTunnel"; award("find-secret-passage",2); }
+        return addLog("The wine rack scrapes across the stones, exposing a narrow hidden passage to the east.", "success");
       }
       if (state.room === "tavernDoor" && /(door|tavern)/.test(target)) {
         if (state.flags.tavernDoorOpen) return addLog("The tavern door is already open.");
@@ -1832,7 +2071,7 @@
     function takeTarget(target) {
       if (state.room === "moonfen" && /(moonfen reed|reed|reeds)/.test(target)) {
         if (has("moonfen reed")) return addLog("You already gathered a moonfen reed.");
-        addItem("moonfen reed",1); addLog("You cut a silver-green moonfen reed and place it carefully in your backpack.","success"); award("gather-moonfen-reed",2); return;
+        addItem("moonfen reed",1); useSkill("Survival"); addLog("You cut a silver-green moonfen reed and place it carefully in your backpack.","success"); award("gather-moonfen-reed",2); return;
       }
       if (state.room === "forestEdge" && /(silver token|token)/.test(target)) {
         if (state.flags.silverTokenTaken) return addLog("You already took the silver token.");
@@ -1851,9 +2090,13 @@
         if (state.flags.lanternTaken) return addLog("You already took the lantern.");
         state.flags.lanternTaken = true; addItem("lantern"); addLog("You take the brass lantern.", "success"); return;
       }
-      if (state.room === "cellar" && /(coin|fairy coin)/.test(target)) {
+      if (state.room === "cellar" && /(ferry crank|crank)/.test(target)) {
+        if (state.flags.ferryCrankTaken) return addLog("You already took the ferry crank.");
+        state.flags.ferryCrankTaken = true; addItem("ferry crank"); award("find-ferry-crank",2); addLog("You lift the heavy ferry crank into your pack. This should fit the missing Moonfen winch.", "success"); return;
+      }
+      if (state.room === "hutInterior" && /(coin|fairy coin)/.test(target)) {
         if (state.flags.coinTaken) return addLog("You already took the fairy coin.");
-        state.flags.coinTaken = true; addItem("fairy coin"); addLog("You take the fairy coin. It is strangely warm.", "success"); return;
+        state.flags.coinTaken = true; addItem("fairy coin"); award("find-fairy-coin",4); addLog("You take the fairy coin. It is strangely warm, and for a moment the whole hut smells of summer rain.", "success"); return;
       }
       if (state.room === "crypt" && /(sigil|sun sigil)/.test(target)) {
         if (state.flags.sigilTaken) return addLog("You already carry the sun sigil.");
@@ -1872,6 +2115,15 @@
     }
 
     function moveTarget(target) {
+      if (state.room === "tavernCellar" && /(wine rack|rack)/.test(target)) {
+        if (!state.flags.cellarDraftFound) return addLog("You shove at the rack, but it barely moves. A closer inspection might reveal how it was meant to slide.", "warning");
+        if (!state.flags.cellarPassageRevealed) {
+          state.flags.cellarPassageRevealed = true; useSkill("Combat");
+          rooms.tavernCellar.exits.east = "secretTunnel"; award("find-secret-passage",2);
+          addLog("You brace your shoulder against the wine rack. It grinds aside, revealing a narrow hidden passage.", "success");
+        } else addLog("The wine rack is already pushed aside.");
+        return;
+      }
       if (state.room === "cottage" && /(rug|carpet)/.test(target)) {
         if (!state.flags.rugMoved) {
           state.flags.rugMoved = true;
@@ -1911,17 +2163,22 @@
       }
       if (state.room === "chapel" && item === "fairy coin" && /(statue|hand|slot|palm)/.test(target)) {
         if (state.flags.cryptOpen) return addLog("The hidden stair is already open.");
-        state.flags.cryptOpen = true;
+        state.flags.cryptOpen = true; useSkill("Magic");
         rooms.chapel.exits.down = "crypt";
         addLog("The coin sinks into Saint Orla's palm. Stone grinds beneath your feet as a spiral stair opens behind the altar.", "success");
         return;
       }
       if (state.room === "crypt" && item === "silver token" && /(reliquary|lid|lock|depression)/.test(target)) {
         if (state.flags.reliquaryOpen) return addLog("The reliquary is already open.");
-        state.flags.reliquaryOpen = true;
+        state.flags.reliquaryOpen = true; useSkill("Magic");
         award("open-reliquary", 5);
         addLog("The token settles into the round depression. Hidden gears turn, and the reliquary opens to reveal a golden sun sigil.", "success");
         return;
+      }
+      if (state.room === "moonfen" && item === "ferry crank" && /(ferry|winch|mechanism)/.test(target)) {
+        if (state.flags.ferryRepaired) return addLog("The ferry winch is already repaired.");
+        state.flags.ferryRepaired = true; useSkill("Survival"); rooms.moonfen.exits.east = "hutExterior"; award("repair-ferry",4);
+        addLog("The iron crank slides into the Moonfen winch. You turn it slowly; the old gears catch, the rope draws tight, and the ferry is ready to cross east.", "success"); return;
       }
       if (state.room === "moonwell" && item === "iron hook" && /(well|water|shard)/.test(target)) {
         if (state.flags.shardTaken) return addLog("You already recovered the crown shard.");
@@ -1932,7 +2189,7 @@
       }
       if (state.room === "moonwell" && item === "sun sigil" && /(cage|thorns|fairy)/.test(target)) {
         if (state.flags.fairyFreed) return addLog("The fairy is already free.");
-        state.flags.fairyFreed = true;
+        state.flags.fairyFreed = true; useSkill("Magic");
         addLog("The sun sigil flares. The thorn cage opens like a flower, and the fairy rises into the air. She touches the crown shard with one bright hand. “A crown is not healed by power,” she whispers. “It is healed by mercy.”", "success");
         return;
       }
@@ -1982,10 +2239,28 @@
       document.getElementById("inventory-dialog").showModal();
     }
 
+    function renderDiscoveredMap() {
+      const nodes = [
+        ["oldCemeteryPath",1,2,"Old Cemetery"],["chapelYard",2,2,"Chapel Yard"],["square",3,2,"Willowmere"],["forgeLane",4,2,"Forge Lane"],["eastRoad",5,2,"East Road"],
+        ["chapelApproach",2,1,"Chapel Door"],["chapel",2,0,"Saint Orla"],["crypt",2,3,"Crypt"],
+        ["tavernApproach",3,1,"Tavern Road"],["tavern",3,0,"Briar Lantern"],["tavernCellar",4,0,"Tavern Cellar"],["secretTunnel",5,0,"Hidden Passage"],
+        ["forestEdge",4,1,"Whispering Path"],["whisperingForest",5,1,"Deep Forest"],["moonwell",6,0,"Moonwell"],["moonfen",6,1,"Ferry Landing"],
+        ["hutExterior",6,2,"Across Moonfen"],["hutInterior",6,3,"Moonfen Hut"],["cottageApproach",5,2,"Witch's Cottage"],["cottage",5,3,"Cottage Interior"],["cellar",5,4,"Cottage Cellar"],
+        ["castleRoad",3,3,"King's Road"],["castleGate",3,4,"Ironthorn Gate"]
+      ];
+      const visited=new Set(state.visited||[]);
+      return `<h3>Discovered Map</h3><div class="world-map-card"><div class="world-map-grid">${nodes.map(([id,c,r,label])=>{
+        const known=visited.has(id); const current=state.room===id;
+        return `<div class="map-node ${current?"current":""} ${known?"":"unknown"}" style="grid-column:${c+1};grid-row:${r+1}">${known?label:"???"}</div>`;
+      }).join("")}</div><p class="map-legend">Gold outline = current location • ??? = not yet discovered. The layout is a travel guide, not an exact scale map.</p></div>`;
+    }
+
     function renderQuests() {
       const quests = [
         { done: state.flags.blacksmithGift, title: "Prepare for the Forest", text: "Speak with Merrin the blacksmith." },
-        { done: state.flags.sigilTaken, title: "Open Saint Orla's Reliquary", text: "Follow the fairy coin below the chapel, then use the silver token." },
+        { done: state.flags.ferryRepaired, title: "Cross the Moonfen", text: "Find the missing ferry crank and reach the hut across the water." },
+        { done: state.flags.coinTaken, title: "Find the Fairy Coin", text: "Search the Moonfen hut for Saint Orla's winged coin." },
+        { done: state.flags.sigilTaken, title: "Open Saint Orla's Reliquary", text: "Return the fairy coin to Saint Orla, descend below the chapel, then use the silver token." },
         { done: state.flags.shardTaken, title: "Recover the Crown Shard", text: "Search the moonwell." },
         { done: Boolean(state.flags.ending), title: "Wake the Castle", text: "Return the shard to the Ironthorn Gate." }
       ];
@@ -1997,7 +2272,7 @@
         [state.flags.blacksmithGift,"Friend of the Forge"], [state.flags.sigilTaken,"Crypt Seeker"], [Boolean(state.flags.ending),"Crownkeeper"]
       ].filter(a=>a[0]).map(a=>a[1]);
       const summary = document.getElementById("journal-summary");
-      if (summary) summary.innerHTML = `<h3>Hero</h3><div class="quest-card"><strong>${escapeHtml(hero.name)} — ${escapeHtml(hero.className)}</strong><p>Level ${state.level||1} • XP ${(state.score||0)%10}/10 • Health ${state.health||20}/${state.maxHealth||20} • Focus ${state.focus||10}/${state.maxFocus||10} • Gold ${state.gold||0} • Turns ${state.turns||0}</p></div>`+
+      if (summary) summary.innerHTML = renderDiscoveredMap()+`<h3>Hero</h3><div class="quest-card"><strong>${escapeHtml(hero.name)} — ${escapeHtml(hero.className)}</strong><p>Level ${state.level||1} • XP ${(state.score||0)%10}/10 • Health ${state.health||20}/${state.maxHealth||20} • Focus ${state.focus||10}/${state.maxFocus||10} • Gold ${state.gold||0} • Turns ${state.turns||0}</p></div>`+
         `<h3>Backpack</h3><div class="quest-card"><p>${state.inventory.length ? state.inventory.map(titleCase).join(" • ") : "Your backpack is empty."}</p></div>`+
         `<h3>Discovered Places</h3><div class="quest-card"><p>${visitedNames.join(" • ")}</p></div>`+
         `<h3>Achievements</h3><div class="quest-card"><p>${achievements.length ? achievements.join(" • ") : "No achievements yet."}</p></div>`;
@@ -2034,6 +2309,11 @@
       if (state.room === "tavern") return ["LOOK NORTH", "LOOK EAST", "LOOK WEST", "GO OUTSIDE"];
       if (state.room === "apothecary") return ["TALK TO ELOWEN", "SHOW WARES", "GO IN BACK ROOM", "GO OUTSIDE"];
       if (state.room === "apothecaryBackRoom") return ["LOOK", "LOOK AT RECIPE CHEST", "LOOK AT BREWING TABLE", "GO SOUTH"];
+      if (state.room === "tavernCellar") return ["LOOK AT WINE RACK", "MOVE WINE RACK", "SEARCH CRATES", "GO UP"];
+      if (state.room === "secretTunnel") return ["SEARCH TUNNEL", "LOOK AT BLOCKED ARCH", "GO WEST"];
+      if (state.room === "moonfen") return ["LOOK AT FERRY", "LOOK AT WINCH", "USE FERRY CRANK ON WINCH", "GO WEST"];
+      if (state.room === "hutExterior") return ["ENTER HUT", "LOOK AT DOCK", "GO WEST"];
+      if (state.room === "hutInterior") return ["TAKE FAIRY COIN", "READ DIARY", "LOOK AT MAP", "GO WEST"];
       return actions.length ? actions : ["LOOK", "INVENTORY", "JOURNAL"];
     }
 
@@ -2047,26 +2327,60 @@
     }
 
     const apothecaryShop = {
-      "healing salve": { price: 15, info: "Restores 8 health." },
-      "healing potion": { price: 35, info: "Restores 20 health." },
-      "antidote": { price: 25, info: "Cures poison." },
-      "stamina draught": { price: 20, info: "Restores 8 focus." },
-      "torch": { price: 10, info: "Useful in dark places." },
-      "lockpick": { price: 15, info: "A fine steel lockpick." }
+      "healing salve": { price: 15, info: "Restores 8 health.", icon:"🧴" },
+      "healing potion": { price: 35, info: "Restores 20 health.", icon:"🧪" },
+      "antidote": { price: 25, info: "Cures poison.", icon:"⚗️" },
+      "stamina draught": { price: 20, info: "Restores 8 focus.", icon:"💧" },
+      "torch": { price: 10, info: "Useful in dark places.", icon:"🔥" },
+      "lockpick": { price: 15, info: "A fine steel lockpick.", icon:"🗝️" }
+    };
+    const forgeShop = {
+      "iron dagger": { price:18, info:"A quick, balanced close-range weapon.", icon:"🗡️" },
+      "short sword": { price:35, info:"A sturdy blade forged for travelers.", icon:"⚔️" },
+      "wooden shield": { price:25, info:"A round shield that offers dependable protection.", icon:"🛡️" },
+      "rope": { price:8, info:"Thirty feet of braided rope.", icon:"🪢" },
+      "torch": { price:10, info:"Useful in dark places.", icon:"🔥" }
+    };
+    const shopCatalogs = {
+      apothecary:{title:"Elowen's Wares",merchant:"Elowen",items:apothecaryShop},
+      blacksmith:{title:"Merrin's Forge",merchant:"Merrin",items:forgeShop}
     };
     const sellPrices = { "healing herb":8, "clover":4, "dried moss":3, "moonfen reed":12 };
+    let activeShopKey="apothecary", activeShopTab="buy";
     function elowenPrice(item) { const base=apothecaryShop[item].price; const rep=(state.reputation&&state.reputation.Elowen)||0; const discount=(state.shopFlags&&state.shopFlags.elowenDiscount)||rep>=40; return Math.max(1, Math.round(base*(discount?0.8:1))); }
-    function showWares() {
-      const lines=Object.entries(apothecaryShop).map(([name,v])=>`${titleCase(name)} — ${elowenPrice(name)} gold (${v.info})`).join("<br>");
-      addLog(`<strong>Elowen's wares</strong><br>${lines}<br>Try <strong>BUY HEALING SALVE</strong>, <strong>SELL HEALING HERB</strong>, or <strong>BARTER</strong>.`,"system");
+    function shopPrice(shopKey,item) { return shopKey==="apothecary"?elowenPrice(item):(shopCatalogs[shopKey].items[item]||{}).price; }
+    function currentShopKey() { return state.room==="blacksmith"?"blacksmith":"apothecary"; }
+    function showWares(shopKey=currentShopKey()) { openShop(shopKey); }
+    function openShop(shopKey=currentShopKey(),tab="buy") {
+      if (!shopCatalogs[shopKey]) return;
+      activeShopKey=shopKey; activeShopTab=tab; renderShop();
+      document.getElementById("shop-dialog").showModal();
     }
-    function buyItem(name) {
+    function renderShop() {
+      const shop=shopCatalogs[activeShopKey]; if(!shop)return;
+      document.getElementById("shop-title").textContent=shop.title;
+      const body=document.getElementById("shop-body");
+      const tabs=activeShopKey==="apothecary"?`<div class="shop-tabs"><button data-shop-tab="buy" class="${activeShopTab==="buy"?"active":""}">Buy</button><button data-shop-tab="sell" class="${activeShopTab==="sell"?"active":""}">Sell</button></div>`:"";
+      let content="";
+      if(activeShopTab==="sell"&&activeShopKey==="apothecary") {
+        const sellable=Object.entries(sellPrices).filter(([name])=>has(name));
+        content=sellable.length?sellable.map(([name,price])=>`<article class="shop-item"><div class="shop-item-icon">${name.includes("herb")?"🌿":name.includes("reed")?"🌾":"🍃"}</div><div><h3>${titleCase(name)}</h3><p>Elowen will pay ${price} gold.</p><span class="shop-owned">Owned: ${itemQty(name)}</span></div><button class="shop-buy" data-sell-shop-item="${name}">Sell<br>${price} ◆</button></article>`).join(""):`<p class="empty-state">You have no herbs or ingredients Elowen is buying right now.</p>`;
+      } else {
+        content=Object.entries(shop.items).map(([name,item])=>{ const price=shopPrice(activeShopKey,name), affordable=(state.gold||0)>=price; return `<article class="shop-item"><div class="shop-item-icon" aria-hidden="true">${item.icon||"✦"}</div><div><h3>${titleCase(name)}</h3><p>${item.info}</p><span class="shop-owned">Owned: ${itemQty(name)}</span></div><button class="shop-buy" data-buy-shop-item="${name}" ${affordable?"":"disabled"}>Buy<br>${price} ◆</button></article>`; }).join("");
+      }
+      body.innerHTML=`<div class="shop-toolbar"><div class="shop-gold">◆ ${state.gold||0} gold</div>${tabs}</div><div class="shop-list">${content}</div>`;
+      body.querySelectorAll("[data-shop-tab]").forEach(btn=>btn.addEventListener("click",()=>{activeShopTab=btn.dataset.shopTab;renderShop();}));
+      body.querySelectorAll("[data-buy-shop-item]").forEach(btn=>btn.addEventListener("click",()=>{buyItem(btn.dataset.buyShopItem,activeShopKey);autosave();updateStatus();renderShop();}));
+      body.querySelectorAll("[data-sell-shop-item]").forEach(btn=>btn.addEventListener("click",()=>{sellItem(btn.dataset.sellShopItem);autosave();updateStatus();renderShop();}));
+    }
+    function buyItem(name,shopKey=currentShopKey()) {
       name=normalizeObjectName(name).replace(/s$/,'');
-      if (!apothecaryShop[name]) return addLog("Elowen does not sell that. Try SHOW WARES.","warning");
-      const price=elowenPrice(name);
+      const catalog=shopCatalogs[shopKey]&&shopCatalogs[shopKey].items;
+      if (!catalog||!catalog[name]) return addLog("That merchant does not sell that item.","warning");
+      const price=shopPrice(shopKey,name);
       if ((state.gold||0)<price) return addLog(`You need ${price} gold, but only carry ${state.gold||0}.`,"warning");
       state.gold-=price; addItem(name,1); addLog(`You buy ${titleCase(name)} for ${price} gold. You now have ${state.gold} gold.`,"success");
-      changeReputation("Elowen",1); award(`buy-${name}`,1);
+      if(shopKey==="apothecary"){changeReputation("Elowen",1);award(`buy-${name}`,1);}
     }
     function sellItem(name) {
       name=normalizeObjectName(name).replace(/s$/,'');
@@ -2103,8 +2417,10 @@
       if (/^(save|save game)$/.test(command)) return saveGame();
       if (/^(load|load game)$/.test(command)) return loadGame();
       if (/^(restart|new game)$/.test(command)) return restartGame();
-      if (state.room === "apothecary" && /^(?:show|see|view|browse) (?:wares|goods|shop|items)$/.test(command)) { showWares(); return finishTurn(); }
-      if (state.room === "apothecary" && (match = command.match(/^buy (.+)$/))) { state.turns++; buyItem(match[1]); return finishTurn(); }
+      if (state.room === "apothecary" && /^(?:show|see|view|browse|open) (?:wares|goods|shop|items)$/.test(command)) { showWares("apothecary"); return finishTurn(); }
+      if (state.room === "blacksmith" && /^(?:show|see|view|browse|open) (?:wares|goods|shop|items|forge wares)$/.test(command)) { showWares("blacksmith"); return finishTurn(); }
+      if (state.room === "apothecary" && (match = command.match(/^buy (.+)$/))) { state.turns++; buyItem(match[1],"apothecary"); return finishTurn(); }
+      if (state.room === "blacksmith" && (match = command.match(/^buy (.+)$/))) { state.turns++; buyItem(match[1],"blacksmith"); return finishTurn(); }
       if (state.room === "apothecary" && (match = command.match(/^sell (.+)$/))) { state.turns++; sellItem(match[1]); return finishTurn(); }
       if (state.room === "apothecary" && /^(?:barter|haggle|negotiate)$/.test(command)) { state.turns++; barterWithElowen(); return finishTurn(); }
       if (state.room === "apothecary" && /^(?:ask|talk to) (?:elowen|apothecary) about (?:back room|workroom)$/.test(command)) { state.turns++; requestBackRoom(); return finishTurn(); }
@@ -2160,12 +2476,24 @@
       if (command === "go outside" && state.room === "tavernDoor") { state.room="tavernApproach"; state.turns++; describeRoom(true); return finishTurn(); }
       if (command === "go outside" && state.room === "apothecaryDoor") { await transitionToRoom("apothecaryApproach",{note:"You step away from the apothecary door."}); return finishTurn(); }
       if (/^(?:ring|use) bell$/.test(command) && state.room === "apothecaryDoor") { state.turns++; state.lastObject="bell"; addLog("The brass bell gives a bright chime. Footsteps approach from inside.", "system"); useSkill("Persuasion"); return finishTurn(); }
+      if (/^(?:ask|talk to) (?:the )?innkeeper about (?:the )?cellar$/.test(command) && state.room === "tavern") {
+        state.turns++; state.flags.cellarUnlocked=true; award("cellar-permission",1);
+        addLog("The innkeeper sighs and slides a small key across the bar. “Fine. Mind the old bottles, and don't move the wine rack.” The cellar hatch is now unlocked.","success"); return finishTurn();
+      }
+      if (/^(?:open|lift) (?:the )?(?:cellar hatch|cellar door|hatch)$/.test(command) && state.room === "tavern") { state.turns++; openTarget("cellar hatch"); return finishTurn(); }
+      if (/^(?:enter hut|go in hut|go inside hut)$/.test(command) && state.room === "hutExterior") { await transitionToRoom("hutInterior",{note:"You step into the quiet Moonfen hut."}); return finishTurn(); }
+      if (/^(?:cross ferry|ride ferry|take ferry|go east)$/.test(command) && state.room === "moonfen") {
+        if (!state.flags.ferryRepaired) { state.turns++; addLog("The ferry cannot move until the missing crank is replaced.","warning"); return finishTurn(); }
+        await transitionToRoom("hutExterior",{note:"The rope ferry creaks across the black water toward the distant hut."}); return finishTurn();
+      }
       if (/^(?:pick|unlock) (?:cellar|cellar door|hatch)(?: lock)?$/.test(command) && state.room === "tavern") {
         state.turns++; state.lastObject="cellar door";
-        if (!has("lockpicks")) { addLog("You need lockpicks to attempt that.", "warning"); return finishTurn(); }
+        if (!has("lockpicks")) { addLog("You need lockpicks to attempt that—or you could ASK INNKEEPER ABOUT CELLAR.", "warning"); return finishTurn(); }
         useSkill("Lockpicking");
-        if ((state.skills.Lockpicking||0) < 2) { addLog("The lock is beyond your present skill. Lockpicking 2 is required.", "warning"); return finishTurn(); }
-        state.flags.cellarUnlocked=true; award("unlock-tavern-cellar",3); addLog("You feel the final tumbler click. The cellar hatch is unlocked.", "success"); return finishTurn();
+        const roll = Math.floor(Math.random()*20)+1; const bonus = ((state.player&&state.player.classKey)==="rogue"?4:0)+(state.skills.Lockpicking||0);
+        addLog(`<strong style="color:${skillMeta.Lockpicking.color}">${skillMeta.Lockpicking.icon} Lockpicking check:</strong> d20 ${roll} + ${bonus} = ${roll+bonus}. Need 10.`, "system");
+        if (roll+bonus < 10) { addLog("A tumbler slips and the lock resets. You can try again.", "warning"); return finishTurn(); }
+        state.flags.cellarUnlocked=true; award("unlock-tavern-cellar",3); addLog("You feel the final tumbler click. The cellar hatch is unlocked. OPEN CELLAR HATCH or GO DOWN.", "success"); return finishTurn();
       }
       if (command === "enter") {
         state.turns++;
@@ -2258,8 +2586,14 @@
     function restoreDynamicExits() {
       delete rooms.cottage.exits.down;
       delete rooms.chapel.exits.down;
+      delete rooms.tavern.exits.down;
+      delete rooms.tavernCellar.exits.east;
+      delete rooms.moonfen.exits.east;
       if (state.flags.trapdoorOpen) rooms.cottage.exits.down = "cellar";
       if (state.flags.cryptOpen) rooms.chapel.exits.down = "crypt";
+      if (state.flags.tavernCellarOpen) rooms.tavern.exits.down = "tavernCellar";
+      if (state.flags.cellarPassageRevealed) rooms.tavernCellar.exits.east = "secretTunnel";
+      if (state.flags.ferryRepaired) rooms.moonfen.exits.east = "hutExterior";
     }
 
     function currentActions() {
@@ -2272,7 +2606,9 @@
       if (state.room === "apothecaryDoor" && state.flags.apothecaryDoorOpen) { removeAction("open door"); actions.unshift("enter apothecary"); }
       if (state.room === "forgeDoor" && state.flags.forgeDoorOpen) { removeAction("open door"); actions.unshift("enter forge"); }
       if (state.room === "cottageApproach" && state.flags.cottageDoorOpen) { removeAction("open cottage door"); actions.unshift("enter cottage"); }
-      if (state.room === "apothecary") actions.unshift("show wares", "talk to Elowen", "go in back room");
+      if (state.room === "apothecary") actions.unshift("show wares", "buy healing salve", ...(has("healing herb")?["sell healing herb"]:[]), ...(has("moonfen reed")?["give moonfen reed to Elowen"]:[]), "barter", "ask Elowen about back room", "talk to Elowen", "go in back room");
+      if (state.room === "blacksmith") actions.unshift("browse forge wares");
+      if (state.room === "tavern") actions.push("talk to flutist", "talk to waitress", "talk to old lady");
       if (state.room === "cottage" && state.flags.rugMoved && !state.flags.trapdoorUnlocked) actions.unshift("use silver key on trapdoor");
       if (state.room === "cottage" && state.flags.trapdoorUnlocked && !state.flags.trapdoorOpen) actions.unshift("open trapdoor");
       if (state.room === "cottage" && state.flags.trapdoorOpen) actions.unshift("go down");
@@ -2287,6 +2623,15 @@
       if (state.room === "cottage" && state.flags.cabinetOpen) removeAction("open cabinet");
       if (state.room === "cottage" && state.flags.rugMoved) removeAction("move rug");
       if (state.room === "cottage" && state.flags.cabinetOpen && !state.flags.keyTaken) actions.unshift("take silver key");
+      if (state.room === "cellar" && !state.flags.ferryCrankTaken) actions.unshift("take ferry crank");
+      if (state.room === "tavern" && !state.flags.cellarUnlocked) actions.unshift("ask innkeeper about cellar");
+      if (state.room === "tavern" && state.flags.cellarUnlocked && !state.flags.tavernCellarOpen) actions.unshift("open cellar hatch");
+      if (state.room === "tavern" && state.flags.tavernCellarOpen) actions.unshift("go down");
+      if (state.room === "tavernCellar" && state.flags.cellarDraftFound && !state.flags.cellarPassageRevealed) actions.unshift("move wine rack");
+      if (state.room === "tavernCellar" && state.flags.cellarPassageRevealed) actions.unshift("go east");
+      if (state.room === "moonfen" && has("ferry crank") && !state.flags.ferryRepaired) actions.unshift("use ferry crank on winch");
+      if (state.room === "moonfen" && state.flags.ferryRepaired) actions.unshift("cross ferry", "go east");
+      if (state.room === "hutInterior" && !state.flags.coinTaken) actions.unshift("take fairy coin");
 
       // Outdoor scenes keep the four cardinal directions visible. A direction may
       // travel to another room or return an in-world boundary response.
@@ -2297,15 +2642,26 @@
       }
       const seen = new Set();
       return actions.filter(action => {
-        const key = normalize(action);
+        const key = canonicalActionKey(action);
         if (seen.has(key)) return false;
         seen.add(key);
         return true;
       });
     }
 
-    let quickActionsExpanded = false;
+    function canonicalActionKey(action) {
+      let key=normalize(action);
+      if(key==="talk to apothecary") key="talk to elowen";
+      if(key==="show wares"||key==="browse wares"||key==="browse forge wares") key=`shop:${state.room}`;
+      if(key==="leave apothecary") key="go outside";
+      if(key==="leave tavern") key="go outside";
+      return key;
+    }
+
     let selectedHotspotContext = null;
+    let expandedActionCategory = null;
+    const ACTION_PANEL_PREF_KEY="briar-crown-actions-expanded";
+    let actionsPanelExpanded = storageGet(ACTION_PANEL_PREF_KEY) !== "false";
 
     function actionIcon(action) {
       if (action === "inventory") return "🎒";
@@ -2331,7 +2687,7 @@
       const a = normalize(action);
       if (a === "talk to innkeeper") return "Talk to Innkeeper";
       if (a === "talk to apothecary" || a === "talk to elowen") return "Talk to Elowen";
-      if (a === "show wares") return "Show Wares";
+      if (a === "show wares" || a === "browse forge wares") return "Browse Wares";
       if (a === "go in back room") return "Go to Back Room";
       if (a === "look at cellar door") return "Examine Cellar Hatch";
       if (a === "pick cellar lock") return "Pick Cellar Lock";
@@ -2345,6 +2701,11 @@
       if (a === "enter cottage") return "Enter Cottage";
       if (a === "enter chapel") return "Enter Chapel";
       if (a === "take silver key") return "Take Silver Key";
+      if (a === "take ferry crank") return "Take Ferry Crank";
+      if (a === "use ferry crank on winch") return "Repair Ferry";
+      if (a === "cross ferry") return "Cross the Ferry";
+      if (a === "ask innkeeper about cellar") return "Ask About Cellar";
+      if (a === "open cellar hatch") return "Open Cellar Hatch";
       if (a === "go outside") return "Go Outside";
       if (a === "leave apothecary") return "Leave Shop";
       if (a === "leave tavern") return "Leave Tavern";
@@ -2375,7 +2736,7 @@
       }
 
       selectedHotspotContext = null;
-      quickActionsExpanded = false;
+      expandedActionCategory = null;
       inputEl.value = "";
       inputEl.blur();
       processCommand(action);
@@ -2400,65 +2761,62 @@
       const label = normalizeObjectName(hotspot.label);
       const examine = `look at ${label}`;
       if (!actions.some(action => normalize(action) === normalize(examine))) actions.push(examine);
-      if (outdoorRooms.has(state.room)) {
-        ["north", "east", "south", "west"].forEach(direction => actions.push(`go ${direction}`));
-      } else {
-        Object.keys(room().exits || {}).forEach(direction => actions.push(`go ${direction}`));
-      }
-      return [...new Set(actions)].sort((a, b) => quickPriority(a) - quickPriority(b));
+      const seen=new Set();
+      return actions.filter(action=>{const key=canonicalActionKey(action);if(seen.has(key))return false;seen.add(key);return true;}).sort((a, b) => quickPriority(a) - quickPriority(b));
     }
 
+    function isCriticalAction(action) {
+      const a=normalize(action);
+      return /^(enter |open (?:door|cellar hatch|trapdoor|reliquary)|take |repair ferry|cross ferry|use (?:fairy coin|sun sigil|iron hook|silver token|silver key|ferry crank)|move wine rack|go down|light lantern)/.test(a);
+    }
+    function actionCategory(action) {
+      const a=normalize(action);
+      if(/^(talk|speak|ask)/.test(a)) return "Talk";
+      if(/^(look|examine|inspect|listen|read)/.test(a)) return "Look";
+      if(/^(go |walk |enter|leave|approach|cross)/.test(a)) return "Move";
+      if(/^(show wares|browse forge wares|buy|sell|barter|haggle)/.test(a)) return "Shop";
+      if(/^(search|check)/.test(a)) return "Search";
+      if(/^(use|open|move|light|pick|ring)/.test(a)) return "Use";
+      return "Other";
+    }
+    function categoryIcon(category) { return ({Talk:"●●●",Look:"◉",Move:"➜",Shop:"¤",Use:"☝",Search:"⌕",Other:"✦"})[category]||"✦"; }
+    function appendActionButton(action,extraClass="") {
+      const btn=document.createElement("button"); btn.type="button"; btn.className=`quick-btn ${extraClass}`.trim();
+      btn.innerHTML=`<span class="action-icon">${actionIcon(action)}</span><span>${quickActionLabel(action)}</span>`;
+      btn.addEventListener("click",()=>executeQuickAction(action)); quickActionsEl.appendChild(btn);
+    }
     function renderQuickActions() {
-      quickActionsEl.innerHTML = "";
-      if (selectedHotspotContext && (selectedHotspotContext.room !== state.room || selectedHotspotContext.view !== currentView())) {
-        selectedHotspotContext = null;
-      }
-      const sourceActions = selectedHotspotContext
-        ? contextualActionsForHotspot(selectedHotspotContext.hotspot)
-        : currentActions();
-      const actions = [...sourceActions].sort((a, b) => quickPriority(a) - quickPriority(b));
-      if (!actions.length) {
-        quickActionsEl.classList.add("is-hidden");
-        return;
-      }
-      quickActionsEl.classList.remove("is-hidden");
+      quickActionsEl.innerHTML="";
+      if(selectedHotspotContext&&(selectedHotspotContext.room!==state.room||selectedHotspotContext.view!==currentView())) selectedHotspotContext=null;
+      const sourceActions=selectedHotspotContext?contextualActionsForHotspot(selectedHotspotContext.hotspot):currentActions();
+      const seen=new Set();
+      const actions=sourceActions.filter(a=>{const key=canonicalActionKey(a);if(seen.has(key))return false;seen.add(key);return true;}).sort((a,b)=>quickPriority(a)-quickPriority(b));
+      actionsToggleEl.textContent=actionsPanelExpanded?"Hide Actions ▲":`Show Actions (${actions.length}) ▼`;
+      actionsToggleEl.setAttribute("aria-expanded",String(actionsPanelExpanded));
+      quickActionsEl.classList.toggle("is-hidden",!actionsPanelExpanded||!actions.length);
+      if(!actionsPanelExpanded||!actions.length)return;
 
-      if (selectedHotspotContext) {
-        const context = document.createElement("div");
-        context.className = "quick-context-label";
-        const title = document.createElement("span");
-        title.textContent = selectedHotspotContext.hotspot.label;
-        const clear = document.createElement("button");
-        clear.type = "button";
-        clear.textContent = "All actions";
-        clear.addEventListener("click", () => {
-          selectedHotspotContext = null;
-          quickActionsExpanded = false;
-          renderQuickActions();
-        });
-        context.append(title, clear);
-        quickActionsEl.appendChild(context);
+      if(selectedHotspotContext){
+        const context=document.createElement("div");context.className="quick-context-label";
+        const title=document.createElement("span");title.textContent=selectedHotspotContext.hotspot.label;
+        const clear=document.createElement("button");clear.type="button";clear.textContent="All actions";clear.addEventListener("click",()=>{selectedHotspotContext=null;expandedActionCategory=null;renderQuickActions();});
+        context.append(title,clear);quickActionsEl.appendChild(context);
+        actions.forEach(a=>appendActionButton(a,isCriticalAction(a)?"critical-action":""));return;
       }
 
-      const visibleLimit = quickActionsExpanded ? 12 : 8;
-      actions.slice(0, visibleLimit).forEach(action => {
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "quick-btn";
-        btn.innerHTML = `<span class="action-icon">${actionIcon(action)}</span><span>${quickActionLabel(action)}</span>`;
-        btn.addEventListener("click", () => executeQuickAction(action));
-        quickActionsEl.appendChild(btn);
+      const critical=actions.filter(isCriticalAction);
+      critical.forEach(a=>appendActionButton(a,"critical-action"));
+      const groups=new Map();
+      actions.filter(a=>!isCriticalAction(a)).forEach(a=>{const category=actionCategory(a);if(!groups.has(category))groups.set(category,[]);groups.get(category).push(a);});
+      const categoryOrder=["Talk","Look","Move","Shop","Use","Search","Other"];
+      categoryOrder.filter(c=>groups.has(c)).forEach(category=>{
+        const btn=document.createElement("button");btn.type="button";btn.className=`quick-btn quick-category ${expandedActionCategory===category?"is-open":""}`;
+        btn.innerHTML=`<span class="action-icon">${categoryIcon(category)}</span><span>${category} (${groups.get(category).length})</span>`;
+        btn.addEventListener("click",()=>{expandedActionCategory=expandedActionCategory===category?null:category;renderQuickActions();});quickActionsEl.appendChild(btn);
       });
-      if (actions.length > 8) {
-        const toggle = document.createElement("button");
-        toggle.type = "button";
-        toggle.className = "quick-btn more-toggle";
-        toggle.innerHTML = `<span class="action-icon">${quickActionsExpanded ? "−" : "+"}</span><span>${quickActionsExpanded ? "Show Fewer" : `More (${actions.length - 8})`}</span>`;
-        toggle.addEventListener("click", () => {
-          quickActionsExpanded = !quickActionsExpanded;
-          renderQuickActions();
-        });
-        quickActionsEl.appendChild(toggle);
+      if(expandedActionCategory&&groups.has(expandedActionCategory)){
+        const label=document.createElement("div");label.className="quick-category-label";label.textContent=`${expandedActionCategory} options`;quickActionsEl.appendChild(label);
+        groups.get(expandedActionCategory).forEach(a=>appendActionButton(a));
       }
     }
 
@@ -2513,7 +2871,7 @@
           hotspotsEl.querySelectorAll(".hotspot.revealed").forEach(other => other.classList.remove("revealed"));
           state.lastObject = normalizeObjectName(h.label);
           selectedHotspotContext = { hotspot: h, room: state.room, view: currentView() };
-          quickActionsExpanded = false;
+          expandedActionCategory = null;
           inputEl.value = "";
           inputEl.blur();
           btn.classList.add("revealed");
@@ -2756,14 +3114,18 @@
       return frame(commonStars);
     }
 
+    function skillRank(value) { return value<=0?"Untrained":value===1?"Trained":value===2?"Skilled":value===3?"Expert":value===4?"Master":"Legendary"; }
     function renderSkills() {
-      const body = document.getElementById("skills-body");
-      const player = state.player || {name:"Rowan", className:"Ranger", stats:{}};
-      const skills = state.skills || {};
-      const nextLevel = (state.level || 1) * 10;
-      body.innerHTML = `<div class="inventory-card"><strong>${escapeHtml(player.name)} — ${escapeHtml(player.className)}</strong><small>Level ${state.level||1} • Total XP ${state.score||0} • Next level at ${nextLevel} XP</small></div>` +
-        Object.entries(skills).map(([name,value]) => { const uses=(state.skillUses&&state.skillUses[name])||0; const needed=3+value*2; return `<div class="inventory-card"><strong>${name} — Level ${value}</strong><small>${value===0?"Untrained":value<2?"Novice":value<4?"Skilled":"Expert"} • Practice ${uses}/${needed} toward the next rank.</small><div style="height:7px;background:#1a1521;border:1px solid #6f572e;border-radius:999px;overflow:hidden;margin-top:7px"><span style="display:block;height:100%;width:${Math.min(100,uses/needed*100)}%;background:linear-gradient(90deg,#8f7138,#efd27f)"></span></div></div>`; }).join("") +
-        `<p class="empty-state">Experience (XP) measures your progress. Every 10 XP raises your character level. Skills increase separately through successful use—for example, picking locks, surviving hazards, casting magic, persuading characters, or winning combat.</p>`;
+      const body=document.getElementById("skills-body");
+      const player=state.player||{name:"Rowan",className:"Adventurer",classKey:"ranger",stats:{}};
+      const specialty=Object.entries(classSkillStarts[player.classKey]||{}).sort((a,b)=>b[1]-a[1]).map(([name,level])=>`${name} ${level}`).join(" • ")||"No specialty recorded";
+      const nextLevel=(state.level||1)*10;
+      const cards=Object.entries(state.skills||{}).map(([name,value])=>{
+        const meta=skillMeta[name]||{icon:"✦",color:"#c8a356",description:"An adventuring skill."};
+        const uses=(state.skillUses&&state.skillUses[name])||0,needed=3+value*2,pct=Math.min(100,uses/needed*100);
+        return `<section class="skill-card" style="--skill:${meta.color}"><div class="skill-card-head"><div class="skill-icon">${meta.icon}</div><div><div class="skill-name">${name}</div><div class="skill-rank">${skillRank(value)}</div></div><div class="skill-level">Level ${value}</div></div><p class="skill-description">${meta.description}</p><div class="skill-progress-meta"><span>Practice ${uses}/${needed}</span><span>${Math.round(pct)}%</span></div><div class="skill-progress"><span style="width:${pct}%"></span></div></section>`;
+      }).join("");
+      body.innerHTML=`<section class="hero-summary-card"><div class="hero-summary-top"><div><h3>${escapeHtml(player.name)} — ${escapeHtml(player.className)}</h3><p>Class strengths: ${specialty}<br>Total XP ${state.score||0} • Next hero level at ${nextLevel} XP</p></div><div class="hero-level-badge">Level ${state.level||1}</div></div></section>${cards}<p class="empty-state">Skills improve separately through successful use. Your class begins with its signature abilities already ahead, but every hero can practice every skill.</p>`;
     }
 
     function renderHeroClasses() {
@@ -2773,7 +3135,8 @@
         const btn = document.createElement("button");
         btn.type = "button";
         btn.className = "class-card" + (selectedHeroClass === key ? " selected" : "");
-        btn.innerHTML = `<span class="class-icon">${hero.icon}</span><strong>${hero.name}</strong><small>${hero.tagline}</small><div class="class-stats">${Object.entries(hero.stats).map(([k,v])=>`${k}: ${v}`).join(" • ")}<br>Starts with: ${hero.gift}</div>`;
+        const startingSkills=Object.entries(classSkillStarts[key]||{}).map(([name,level])=>`${name} ${level}`).join(" • ");
+        btn.innerHTML = `<span class="class-icon">${hero.icon}</span><strong>${hero.name}</strong><small>${hero.tagline}</small><div class="class-stats">${Object.entries(hero.stats).map(([k,v])=>`${k}: ${v}`).join(" • ")}<br><strong style="font-size:11px;margin-top:5px">Skills: ${startingSkills}</strong>Starts with: ${hero.gift}</div>`;
         btn.addEventListener("click", () => { selectedHeroClass = key; renderHeroClasses(); updateHeroSummary(); });
         grid.appendChild(btn);
       });
@@ -2781,7 +3144,8 @@
     function updateHeroSummary() {
       const hero = heroClasses[selectedHeroClass];
       const name = document.getElementById("hero-name").value.trim() || "Rowan";
-      document.getElementById("player-summary").textContent = hero ? `${name}, ${hero.name} — ${hero.tagline}. Starts with ${hero.gift}.` : "Select a character type to begin.";
+      const skills=hero?Object.entries(classSkillStarts[selectedHeroClass]||{}).map(([skill,level])=>`${skill} ${level}`).join(", "):"";
+      document.getElementById("player-summary").textContent = hero ? `${name}, ${hero.name} — ${hero.tagline}. Starting skills: ${skills}. Starts with ${hero.gift}.` : "Select a character type to begin.";
       document.getElementById("begin-adventure-btn").disabled = !hero;
     }
     function showTitleScreen() {
@@ -2803,8 +3167,8 @@
       const name = document.getElementById("hero-name").value.trim() || "Rowan";
       state = initialState();
       state.player = { name, classKey:selectedHeroClass, className:hero.name, stats:{...hero.stats} };
-      const classSkills = { knight:{Combat:2}, ranger:{Survival:2,Combat:1}, wizard:{Magic:2}, rogue:{Lockpicking:2}, druid:{Survival:1,Magic:1}, bard:{Persuasion:2} };
-      Object.assign(state.skills, classSkills[selectedHeroClass] || {});
+      Object.assign(state.skills, classSkillStarts[selectedHeroClass] || {});
+      state.flags.classSkillStartApplied=true;
       addItem(hero.item);
       state.log = [];
       addLog(`Welcome, <strong>${escapeHtml(name)}</strong> the ${hero.name}.`, "system");
@@ -2839,7 +3203,7 @@
     document.querySelectorAll("[data-command]").forEach(btn => btn.addEventListener("click", () => processCommand(btn.dataset.command)));
     document.getElementById("backpack-btn").addEventListener("click", showInventory);
     document.getElementById("skills-btn").addEventListener("click", () => { renderSkills(); document.getElementById("skills-dialog").showModal(); });
-    document.getElementById("level-score-btn").addEventListener("click", () => { renderSkills(); document.getElementById("skills-dialog").showModal(); });
+    actionsToggleEl.addEventListener("click",()=>{actionsPanelExpanded=!actionsPanelExpanded;storageSet(ACTION_PANEL_PREF_KEY,String(actionsPanelExpanded));renderQuickActions();});
     document.getElementById("journal-btn").addEventListener("click", () => { renderQuests(); document.getElementById("menu-dialog").showModal(); });
     document.getElementById("menu-btn").addEventListener("click", () => { renderQuests(); document.getElementById("menu-dialog").showModal(); });
     document.querySelectorAll("[data-close]").forEach(btn => btn.addEventListener("click", () => document.getElementById(btn.dataset.close).close()));
@@ -2885,6 +3249,10 @@
       state.skillUses = Object.assign({}, defaults.skillUses, state.skillUses || {});
       state.visited = Array.isArray(state.visited) ? state.visited : [state.room || "square"];
       state.flags = Object.assign({}, defaults.flags, state.flags || {});
+      if (!state.flags.classSkillStartApplied && state.player && state.player.classKey) {
+        Object.entries(classSkillStarts[state.player.classKey]||{}).forEach(([name,level])=>{state.skills[name]=Math.max(state.skills[name]||0,level);});
+        state.flags.classSkillStartApplied=true;
+      }
       if ((state.visited || []).some(roomId => roomId === "cottage" || roomId === "cellar") || state.flags.cabinetOpen || state.flags.rugMoved) state.flags.cottageDoorOpen = true;
       state.lastObject = typeof state.lastObject === "string" ? state.lastObject : "";
       state.lastPerson = typeof state.lastPerson === "string" ? state.lastPerson : "";
@@ -2897,7 +3265,7 @@
     function boot() {
       updateMusicButton();
       const vt = document.getElementById("version-tag");
-      if (vt) vt.textContent = `Version ${BUILD_VERSION} • World Flow & Navigation Consistency`;
+      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Skills, Status & Action Interface`;
       const saved = storageGet(SAVE_KEY);
       if (saved) {
         try { state = JSON.parse(saved); migrateState(); restoreDynamicExits(); }
