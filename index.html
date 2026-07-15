@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-title" content="Briar Crown" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <title>The Briar Crown — Mobile Adventure v1.7.1.1</title>
+  <title>The Briar Crown — Mobile Adventure v1.7.1.2</title>
   <style>
 
     :root {
@@ -1082,7 +1082,7 @@
       .controls { max-height: 44dvh; }
     }
 
-    /* v1.7.1.1 mobile viewport correction
+    /* v1.7.1.2 mobile viewport correction
        Uses a JavaScript-synchronized visible viewport height instead of relying
        only on 100dvh, which can leave unused space in iOS standalone mode. */
     :root { --app-height: 100dvh; }
@@ -1132,7 +1132,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.7.1.1 • Mobile Viewport & Release Alignment</small>
+        <small id="version-tag">Version 1.7.1.2 • Scene Art Repair Pass</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -1211,7 +1211,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.7.1.1";
+    const BUILD_VERSION = "1.7.1.2";
 
     const itemInfo = {
       "tarnished locket": "A traveler's locket found behind the tavern hearth. The portrait inside shows a young woman before a crooked woodland cottage.",
@@ -4475,7 +4475,7 @@
     function boot() {
       updateMusicButton();
       const vt = document.getElementById("version-tag");
-      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Mobile Viewport & Release Alignment`;
+      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Scene Art Repair Pass`;
       const saved = storageGet(SAVE_KEY);
       if (saved) {
         try { state = JSON.parse(saved); migrateState(); restoreDynamicExits(); }
