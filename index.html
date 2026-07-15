@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-title" content="Briar Crown" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <title>The Briar Crown — Mobile Adventure v1.7.1.2</title>
+  <title>The Briar Crown — Mobile Adventure v1.7.1.3</title>
   <style>
 
     :root {
@@ -1082,7 +1082,7 @@
       .controls { max-height: 44dvh; }
     }
 
-    /* v1.7.1.2 mobile viewport correction
+    /* v1.7.1.3 mobile viewport correction
        Uses a JavaScript-synchronized visible viewport height instead of relying
        only on 100dvh, which can leave unused space in iOS standalone mode. */
     :root { --app-height: 100dvh; }
@@ -1105,6 +1105,14 @@
       html { min-height: -webkit-fill-available; }
     }
 
+  
+    .backpack-btn .satchel-icon { width:30px; height:27px; display:grid; place-items:center; }
+    .backpack-btn .satchel-icon img { width:30px; height:27px; object-fit:contain; display:block; filter:drop-shadow(0 1px 1px rgba(0,0,0,.55)); }
+    #map-dialog { width:min(96vw,760px); max-height:92dvh; }
+    #map-dialog .modal-body { padding:14px; }
+    .equipped-badge { display:inline-block; margin-left:8px; padding:2px 7px; border:1px solid #d2ad54; border-radius:999px; color:#f0d989; font-size:.72em; letter-spacing:.05em; text-transform:uppercase; }
+    .equipment-summary { margin:0 0 14px; padding:10px 12px; border:1px solid #765a2e; border-radius:8px; background:#21182d; }
+
   </style>
 </head>
 <body>
@@ -1126,13 +1134,13 @@
 
   <main class="app">
     <header class="game-header">
-      <button class="ornate-header-btn" id="journal-btn" title="Journal and quests" aria-label="Journal and quests">
-        <span class="icon">📖</span><span class="label">Journal</span>
+      <button class="ornate-header-btn" id="map-btn" title="Open discovered map" aria-label="Open discovered map">
+        <span class="icon">🗺️</span><span class="label">Map</span>
       </button>
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.7.1.2 • Scene Art Repair Pass</small>
+        <small id="version-tag">Version 1.7.1.3 • Discovery, Equipment & Navigation Repair</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -1162,7 +1170,7 @@
       <button class="actions-toggle" id="actions-toggle" type="button" aria-expanded="true">Hide Actions ▲</button>
       <div class="quick-row" id="quick-actions"></div>
       <div class="command-line">
-        <button id="backpack-btn" class="backpack-btn" aria-label="Open backpack"><span>🎒</span><small>Pack</small></button>
+        <button id="backpack-btn" class="backpack-btn" aria-label="Open satchel"><span class="satchel-icon"><img src="assets/ui/satchel.png" alt=""></span><small>Satchel</small></button>
         <input id="command-input" autocomplete="off" autocapitalize="sentences" spellcheck="false" placeholder="What do you do?" aria-label="Type a command" />
         <button id="send-btn" aria-label="Send command">➤</button>
       </div>
@@ -1170,8 +1178,13 @@
   </main>
 
   <dialog id="inventory-dialog">
-    <div class="modal-head"><h2>Inventory</h2><button class="close-btn" data-close="inventory-dialog">×</button></div>
+    <div class="modal-head"><h2>Satchel</h2><button class="close-btn" data-close="inventory-dialog">×</button></div>
     <div class="modal-body" id="inventory-body"></div>
+  </dialog>
+
+  <dialog id="map-dialog">
+    <div class="modal-head"><h2>Discovered Map</h2><button class="close-btn" data-close="map-dialog">×</button></div>
+    <div class="modal-body" id="map-body"></div>
   </dialog>
 
   <dialog id="skills-dialog">
@@ -1193,7 +1206,6 @@
         <button id="save-btn">Save Game</button>
         <button id="load-btn">Load Game</button>
         <button id="help-btn">Command Help</button>
-        <button id="scene-tour-btn">Scene Test</button>
         <button id="music-toggle-btn" aria-pressed="true">♫ Music: On</button>
         <button id="effects-toggle-btn" aria-pressed="true">✨ Effects: On</button>
         <button id="restart-btn" class="danger">Restart</button>
@@ -1211,7 +1223,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.7.1.2";
+    const BUILD_VERSION = "1.7.1.3";
 
     const itemInfo = {
       "tarnished locket": "A traveler's locket found behind the tavern hearth. The portrait inside shows a young woman before a crooked woodland cottage.",
@@ -1224,7 +1236,7 @@
       "silver token": "A small silver token etched with the same runes found in the Whispering Path.",
       "sun sigil": "A warm golden emblem shaped like a rising sun.",
       "crown shard": "A broken piece of crystal that glows like dawn through ice.",
-      "wooden shield": "A sturdy round shield marked with a faded village crest.",
+      "wooden shield": "A sturdy round shield marked with a faded village crest. Equip it for +1 Defense.",
       "hunting knife": "A practical ranger’s knife with a leather-wrapped grip.",
       "spell crystal": "A violet crystal that grows warm near hidden magic.",
       "lockpicks": "A compact roll of slender picks and tension tools.",
@@ -1306,12 +1318,12 @@
       },
       tavern: {
         name: "The Briar Lantern",
-        description: "The full tavern common room opens around you. The innkeeper works behind the bar to the north, a broad fireplace glows to the west, stairs and an iron-bound cellar hatch lie east, and the entrance is behind you to the south. The room rewards a closer look.",
+        description: "The full tavern common room opens around you. The innkeeper works behind the bar to the north, a broad fireplace glows to the west, stairs climb along the eastern wall, and the entrance is behind you to the south. Sawdust and scuff marks beneath the stairs reward a closer look.",
         exits: { south: "tavernDoor" },
-        actions: ["look north", "look east", "look west", "look south", "talk to innkeeper", "look at fireplace", "look at cellar door", "talk to travelers", "go outside"],
+        actions: ["look north", "look east", "look west", "look south", "talk to innkeeper", "look at fireplace", "talk to travelers", "go outside"],
         hotspots: [
           { label: "Innkeeper", command: "talk to innkeeper", x: 78, y: 48, w: 22, h: 34 },
-          { label: "Cellar Hatch", command: "look at cellar door", x: 52, y: 83, w: 36, h: 24 },
+          { label: "Scuffed Floor", command: "look at cellar door", x: 51, y: 78, w: 38, h: 22 },
           { label: "Fireplace", command: "look west", x: 17, y: 47, w: 27, h: 36 },
           { label: "Entrance", command: "look south", x: 46, y: 27, w: 18, h: 38 }
         ]
@@ -1420,7 +1432,7 @@
         actions: ["look at graves", "approach chapel"],
         hotspots: [
           { label: "Chapel", command: "approach chapel", x: 50, y: 37, w: 32, h: 40 },
-          { label: "Graves", command: "look at graves", x: 27, y: 66, w: 26, h: 24 }
+          { label: "Graves", command: "look at graves", x: 6, y: 68, w: 42, h: 29 }
         ]
       },
       chapelApproach: {
@@ -1546,7 +1558,7 @@
         exits: { south: "flowerClearing", north: "whisperingForest" },
         actions: ["look at fallen log", "look at tracks", "listen to stream", "go north", "go south"],
         hotspots: [
-          { label: "Fallen Log", command: "look at fallen log", x: 52, y: 45, w: 72, h: 45 },
+          { label: "Fallen Log", command: "look at fallen log", x: 45, y: 45, w: 52, h: 45 },
           { label: "Animal Tracks", command: "look at tracks", x: 72, y: 70, w: 28, h: 22 },
           { label: "Stream", command: "listen to stream", x: 50, y: 78, w: 65, h: 26 }
         ]
@@ -1568,7 +1580,7 @@
         exits: { west: "whisperingForest", north: "moonwell" },
         actions: ["look at hut", "look at ferry", "look at winch", "look across water", "take moonfen reed", "go north"],
         hotspots: [
-          { label: "Hut Across Water", command: "look at hut", x: 73, y: 35, w: 52, h: 58 },
+          { label: "Hut Across Water", command: "look at hut", x: 68, y: 35, w: 30, h: 58 },
           { label: "Rope Ferry", command: "look at ferry", x: 66, y: 70, w: 35, h: 22 },
           { label: "Ferry Winch", command: "look at winch", x: 46, y: 61, w: 20, h: 25 },
           { label: "Moonfen Reeds", command: "take moonfen reed", x: 20, y: 73, w: 26, h: 24 },
@@ -1636,6 +1648,7 @@
     };
 
     const initialState = () => ({
+      schemaVersion: 1713,
       room: "square",
       view: "center",
       inventory: [],
@@ -1651,6 +1664,7 @@
       maxFocus: 10,
       reputation: { Elowen: 0 },
       itemCounts: {},
+      equipment: { shield: null, weapon: null },
       shopFlags: { elowenDiscount: false, backRoomAccess: false, cratesSearched: false, reedDelivered: false },
       skills: { Lockpicking:0, Combat:0, Survival:0, Magic:0, Persuasion:0 },
       skillUses: { Lockpicking:0, Combat:0, Survival:0, Magic:0, Persuasion:0 },
@@ -1661,6 +1675,7 @@
       flags: {
         hatchNoticed: false,
         fireplaceBrickNoticed: false,
+        brickCompartmentOpened: false,
         brickCompartmentLooted: false,
         archBroken: false,
         stonesAttuned: false,
@@ -1838,23 +1853,23 @@
     };
     const tavernViewNames = { center:"Common Room", north:"Bar & Innkeeper", east:"Stairs & Cellar", west:"Hearth", south:"Entrance" };
     const tavernViewDescriptions = {
-      center:"The full common room surrounds you: the innkeeper at the bar, travelers near the hearth, stairs climbing above the cellar hatch, and the entrance behind you.",
+      center:"The full common room surrounds you: the innkeeper at the bar, travelers near the hearth, stairs climbing along the east wall, and the entrance behind you.",
       north:"You face the bar. The innkeeper polishes a pewter mug beneath shelves of bottles while a small ledger, brass bell, and locked cashbox rest nearby.",
-      east:"You turn toward the stairs and kitchen side. The cellar hatch lies in the floor beneath the landing, its iron lock dark with age.",
+      east:"You turn toward the stairs and kitchen side. Sawdust has been swept unevenly beneath the landing, and long scuff marks cross the floorboards.",
       west:"You face the broad stone hearth. Travelers warm their hands beside the flames, and an old hunting crest hangs above the mantel.",
       south:"You look back across the common room toward the entrance. The tavern door leads outside to Willowmere Square."
     };
     const tavernViewActions = {
       center:["look north","look east","look west","look south","talk to innkeeper"],
       north:["talk to innkeeper","look at ledger","look at bell","look around"],
-      east:["look at cellar door","look at stairs","pick cellar lock","look around"],
+      east:["look at scuffed floor","look at stairs","look around"],
       west:["look at fireplace","talk to travelers","look at crest","look around"],
       south:["look at door","go outside","leave tavern","look around"]
     };
     const tavernViewHotspots = {
       center:[
         {label:"Innkeeper",command:"talk to innkeeper",x:78,y:48,w:22,h:34},
-        {label:"Cellar Hatch",command:"look at cellar door",x:52,y:83,w:36,h:24},
+        {label:"Scuffed Floor",command:"look at cellar door",x:51,y:78,w:38,h:22},
         {label:"Fireplace",command:"look west",x:17,y:47,w:27,h:36},
         {label:"Entrance",command:"look south",x:46,y:27,w:18,h:38},
         {label:"Leave Tavern",command:"go outside",x:46,y:9,w:24,h:14}
@@ -1865,7 +1880,7 @@
         {label:"Bell",command:"look at bell",x:57,y:57,w:12,h:15}
       ],
       east:[
-        {label:"Cellar Hatch",command:"look at cellar door",x:52,y:82,w:40,h:26},
+        {label:"Scuffed Floor",command:"look at cellar door",x:51,y:77,w:40,h:23},
         {label:"Stairs",command:"look at stairs",x:34,y:40,w:30,h:46},
         {label:"Innkeeper",command:"talk to innkeeper",x:72,y:45,w:25,h:34}
       ],
@@ -1877,7 +1892,7 @@
       south:[
         {label:"Tavern Door",command:"go outside",x:49,y:32,w:24,h:42},
         {label:"Innkeeper",command:"talk to innkeeper",x:78,y:48,w:22,h:34},
-        {label:"Cellar Hatch",command:"look at cellar door",x:52,y:83,w:36,h:24},
+        {label:"Scuffed Floor",command:"look at cellar door",x:51,y:78,w:38,h:22},
         {label:"Common Room",command:"look around",x:58,y:58,w:60,h:55}
       ]
     };
@@ -2541,6 +2556,7 @@
       if (state.room === "tavern") {
         if (/fireplace|hearth/.test(target)) {
           if (state.flags.brickCompartmentLooted) return addLog("Orange flames roll over split oak logs. The loose brick sits ajar beside its emptied hiding place.");
+          if (state.flags.brickCompartmentOpened) return addLog("The brick is pulled aside. Six gold pieces and a tarnished locket wait in the opened cache. You may COLLECT TREASURE.", "success");
           if (!state.flags.fireplaceBrickNoticed) {
             state.flags.fireplaceBrickNoticed = true;
             return addLog("Orange flames roll over split oak logs. As the light shifts, you notice one brick at the hearth's edge sitting slightly proud of its neighbors, its mortar crumbled away. You could MOVE BRICK.", "success");
@@ -2750,6 +2766,16 @@
     }
 
     function takeTarget(target) {
+      if (state.room === "tavern" && /(treasure|cache|gold|locket)/.test(target)) {
+        if (!state.flags.brickCompartmentOpened) return addLog("You have not uncovered a cache here.", "warning");
+        if (state.flags.brickCompartmentLooted) return addLog("The traveler's cache is already empty.");
+        state.flags.brickCompartmentLooted = true;
+        state.gold = (state.gold||0) + 6;
+        addItem("tarnished locket");
+        award("fireplace-cache", 2);
+        addLog("You gather the six gold pieces and place the tarnished locket in your satchel. Inside is a painted portrait of a young woman standing before a crooked cottage in the woods.", "success");
+        return;
+      }
       if (state.room === "willowTrail" && /(bluebell|bluebell sprig|flowers)/.test(target)) {
         if (state.flags.bluebellsTaken) return addLog("You already gathered a bluebell sprig here.");
         state.flags.bluebellsTaken=true; addItem("bluebell sprig",1); useSkill("Survival"); award("gather-bluebells",1);
@@ -2762,7 +2788,7 @@
       }
       if (state.room === "moonfen" && /(moonfen reed|reed|reeds)/.test(target)) {
         if (has("moonfen reed")) return addLog("You already gathered a moonfen reed.");
-        addItem("moonfen reed",1); useSkill("Survival"); addLog("You cut a silver-green moonfen reed and place it carefully in your backpack.","success"); award("gather-moonfen-reed",2); return;
+        addItem("moonfen reed",1); useSkill("Survival"); addLog("You cut a silver-green moonfen reed and place it carefully in your satchel.","success"); award("gather-moonfen-reed",2); return;
       }
       if (state.room === "forestEdge" && /(silver token|token)/.test(target)) {
         if (state.flags.silverTokenTaken) return addLog("You already took the silver token.");
@@ -2783,7 +2809,7 @@
       }
       if (state.room === "cellar" && /(ferry crank|crank)/.test(target)) {
         if (state.flags.ferryCrankTaken) return addLog("You already took the ferry crank.");
-        state.flags.ferryCrankTaken = true; addItem("ferry crank"); award("find-ferry-crank",2); addLog("You lift the heavy ferry crank into your pack. This should fit the missing Moonfen winch.", "success"); return;
+        state.flags.ferryCrankTaken = true; addItem("ferry crank"); award("find-ferry-crank",2); addLog("You secure the heavy ferry crank in your satchel. This should fit the missing Moonfen winch.", "success"); return;
       }
       if (state.room === "hutInterior" && /(coin|fairy coin)/.test(target)) {
         if (state.flags.coinTaken) return addLog("You already took the fairy coin.");
@@ -2817,11 +2843,9 @@
       if (state.room === "tavern" && /(brick|loose brick)/.test(target)) {
         if (!state.flags.fireplaceBrickNoticed) return addLog("The hearth bricks look solid from here. Perhaps LOOK AT FIREPLACE first.", "warning");
         if (state.flags.brickCompartmentLooted) return addLog("The brick is already moved aside; the hiding place behind it is empty.");
-        state.flags.brickCompartmentLooted = true;
-        state.gold = (state.gold||0) + 6;
-        addItem("tarnished locket");
-        award("fireplace-cache", 2);
-        addLog("You ease the loose brick out. Behind it, a traveler's cache: six gold pieces and a tarnished locket. Inside the locket, a painted portrait of a young woman standing before a crooked cottage in the woods.", "success");
+        if (state.flags.brickCompartmentOpened) return addLog("The loose brick is already pulled aside. The traveler's cache is ready to COLLECT.");
+        state.flags.brickCompartmentOpened = true;
+        addLog("You ease the loose brick out. Behind it is a small traveler's cache containing six gold pieces and a tarnished locket. You may now COLLECT TREASURE.", "success");
         return;
       }
       if (state.room === "tavernCellar" && /(wine rack|rack)/.test(target)) {
@@ -2936,20 +2960,56 @@
       else addLog("You pause and listen. Nothing unusual breaks the silence.");
     }
 
+    const equipmentInfo = {
+      "wooden shield": { slot:"shield", defense:1, label:"Wooden Shield" }
+    };
+    function totalDefense() {
+      const shield = state.equipment && state.equipment.shield;
+      return shield && equipmentInfo[shield] ? equipmentInfo[shield].defense : 0;
+    }
+    function equipItem(item) {
+      const info = equipmentInfo[item];
+      if (!info || !has(item)) return addLog(`${titleCase(item)} cannot be equipped.`, "warning");
+      state.equipment = Object.assign({shield:null,weapon:null}, state.equipment||{});
+      state.equipment[info.slot] = item;
+      addLog(`You equip the ${titleCase(item)}. Defense is now ${totalDefense()}.`, "success");
+      autosave();
+    }
+    function unequipItem(item) {
+      const info = equipmentInfo[item];
+      if (!info || !state.equipment || state.equipment[info.slot] !== item) return;
+      state.equipment[info.slot] = null;
+      addLog(`You stow the ${titleCase(item)} in your satchel. Defense is now ${totalDefense()}.`, "system");
+      autosave();
+    }
+
     function showInventory() {
       const body = document.getElementById("inventory-body");
+      const shield = state.equipment && state.equipment.shield;
+      const equipSummary = `<div class="equipment-summary"><strong>Equipped Shield:</strong> ${shield ? `${titleCase(shield)} — Defense +${totalDefense()}` : "None — Defense +0"}</div>`;
       if (!state.inventory.length) {
-        body.innerHTML = `<p>Your pack is empty.</p>`;
+        body.innerHTML = equipSummary + `<p>Your satchel is empty.</p>`;
       } else {
-        body.innerHTML = state.inventory.map(item => `<div class="item-card"><strong>${titleCase(item)}${itemQty(item)>1?` ×${itemQty(item)}`:""}</strong><p>${itemInfo[item] || (apothecaryShop[item]&&apothecaryShop[item].info) || "An adventure item."}</p><div class="item-actions"><button data-examine-item="${item}">Examine</button><button data-use-item="${item}">Use</button></div></div>`).join("");
+        body.innerHTML = equipSummary + state.inventory.map(item => {
+          const info = equipmentInfo[item];
+          const equipped = info && state.equipment && state.equipment[info.slot] === item;
+          const action = info
+            ? `<button data-${equipped?"unequip":"equip"}-item="${item}">${equipped?"Unequip":"Equip"}</button>`
+            : `<button data-use-item="${item}">Use</button>`;
+          return `<div class="item-card"><strong>${titleCase(item)}${itemQty(item)>1?` ×${itemQty(item)}`:""}${equipped?`<span class="equipped-badge">Equipped</span>`:""}</strong><p>${itemInfo[item] || (apothecaryShop[item]&&apothecaryShop[item].info) || "An adventure item."}</p><div class="item-actions"><button data-examine-item="${item}">Examine</button>${action}</div></div>`;
+        }).join("");
         body.querySelectorAll("[data-examine-item]").forEach(btn => btn.addEventListener("click", () => {
           addLog(`<strong>${titleCase(btn.dataset.examineItem)}:</strong> ${itemInfo[btn.dataset.examineItem] || "An adventure item."}`, "system");
-          document.getElementById("inventory-dialog").close();
-          renderAll();
+          document.getElementById("inventory-dialog").close(); renderAll();
+        }));
+        body.querySelectorAll("[data-equip-item]").forEach(btn => btn.addEventListener("click", () => {
+          equipItem(btn.dataset.equipItem); document.getElementById("inventory-dialog").close(); renderAll();
+        }));
+        body.querySelectorAll("[data-unequip-item]").forEach(btn => btn.addEventListener("click", () => {
+          unequipItem(btn.dataset.unequipItem); document.getElementById("inventory-dialog").close(); renderAll();
         }));
         body.querySelectorAll("[data-use-item]").forEach(btn => btn.addEventListener("click", () => {
-          inputEl.value = `use ${btn.dataset.useItem} on `;
-          document.getElementById("inventory-dialog").close();
+          inputEl.value = `use ${btn.dataset.useItem} on `; document.getElementById("inventory-dialog").close();
         }));
       }
       document.getElementById("inventory-dialog").showModal();
@@ -3008,6 +3068,7 @@
       if (!rooms[id] || state.room === id) return;
       if (!(state.visited||[]).includes(id) || !FAST_TRAVEL_OK.has(id)) return;
       const dlg = document.getElementById("menu-dialog"); if (dlg && dlg.open) dlg.close();
+      const mapDlg = document.getElementById("map-dialog"); if (mapDlg && mapDlg.open) mapDlg.close();
       const jr = document.getElementById("journal-dialog"); if (jr && jr.open) jr.close();
       addLog(`You retrace familiar paths toward ${escapeHtml((rooms[id]&&rooms[id].name)||id)}.`, "system");
       state.turns = (state.turns||0) + 2;
@@ -3015,6 +3076,11 @@
       autosave(); updateStatus();
     }
     document.addEventListener("click", (e)=>{ const n = e.target.closest && e.target.closest("[data-travel]"); if (n) fastTravel(n.dataset.travel); });
+
+    function renderMap() {
+      const body = document.getElementById("map-body");
+      if (body) body.innerHTML = renderDiscoveredMap();
+    }
 
     function renderQuests() {
       const quests = [
@@ -3033,8 +3099,8 @@
         [state.flags.blacksmithGift,"Friend of the Forge"], [state.flags.sigilTaken,"Crypt Seeker"], [Boolean(state.flags.ending),"Crownkeeper"]
       ].filter(a=>a[0]).map(a=>a[1]);
       const summary = document.getElementById("journal-summary");
-      if (summary) summary.innerHTML = renderDiscoveredMap()+`<h3>Hero</h3><div class="quest-card"><strong>${escapeHtml(hero.name)} — ${escapeHtml(hero.className)}</strong><p>Level ${state.level||1} • XP ${(state.score||0)%10}/10 • Health ${state.health||20}/${state.maxHealth||20} • Focus ${state.focus||10}/${state.maxFocus||10} • Gold ${state.gold||0} • Turns ${state.turns||0}</p></div>`+
-        `<h3>Backpack</h3><div class="quest-card"><p>${state.inventory.length ? state.inventory.map(titleCase).join(" • ") : "Your backpack is empty."}</p></div>`+
+      if (summary) summary.innerHTML = `<h3>Hero</h3><div class="quest-card"><strong>${escapeHtml(hero.name)} — ${escapeHtml(hero.className)}</strong><p>Level ${state.level||1} • XP ${(state.score||0)%10}/10 • Health ${state.health||20}/${state.maxHealth||20} • Focus ${state.focus||10}/${state.maxFocus||10} • Gold ${state.gold||0} • Defense ${totalDefense()} • Turns ${state.turns||0}</p><p>Equipped shield: ${state.equipment&&state.equipment.shield?titleCase(state.equipment.shield):"None"}</p></div>`+
+        `<h3>Satchel</h3><div class="quest-card"><p>${state.inventory.length ? state.inventory.map(titleCase).join(" • ") : "Your satchel is empty."}</p></div>`+
         `<h3>Discovered Places</h3><div class="quest-card"><p>${visitedNames.join(" • ")}</p></div>`+
         `<h3>Achievements</h3><div class="quest-card"><p>${achievements.length ? achievements.join(" • ") : "No achievements yet."}</p></div>`;
     }
@@ -3178,7 +3244,10 @@
       addLog(`&gt; ${escapeHtml(rawCommand)}`, "command");
 
       if (/^(help|commands|command help)$/.test(command)) return showHelp();
-      if (/^(inventory|inv|i|bag|pack|backpack)$/.test(command)) return showInventory();
+      if (/^(inventory|inv|i|bag|pack|backpack|satchel)$/.test(command)) return showInventory();
+      if (/^(map|world map|discovered map)$/.test(command)) { renderMap(); document.getElementById("map-dialog").showModal(); return; }
+      if (/^equip (.+)$/.test(command)) { equipItem(command.replace(/^equip /,"")); renderAll(); return; }
+      if (/^unequip (?:the )?(.+)$/.test(command)) { unequipItem(command.replace(/^unequip (?:the )?/,"")); renderAll(); return; }
       if (/^(quests|quest|journal|character|stats|skills)$/.test(command)) { renderQuests(); document.getElementById("menu-dialog").showModal(); return; }
       if (/^(save|save game)$/.test(command)) return saveGame();
       if (/^(load|load game)$/.test(command)) return loadGame();
@@ -3377,7 +3446,7 @@
     }
 
     function showHelp() {
-      addLog("Tap visible people and objects in the artwork to discover their actions. Use the compact direction pad and switch between <strong>LOOK</strong> and <strong>MOVE</strong>. The center button looks around. The parser still accepts natural phrases such as <strong>EXAMINE WELL</strong>, <strong>TALK TO INNKEEPER</strong>, <strong>OPEN THE DOOR</strong>, <strong>USE KEY ON TRAPDOOR</strong>, <strong>INVENTORY</strong>, <strong>JOURNAL</strong>, <strong>SAVE</strong>, and <strong>LOAD</strong>. Type <strong>AGAIN</strong> to repeat your previous command.", "system");
+      addLog("Tap visible people and objects in the artwork to discover their actions. Use the compact direction pad and switch between <strong>LOOK</strong> and <strong>MOVE</strong>. The center button looks around. The parser still accepts natural phrases such as <strong>EXAMINE WELL</strong>, <strong>TALK TO INNKEEPER</strong>, <strong>OPEN THE DOOR</strong>, <strong>USE KEY ON TRAPDOOR</strong>, <strong>SATCHEL</strong>, <strong>MAP</strong>, <strong>JOURNAL</strong>, <strong>SAVE</strong>, and <strong>LOAD</strong>. Type <strong>AGAIN</strong> to repeat your previous command.", "system");
     }
 
     function saveGame() {
@@ -3451,14 +3520,15 @@
       if (state.room === "cottage" && state.flags.rugMoved) removeAction("move rug");
       if (state.room === "cottage" && state.flags.cabinetOpen && !state.flags.keyTaken) actions.unshift("take silver key");
       if (state.room === "cellar" && !state.flags.ferryCrankTaken) actions.unshift("take ferry crank");
-      if (state.room === "tavern" && state.flags.fireplaceBrickNoticed && !state.flags.brickCompartmentLooted) actions.unshift("move brick");
+      if (state.room === "tavern" && state.flags.fireplaceBrickNoticed && !state.flags.brickCompartmentOpened && !state.flags.brickCompartmentLooted) actions.unshift("move brick");
+      if (state.room === "tavern" && state.flags.brickCompartmentOpened && !state.flags.brickCompartmentLooted) actions.unshift("take treasure");
       if (state.room === "tavern" && state.flags.flutistMet && !state.flags.duetDone) actions.unshift("play along with flutist");
       if (state.room === "secretAlcove" && !state.flags.archBroken) actions.unshift("break blocked arch");
       if (state.room === "moonwell" && !state.flags.stonesAttuned && (((state.player&&state.player.classKey)==="wizard")||(state.skills.Magic||0)>=2)) actions.unshift("attune to stones");
       if (state.room === "castleGate" && state.flags.gateShardReady && !state.flags.ending) actions.unshift("confirm ending");
       if (state.room === "tavern" && state.flags.hatchNoticed && !state.flags.cellarUnlocked) actions.unshift("ask innkeeper about cellar");
       if (state.room === "tavern" && state.flags.hatchNoticed && state.flags.cellarUnlocked && !state.flags.tavernCellarOpen) actions.unshift("open cellar hatch");
-      if (state.room === "tavern" && state.flags.tavernCellarOpen) actions.unshift("go down");
+      if (state.room === "tavern" && state.flags.hatchNoticed && state.flags.tavernCellarOpen) actions.unshift("go down");
       if (state.room === "tavernCellar" && state.flags.cellarDraftFound && !state.flags.cellarPassageRevealed) actions.unshift("move wine rack");
       if (state.room === "tavernCellar" && state.flags.cellarPassageRevealed) actions.unshift("enter hidden passage");
       if (state.room === "moonfen" && has("ferry crank") && !state.flags.ferryRepaired) actions.unshift("use ferry crank on winch");
@@ -3509,7 +3579,7 @@
     let sceneNavigationVisible = storageGet(NAV_VISIBLE_PREF_KEY) !== "false";
 
     function actionIcon(action) {
-      if (action === "inventory") return "🎒";
+      if (action === "inventory") return "▣";
       if (/^look|^listen/.test(action)) return "◉";
       if (/^take|^get|^grab/.test(action)) return "✋";
       if (/^talk|^speak/.test(action)) return "●●●";
@@ -3552,6 +3622,7 @@
       if (a === "cross ferry") return "Cross the Ferry";
       if (a === "ask innkeeper about cellar") return "Ask About Cellar";
       if (a === "move brick") return "Move Loose Brick";
+      if (a === "take treasure") return "Collect Treasure";
       if (a === "play along with flutist") return "Play Along";
       if (a === "break blocked arch") return "Break Arch";
       if (a === "attune to stones") return "Attune to Stones";
@@ -3678,6 +3749,10 @@
               else if (state.flags.cellarUnlocked) add("open cellar hatch");
               else add(has("lockpicks") ? "pick cellar lock" : "ask innkeeper about cellar");
             }
+          } else if (/fireplace|hearth/.test(labelKey)) {
+            add("look at fireplace");
+            if (state.flags.brickCompartmentOpened && !state.flags.brickCompartmentLooted) add("take treasure");
+            else if (state.flags.fireplaceBrickNoticed && !state.flags.brickCompartmentLooted) add("move brick");
           } else if (/travelers/.test(labelKey)) add("talk to travelers");
           else if (/tavern door|entrance/.test(labelKey)) add("look at door", "go outside");
           else add(hotspot.command);
@@ -3919,6 +3994,7 @@
     function defaultSceneActions() {
       const preferred = {
         blacksmith:["leave forge","talk to blacksmith","browse forge wares"],
+        apothecary:["talk to Elowen","show wares","go in back room","leave apothecary"],
         chapelRoad:["go west","go east","look at chapel"],
         chapelYard:["approach chapel","go east","go west"],
         chapelApproach:["enter chapel","look inside","go south"],
@@ -3995,9 +4071,10 @@
       if (state.room === "cottage" && state.flags.cabinetOpen && !state.flags.keyTaken) {
         spots.push({ label: "Silver Key", command: "take silver key", x: 68, y: 60, w: 16, h: 16 });
       }
-      if (state.room === "tavern" && state.flags.tavernCellarOpen) {
-        const hatch = spots.find(s => s.label === "Cellar Hatch");
-        if (hatch) hatch.command = "go down";
+      if (state.room === "tavern") {
+        const hatch = spots.find(s => /Cellar Hatch|Scuffed Floor/.test(s.label));
+        if (hatch && state.flags.hatchNoticed) hatch.label = "Cellar Hatch";
+        if (hatch && state.flags.hatchNoticed && state.flags.tavernCellarOpen) hatch.command = "go down";
       }
       if (state.room === "tavernCellar" && state.flags.cellarPassageRevealed) {
         const rack = spots.find(s => s.label === "Wine Rack");
@@ -4016,7 +4093,7 @@
       currentHotspots().forEach(h => {
         const btn = document.createElement("button");
         btn.className = "hotspot";
-        const shownLabel = (h.command === "look at cellar door" && !state.flags.hatchNoticed) ? "Scuffed Floor" : h.label;
+        const shownLabel = (/Cellar Hatch|Scuffed Floor/.test(h.label) && !state.flags.hatchNoticed) ? "Scuffed Floor" : h.label;
         btn.textContent = shownLabel;
         btn.dataset.label = shownLabel;
         btn.setAttribute("aria-label", `Explore ${h.label}`);
@@ -4051,6 +4128,7 @@
       renderScene();
       renderSceneNavigation();
       renderQuests();
+      renderMap();
     }
 
     const sceneObjectPositions = {
@@ -4382,7 +4460,7 @@
     document.getElementById("backpack-btn").addEventListener("click", showInventory);
     document.getElementById("skills-btn").addEventListener("click", () => { renderSkills(); document.getElementById("skills-dialog").showModal(); });
     actionsToggleEl.addEventListener("click",()=>{actionsPanelExpanded=!actionsPanelExpanded;storageSet(ACTION_PANEL_PREF_KEY,String(actionsPanelExpanded));renderQuickActions();});
-    document.getElementById("journal-btn").addEventListener("click", () => { renderQuests(); document.getElementById("menu-dialog").showModal(); });
+    document.getElementById("map-btn").addEventListener("click", () => { renderMap(); document.getElementById("map-dialog").showModal(); });
     document.getElementById("menu-btn").addEventListener("click", () => { renderQuests(); document.getElementById("menu-dialog").showModal(); });
     document.querySelectorAll("[data-close]").forEach(btn => btn.addEventListener("click", () => document.getElementById(btn.dataset.close).close()));
     document.getElementById("save-btn").addEventListener("click", saveGame);
@@ -4391,10 +4469,9 @@
     document.getElementById("music-toggle-btn").addEventListener("click", toggleMusic);
     document.getElementById("effects-toggle-btn").addEventListener("click", toggleEffects);
     updateEffectsButton();
-    document.getElementById("scene-tour-btn").addEventListener("click", () => {
-      document.getElementById("menu-dialog").close();
-      renderSceneTour();
-      document.getElementById("scene-dialog").showModal();
+    const sceneTourBtn = document.getElementById("scene-tour-btn");
+    if (sceneTourBtn) sceneTourBtn.addEventListener("click", () => {
+      document.getElementById("menu-dialog").close(); renderSceneTour(); document.getElementById("scene-dialog").showModal();
     });
     document.getElementById("restart-btn").addEventListener("click", restartGame);
     document.getElementById("new-adventure-btn").addEventListener("click", showClassScreen);
@@ -4413,6 +4490,12 @@
       if (!savedConfig) state.view = "center";
       state.inventory = Array.isArray(state.inventory) ? state.inventory : [];
       state.itemCounts = state.itemCounts && typeof state.itemCounts === "object" ? state.itemCounts : {};
+      state.equipment = Object.assign({shield:null,weapon:null}, state.equipment||{});
+      const priorSchema = Number.isFinite(state.schemaVersion) ? state.schemaVersion : 0;
+      if (priorSchema < 1713 && !state.flags?.hatchNoticed) {
+        state.flags = Object.assign({}, state.flags||{}, {cellarUnlocked:false,tavernCellarOpen:false});
+      }
+      state.schemaVersion = 1713;
       state.inventory.forEach(i => { if (!state.itemCounts[i]) state.itemCounts[i]=1; });
       state.gold = Number.isFinite(state.gold) ? state.gold : 20;
       state.health = Number.isFinite(state.health) ? state.health : 20;
@@ -4429,6 +4512,7 @@
       state.skillUses = Object.assign({}, defaults.skillUses, state.skillUses || {});
       state.visited = Array.isArray(state.visited) ? state.visited : [state.room || "square"];
       state.flags = Object.assign({}, defaults.flags, state.flags || {});
+      if (state.flags.brickCompartmentLooted) state.flags.brickCompartmentOpened = true;
       if (state.flags.tunnelCoinsTaken) state.flags.tunnelCoinsFound = true;
       if (state.room === "secretTunnel" && state.flags.tunnelCoinsFound) state.room = "secretAlcove";
       if (!state.flags.classSkillStartApplied && state.player && state.player.classKey) {
@@ -4475,7 +4559,7 @@
     function boot() {
       updateMusicButton();
       const vt = document.getElementById("version-tag");
-      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Scene Art Repair Pass`;
+      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Discovery, Equipment & Navigation Repair`;
       const saved = storageGet(SAVE_KEY);
       if (saved) {
         try { state = JSON.parse(saved); migrateState(); restoreDynamicExits(); }

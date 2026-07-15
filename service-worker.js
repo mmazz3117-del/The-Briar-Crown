@@ -1,10 +1,11 @@
-const CACHE = "briar-crown-v1.7.1.2";
+const CACHE = "briar-crown-v1.7.1.3";
 const ASSETS = [
   "./",
   "./index.html",
   "./manifest.json",
   "./icon-192.png",
   "./icon-512.png",
+  "./assets/ui/satchel.png",
   "./assets/scenes/square.webp",
   "./assets/scenes/tavern.webp",
   "./assets/scenes/tavern-north.webp",
