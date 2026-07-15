@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, interactive-widget=resizes-content" />
   <meta name="theme-color" content="#0b0912" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Briar Crown" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <title>The Briar Crown — Mobile Adventure v1.7.1.3</title>
+  <title>The Briar Crown — Mobile Adventure v1.7.1.5</title>
   <style>
 
     :root {
@@ -1113,6 +1113,61 @@
     .equipped-badge { display:inline-block; margin-left:8px; padding:2px 7px; border:1px solid #d2ad54; border-radius:999px; color:#f0d989; font-size:.72em; letter-spacing:.05em; text-transform:uppercase; }
     .equipment-summary { margin:0 0 14px; padding:10px 12px; border:1px solid #765a2e; border-radius:8px; background:#21182d; }
 
+    /* v1.7.1.4 mobile fit and story wrapping repair */
+    html, body {
+      width: 100% !important;
+      max-width: 100% !important;
+      overflow-x: hidden !important;
+    }
+    .app {
+      width: 100% !important;
+      max-width: 760px !important;
+      overflow-x: hidden !important;
+    }
+    .game-header,
+    .scene-shell,
+    .story-panel,
+    .controls,
+    .status-strip,
+    #log,
+    .quick-row,
+    .command-line {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0 !important;
+    }
+    .game-header > *,
+    .status-strip > *,
+    .command-line > * {
+      min-width: 0 !important;
+      max-width: 100%;
+    }
+    #log,
+    #log .entry,
+    #log p,
+    #log div {
+      white-space: normal !important;
+      overflow-wrap: break-word !important;
+      word-break: normal !important;
+      max-width: 100% !important;
+    }
+    #command-input {
+      font-size: 16px !important;
+      max-width: 100% !important;
+    }
+    .controls {
+      align-self: stretch;
+      padding-bottom: max(6px, env(safe-area-inset-bottom)) !important;
+    }
+    @media (max-width: 470px) {
+      .status-strip {
+        grid-template-columns: minmax(62px,1fr) minmax(108px,auto) auto auto !important;
+      }
+      .status-strip .gold-pill { display: inline-flex; }
+      .skills-launch { max-width: 136px; }
+      #log { font-size: clamp(15px, 4.5vw, 18px) !important; line-height: 1.42 !important; }
+    }
+
   </style>
 </head>
 <body>
@@ -1140,7 +1195,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.7.1.3 • Discovery, Equipment & Navigation Repair</small>
+        <small id="version-tag">Version 1.7.1.5 • Hatch Discovery State Repair</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -1223,7 +1278,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.7.1.3";
+    const BUILD_VERSION = "1.7.1.5";
 
     const itemInfo = {
       "tarnished locket": "A traveler's locket found behind the tavern hearth. The portrait inside shows a young woman before a crooked woodland cottage.",
@@ -1648,7 +1703,7 @@
     };
 
     const initialState = () => ({
-      schemaVersion: 1713,
+      schemaVersion: 1715,
       room: "square",
       view: "center",
       inventory: [],
@@ -1674,6 +1729,7 @@
       lastCommand: "",
       flags: {
         hatchNoticed: false,
+        hatchDiscoveryConfirmed: false,
         fireplaceBrickNoticed: false,
         brickCompartmentOpened: false,
         brickCompartmentLooted: false,
@@ -2628,7 +2684,7 @@
         "square:apothecary": "Willowmere Apothecary is the herb shop on the eastern side of the square. Blue smoke curls from its chimney, and a painted mortar and pestle hangs above the green door. Touch it again or type WALK TO APOTHECARY to approach.",
         "square:fountain": "The old fountain basin is dry. One carved word remains readable: REMEMBER.",
         "square:statue": "The statue depicts Queen Elowen before her coronation. Thorn marks have been scratched across her face.",
-        "tavern:cellar door": (function(){ if (!state.flags.hatchNoticed) { state.flags.hatchNoticed = true; return "You brush aside the scuffed sawdust near the stairs \u2014 and uncover an iron-bound hatch set flush with the floorboards. A cellar! Its heavy lock is dark with age. The innkeeper might know more."; } return state.flags.tavernCellarOpen ? "The heavy hatch stands open, stone steps descending into the cellar dark." : "The iron-bound cellar hatch sits beneath the stairs, its difficult lock waiting for a skilled hand or the innkeeper's permission."; })(),
+        "tavern:cellar door": (function(){ if (!state.flags.hatchDiscoveryConfirmed) { state.flags.hatchNoticed = true; state.flags.hatchDiscoveryConfirmed = true; return "You brush aside the scuffed sawdust near the stairs \u2014 and uncover an iron-bound hatch set flush with the floorboards. A cellar! Its heavy lock is dark with age. The innkeeper might know more."; } return state.flags.tavernCellarOpen ? "The heavy hatch stands open, stone steps descending into the cellar dark." : "The iron-bound cellar hatch sits beneath the stairs, its difficult lock waiting for a skilled hand or the innkeeper's permission."; })(),
         "tavern:stairs": "The upper rooms are quiet. A hand-lettered sign says: NO CREDIT, NO CURSES, NO DRAGONS.",
         "forgeLane:forge": "Merrin's forge stands beside the lane, its stonework darkened by years of smoke. The public road continues beyond it toward the old eastern gate.",
         "eastRoad:eastern gate": "The old gate has collapsed inward. Thick living thorn has grown through the fallen stones, ending the road for now.",
@@ -2685,6 +2741,7 @@
         addLog("The brass bell jingles as you open the green door. You may now ENTER APOTHECARY.", "success"); return;
       }
       if (state.room === "tavern" && /(cellar|cellar door|hatch)/.test(target)) {
+        if (!state.flags.hatchDiscoveryConfirmed) return addLog("You have not discovered a cellar hatch yet. The floor near the stairs looks unusually scuffed.", "warning");
         if (state.flags.cellarUnlocked) {
           state.flags.tavernCellarOpen=true; rooms.tavern.exits.down = "tavernCellar";
           return addLog("The lock clicks free. You pull the heavy hatch open, revealing stone steps into the cellar. You may GO DOWN.", "success");
@@ -3321,11 +3378,11 @@
       if (/^(?:ring|use) bell$/.test(command) && state.room === "apothecaryDoor") { state.turns++; state.lastObject="bell"; addLog("The brass bell gives a bright chime. Footsteps approach from inside.", "system"); useSkill("Persuasion"); return finishTurn(); }
       if (/^(?:ask|talk to) (?:the )?innkeeper about (?:the )?cellar$/.test(command) && state.room === "tavern") {
         state.turns++;
-        if (!state.flags.hatchNoticed) { state.flags.hatchNoticed = true; addLog("The innkeeper raises an eyebrow. \u201cSharp ears. Aye, there's a cellar \u2014 hatch is under the stairs, beneath the sawdust. Have a look, then we'll talk.\u201d", "system"); return finishTurn(); }
+        if (!state.flags.hatchDiscoveryConfirmed) { addLog("The innkeeper raises an eyebrow. \u201cCellar? Start by looking at that scuffed floor beneath the stairs. Then we'll talk.\u201d", "system"); return finishTurn(); }
         state.flags.cellarUnlocked=true; award("cellar-permission",1);
         addLog("The innkeeper sighs and slides a small key across the bar. “Fine. Mind the old bottles, and don't move the wine rack.” The cellar hatch is now unlocked.","success"); return finishTurn();
       }
-      if (/^(?:open|lift) (?:the )?(?:cellar hatch|cellar door|hatch)$/.test(command) && state.room === "tavern") { state.turns++; if (!state.flags.hatchNoticed) { addLog("You haven't found any hatch here yet. The floor near the stairs looks oddly scuffed, though.", "warning"); return finishTurn(); } openTarget("cellar hatch"); return finishTurn(); }
+      if (/^(?:open|lift) (?:the )?(?:cellar hatch|cellar door|hatch)$/.test(command) && state.room === "tavern") { state.turns++; if (!state.flags.hatchDiscoveryConfirmed) { addLog("You haven't found any hatch here yet. The floor near the stairs looks oddly scuffed, though.", "warning"); return finishTurn(); } openTarget("cellar hatch"); return finishTurn(); }
       if (/^(?:enter hut|go in hut|go inside hut)$/.test(command) && state.room === "hutExterior") { await transitionToRoom("hutInterior",{note:"You step into the quiet Moonfen hut."}); return finishTurn(); }
       if (/^(?:cross ferry|ride ferry|take ferry|go east)$/.test(command) && state.room === "moonfen") {
         if (!state.flags.ferryRepaired) { state.turns++; addLog("The ferry cannot move until the missing crank is replaced.","warning"); return finishTurn(); }
@@ -3384,6 +3441,7 @@
       }
       if (/^(?:pick|unlock) (?:cellar|cellar door|hatch)(?: lock)?$/.test(command) && state.room === "tavern") {
         state.turns++; state.lastObject="cellar door";
+        if (!state.flags.hatchDiscoveryConfirmed) { addLog("You have not found a cellar hatch to unlock. Examine the scuffed floor beneath the stairs first.", "warning"); return finishTurn(); }
         if (!has("lockpicks")) { addLog("You need lockpicks to attempt that—or you could ASK INNKEEPER ABOUT CELLAR.", "warning"); return finishTurn(); }
         useSkill("Lockpicking");
         const roll = Math.floor(Math.random()*20)+1; const bonus = ((state.player&&state.player.classKey)==="rogue"?4:0)+(state.skills.Lockpicking||0);
@@ -3488,7 +3546,7 @@
       delete rooms.moonfen.exits.east;
       if (state.flags.trapdoorOpen) rooms.cottage.exits.down = "cellar";
       if (state.flags.cryptOpen) rooms.chapel.exits.down = "crypt";
-      if (state.flags.tavernCellarOpen) rooms.tavern.exits.down = "tavernCellar";
+      if (state.flags.hatchDiscoveryConfirmed && state.flags.tavernCellarOpen) rooms.tavern.exits.down = "tavernCellar";
       if (state.flags.cellarPassageRevealed) rooms.tavernCellar.exits.east = "secretTunnel";
       if (state.flags.ferryRepaired) rooms.moonfen.exits.east = "hutExterior";
     }
@@ -3526,9 +3584,9 @@
       if (state.room === "secretAlcove" && !state.flags.archBroken) actions.unshift("break blocked arch");
       if (state.room === "moonwell" && !state.flags.stonesAttuned && (((state.player&&state.player.classKey)==="wizard")||(state.skills.Magic||0)>=2)) actions.unshift("attune to stones");
       if (state.room === "castleGate" && state.flags.gateShardReady && !state.flags.ending) actions.unshift("confirm ending");
-      if (state.room === "tavern" && state.flags.hatchNoticed && !state.flags.cellarUnlocked) actions.unshift("ask innkeeper about cellar");
-      if (state.room === "tavern" && state.flags.hatchNoticed && state.flags.cellarUnlocked && !state.flags.tavernCellarOpen) actions.unshift("open cellar hatch");
-      if (state.room === "tavern" && state.flags.hatchNoticed && state.flags.tavernCellarOpen) actions.unshift("go down");
+      if (state.room === "tavern" && state.flags.hatchDiscoveryConfirmed && !state.flags.cellarUnlocked) actions.unshift("ask innkeeper about cellar");
+      if (state.room === "tavern" && state.flags.hatchDiscoveryConfirmed && state.flags.cellarUnlocked && !state.flags.tavernCellarOpen) actions.unshift("open cellar hatch");
+      if (state.room === "tavern" && state.flags.hatchDiscoveryConfirmed && state.flags.tavernCellarOpen) actions.unshift("go down");
       if (state.room === "tavernCellar" && state.flags.cellarDraftFound && !state.flags.cellarPassageRevealed) actions.unshift("move wine rack");
       if (state.room === "tavernCellar" && state.flags.cellarPassageRevealed) actions.unshift("enter hidden passage");
       if (state.room === "moonfen" && has("ferry crank") && !state.flags.ferryRepaired) actions.unshift("use ferry crank on winch");
@@ -3744,7 +3802,7 @@
             if (!state.flags.cellarUnlocked) add("ask innkeeper about cellar");
           } else if (/cellar hatch|cellar door|hatch|scuffed floor/.test(labelKey)) {
             add("look at cellar door");
-            if (state.flags.hatchNoticed) {
+            if (state.flags.hatchDiscoveryConfirmed) {
               if (state.flags.tavernCellarOpen) add("go down");
               else if (state.flags.cellarUnlocked) add("open cellar hatch");
               else add(has("lockpicks") ? "pick cellar lock" : "ask innkeeper about cellar");
@@ -4073,8 +4131,8 @@
       }
       if (state.room === "tavern") {
         const hatch = spots.find(s => /Cellar Hatch|Scuffed Floor/.test(s.label));
-        if (hatch && state.flags.hatchNoticed) hatch.label = "Cellar Hatch";
-        if (hatch && state.flags.hatchNoticed && state.flags.tavernCellarOpen) hatch.command = "go down";
+        if (hatch && state.flags.hatchDiscoveryConfirmed) hatch.label = "Cellar Hatch";
+        if (hatch && state.flags.hatchDiscoveryConfirmed && state.flags.tavernCellarOpen) hatch.command = "go down";
       }
       if (state.room === "tavernCellar" && state.flags.cellarPassageRevealed) {
         const rack = spots.find(s => s.label === "Wine Rack");
@@ -4093,7 +4151,7 @@
       currentHotspots().forEach(h => {
         const btn = document.createElement("button");
         btn.className = "hotspot";
-        const shownLabel = (/Cellar Hatch|Scuffed Floor/.test(h.label) && !state.flags.hatchNoticed) ? "Scuffed Floor" : h.label;
+        const shownLabel = (/Cellar Hatch|Scuffed Floor/.test(h.label) && !state.flags.hatchDiscoveryConfirmed) ? "Scuffed Floor" : h.label;
         btn.textContent = shownLabel;
         btn.dataset.label = shownLabel;
         btn.setAttribute("aria-label", `Explore ${h.label}`);
@@ -4492,10 +4550,24 @@
       state.itemCounts = state.itemCounts && typeof state.itemCounts === "object" ? state.itemCounts : {};
       state.equipment = Object.assign({shield:null,weapon:null}, state.equipment||{});
       const priorSchema = Number.isFinite(state.schemaVersion) ? state.schemaVersion : 0;
-      if (priorSchema < 1713 && !state.flags?.hatchNoticed) {
-        state.flags = Object.assign({}, state.flags||{}, {cellarUnlocked:false,tavernCellarOpen:false});
+      if (priorSchema < 1715) {
+        const legacyFlags = state.flags || {};
+        const legacyVisited = Array.isArray(state.visited) ? state.visited : [];
+        const realCellarProgress = legacyVisited.some(id => ["tavernCellar","secretTunnel","secretAlcove"].includes(id)) ||
+          !!(legacyFlags.cellarDraftFound || legacyFlags.cellarPassageRevealed || legacyFlags.tunnelCoinsFound || legacyFlags.tunnelCoinsTaken);
+        state.flags = Object.assign({}, legacyFlags, realCellarProgress ? {
+          hatchNoticed:true,
+          hatchDiscoveryConfirmed:true,
+          cellarUnlocked:true,
+          tavernCellarOpen:true
+        } : {
+          hatchNoticed:false,
+          hatchDiscoveryConfirmed:false,
+          cellarUnlocked:false,
+          tavernCellarOpen:false
+        });
       }
-      state.schemaVersion = 1713;
+      state.schemaVersion = 1715;
       state.inventory.forEach(i => { if (!state.itemCounts[i]) state.itemCounts[i]=1; });
       state.gold = Number.isFinite(state.gold) ? state.gold : 20;
       state.health = Number.isFinite(state.health) ? state.health : 20;
@@ -4512,6 +4584,7 @@
       state.skillUses = Object.assign({}, defaults.skillUses, state.skillUses || {});
       state.visited = Array.isArray(state.visited) ? state.visited : [state.room || "square"];
       state.flags = Object.assign({}, defaults.flags, state.flags || {});
+      if (!state.flags.hatchDiscoveryConfirmed) { state.flags.hatchNoticed=false; state.flags.cellarUnlocked=false; state.flags.tavernCellarOpen=false; }
       if (state.flags.brickCompartmentLooted) state.flags.brickCompartmentOpened = true;
       if (state.flags.tunnelCoinsTaken) state.flags.tunnelCoinsFound = true;
       if (state.room === "secretTunnel" && state.flags.tunnelCoinsFound) state.room = "secretAlcove";
@@ -4530,17 +4603,16 @@
 
     function syncVisibleViewportHeight() {
       const vv = window.visualViewport;
+      const visualHeight = Math.round(vv?.height || 0);
       const innerHeight = Math.round(window.innerHeight || 0);
       const clientHeight = Math.round(document.documentElement.clientHeight || 0);
-      const visualHeight = Math.round(vv?.height || 0);
-      const inputFocused = document.activeElement === inputEl;
-      const keyboardLikelyOpen = inputFocused && visualHeight > 0 && innerHeight - visualHeight > 120;
-      const visibleHeight = keyboardLikelyOpen
-        ? visualHeight
-        : Math.max(innerHeight, clientHeight, visualHeight);
+      // visualViewport.height is the actual visible iPhone area. Using the
+      // largest measurement caused the app to reserve space below the command row.
+      const visibleHeight = visualHeight || innerHeight || clientHeight;
       if (visibleHeight > 0) {
         document.documentElement.style.setProperty("--app-height", `${visibleHeight}px`);
       }
+      window.scrollTo(0, 0);
     }
 
     let viewportSyncFrame = 0;
@@ -4559,7 +4631,7 @@
     function boot() {
       updateMusicButton();
       const vt = document.getElementById("version-tag");
-      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Discovery, Equipment & Navigation Repair`;
+      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Mobile Fit & Story Wrap Repair`;
       const saved = storageGet(SAVE_KEY);
       if (saved) {
         try { state = JSON.parse(saved); migrateState(); restoreDynamicExits(); }
