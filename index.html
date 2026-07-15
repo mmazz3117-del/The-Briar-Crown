@@ -139,6 +139,15 @@
       min-height: 210px;
     }
     #scene-art, #scene-art svg, #scene-art img { width: 100%; height: 100%; display: block; }
+    #scene-art { position: relative; }
+    #scene-art::after { content:""; position:absolute; inset:0; pointer-events:none; z-index:2; background:var(--time-tint,transparent); transition:background 1.2s ease; }
+    body[data-time="dusk"] { --time-tint: rgba(74,44,96,.09); }
+    body[data-time="longnight"] { --time-tint: rgba(14,18,58,.15); }
+    body[data-time="deepnight"] { --time-tint: rgba(8,10,44,.20); }
+    body[data-time="falsedawn"] { --time-tint: rgba(58,70,118,.12); }
+    body[data-time="dawn"] { --time-tint: rgba(255,178,84,.14); }
+    body.effects-off .ambient-layer { display:none !important; }
+    body.effects-off #scene-art::after { transition:none; }
     #scene-art img.scene-image {
       object-fit: cover;
       object-position: center;
@@ -1155,6 +1164,7 @@
         <button id="help-btn">Command Help</button>
         <button id="scene-tour-btn">Scene Test</button>
         <button id="music-toggle-btn" aria-pressed="true">♫ Music: On</button>
+        <button id="effects-toggle-btn" aria-pressed="true">✨ Effects: On</button>
         <button id="restart-btn" class="danger">Restart</button>
       </div>
     </div>
@@ -1170,9 +1180,10 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.6.9.4.3";
+    const BUILD_VERSION = "1.7.0";
 
     const itemInfo = {
+      "tarnished locket": "A traveler's locket found behind the tavern hearth. The portrait inside shows a young woman before a crooked woodland cottage.",
       "iron hook": "A blacksmith's hook with a long, slightly bent handle.",
       "flint": "A sharp piece of flint for making sparks.",
       "silver key": "A tarnished key engraved with curling thorns.",
@@ -1282,7 +1293,8 @@
         hotspots: [
           { label: "Wine Rack", command: "look at wine rack", x: 24, y: 47, w: 31, h: 45 },
           { label: "Barrels", command: "look at barrels", x: 72, y: 62, w: 28, h: 35 },
-          { label: "Stone Seam", command: "look at wall", x: 49, y: 46, w: 19, h: 48 }
+          { label: "Stone Seam", command: "look at wall", x: 49, y: 46, w: 19, h: 48 },
+          { label: "Hatch Above", command: "go up", x: 84, y: 14, w: 20, h: 22 }
         ]
       },
       secretTunnel: {
@@ -1410,7 +1422,8 @@
           { label: "Altar", command: "look at altar", x: 48, y: 35, w: 28, h: 22 },
           { label: "Candles", command: "look at candles", x: 38, y: 53, w: 24, h: 18 },
           { label: "Stained Glass", command: "look at stained glass", x: 12, y: 25, w: 18, h: 28 },
-          { label: "Stone Chest", command: "look at stone chest", x: 78, y: 62, w: 25, h: 24 }
+          { label: "Stone Chest", command: "look at stone chest", x: 78, y: 62, w: 25, h: 24 },
+          { label: "Chapel Door", command: "go south", x: 50, y: 92, w: 28, h: 12 }
         ]
       },
       crypt: {
@@ -1455,7 +1468,8 @@
           { label: "Rug", command: "move rug", x: 50, y: 82, w: 45, h: 18 },
           { label: "Hearth", command: "look at hearth", x: 50, y: 52, w: 30, h: 40 },
           { label: "Herbs", command: "look at herbs", x: 20, y: 16, w: 26, h: 20 },
-          { label: "Desk", command: "search desk", x: 20, y: 67, w: 28, h: 24 }
+          { label: "Desk", command: "search desk", x: 20, y: 67, w: 28, h: 24 },
+          { label: "Front Door", command: "go west", x: 5, y: 55, w: 12, h: 36 }
         ]
       },
       cellar: {
@@ -1467,7 +1481,8 @@
           { label: "Lantern", command: "take lantern", x: 44, y: 36, w: 16, h: 23 },
           { label: "Ferry Crank", command: "take ferry crank", x: 79, y: 56, w: 24, h: 25 },
           { label: "Water-Stained Note", command: "read water stained note", x: 26, y: 62, w: 25, h: 20 },
-          { label: "Shelves", command: "search shelves", x: 23, y: 38, w: 31, h: 43 }
+          { label: "Shelves", command: "search shelves", x: 23, y: 38, w: 31, h: 43 },
+          { label: "Ladder Up", command: "go up", x: 88, y: 38, w: 15, h: 46 }
         ]
       },
       willowTrail: {
@@ -1549,7 +1564,8 @@
           { label: "Diary", command: "read diary", x: 45, y: 57, w: 22, h: 18 },
           { label: "Map", command: "look at map", x: 58, y: 57, w: 22, h: 18 },
           { label: "Locked Chest", command: "look at locked chest", x: 82, y: 34, w: 24, h: 25 },
-          { label: "Fireplace", command: "look at fireplace", x: 18, y: 56, w: 24, h: 34 }
+          { label: "Fireplace", command: "look at fireplace", x: 18, y: 56, w: 24, h: 34 },
+          { label: "Hut Door", command: "go west", x: 5, y: 58, w: 12, h: 34 }
         ]
       },
       moonwell: {
@@ -1561,7 +1577,8 @@
           { label: "Well", command: "look in well", x: 48, y: 62, w: 34, h: 28 },
           { label: "Fairy Cage", command: "look at fairy cage", x: 83, y: 49, w: 24, h: 34 },
           { label: "White Flowers", command: "look at white flowers", x: 48, y: 86, w: 60, h: 18 },
-          { label: "Carved Stones", command: "look at carved stones", x: 20, y: 56, w: 22, h: 30 }
+          { label: "Carved Stones", command: "look at carved stones", x: 20, y: 56, w: 22, h: 30 },
+          { label: "Forest Path", command: "go south", x: 50, y: 92, w: 30, h: 12 }
         ]
       },
       castleRoad: {
@@ -1611,6 +1628,13 @@
       lastPerson: "",
       lastCommand: "",
       flags: {
+        fireplaceBrickNoticed: false,
+        brickCompartmentLooted: false,
+        archBroken: false,
+        stonesAttuned: false,
+        flutistMet: false,
+        duetDone: false,
+        gateShardReady: false,
         tavernDoorOpen: false,
         apothecaryDoorOpen: false,
         forgeDoorOpen: false,
@@ -1744,7 +1768,8 @@
         { label: "Elowen", command: "talk to apothecary", x: 54, y: 44, w: 18, h: 28 },
         { label: "Herb Wall", command: "look east", x: 79, y: 31, w: 30, h: 34 },
         { label: "Cabinets", command: "look west", x: 24, y: 39, w: 30, h: 40 },
-        { label: "Entrance", command: "look south", x: 8, y: 49, w: 15, h: 40 }
+        { label: "Entrance", command: "look south", x: 8, y: 49, w: 15, h: 40 },
+        { label: "Leave Shop", command: "go outside", x: 8, y: 88, w: 20, h: 12 }
       ],
       north: [
         { label: "Elowen", command: "talk to apothecary", x: 61, y: 41, w: 20, h: 31 },
@@ -1799,7 +1824,8 @@
         {label:"Innkeeper",command:"talk to innkeeper",x:78,y:48,w:22,h:34},
         {label:"Cellar Hatch",command:"look at cellar door",x:52,y:83,w:36,h:24},
         {label:"Fireplace",command:"look west",x:17,y:47,w:27,h:36},
-        {label:"Entrance",command:"look south",x:46,y:27,w:18,h:38}
+        {label:"Entrance",command:"look south",x:46,y:27,w:18,h:38},
+        {label:"Leave Tavern",command:"go outside",x:46,y:9,w:24,h:14}
       ],
       north:[
         {label:"Innkeeper",command:"talk to innkeeper",x:72,y:51,w:24,h:34},
@@ -2325,13 +2351,20 @@
       ].filter(Boolean).length;
     }
 
+    function worldTimePhase() {
+      if (state.flags.ending === "dawn") return "Dawn";
+      const total=(18*60+30)+((state.turns||0)*8);
+      const minutes=((total%1440)+1440)%1440;
+      const hour24=Math.floor(minutes/60);
+      return hour24>=18&&hour24<21?"Dusk":hour24>=21||hour24<2?"Long Night":hour24<5?"Deep Night":"False Dawn";
+    }
     function worldTimeLabel() {
+      if (state.flags.ending === "dawn") return "Dawn • First Light";
       const total=(18*60+30)+((state.turns||0)*8);
       const minutes=((total%1440)+1440)%1440;
       const hour24=Math.floor(minutes/60), mins=minutes%60;
       const hour12=hour24%12||12, suffix=hour24>=12?"PM":"AM";
-      const phase=hour24>=18&&hour24<21?"Dusk":hour24>=21||hour24<2?"Long Night":hour24<5?"Deep Night":"False Dawn";
-      return `${phase} • ${hour12}:${String(mins).padStart(2,"0")} ${suffix}`;
+      return `${worldTimePhase()} • ${hour12}:${String(mins).padStart(2,"0")} ${suffix}`;
     }
 
     function updateStatus() {
@@ -2343,6 +2376,8 @@
       goldValueEl.textContent = String(state.gold || 0);
       const ratio=(state.health||0)/Math.max(1,state.maxHealth||20);
       healthCountEl.dataset.condition = ratio<=.25?"critical":ratio<=.55?"injured":"healthy";
+      document.body.dataset.time = worldTimePhase().toLowerCase().replace(/\s+/g,"");
+      document.body.classList.toggle("effects-off", !effectsEnabled);
     }
 
     function storageGet(key) {
@@ -2438,7 +2473,8 @@
       }
       if (state.room === "tavern" && /(flutist|musician)/.test(target)) {
         state.lastPerson="flutist"; useSkill("Persuasion");
-        addLog("The flutist lowers her instrument. “The tune came from the marsh. It only resolves when the ferry bell answers.”", "system"); return;
+        state.flags.flutistMet = true;
+        addLog("The flutist lowers her instrument. “The tune came from the marsh. It only resolves when the ferry bell answers.”" + (state.flags.duetDone ? "" : " She taps the bench beside her. “You could PLAY ALONG, if you have the nerve.”"), "system"); return;
       }
       if (state.room === "tavern" && /(waitress|server)/.test(target)) {
         state.lastPerson="waitress"; useSkill("Persuasion");
@@ -2471,7 +2507,14 @@
         return addLog("The loose stone rests beside an empty hiding place. You already collected the coins.");
       }
       if (state.room === "tavern") {
-        if (/fireplace|hearth/.test(target)) return addLog("Orange flames roll over split oak logs. A soot-dark iron poker rests beside the hearth.");
+        if (/fireplace|hearth/.test(target)) {
+          if (state.flags.brickCompartmentLooted) return addLog("Orange flames roll over split oak logs. The loose brick sits ajar beside its emptied hiding place.");
+          if (!state.flags.fireplaceBrickNoticed) {
+            state.flags.fireplaceBrickNoticed = true;
+            return addLog("Orange flames roll over split oak logs. As the light shifts, you notice one brick at the hearth's edge sitting slightly proud of its neighbors, its mortar crumbled away. You could MOVE BRICK.", "success");
+          }
+          return addLog("The loose brick still sits proud of the hearth. You could MOVE BRICK.");
+        }
         if (/stairs/.test(target)) return addLog("The stairs climb to rented rooms. A painted sign warns: NO CREDIT, NO CURSES, NO DRAGONS.");
         if (/crest/.test(target)) return addLog("The old hunting crest bears a silver stag beneath three faded stars.");
         if (/ledger/.test(target)) return addLog("The innkeeper's ledger records rooms, meals, and several unpaid tabs under suspiciously heroic names.");
@@ -2494,7 +2537,7 @@
         "tavernCellar:wall": "A narrow vertical seam cuts through the stonework behind the wine rack.",
         "secretTunnel:passage": "The hidden corridor slopes gently east. Dust lies undisturbed except for a narrow trail leading toward the colder alcove.",
         "secretTunnel:lantern": "The lantern is fixed to an iron hook. Its flame leans east in a faint underground draft.",
-        "secretAlcove:blocked arch": "The far arch has collapsed. Fresh scratches on one stone suggest someone tried to clear it recently.",
+        "secretAlcove:blocked arch": state.flags.archBroken ? "The rockfall lies breached. Beyond the broken keystone, the small guard alcove stands empty, its oath-stone gleaming faintly." : "The far arch has collapsed. Fresh scratches on one stone suggest someone tried to clear it recently. A strong pair of shoulders might BREAK ARCH.",
         "secretAlcove:loose stone": state.flags.tunnelCoinsTaken ? "The hiding place beneath the loose stone is empty." : (state.flags.tunnelCoinsFound ? "Seven old silver coins lie exposed beside the loose stone." : "One floor stone sits slightly higher than the others."),
         "secretAlcove:lantern": "The iron lantern is fixed to the wall. Its small flame gives just enough light to study the rubble and uneven floor.",
         "chapel:altar": "The altar bears a carved sunburst and a nearly erased line: BRING THE WINGED COIN TO THE OPEN HAND.",
@@ -2511,7 +2554,7 @@
         "moonfen:across water": "The hut stands across the black water, too far to reach without the ferry.",
         "moonwell:fairy cage": state.flags.fairyFreed ? "The living thorns have opened and curled harmlessly into the grass." : "The thorns tighten whenever you touch them. A small sun-shaped socket is woven into the cage.",
         "moonwell:white flowers": "The flowers turn slowly toward the trapped fairy rather than toward the moon.",
-        "moonwell:carved stones": "The stones depict a ferry, a winged coin, Saint Orla's open hand, and finally a rising sun.",
+        "moonwell:carved stones": state.flags.stonesAttuned ? "The carved stones still hum faintly beneath your palm: ferry, coin, open hand, rising sun — the whole road you have walked." : "The stones depict a ferry, a winged coin, Saint Orla's open hand, and finally a rising sun." + (((state.player&&state.player.classKey)==="wizard"||(state.skills.Magic||0)>=2) ? " Old power sleeps in the carvings — you could ATTUNE TO STONES." : " Faint script between the pictures is worn beyond ordinary reading; a practiced magical eye might see more."),
         "hutExterior:hut": "The hut is older than the ferry landing. Someone has recently swept the steps, though no footprints remain.",
         "hutExterior:dock": "The dock timbers are slick with marsh water. The ferry rope runs west through the fog.",
         "hutInterior:diary": "The last readable page says: 'Orla hid the path below the chapel. The fairy coin opens the way, but the coin must never return to the crown.'",
@@ -2739,6 +2782,16 @@
     }
 
     function moveTarget(target) {
+      if (state.room === "tavern" && /(brick|loose brick)/.test(target)) {
+        if (!state.flags.fireplaceBrickNoticed) return addLog("The hearth bricks look solid from here. Perhaps LOOK AT FIREPLACE first.", "warning");
+        if (state.flags.brickCompartmentLooted) return addLog("The brick is already moved aside; the hiding place behind it is empty.");
+        state.flags.brickCompartmentLooted = true;
+        state.gold = (state.gold||0) + 6;
+        addItem("tarnished locket");
+        award("fireplace-cache", 2);
+        addLog("You ease the loose brick out. Behind it, a traveler's cache: six gold pieces and a tarnished locket. Inside the locket, a painted portrait of a young woman standing before a crooked cottage in the woods.", "success");
+        return;
+      }
       if (state.room === "tavernCellar" && /(wine rack|rack)/.test(target)) {
         if (!state.flags.cellarDraftFound) return addLog("You shove at the rack, but it barely moves. A closer inspection might reveal how it was meant to slide.", "warning");
         if (!state.flags.cellarPassageRevealed) {
@@ -2818,6 +2871,13 @@
         return;
       }
       if (state.room === "castleGate" && item === "crown shard" && /(gate|socket|crown)/.test(target)) {
+        if (state.flags.ending) { triggerEnding(); return; }
+        if (!has("crown shard")) { addLog("You do not possess the missing crown shard.", "warning"); return; }
+        if (!state.flags.gateShardReady) {
+          state.flags.gateShardReady = true;
+          addLog("You raise the crown shard toward the gate's empty socket and the thorns shiver in answer. This act cannot be undone — the kingdom's fate will be sealed" + (state.flags.fairyFreed ? "" : ", and the fairy still hangs caged above the Moonwell") + ". Type CONFIRM ENDING or tap the button when you are ready.", "warning");
+          return;
+        }
         triggerEnding();
         return;
       }
@@ -3123,6 +3183,57 @@
         if (!state.flags.ferryRepaired) { state.turns++; addLog("The ferry cannot move until the missing crank is replaced.","warning"); return finishTurn(); }
         await transitionToRoom("hutExterior",{note:"The rope ferry creaks across the black water toward the distant hut."}); return finishTurn();
       }
+      if (/^play (?:along|music|tune|a tune|along with (?:the )?flutist|with (?:the )?flutist)$/.test(command) && state.room === "tavern") {
+        state.turns++;
+        if (!state.flags.flutistMet) { addLog("The flutist is lost in her music. TALK TO FLUTIST first.", "warning"); return finishTurn(); }
+        if (state.flags.duetDone) { addLog("The flutist smiles and shakes her head. “One perfect duet a night. Any more would be showing off.”"); return finishTurn(); }
+        useSkill("Persuasion");
+        const proll = Math.floor(Math.random()*20)+1;
+        const pbonus = ((state.player&&state.player.classKey)==="bard"?4:0)+(state.skills.Persuasion||0);
+        addLog(`<strong style="color:${skillMeta.Persuasion.color}">${skillMeta.Persuasion.icon} Performance check:</strong> d20 ${proll} + ${pbonus} = ${proll+pbonus}. Need 10.`, "system");
+        if (proll+pbonus < 10) { addLog("You fumble the melody's turn and the flutist rescues it gracefully. A few patrons chuckle. She nods: “Again, when you're ready.”", "warning"); return finishTurn(); }
+        state.flags.duetDone = true;
+        state.gold = (state.gold||0) + 4;
+        award("tavern-duet", 2);
+        addLog("You catch the marsh-tune's strange rhythm and the room falls quiet as your duet rises and resolves. Coins ring in the flutist's cap and she splits them with you: four gold. “The marsh will remember that,” she says.", "success");
+        return finishTurn();
+      }
+      if (/^(?:break|force|smash) (?:the )?(?:blocked )?(?:arch|rockfall|rocks)$/.test(command) && state.room === "secretAlcove") {
+        state.turns++;
+        if (state.flags.archBroken) { addLog("The rockfall is already breached; the small alcove behind it stands empty."); return finishTurn(); }
+        useSkill("Combat");
+        const croll = Math.floor(Math.random()*20)+1;
+        const cbonus = ((state.player&&state.player.classKey)==="knight"?4:0)+(state.skills.Combat||0);
+        addLog(`<strong style="color:${skillMeta.Combat.color}">${skillMeta.Combat.icon} Strength check:</strong> d20 ${croll} + ${cbonus} = ${croll+cbonus}. Need 12.`, "system");
+        if (croll+cbonus < 12) {
+          state.health = Math.max(1,(state.health||20)-1); updateStatus();
+          addLog("You heave against the fallen stone and it shifts, then bites back — a sharp edge scrapes your arm (−1 health). The rockfall holds. You can try again.", "warning");
+          return finishTurn();
+        }
+        state.flags.archBroken = true;
+        state.gold = (state.gold||0) + 8;
+        award("break-tunnel-arch", 3);
+        addLog("With a grinding roar the keystone gives and part of the rockfall collapses inward, revealing a small alcove. Inside: eight gold pieces and an oath-stone carved with a kneeling knight — proof this passage once served the castle guard.", "success");
+        return finishTurn();
+      }
+      if (/^attune(?: to)? (?:the )?stones?$/.test(command) && state.room === "moonwell") {
+        state.turns++;
+        if (state.flags.stonesAttuned) { addLog("The stones' power already flows quietly through you."); return finishTurn(); }
+        if (!(((state.player&&state.player.classKey)==="wizard")||(state.skills.Magic||0)>=2)) { addLog("You press a palm to the carvings, but the worn script keeps its secrets. Greater magical skill might unlock them.", "warning"); return finishTurn(); }
+        state.flags.stonesAttuned = true;
+        useSkill("Magic");
+        state.maxFocus = Math.max(state.maxFocus||10, 12);
+        state.focus = Math.min((state.focus||10)+2, state.maxFocus);
+        award("attune-moonwell-stones", 3);
+        addLog("You trace the worn script and it kindles beneath your fingers. The stones tell the well's whole story — the crown broken willingly, the shard hidden out of mercy, the fairy caged out of fear. Understanding settles into you like cool water (+2 focus, greater focus capacity).", "success");
+        return finishTurn();
+      }
+      if (/^(?:confirm ending|seal the fate|set the shard)$/.test(command) && state.room === "castleGate") {
+        state.turns++;
+        if (!state.flags.gateShardReady) { addLog("Nothing awaits confirmation. The shard rests quietly in your pack.", "warning"); return finishTurn(); }
+        triggerEnding();
+        return finishTurn();
+      }
       if (/^(?:pick|unlock) (?:cellar|cellar door|hatch)(?: lock)?$/.test(command) && state.room === "tavern") {
         state.turns++; state.lastObject="cellar door";
         if (!has("lockpicks")) { addLog("You need lockpicks to attempt that—or you could ASK INNKEEPER ABOUT CELLAR.", "warning"); return finishTurn(); }
@@ -3261,6 +3372,11 @@
       if (state.room === "cottage" && state.flags.rugMoved) removeAction("move rug");
       if (state.room === "cottage" && state.flags.cabinetOpen && !state.flags.keyTaken) actions.unshift("take silver key");
       if (state.room === "cellar" && !state.flags.ferryCrankTaken) actions.unshift("take ferry crank");
+      if (state.room === "tavern" && state.flags.fireplaceBrickNoticed && !state.flags.brickCompartmentLooted) actions.unshift("move brick");
+      if (state.room === "tavern" && state.flags.flutistMet && !state.flags.duetDone) actions.unshift("play along with flutist");
+      if (state.room === "secretAlcove" && !state.flags.archBroken) actions.unshift("break blocked arch");
+      if (state.room === "moonwell" && !state.flags.stonesAttuned && (((state.player&&state.player.classKey)==="wizard")||(state.skills.Magic||0)>=2)) actions.unshift("attune to stones");
+      if (state.room === "castleGate" && state.flags.gateShardReady && !state.flags.ending) actions.unshift("confirm ending");
       if (state.room === "tavern" && !state.flags.cellarUnlocked) actions.unshift("ask innkeeper about cellar");
       if (state.room === "tavern" && state.flags.cellarUnlocked && !state.flags.tavernCellarOpen) actions.unshift("open cellar hatch");
       if (state.room === "tavern" && state.flags.tavernCellarOpen) actions.unshift("go down");
@@ -3356,6 +3472,11 @@
       if (a === "use ferry crank on winch") return "Repair Ferry";
       if (a === "cross ferry") return "Cross the Ferry";
       if (a === "ask innkeeper about cellar") return "Ask About Cellar";
+      if (a === "move brick") return "Move Loose Brick";
+      if (a === "play along with flutist") return "Play Along";
+      if (a === "break blocked arch") return "Break Arch";
+      if (a === "attune to stones") return "Attune to Stones";
+      if (a === "confirm ending") return "⚑ Confirm Ending";
       if (a === "open cellar hatch") return "Open Cellar Hatch";
       if (a === "enter hidden passage") return "Enter Hidden Passage";
       if (a === "go down") return "Go Down";
@@ -3629,7 +3750,7 @@
 
     function isCriticalAction(action) {
       const a=normalize(action);
-      return /^(enter |open (?:door|cellar hatch|trapdoor|reliquary)|take |repair ferry|cross ferry|use (?:fairy coin|sun sigil|iron hook|silver token|silver key|ferry crank)|move wine rack|go down|go outside|leave |approach chapel|look at gate|light lantern)/.test(a);
+      return /^(enter |open (?:door|cellar hatch|trapdoor|reliquary)|take |repair ferry|cross ferry|use (?:fairy coin|sun sigil|iron hook|silver token|silver key|ferry crank)|move wine rack|go down|go outside|leave |approach chapel|look at gate|light lantern|move brick|play along|attune to stones|break blocked arch|confirm ending)/.test(a);
     }
     function actionCategory(action) {
       const a=normalize(action);
@@ -3720,9 +3841,9 @@
         chapelRoad:["go west","go east","look at chapel"],
         chapelYard:["approach chapel","go east","go west"],
         chapelApproach:["enter chapel","look inside","go south"],
-        castleGate:["look at gate","look at winch","look at socket","go north"],
+        castleGate:(state.flags.gateShardReady&&!state.flags.ending)?["confirm ending","look at gate","go north"]:["look at gate","look at winch","look at socket","go north"],
         secretTunnel:["go east","go west","look at passage"],
-        secretAlcove:[state.flags.tunnelCoinsFound&&!state.flags.tunnelCoinsTaken?"take coins":"search loose stone","look at blocked arch","go west"]
+        secretAlcove:[state.flags.tunnelCoinsFound&&!state.flags.tunnelCoinsTaken?"take coins":"search loose stone",state.flags.archBroken?"look at blocked arch":"break blocked arch","go west"]
       };
       const source=preferred[state.room] || currentActions().filter(a=>isCriticalAction(a));
       const seen=new Set();
@@ -4156,6 +4277,9 @@
     const MUSIC_PREF_KEY = "briar-crown-music-enabled";
     let musicEnabled = storageGet(MUSIC_PREF_KEY) !== "false";
     let audioContext = null, musicTimer = null, musicLoopIndex = 0;
+    let effectsEnabled = storageGet("bc-effects") !== "off";
+    function updateEffectsButton(){ const btn=document.getElementById("effects-toggle-btn"); if(!btn)return; btn.textContent=effectsEnabled?"✨ Effects: On":"✨ Effects: Off"; btn.setAttribute("aria-pressed",String(effectsEnabled)); }
+    function toggleEffects(){ effectsEnabled=!effectsEnabled; storageSet("bc-effects", effectsEnabled?"on":"off"); updateEffectsButton(); updateStatus(); addLog(effectsEnabled?"Ambient scene effects enabled.":"Ambient scene effects disabled.","system"); renderLog(); }
     function updateMusicButton(){ const btn=document.getElementById("music-toggle-btn"); if(!btn)return; btn.textContent=musicEnabled?"♫ Music: On":"♫ Music: Off"; btn.setAttribute("aria-pressed",String(musicEnabled)); }
     function harpPluck(frequency,when,duration=1.8,volume=.045){ if(!audioContext)return; const osc=audioContext.createOscillator(), over=audioContext.createOscillator(), gain=audioContext.createGain(), overGain=audioContext.createGain(); osc.type="triangle"; over.type="sine"; osc.frequency.setValueAtTime(frequency,when); over.frequency.setValueAtTime(frequency*2.01,when); gain.gain.setValueAtTime(.0001,when); gain.gain.exponentialRampToValueAtTime(volume,when+.015); gain.gain.exponentialRampToValueAtTime(.0001,when+duration); overGain.gain.setValueAtTime(.0001,when); overGain.gain.exponentialRampToValueAtTime(volume*.24,when+.01); overGain.gain.exponentialRampToValueAtTime(.0001,when+duration*.55); osc.connect(gain).connect(audioContext.destination); over.connect(overGain).connect(audioContext.destination); osc.start(when); over.start(when); osc.stop(when+duration+.05); over.stop(when+duration+.05); }
     function scheduleHarpPhrase(){ if(!musicEnabled||!audioContext||audioContext.state!=="running")return; const scales=[[261.63,329.63,392,523.25,392,329.63,293.66,349.23],[220,261.63,329.63,440,329.63,261.63,246.94,293.66],[196,246.94,293.66,392,293.66,246.94,220,261.63]]; const melody=scales[musicLoopIndex++%scales.length], start=audioContext.currentTime+.08; melody.forEach((note,i)=>{harpPluck(note,start+i*.72,1.65,.042); if(i%2===0)harpPluck(note/2,start+i*.72,2.2,.02);}); clearTimeout(musicTimer); musicTimer=setTimeout(scheduleHarpPhrase,6700); }
@@ -4183,6 +4307,8 @@
     document.getElementById("load-btn").addEventListener("click", loadGame);
     document.getElementById("help-btn").addEventListener("click", () => { document.getElementById("menu-dialog").close(); showHelp(); });
     document.getElementById("music-toggle-btn").addEventListener("click", toggleMusic);
+    document.getElementById("effects-toggle-btn").addEventListener("click", toggleEffects);
+    updateEffectsButton();
     document.getElementById("scene-tour-btn").addEventListener("click", () => {
       document.getElementById("menu-dialog").close();
       renderSceneTour();

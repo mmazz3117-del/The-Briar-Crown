@@ -1,4 +1,4 @@
-const CACHE = "briar-crown-v1.6.9.4.3";
+const CACHE = "briar-crown-v1.7.0";
 const ASSETS = [
   "./",
   "./index.html",
@@ -30,13 +30,10 @@ const ASSETS = [
   "./assets/scenes/apothecary-south.webp",
   "./assets/scenes/forest.webp",
   "./assets/scenes/cottage.webp",
-  "./assets/scenes/moonfen.webp",
   "./assets/scenes/crypt.webp",
   "./assets/scenes/gate.webp",
-  "./assets/scenes/forge-lane-v2.webp",
   "./assets/scenes/cottage-interior.webp",
   "./assets/scenes/cottage-cellar.webp",
-  "./assets/scenes/moonwell.webp",
   "./assets/scenes/ferry-landing.webp",
   "./assets/scenes/hut.webp",
   "./assets/scenes/hut-interior.webp",
@@ -46,7 +43,6 @@ const ASSETS = [
   "./assets/scenes/flower-clearing.webp",
   "./assets/scenes/fallen-log.webp",
   "./assets/scenes/moonwell-v2.webp",
-  "./assets/scenes/secret-tunnel.webp",
   "./assets/scenes/chapel-road.webp",
   "./assets/scenes/hidden-passage-v2.webp",
   "./assets/scenes/hidden-alcove.webp",
