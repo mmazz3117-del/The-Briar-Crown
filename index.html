@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-title" content="Briar Crown" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <title>The Briar Crown — Mobile Adventure v1.6.9.4</title>
+  <title>The Briar Crown — Mobile Adventure v1.7.1.1</title>
   <style>
 
     :root {
@@ -148,6 +148,14 @@
     body[data-time="dawn"] { --time-tint: rgba(255,178,84,.14); }
     body.effects-off .ambient-layer { display:none !important; }
     body.effects-off #scene-art::after { transition:none; }
+    .world-map-svg { width:100%; height:auto; display:block; }
+    .world-map-svg .wm-t { fill:#e8d9a8; font-size:12px; text-anchor:middle; font-family:Georgia,serif; }
+    .world-map-svg .wm-region { fill:#8f7b52; font-size:11px; letter-spacing:2px; font-family:Georgia,serif; }
+    .world-map-svg .wm-travel { cursor:pointer; }
+    .world-map-svg .wm-travel:active rect { fill:#4a3a68; }
+    .world-map-svg .wm-current rect { animation: wmpulse 1.8s ease-in-out infinite; }
+    @keyframes wmpulse { 0%,100% { stroke:#f3d37c; } 50% { stroke:#fff3c4; } }
+    body.effects-off .world-map-svg .wm-current rect { animation:none; }
     #scene-art img.scene-image {
       object-fit: cover;
       object-position: center;
@@ -1074,6 +1082,29 @@
       .controls { max-height: 44dvh; }
     }
 
+    /* v1.7.1.1 mobile viewport correction
+       Uses a JavaScript-synchronized visible viewport height instead of relying
+       only on 100dvh, which can leave unused space in iOS standalone mode. */
+    :root { --app-height: 100dvh; }
+    html { width: 100%; height: 100%; min-height: 100%; }
+    body {
+      width: 100%;
+      height: var(--app-height, 100dvh) !important;
+      min-height: var(--app-height, 100dvh) !important;
+      max-height: var(--app-height, 100dvh) !important;
+    }
+    .app {
+      height: var(--app-height, 100dvh) !important;
+      min-height: var(--app-height, 100dvh) !important;
+      max-height: var(--app-height, 100dvh) !important;
+    }
+    .controls {
+      padding-bottom: max(8px, env(safe-area-inset-bottom)) !important;
+    }
+    @supports (-webkit-touch-callout: none) {
+      html { min-height: -webkit-fill-available; }
+    }
+
   </style>
 </head>
 <body>
@@ -1101,7 +1132,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.6.9.4.3 • Scene Flow & Interaction Repair</small>
+        <small id="version-tag">Version 1.7.1.1 • Mobile Viewport & Release Alignment</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -1180,7 +1211,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.7.0";
+    const BUILD_VERSION = "1.7.1.1";
 
     const itemInfo = {
       "tarnished locket": "A traveler's locket found behind the tavern hearth. The portrait inside shows a young woman before a crooked woodland cottage.",
@@ -1628,6 +1659,7 @@
       lastPerson: "",
       lastCommand: "",
       flags: {
+        hatchNoticed: false,
         fireplaceBrickNoticed: false,
         brickCompartmentLooted: false,
         archBroken: false,
@@ -2580,7 +2612,7 @@
         "square:apothecary": "Willowmere Apothecary is the herb shop on the eastern side of the square. Blue smoke curls from its chimney, and a painted mortar and pestle hangs above the green door. Touch it again or type WALK TO APOTHECARY to approach.",
         "square:fountain": "The old fountain basin is dry. One carved word remains readable: REMEMBER.",
         "square:statue": "The statue depicts Queen Elowen before her coronation. Thorn marks have been scratched across her face.",
-        "tavern:cellar door": "The heavy hatch is barred from below. Warm air and the scent of rosemary rise through the seams.",
+        "tavern:cellar door": (function(){ if (!state.flags.hatchNoticed) { state.flags.hatchNoticed = true; return "You brush aside the scuffed sawdust near the stairs \u2014 and uncover an iron-bound hatch set flush with the floorboards. A cellar! Its heavy lock is dark with age. The innkeeper might know more."; } return state.flags.tavernCellarOpen ? "The heavy hatch stands open, stone steps descending into the cellar dark." : "The iron-bound cellar hatch sits beneath the stairs, its difficult lock waiting for a skilled hand or the innkeeper's permission."; })(),
         "tavern:stairs": "The upper rooms are quiet. A hand-lettered sign says: NO CREDIT, NO CURSES, NO DRAGONS.",
         "forgeLane:forge": "Merrin's forge stands beside the lane, its stonework darkened by years of smoke. The public road continues beyond it toward the old eastern gate.",
         "eastRoad:eastern gate": "The old gate has collapsed inward. Thick living thorn has grown through the fallen stones, ending the road for now.",
@@ -2923,21 +2955,66 @@
       document.getElementById("inventory-dialog").showModal();
     }
 
+    const worldMapNodes = [
+      ["oldCemeteryPath",0,2,"Old Cemetery"],["chapelYard",1,2,"Chapel Yard"],["chapelRoad",2,2,"Chapel Road"],["square",3,2,"Willowmere"],["forgeLane",4,2,"Forge Lane"],["eastRoad",5,2,"East Road"],
+      ["chapelApproach",1,1,"Chapel Door"],["chapel",1,0,"Saint Orla"],["crypt",0,0,"Crypt"],
+      ["tavernApproach",3,1,"Tavern Road"],["tavern",3,0,"Briar Lantern"],["tavernCellar",4,0,"Tavern Cellar"],["secretTunnel",5,0,"Hidden Passage"],["secretAlcove",6,0,"Collapsed Alcove"],
+      ["forestEdge",4,1,"Whispering Path"],["willowTrail",5,1,"Willow Trail"],["flowerClearing",6,1,"Flower Clearing"],["fallenLog",7,1,"Log Crossing"],["whisperingForest",8,1,"Deep Forest"],["moonwell",9,0,"Moonwell"],["moonfen",9,1,"Ferry Landing"],
+      ["hutExterior",8,2,"Across Moonfen"],["hutInterior",9,2,"Moonfen Hut"],["cottageApproach",6,2,"Witch's Cottage"],["cottage",6,3,"Cottage Interior"],["cellar",5,3,"Cottage Cellar"],
+      ["castleRoad",3,3,"King's Road"],["castleGate",3,4,"Ironthorn Gate"]
+    ];
+    const worldMapEdges = [
+      ["oldCemeteryPath","chapelYard"],["chapelYard","chapelRoad"],["chapelRoad","square"],["square","forgeLane"],["forgeLane","eastRoad"],
+      ["chapelYard","chapelApproach"],["chapelApproach","chapel"],["chapel","crypt"],
+      ["square","tavernApproach"],["tavernApproach","tavern"],["tavern","tavernCellar"],["tavernCellar","secretTunnel"],["secretTunnel","secretAlcove"],
+      ["tavernApproach","forestEdge"],["forestEdge","willowTrail"],["willowTrail","flowerClearing"],["flowerClearing","fallenLog"],["fallenLog","whisperingForest"],["whisperingForest","moonwell"],["whisperingForest","moonfen"],["moonfen","moonwell"],
+      ["moonfen","hutExterior"],["hutExterior","hutInterior"],
+      ["forestEdge","cottageApproach"],["cottageApproach","cottage"],["cottage","cellar"],
+      ["square","castleRoad"],["castleRoad","castleGate"]
+    ];
+    const FAST_TRAVEL_OK = new Set(["oldCemeteryPath","chapelYard","chapelRoad","square","forgeLane","eastRoad","chapelApproach","tavernApproach","forestEdge","willowTrail","flowerClearing","fallenLog","whisperingForest","moonwell","moonfen","hutExterior","cottageApproach","castleRoad","castleGate"]);
+
     function renderDiscoveredMap() {
-      const nodes = [
-        ["oldCemeteryPath",0,2,"Old Cemetery"],["chapelYard",1,2,"Chapel Yard"],["chapelRoad",2,2,"Chapel Road"],["square",3,2,"Willowmere"],["forgeLane",4,2,"Forge Lane"],["eastRoad",5,2,"East Road"],
-        ["chapelApproach",2,1,"Chapel Door"],["chapel",2,0,"Saint Orla"],["crypt",2,3,"Crypt"],
-        ["tavernApproach",3,1,"Tavern Road"],["tavern",3,0,"Briar Lantern"],["tavernCellar",4,0,"Tavern Cellar"],["secretTunnel",5,0,"Hidden Passage"],["secretAlcove",6,0,"Collapsed Alcove"],
-        ["forestEdge",4,1,"Whispering Path"],["willowTrail",5,1,"Willow Trail"],["flowerClearing",6,1,"Flower Clearing"],["fallenLog",7,1,"Log Crossing"],["whisperingForest",8,1,"Deep Forest"],["moonwell",9,0,"Moonwell"],["moonfen",9,1,"Ferry Landing"],
-        ["hutExterior",6,2,"Across Moonfen"],["hutInterior",6,3,"Moonfen Hut"],["cottageApproach",5,2,"Witch's Cottage"],["cottage",5,3,"Cottage Interior"],["cellar",5,4,"Cottage Cellar"],
-        ["castleRoad",3,3,"King's Road"],["castleGate",3,4,"Ironthorn Gate"]
-      ];
-      const visited=new Set(state.visited||[]);
-      return `<h3>Discovered Map</h3><div class="world-map-card"><div class="world-map-grid">${nodes.map(([id,c,r,label])=>{
-        const known=visited.has(id); const current=state.room===id;
-        return `<div class="map-node ${current?"current":""} ${known?"":"unknown"}" style="grid-column:${c+1};grid-row:${r+1}">${known?label:"???"}</div>`;
-      }).join("")}</div><p class="map-legend">Gold outline = current location • ??? = not yet discovered. The layout is a travel guide, not an exact scale map.</p></div>`;
+      const visited = new Set(state.visited||[]);
+      const adjacent = new Set();
+      worldMapEdges.forEach(([a,b])=>{ if (visited.has(a)) adjacent.add(b); if (visited.has(b)) adjacent.add(a); });
+      const pos = {};
+      worldMapNodes.forEach(([id,c,r])=>{ pos[id] = { x: 30 + c*94, y: 26 + r*66 }; });
+      const NW=86, NH=42;
+      const shown = worldMapNodes.filter(([id])=>visited.has(id)||adjacent.has(id));
+      const shownIds = new Set(shown.map(n=>n[0]));
+      const edgesSvg = worldMapEdges.filter(([a,b])=>shownIds.has(a)&&shownIds.has(b)&&(visited.has(a)||visited.has(b))).map(([a,b])=>{
+        const A=pos[a], B=pos[b];
+        const solid = visited.has(a)&&visited.has(b);
+        return `<line x1="${A.x+NW/2}" y1="${A.y+NH/2}" x2="${B.x+NW/2}" y2="${B.y+NH/2}" stroke="${solid?"#c9a659":"#6b5a3a"}" stroke-width="${solid?3:2}" ${solid?"":"stroke-dasharray=\'4 5\'"} stroke-linecap="round" opacity="${solid?0.9:0.5}"/>`;
+      }).join("");
+      const nodesSvg = shown.map(([id,c,r,label])=>{
+        const {x,y}=pos[id];
+        const known=visited.has(id), current=state.room===id;
+        const canTravel = known && FAST_TRAVEL_OK.has(id) && !current;
+        const fill = current ? "#3d2f55" : known ? "#241a38" : "#181228";
+        const stroke = current ? "#f3d37c" : known ? "#c9a659" : "#4a3f5c";
+        const words = known ? label.split(" ") : ["???"];
+        const text = words.length>1 && label.length>11
+          ? `<text x="${x+NW/2}" y="${y+17}" class="wm-t">${words.slice(0,Math.ceil(words.length/2)).join(" ")}</text><text x="${x+NW/2}" y="${y+31}" class="wm-t">${words.slice(Math.ceil(words.length/2)).join(" ")}</text>`
+          : `<text x="${x+NW/2}" y="${y+25}" class="wm-t">${words.join(" ")}</text>`;
+        return `<g class="map-node-g ${current?"wm-current":""} ${canTravel?"wm-travel":""}" ${canTravel?`data-travel="${id}"`:""}><rect x="${x}" y="${y}" width="${NW}" height="${NH}" rx="8" fill="${fill}" stroke="${stroke}" stroke-width="${current?3:1.6}" ${known?"":"stroke-dasharray=\'4 4\'"}/>${text}</g>`;
+      }).join("");
+      const regions = `<text x="30" y="16" class="wm-region">THE VILLAGE</text><text x="500" y="16" class="wm-region">BENEATH \u0026 BEYOND THE LANTERN</text><text x="700" y="120" class="wm-region">THE WILD WOOD</text><text x="760" y="212" class="wm-region">THE MOONFEN</text><text x="230" y="330" class="wm-region">THE KING'S ROAD</text>`;
+      return `<h3>Discovered Map</h3><div class="world-map-card"><svg class="world-map-svg" viewBox="0 0 970 356" role="img" aria-label="Discovered world map">${regions}${edgesSvg}${nodesSvg}</svg><p class="map-legend">Gold = explored \u2022 dashed ??? = somewhere nearby, undiscovered \u2022 tap any explored outdoor landmark to travel there.</p></div>`;
     }
+
+    async function fastTravel(id){
+      if (!rooms[id] || state.room === id) return;
+      if (!(state.visited||[]).includes(id) || !FAST_TRAVEL_OK.has(id)) return;
+      const dlg = document.getElementById("menu-dialog"); if (dlg && dlg.open) dlg.close();
+      const jr = document.getElementById("journal-dialog"); if (jr && jr.open) jr.close();
+      addLog(`You retrace familiar paths toward ${escapeHtml((rooms[id]&&rooms[id].name)||id)}.`, "system");
+      state.turns = (state.turns||0) + 2;
+      await transitionToRoom(id, {});
+      autosave(); updateStatus();
+    }
+    document.addEventListener("click", (e)=>{ const n = e.target.closest && e.target.closest("[data-travel]"); if (n) fastTravel(n.dataset.travel); });
 
     function renderQuests() {
       const quests = [
@@ -3174,10 +3251,12 @@
       if (command === "go outside" && state.room === "apothecaryDoor") { await transitionToRoom("apothecaryApproach",{note:"You step away from the apothecary door."}); return finishTurn(); }
       if (/^(?:ring|use) bell$/.test(command) && state.room === "apothecaryDoor") { state.turns++; state.lastObject="bell"; addLog("The brass bell gives a bright chime. Footsteps approach from inside.", "system"); useSkill("Persuasion"); return finishTurn(); }
       if (/^(?:ask|talk to) (?:the )?innkeeper about (?:the )?cellar$/.test(command) && state.room === "tavern") {
-        state.turns++; state.flags.cellarUnlocked=true; award("cellar-permission",1);
+        state.turns++;
+        if (!state.flags.hatchNoticed) { state.flags.hatchNoticed = true; addLog("The innkeeper raises an eyebrow. \u201cSharp ears. Aye, there's a cellar \u2014 hatch is under the stairs, beneath the sawdust. Have a look, then we'll talk.\u201d", "system"); return finishTurn(); }
+        state.flags.cellarUnlocked=true; award("cellar-permission",1);
         addLog("The innkeeper sighs and slides a small key across the bar. “Fine. Mind the old bottles, and don't move the wine rack.” The cellar hatch is now unlocked.","success"); return finishTurn();
       }
-      if (/^(?:open|lift) (?:the )?(?:cellar hatch|cellar door|hatch)$/.test(command) && state.room === "tavern") { state.turns++; openTarget("cellar hatch"); return finishTurn(); }
+      if (/^(?:open|lift) (?:the )?(?:cellar hatch|cellar door|hatch)$/.test(command) && state.room === "tavern") { state.turns++; if (!state.flags.hatchNoticed) { addLog("You haven't found any hatch here yet. The floor near the stairs looks oddly scuffed, though.", "warning"); return finishTurn(); } openTarget("cellar hatch"); return finishTurn(); }
       if (/^(?:enter hut|go in hut|go inside hut)$/.test(command) && state.room === "hutExterior") { await transitionToRoom("hutInterior",{note:"You step into the quiet Moonfen hut."}); return finishTurn(); }
       if (/^(?:cross ferry|ride ferry|take ferry|go east)$/.test(command) && state.room === "moonfen") {
         if (!state.flags.ferryRepaired) { state.turns++; addLog("The ferry cannot move until the missing crank is replaced.","warning"); return finishTurn(); }
@@ -3377,8 +3456,8 @@
       if (state.room === "secretAlcove" && !state.flags.archBroken) actions.unshift("break blocked arch");
       if (state.room === "moonwell" && !state.flags.stonesAttuned && (((state.player&&state.player.classKey)==="wizard")||(state.skills.Magic||0)>=2)) actions.unshift("attune to stones");
       if (state.room === "castleGate" && state.flags.gateShardReady && !state.flags.ending) actions.unshift("confirm ending");
-      if (state.room === "tavern" && !state.flags.cellarUnlocked) actions.unshift("ask innkeeper about cellar");
-      if (state.room === "tavern" && state.flags.cellarUnlocked && !state.flags.tavernCellarOpen) actions.unshift("open cellar hatch");
+      if (state.room === "tavern" && state.flags.hatchNoticed && !state.flags.cellarUnlocked) actions.unshift("ask innkeeper about cellar");
+      if (state.room === "tavern" && state.flags.hatchNoticed && state.flags.cellarUnlocked && !state.flags.tavernCellarOpen) actions.unshift("open cellar hatch");
       if (state.room === "tavern" && state.flags.tavernCellarOpen) actions.unshift("go down");
       if (state.room === "tavernCellar" && state.flags.cellarDraftFound && !state.flags.cellarPassageRevealed) actions.unshift("move wine rack");
       if (state.room === "tavernCellar" && state.flags.cellarPassageRevealed) actions.unshift("enter hidden passage");
@@ -3592,11 +3671,13 @@
           if (/innkeeper/.test(labelKey)) {
             add("talk to innkeeper");
             if (!state.flags.cellarUnlocked) add("ask innkeeper about cellar");
-          } else if (/cellar hatch|cellar door|hatch/.test(labelKey)) {
+          } else if (/cellar hatch|cellar door|hatch|scuffed floor/.test(labelKey)) {
             add("look at cellar door");
-            if (state.flags.tavernCellarOpen) add("go down");
-            else if (state.flags.cellarUnlocked) add("open cellar hatch");
-            else add(has("lockpicks") ? "pick cellar lock" : "ask innkeeper about cellar");
+            if (state.flags.hatchNoticed) {
+              if (state.flags.tavernCellarOpen) add("go down");
+              else if (state.flags.cellarUnlocked) add("open cellar hatch");
+              else add(has("lockpicks") ? "pick cellar lock" : "ask innkeeper about cellar");
+            }
           } else if (/travelers/.test(labelKey)) add("talk to travelers");
           else if (/tavern door|entrance/.test(labelKey)) add("look at door", "go outside");
           else add(hotspot.command);
@@ -3935,8 +4016,9 @@
       currentHotspots().forEach(h => {
         const btn = document.createElement("button");
         btn.className = "hotspot";
-        btn.textContent = h.label;
-        btn.dataset.label = h.label;
+        const shownLabel = (h.command === "look at cellar door" && !state.flags.hatchNoticed) ? "Scuffed Floor" : h.label;
+        btn.textContent = shownLabel;
+        btn.dataset.label = shownLabel;
         btn.setAttribute("aria-label", `Explore ${h.label}`);
         btn.style.left = `${h.x}%`;
         btn.style.top = `${h.y}%`;
@@ -4362,10 +4444,38 @@
       if (!rooms[state.room]) state.room = "square";
     }
 
+    function syncVisibleViewportHeight() {
+      const vv = window.visualViewport;
+      const innerHeight = Math.round(window.innerHeight || 0);
+      const clientHeight = Math.round(document.documentElement.clientHeight || 0);
+      const visualHeight = Math.round(vv?.height || 0);
+      const inputFocused = document.activeElement === inputEl;
+      const keyboardLikelyOpen = inputFocused && visualHeight > 0 && innerHeight - visualHeight > 120;
+      const visibleHeight = keyboardLikelyOpen
+        ? visualHeight
+        : Math.max(innerHeight, clientHeight, visualHeight);
+      if (visibleHeight > 0) {
+        document.documentElement.style.setProperty("--app-height", `${visibleHeight}px`);
+      }
+    }
+
+    let viewportSyncFrame = 0;
+    function queueViewportSync() {
+      cancelAnimationFrame(viewportSyncFrame);
+      viewportSyncFrame = requestAnimationFrame(syncVisibleViewportHeight);
+    }
+    syncVisibleViewportHeight();
+    window.addEventListener("resize", queueViewportSync, { passive: true });
+    window.addEventListener("orientationchange", () => setTimeout(queueViewportSync, 120), { passive: true });
+    window.visualViewport?.addEventListener("resize", queueViewportSync, { passive: true });
+    window.visualViewport?.addEventListener("scroll", queueViewportSync, { passive: true });
+    inputEl.addEventListener("focus", () => setTimeout(queueViewportSync, 80));
+    inputEl.addEventListener("blur", () => setTimeout(queueViewportSync, 80));
+
     function boot() {
       updateMusicButton();
       const vt = document.getElementById("version-tag");
-      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Scene Flow & Interaction Repair`;
+      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Mobile Viewport & Release Alignment`;
       const saved = storageGet(SAVE_KEY);
       if (saved) {
         try { state = JSON.parse(saved); migrateState(); restoreDynamicExits(); }

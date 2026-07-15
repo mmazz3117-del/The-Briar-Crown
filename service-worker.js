@@ -1,4 +1,4 @@
-const CACHE = "briar-crown-v1.7.0";
+const CACHE = "briar-crown-v1.7.1.1";
 const ASSETS = [
   "./",
   "./index.html",

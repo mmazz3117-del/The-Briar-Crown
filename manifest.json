@@ -1,8 +1,8 @@
 {
   "name": "The Briar Crown",
   "short_name": "Briar Crown",
-  "description": "A mobile-first illustrated fantasy adventure with scene-first discovery, responsive mobile header, minimal scene-mounted navigation, flat contextual actions, color-coded skills, visual shops, and explicit room-and-state interaction contracts, road-stage travel, visible time-of-night continuity, and repaired contextual actions.",
-  "start_url": "./index.html?v=1.7.0",
+  "description": "A mobile-first illustrated fantasy adventure with staged discovery, a living world map, fast travel, class-based skill moments, ambient effects, and corrected iPhone viewport sizing.",
+  "start_url": "./index.html?v=1.7.1.1",
   "display": "standalone",
   "background_color": "#07070b",
   "theme_color": "#0b0912",
@@ -19,5 +19,5 @@
       "type": "image/png"
     }
   ],
-  "version": "1.7.0"
+  "version": "1.7.1.1"
 }
