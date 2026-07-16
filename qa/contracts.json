@@ -1,0 +1,64 @@
+{
+  "version": "1.7.1.6",
+  "scenes": {
+    "tavern": {
+      "fresh_required": [
+        "talk to innkeeper",
+        "look at fireplace",
+        "go outside"
+      ],
+      "fresh_forbidden": [
+        "go down",
+        "open cellar hatch",
+        "ask innkeeper about cellar"
+      ],
+      "discover_hatch_command": "look at cellar door",
+      "after_hatch_required": [
+        "ask innkeeper about cellar"
+      ]
+    },
+    "apothecary": {
+      "default_required": [
+        "talk to elowen",
+        "show wares",
+        "enter back room",
+        "leave apothecary"
+      ]
+    },
+    "fireplace": {
+      "inspect_command": "look at fireplace",
+      "after_inspect_required": [
+        "move brick"
+      ],
+      "open_command": "move brick",
+      "after_open_required": [
+        "take treasure"
+      ],
+      "collect_command": "take treasure"
+    },
+    "chapelYard": {
+      "hotspot": "Graves",
+      "min_width_percent": 38,
+      "min_top_percent": 66
+    }
+  },
+  "equipment": {
+    "wooden shield": {
+      "slot": "shield",
+      "defense": 1
+    }
+  },
+  "navigation": {
+    "top_left": "Map",
+    "inventory_label": "Satchel",
+    "production_menu_forbidden": [],
+    "scene_test_restored": true,
+    "zoom_enabled": true,
+    "persistent_exits": {
+      "tavern": "go outside",
+      "tavernCellar": "go up",
+      "blacksmith": "leave forge",
+      "apothecary": "leave apothecary"
+    }
+  }
+}
