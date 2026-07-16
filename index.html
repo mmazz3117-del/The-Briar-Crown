@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, interactive-widget=resizes-content" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover, interactive-widget=resizes-content" />
   <meta name="theme-color" content="#0b0912" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Briar Crown" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <title>The Briar Crown — Mobile Adventure v1.7.1.5</title>
+  <title>The Briar Crown — Mobile Adventure v1.7.1.6</title>
   <style>
 
     :root {
@@ -1109,7 +1109,9 @@
     .backpack-btn .satchel-icon { width:30px; height:27px; display:grid; place-items:center; }
     .backpack-btn .satchel-icon img { width:30px; height:27px; object-fit:contain; display:block; filter:drop-shadow(0 1px 1px rgba(0,0,0,.55)); }
     #map-dialog { width:min(96vw,760px); max-height:92dvh; }
-    #map-dialog .modal-body { padding:14px; }
+    #map-dialog .modal-body { padding:14px; touch-action: pan-x pan-y pinch-zoom; }
+    #map-dialog .world-map-card,
+    #map-dialog .world-map-svg { touch-action: pan-x pan-y pinch-zoom; }
     .equipped-badge { display:inline-block; margin-left:8px; padding:2px 7px; border:1px solid #d2ad54; border-radius:999px; color:#f0d989; font-size:.72em; letter-spacing:.05em; text-transform:uppercase; }
     .equipment-summary { margin:0 0 14px; padding:10px 12px; border:1px solid #765a2e; border-radius:8px; background:#21182d; }
 
@@ -1195,7 +1197,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.7.1.5 • Hatch Discovery State Repair</small>
+        <small id="version-tag">Version 1.7.1.6 • Navigation Integrity & Zoom Restoration</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -1261,6 +1263,7 @@
         <button id="save-btn">Save Game</button>
         <button id="load-btn">Load Game</button>
         <button id="help-btn">Command Help</button>
+        <button id="scene-tour-btn">Scene Test</button>
         <button id="music-toggle-btn" aria-pressed="true">♫ Music: On</button>
         <button id="effects-toggle-btn" aria-pressed="true">✨ Effects: On</button>
         <button id="restart-btn" class="danger">Restart</button>
@@ -1278,7 +1281,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.7.1.5";
+    const BUILD_VERSION = "1.7.1.6";
 
     const itemInfo = {
       "tarnished locket": "A traveler's locket found behind the tavern hearth. The portrait inside shows a young woman before a crooked woodland cottage.",
@@ -3303,6 +3306,7 @@
       if (/^(help|commands|command help)$/.test(command)) return showHelp();
       if (/^(inventory|inv|i|bag|pack|backpack|satchel)$/.test(command)) return showInventory();
       if (/^(map|world map|discovered map)$/.test(command)) { renderMap(); document.getElementById("map-dialog").showModal(); return; }
+      if (/^(scene test|test scenes|scene tour)$/.test(command)) { renderSceneTour(); document.getElementById("scene-dialog").showModal(); return; }
       if (/^equip (.+)$/.test(command)) { equipItem(command.replace(/^equip /,"")); renderAll(); return; }
       if (/^unequip (?:the )?(.+)$/.test(command)) { unequipItem(command.replace(/^unequip (?:the )?/,"")); renderAll(); return; }
       if (/^(quests|quest|journal|character|stats|skills)$/.test(command)) { renderQuests(); document.getElementById("menu-dialog").showModal(); return; }
@@ -4049,6 +4053,35 @@
       sceneNavOverlayEl.appendChild(tools);
     }
 
+    function dedupeActionList(items) {
+      const seen = new Set();
+      return items.filter(Boolean).filter(action => {
+        const key = canonicalActionKey(action);
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+    }
+
+    function persistentNavigationActions() {
+      const named = {
+        tavern: ["go outside"],
+        tavernCellar: ["go up"],
+        blacksmith: ["leave forge"],
+        apothecary: ["leave apothecary"],
+        apothecaryBackRoom: ["go south"],
+        chapelApproach: ["go south"],
+        chapel: ["go south"],
+        crypt: ["go up"],
+        cottage: ["go west"],
+        cellar: ["go up"],
+        hutInterior: ["go west"]
+      };
+      if (named[state.room]) return named[state.room];
+      if (outdoorRooms.has(state.room)) return [];
+      return Object.keys(room().exits || {}).map(direction => `go ${direction}`);
+    }
+
     function defaultSceneActions() {
       const preferred = {
         blacksmith:["leave forge","talk to blacksmith","browse forge wares"],
@@ -4061,15 +4094,16 @@
         secretAlcove:[state.flags.tunnelCoinsFound&&!state.flags.tunnelCoinsTaken?"take coins":"search loose stone",state.flags.archBroken?"look at blocked arch":"break blocked arch","go west"]
       };
       const source=preferred[state.room] || currentActions().filter(a=>isCriticalAction(a));
-      const seen=new Set();
-      return source.filter(Boolean).filter(action=>{ const key=canonicalActionKey(action); if(seen.has(key))return false; seen.add(key); return true; }).slice(0,4);
+      return dedupeActionList([...persistentNavigationActions(), ...source]).slice(0,5);
     }
 
     function renderQuickActions() {
       quickActionsEl.innerHTML="";
       if(selectedHotspotContext&&(selectedHotspotContext.room!==state.room||selectedHotspotContext.view!==currentView())) selectedHotspotContext=null;
 
-      const selectedActions=selectedHotspotContext?contextualActionsForHotspot(selectedHotspotContext.hotspot):[];
+      const selectedActions=selectedHotspotContext
+        ? dedupeActionList([...persistentNavigationActions(), ...contextualActionsForHotspot(selectedHotspotContext.hotspot)])
+        : [];
       const defaultActions=selectedHotspotContext?[]:defaultSceneActions();
       const displayCount=selectedHotspotContext?selectedActions.length:defaultActions.length;
       actionsToggleEl.textContent=actionsPanelExpanded?"Hide Actions ▲":(displayCount?`Show Actions (${displayCount}) ▼`:"Show Actions ▼");
@@ -4631,7 +4665,7 @@
     function boot() {
       updateMusicButton();
       const vt = document.getElementById("version-tag");
-      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Mobile Fit & Story Wrap Repair`;
+      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Navigation Integrity & Zoom Restoration`;
       const saved = storageGet(SAVE_KEY);
       if (saved) {
         try { state = JSON.parse(saved); migrateState(); restoreDynamicExits(); }
