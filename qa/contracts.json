@@ -1,5 +1,5 @@
 {
-  "version": "1.7.1.6",
+  "version": "1.7.2.0",
   "scenes": {
     "tavern": {
       "fresh_required": [
@@ -59,6 +59,53 @@
       "tavernCellar": "go up",
       "blacksmith": "leave forge",
       "apothecary": "leave apothecary"
+    }
+  },
+  "route_rebuild": {
+    "required_edges": [
+      [
+        "forgeLane",
+        "eastRoad"
+      ],
+      [
+        "eastRoad",
+        "forestEdge"
+      ],
+      [
+        "forestEdge",
+        "willowTrail"
+      ],
+      [
+        "willowTrail",
+        "flowerClearing"
+      ],
+      [
+        "flowerClearing",
+        "fallenLog"
+      ],
+      [
+        "fallenLog",
+        "whisperingForest"
+      ],
+      [
+        "whisperingForest",
+        "cottageApproach"
+      ],
+      [
+        "whisperingForest",
+        "moonfen"
+      ],
+      [
+        "whisperingForest",
+        "moonwell"
+      ]
+    ],
+    "discoverables": {
+      "forgeLane": "take dropped coins",
+      "eastRoad": "look at road rune",
+      "chapelRoad": "take pilgrim charm",
+      "fallenLog": "take river charm",
+      "whisperingForest": "take courier seal"
     }
   }
 }
