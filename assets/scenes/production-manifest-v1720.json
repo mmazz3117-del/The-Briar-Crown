@@ -1,0 +1,61 @@
+{
+  "version": "1.7.2.0",
+  "policy": {
+    "minimum_width": 1200,
+    "minimum_height": 900,
+    "no_fallback_art": true,
+    "no_thumbnail_sources": true
+  },
+  "assets": {
+    "forge-lane-v1720.webp": {
+      "sha256": "f4a19d6efa5a33ef5039b998f22f8f6e9c11c944873c18eedd31858e64925e01",
+      "width": 1200,
+      "height": 900
+    },
+    "chapel-road-v1720.webp": {
+      "sha256": "94360e9cc4500974e795c941984a95fce225b8c245e467339feee6721179cd02",
+      "width": 1200,
+      "height": 900
+    },
+    "willow-trail-v1720.webp": {
+      "sha256": "59fc9e83e318b1c334103044dd54fc88035a25576afbd53e932b6b2d09ae4566",
+      "width": 1200,
+      "height": 900
+    },
+    "flower-clearing-v1720.webp": {
+      "sha256": "7e9f2d6eac745343d47405769db47d10289a42985d89e1421a0dba561c8cefb1",
+      "width": 1200,
+      "height": 900
+    },
+    "fallen-log-v1720.webp": {
+      "sha256": "9549f81e10800bb6b8ff000289b57e17ae45fcc47145e9fe02a8f1a78026b9f6",
+      "width": 1200,
+      "height": 900
+    },
+    "cottage-interior-v1720.webp": {
+      "sha256": "7d25bc503137222dd59531707a040589bda55047a311610cf34f3b33fe6a615c",
+      "width": 1200,
+      "height": 900
+    },
+    "moonwell-v1720.webp": {
+      "sha256": "254505840ba4a6fd126a118161ce73bd69e0b0a3b8dca19d7dcf7a59a4194556",
+      "width": 1200,
+      "height": 900
+    },
+    "hidden-passage-v1720.webp": {
+      "sha256": "11ba69627e21da71fa68f28db60debe42a0677f941a3991386d9af4f52c297b8",
+      "width": 1200,
+      "height": 900
+    },
+    "hidden-alcove-v1720.webp": {
+      "sha256": "cee8fa90b3e54be7a8793c6a21a40a41f9121af523fac9d0f86f4b950a99113e",
+      "width": 1200,
+      "height": 900
+    },
+    "hidden-alcove-coins-v1720.webp": {
+      "sha256": "c0014f6170d7ed0fb303082c5585a1ad7fb64cbbfa02a3f97f58b580abe02e16",
+      "width": 1200,
+      "height": 900
+    }
+  }
+}
