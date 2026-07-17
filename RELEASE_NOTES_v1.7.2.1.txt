@@ -1,0 +1,21 @@
+THE BRIAR CROWN v1.7.2.1 — VISUAL REBUILD & MOCKUP MATCH
+
+This corrective build replaces the flat placeholder artwork that appeared in v1.7.2.0 and restores a consistent painterly fantasy presentation.
+
+VISUAL CHANGES
+- Replaced the simplified diagram map with a hand-painted fantasy world map based on the approved mockup direction.
+- Replaced the flat Willow Trail, Flower Clearing, Fallen Log Crossing, Witch Cottage Interior, Moonwell, Chapel Road, Hidden Passage, and Collapsed Alcove production files.
+- Repositioned discovered-map route markers to follow the geography of the new painted map.
+- Reduced map-route overlay opacity so painted roads and landmarks remain visible.
+- Added a visual QA contact sheet containing every priority replacement.
+
+PRESERVED GAMEPLAY
+- v1.7.2.0 route rebuild and scene-to-scene travel.
+- Map, Menu, Satchel, Scene Test, pinch zoom, discoveries, action gating, and class-aware interactions.
+
+CACHE
+- Service worker cache: briar-crown-v1.7.2.1
+
+QA RESULT
+- Automated regression suite passed 107/107 checks.
+- Visual contact sheet included for direct art review.

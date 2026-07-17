@@ -1,0 +1,41 @@
+THE BRIAR CROWN v1.7.2.1 — GITHUB UPLOAD INSTRUCTIONS
+
+FULL PACKAGE
+Upload everything inside the extracted folder into the MAIN/ROOT directory of the GitHub repository, preserving the included folders. Do not upload the outer package folder itself.
+
+ROOT FILES REPLACED
+- index.html
+- manifest.json
+- service-worker.js
+
+UPLOAD INTO assets/scenes
+- forge-lane-v1721.webp
+- chapel-road-v1721.webp
+- willow-trail-v1721.webp
+- flower-clearing-v1721.webp
+- fallen-log-v1721.webp
+- cottage-interior-v1721.webp
+- moonwell-v1721.webp
+- hidden-passage-v1721.webp
+- hidden-alcove-v1721.webp
+- hidden-alcove-coins-v1721.webp
+- production-manifest-v1721.json
+
+UPLOAD INTO assets/ui
+- world-map-v1721.webp
+
+UPLOAD INTO qa
+- run_qa.py
+- contracts.json
+
+UPLOAD INTO .github/workflows
+- briar-crown-qa.yml
+
+OPTIONAL ROOT DOCUMENTATION
+- RELEASE_NOTES_v1.7.2.1.txt
+- GITHUB_UPLOAD_INSTRUCTIONS_v1.7.2.1.txt
+- VISUAL_QA_CONTACT_SHEET_v1.7.2.1.jpg
+- QA_REPORT_v1.7.2.1.txt
+
+Suggested commit message:
+The Briar Crown v1.7.2.1 Visual Rebuild and Mockup Match
