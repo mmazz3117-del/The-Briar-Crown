@@ -21,11 +21,10 @@ jobs:
           playwright install --with-deps chromium
       - name: Run Briar Crown regression suite
         run: python qa/run_qa.py .
-      - name: Upload QA artifacts
+      - name: Upload QA report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: briar-crown-qa
-          path: |
-            QA_REPORT_v1.7.1.6.txt
-            qa-mobile-apothecary.png
+          path: QA_REPORT_v1.7.2.0.txt
+          if-no-files-found: warn
