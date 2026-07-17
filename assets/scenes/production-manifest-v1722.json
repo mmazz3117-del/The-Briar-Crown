@@ -1,0 +1,282 @@
+{
+  "version": "1.7.2.2",
+  "policy": {
+    "minimum_width": 1200,
+    "minimum_height": 900,
+    "no_fallback_art": true,
+    "no_thumbnail_sources": true,
+    "visual_review_required": true
+  },
+  "assets": {
+    "apothecary-approach-v1722.webp": {
+      "sha256": "c480dd80c1e4a145e7e617344418c97de230aa38b7bd4b2c7d77f74227c99ca2",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "apothecary-back-room-v1722.webp": {
+      "sha256": "9360b658133c4209bb5540beacdce8948f69feaa859321a7db927df78aca8b61",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "apothecary-center-v1722.webp": {
+      "sha256": "a62123691dab16de125566e19ca7624a8915fd430dfcdf1e98738ff9fe565f8f",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "apothecary-door-v1722.webp": {
+      "sha256": "09df3c9ec31d8e26d2afe47476a3b31059eb0ca5ef8a833724c51722d415c71d",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "apothecary-east-v1722.webp": {
+      "sha256": "7cde99a950e59acf86c586c09ff209fce270d745d0171f9d801895cbd0ea9e26",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "apothecary-north-v1722.webp": {
+      "sha256": "295f907f7bc210c92f988b17944e51ca4c6571abdb9db3bf80149efbe1612525",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "apothecary-south-v1722.webp": {
+      "sha256": "7a2d85f39bc6c2ff0b76c1ae4b0ab5628d2e22f34d998573d15b26ce1372036a",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "apothecary-west-v1722.webp": {
+      "sha256": "bc6d39761cc30ca8b0cf253eca56cedf73864d8fa08c8c5a8d9288ec5891ac63",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "chapel-approach-v1722.webp": {
+      "sha256": "9e9f563350d262781a4913054f2feb0a1011a04766bd219b971c875ea94f77c1",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "chapel-crypt-v1722.webp": {
+      "sha256": "4c719c881b8196cdaaaa2608d2658669edcd03fa511d05d2267bd248abbe109f",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "chapel-interior-v1722.webp": {
+      "sha256": "e98ea7d7c7ebdb2b7c9ef941b43e1536653d10da97acfb3765c42bf269286344",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "chapel-road-v1722.webp": {
+      "sha256": "53fed81f1ab75658320370695695c3a5519d53b457bfa59809bb75acd8b1292f",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "chapel-yard-v1722.webp": {
+      "sha256": "232c9b15562ff75ee201ab59f861af1858c4b200c46bd1d7c3b5dd9b8b11ee88",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "collapsed-alcove-open-v1722.webp": {
+      "sha256": "975e3234f5a8a518fa363a129c02b4f496a42179a5dce9be2cd56b1b06356d09",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "collapsed-alcove-v1722.webp": {
+      "sha256": "9731f5bd6c366c7a5b12aa216bce4449317cc80d73d5062c489bf2a44c8b208f",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "east-road-v1722.webp": {
+      "sha256": "350c3b408385595fa0d562c95423e3e19df1035551c9da1e6d6fa93c87f1d56f",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "fallen-log-v1722.webp": {
+      "sha256": "e3048c49f50f40ec687871b9fe39510757f1e3b7d3abff63248737264aff74a7",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "flower-clearing-v1722.webp": {
+      "sha256": "4064a53ebecb79a98e3d413ab125671b1df49dd8b3310b33a5a15c5523d470b7",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "forest-edge-v1722.webp": {
+      "sha256": "e4fcfcefc1eb87718428abdf34e71e900ad61c4036687bc9cecd17e7a9460474",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "forge-door-v1722.webp": {
+      "sha256": "190c2f5cf3cb0721feb332f08e94dfebd1aa2b8387432fec33f26e43db8b6a4d",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "forge-interior-v1722.webp": {
+      "sha256": "df2ba82eb2ad6cd9f2e9071382844085da93be9d4b99d8f24ff9a01e58de1a67",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "forge-lane-v1722.webp": {
+      "sha256": "ec274f3cc899f318adf6a1d24c70b5e5826db78770f09375d912b4e1f8df987b",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "hidden-passage-v1722.webp": {
+      "sha256": "c4fe385f23c5415c5a85c32a03361ce89c98afcd0c15ff5dcd23a6c700b10206",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "ironthorn-gate-v1722.webp": {
+      "sha256": "f7d28ddcf2389a1d2f7f481e4301c2bdf3a15eb93947f826e287c2108163aba6",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "kings-road-v1722.webp": {
+      "sha256": "62ccb0279224e399b7ed08de67e10bff33c2d9942e3840dff5d5a9a789834cb6",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "moonfen-ferry-landing-v1722.webp": {
+      "sha256": "0c70488c14ec1e2896aa0742bc05035273268ec7114f4d1e731f04d85260b55b",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "moonfen-hut-exterior-v1722.webp": {
+      "sha256": "d6ae4b179d5520d6f1a0e67ca15ed230a5d4150a348b72cc587f17123d5bd864",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "moonfen-hut-interior-v1722.webp": {
+      "sha256": "a4fdad7676a51c9e8fd5532cf9b3a5b5c7de975985661f2b42af5705a600ef7e",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "moonwell-v1722.webp": {
+      "sha256": "18b87774ea16d84ced075b918ccd30dbbe332b80fd3786874a802db309ca2a93",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "old-cemetery-v1722.webp": {
+      "sha256": "cdb6d92071f4ba967c010d30ab1442de1b0df35cc2154276e7156dc456b25df9",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "square-v1722.webp": {
+      "sha256": "a8bf552135b98997ed79a99495c2a676b8a97d2be66e31d2c5fa25b3fde44ad9",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "tavern-approach-v1722.webp": {
+      "sha256": "f77748dcb65765ff63213b0418e05f9010dca5d23a3e05a327764f4b60db3f30",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "tavern-cellar-passage-v1722.webp": {
+      "sha256": "722fe090c3f0f14b6e29b79fd4620f208a7de6ae5c9f2b7d5cd2d89d9127899d",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "tavern-cellar-v1722.webp": {
+      "sha256": "30f3903d17308c7ff0efd28e8fdb2f62a46fc010c98ce8f152b922a742ca2da1",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "tavern-center-v1722.webp": {
+      "sha256": "8d0d21217470f3e9fa0a2a075e8c92888e68a829abf0584ae5b9d7268c2cf175",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "tavern-door-v1722.webp": {
+      "sha256": "b31e0c7dbb19ba8621c091fe09391f58e7a7ad5283dbe11b0cae82fd0aa5a6ad",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "tavern-east-v1722.webp": {
+      "sha256": "93c23833fdf342eecb3f569180fbd91e8c0ac9683f243584e3da5ec50c172e13",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "tavern-north-v1722.webp": {
+      "sha256": "ee8377c0947aa5396d56566bb81729c1b3a5f3d1ff21ee1813a41ba11a6290b8",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "tavern-south-v1722.webp": {
+      "sha256": "8d0d21217470f3e9fa0a2a075e8c92888e68a829abf0584ae5b9d7268c2cf175",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "tavern-west-v1722.webp": {
+      "sha256": "422d3256b53771b0900cc516b7be492b06f3adef40f3e2ea9caa136a632776d6",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "whispering-forest-v1722.webp": {
+      "sha256": "b7fdc0c520fbaea1bcd720c97451fca7b5b19039815c594243cff44c3ee948d6",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "willow-trail-v1722.webp": {
+      "sha256": "be0cc13624bffe7a30e92f290bab60514751703b8d58e4cc6f0ca862f881d1d4",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "witch-cottage-cellar-v1722.webp": {
+      "sha256": "fed073fff26c1e1b296bc23c9b29f9f5766e518ba106196f24d2b35390679a56",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "witch-cottage-exterior-v1722.webp": {
+      "sha256": "ee067dccfa03938a5231dba7ae90fc1993c254c78d35ea3069b38727717a8b93",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    },
+    "witch-cottage-interior-v1722.webp": {
+      "sha256": "7b0434a8939f8a6ea950591849ecd90d9481881f48a86404a4cc6cfab6698f72",
+      "width": 1448,
+      "height": 1086,
+      "visual_status": "v1.7.2.2 clear scene rebuild"
+    }
+  }
+}
