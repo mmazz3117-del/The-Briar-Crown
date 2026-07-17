@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760">
+<defs>
+ <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#d4bd7b"/><stop offset="1" stop-color="#9f7e45"/></linearGradient>
+ <filter id="grain"><feTurbulence baseFrequency=".72" numOctaves="3" seed="17" result="n"/><feBlend in="SourceGraphic" in2="n" mode="multiply"/></filter>
+ <pattern id="marsh" width="34" height="34" patternUnits="userSpaceOnUse"><path d="M5 32q3-15 7-26M16 32q0-18 8-28M27 32q-3-13 2-24" stroke="#4f694b" stroke-width="2" fill="none"/></pattern>
+</defs>
+<rect x="8" y="8" width="1184" height="744" rx="24" fill="url(#paper)" stroke="#5b4024" stroke-width="12"/>
+<path d="M18 90Q210 20 410 86T790 65T1180 95V18H18Z" fill="#78633c" opacity=".28"/>
+<path d="M780 730C820 615 885 600 925 530C965 460 935 390 1005 325C1065 270 1125 250 1190 225V744H760Z" fill="url(#marsh)" opacity=".85"/>
+<path d="M1045 40c-75 125-40 240-90 330s-115 135-80 245" fill="none" stroke="#4f7f86" stroke-width="30" opacity=".8"/>
+<path d="M1045 40c-75 125-40 240-90 330s-115 135-80 245" fill="none" stroke="#a8c6bd" stroke-width="7" opacity=".55"/>
+<!-- roads -->
+<g fill="none" stroke="#665035" stroke-linecap="round" stroke-linejoin="round">
+ <path d="M435 360L560 360L675 350L790 330L875 285L960 235L1035 285L1080 385" stroke-width="20"/>
+ <path d="M435 360L440 260L450 190" stroke-width="16"/>
+ <path d="M435 360L360 430L280 485L220 545L175 610" stroke-width="18"/>
+ <path d="M435 360L420 485L420 640" stroke-width="20"/>
+ <path d="M1080 385L1110 480L1140 555" stroke-width="14"/>
+ <path d="M1080 385L1050 505M1080 385L930 510L840 560" stroke-width="14"/>
+</g>
+<g fill="none" stroke="#c5a66a" stroke-width="4" stroke-dasharray="10 10" opacity=".75">
+ <path d="M435 360L560 360L675 350L790 330L875 285L960 235L1035 285L1080 385"/><path d="M435 360L360 430L280 485L220 545L175 610"/><path d="M435 360L420 485L420 640"/>
+</g>
+<!-- forests -->
+<g fill="#40563a" stroke="#283d2a" stroke-width="3" opacity=".95">
+<path d="M720 190l22-42 22 42h-12l15 30h-50l15-30z"/><path d="M770 175l22-42 22 42h-12l15 30h-50l15-30z"/><path d="M820 205l22-42 22 42h-12l15 30h-50l15-30z"/><path d="M865 160l22-42 22 42h-12l15 30h-50l15-30z"/><path d="M910 185l22-42 22 42h-12l15 30h-50l15-30z"/><path d="M955 150l22-42 22 42h-12l15 30h-50l15-30z"/><path d="M1000 180l22-42 22 42h-12l15 30h-50l15-30z"/><path d="M1060 200l22-42 22 42h-12l15 30h-50l15-30z"/><path d="M1110 170l22-42 22 42h-12l15 30h-50l15-30z"/><path d="M750 270l22-42 22 42h-12l15 30h-50l15-30z"/><path d="M830 265l22-42 22 42h-12l15 30h-50l15-30z"/><path d="M900 240l22-42 22 42h-12l15 30h-50l15-30z"/><path d="M980 225l22-42 22 42h-12l15 30h-50l15-30z"/><path d="M1090 260l22-42 22 42h-12l15 30h-50l15-30z"/></g>
+<!-- village icons -->
+<g stroke="#4b321d" stroke-width="5" fill="#7a4e2e">
+ <path d="M390 345h90v70h-90zM380 345l55-48 55 48"/><rect x="425" y="375" width="22" height="40" fill="#3d2b20"/>
+ <path d="M520 330h75v65h-75zM510 330l48-42 48 42"/><path d="M535 310l8-35h20l8 35" fill="#4d4b48"/>
+ <path d="M125 600h95v85h-95zM115 600l58-62 58 62"/><path d="M165 545v-45h18v45"/>
+ <path d="M370 625h105v70H370zM355 625l68-55 68 55"/>
+</g>
+<!-- moonwell --> <g transform="translate(1050 505)"><ellipse cx="0" cy="0" rx="48" ry="22" fill="#6f756f" stroke="#4b4d49" stroke-width="6"/><ellipse cx="0" cy="-4" rx="32" ry="12" fill="#4e8890"/></g>
+<!-- cottage --> <g transform="translate(1110 480)" fill="#68472e" stroke="#3f2b1d" stroke-width="5"><rect x="-38" y="-28" width="76" height="58"/><path d="M-50-28L0-65 50-28"/></g>
+<!-- gate --> <g transform="translate(420 640)" stroke="#3d342b" stroke-width="7" fill="none"><path d="M-55 30V-45H55V30M-35 30V-25M-12 30V-25M12 30V-25M35 30V-25"/></g>
+<!-- compass --> <g transform="translate(105 110)" fill="#4c3824" stroke="#4c3824"><circle r="55" fill="none" stroke-width="4"/><path d="M0-45L12 0 0 45-12 0Z"/><path d="M-45 0L0 12 45 0 0-12Z" opacity=".7"/><text y="-66" text-anchor="middle" font-family="Georgia" font-size="22">N</text></g>
+<text x="60" y="720" font-family="Georgia" font-size="24" fill="#5a4026" letter-spacing="4">THE BRIAR CROWN — DISCOVERED ROADS</text>
+</svg>
