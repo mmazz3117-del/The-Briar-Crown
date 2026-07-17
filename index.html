@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-title" content="Briar Crown" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <title>The Briar Crown — Mobile Adventure v1.7.1.6</title>
+  <title>The Briar Crown — Mobile Adventure v1.7.2.0</title>
   <style>
 
     :root {
@@ -1112,6 +1112,24 @@
     #map-dialog .modal-body { padding:14px; touch-action: pan-x pan-y pinch-zoom; }
     #map-dialog .world-map-card,
     #map-dialog .world-map-svg { touch-action: pan-x pan-y pinch-zoom; }
+
+    /* v1.7.2.0 illustrated map and production route markers */
+    .world-map-card { background:#17121d; padding:8px; overflow:auto; }
+    .world-map-stage { position:relative; width:100%; aspect-ratio:1200/760; overflow:hidden; border-radius:10px; }
+    .world-map-bg { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; display:block; }
+    .world-map-svg { position:absolute; inset:0; width:100%; height:100%; min-width:0; border-radius:10px; }
+    .world-map-svg .wm-route { stroke-linecap:round; pointer-events:none; }
+    .world-map-svg .wm-route.known { stroke:#f2d071; stroke-width:7; opacity:.85; }
+    .world-map-svg .wm-route.nearby { stroke:#5b4931; stroke-width:5; stroke-dasharray:10 10; opacity:.65; }
+    .world-map-svg .wm-dot { fill:#2d203f; stroke:#edca67; stroke-width:5; }
+    .world-map-svg .wm-label-bg { fill:#21162f; stroke:#b99142; stroke-width:2; opacity:.95; }
+    .world-map-svg .wm-t { fill:#f4e3ae; font-size:15px; font-weight:700; text-anchor:middle; font-family:Georgia,serif; }
+    .world-map-svg .wm-unknown .wm-dot { fill:#6b604b; stroke:#9b8861; opacity:.72; }
+    .world-map-svg .wm-unknown .wm-label-bg { fill:#4c4132; stroke:#796b51; opacity:.72; }
+    .world-map-svg .wm-unknown .wm-t { fill:#d0c19d; }
+    .world-map-svg .wm-travel { cursor:pointer; }
+    .world-map-svg .wm-travel:active .wm-dot { transform:scale(.9); transform-box:fill-box; transform-origin:center; }
+
     .equipped-badge { display:inline-block; margin-left:8px; padding:2px 7px; border:1px solid #d2ad54; border-radius:999px; color:#f0d989; font-size:.72em; letter-spacing:.05em; text-transform:uppercase; }
     .equipment-summary { margin:0 0 14px; padding:10px 12px; border:1px solid #765a2e; border-radius:8px; background:#21182d; }
 
@@ -1197,7 +1215,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.7.1.6 • Navigation Integrity & Zoom Restoration</small>
+        <small id="version-tag">Version 1.7.2.0 • World Route Rebuild</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -1281,7 +1299,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.7.1.6";
+    const BUILD_VERSION = "1.7.2.0";
 
     const itemInfo = {
       "tarnished locket": "A traveler's locket found behind the tavern hearth. The portrait inside shows a young woman before a crooked woodland cottage.",
@@ -1304,7 +1322,10 @@
       "small lute": "A travel-worn lute with a clear, bright voice.",
       "iron dagger": "A balanced iron dagger suited to close work.",
       "short sword": "A dependable short sword made in Merrin's forge.",
-      "rope": "Thirty feet of strong braided rope."
+      "rope": "Thirty feet of strong braided rope.",
+      "pilgrim charm": "A little sun-wheel charm woven from yew thread, once carried by a pilgrim to Saint Orla’s chapel.",
+      "river charm": "A smooth blue stone wrapped in silver wire. The current-polished face bears a tiny spiral rune.",
+      "courier seal": "A bent royal seal stamped with the winged crown. Mud in its broken clasp smells faintly of Moonfen reeds."
     };
 
     const rooms = {
@@ -1435,20 +1456,22 @@
         name: "Forge Lane",
         description: "You leave Willowmere Square and follow a narrow cobblestone lane past Merrin's forge. Smoke rises above the rooftops, and the steady ring of hammer on iron carries across the stones. The forge stands beside the lane, Willowmere Square lies west, and the road continues east.",
         exits: { east: "eastRoad", west: "square" },
-        actions: ["approach forge", "look east", "look west"],
+        actions: ["approach forge", "look east", "look west", "take dropped coins"],
         hotspots: [
           { label: "Forge", command: "approach forge", x: 76, y: 48, w: 32, h: 47 },
+          { label: "Dropped Coins", command: "take dropped coins", x: 48, y: 76, w: 18, h: 15 },
           { label: "Willowmere Square", command: "go west", x: 18, y: 80, w: 31, h: 20 }
         ]
       },
       eastRoad: {
-        name: "East Gate Road",
-        description: "Beyond Merrin's forge, the lane widens beside the old town wall. A sloping track turns south toward the King's Road, while thorn-choked stones block the eastern gate. Forge Lane lies west.",
-        exits: { west: "forgeLane", south: "castleRoad" },
-        actions: ["look at eastern gate", "look south"],
+        name: "East Road",
+        description: "Beyond Merrin's forge, the road follows the old town wall toward the forest. Thorn-choked gate stones stand beside the track, but a newer footpath continues east beneath leaning pines. Forge Lane lies west; the Whispering Path begins east.",
+        exits: { west: "forgeLane", east: "forestEdge", south: "castleRoad" },
+        actions: ["look at eastern gate", "look at road rune", "go east", "go west"],
         hotspots: [
-          { label: "Eastern Gate", command: "look at eastern gate", x: 67, y: 35, w: 28, h: 28 },
-          { label: "King's Road", command: "go south", x: 50, y: 78, w: 34, h: 20 }
+          { label: "Eastern Gate Ruins", command: "look at eastern gate", x: 67, y: 35, w: 28, h: 28 },
+          { label: "Road Rune", command: "look at road rune", x: 49, y: 73, w: 20, h: 16 },
+          { label: "Forest Path", command: "go east", x: 84, y: 62, w: 25, h: 28 }
         ]
       },
       forgeDoor: {
@@ -1476,10 +1499,11 @@
         name: "West Chapel Road",
         description: "You follow a lantern-lit road west from Willowmere. The cottages thin, yew branches meet overhead, and old headstones begin to appear beside the stones. Saint Orla's chapel yard lies farther west; Willowmere Square is east.",
         exits: { east: "square", west: "chapelYard" },
-        actions: ["go west", "go east", "look at chapel", "look at roadside graves"],
+        actions: ["go west", "go east", "look at chapel", "look at roadside graves", "take pilgrim charm"],
         hotspots: [
           { label: "Chapel Road", command: "go west", x: 56, y: 56, w: 36, h: 42 },
           { label: "Roadside Graves", command: "look at roadside graves", x: 24, y: 69, w: 30, h: 28 },
+          { label: "Pilgrim Charm", command: "take pilgrim charm", x: 43, y: 74, w: 18, h: 15 },
           { label: "Willowmere", command: "go east", x: 18, y: 84, w: 30, h: 18 }
         ]
       },
@@ -1540,23 +1564,23 @@
       },
       forestEdge: {
         name: "The Whispering Path",
-        description: "An ancient oak leans over the trail, its roots forming a dark arch. A carved sign points east toward a crooked cottage. Something silver glints inside a hollow in the trunk. The road back to the Briar Lantern lies south, and the Willow Trail winds north into the deeper forest.",
-        exits: { north: "willowTrail", east: "cottageApproach", south: "tavernApproach" },
-        actions: ["look at tree", "take silver token", "go east"],
+        description: "An ancient oak leans over the trail, its roots forming a dark arch. Something silver glints inside a hollow in the trunk. East Road returns west, the Briar Lantern road bends south, and the Willow Trail winds north into the deeper forest.",
+        exits: { north: "willowTrail", west: "eastRoad", south: "tavernApproach" },
+        actions: ["look at tree", "take silver token", "go north", "go west", "go south"],
         hotspots: [
           { label: "Tree Hollow", command: "look at tree", x: 76, y: 42, w: 20, h: 24 },
-          { label: "Cottage", command: "east", x: 76, y: 60, w: 22, h: 22 },
+          { label: "East Road", command: "go west", x: 20, y: 72, w: 25, h: 20 },
           { label: "Deep Forest", command: "north", x: 50, y: 30, w: 26, h: 22 }
         ]
       },
       cottageApproach: {
         name: "Outside the Witch's Cottage",
-        description: "A crooked cottage crouches beneath ancient trees. Warm light flickers behind one shutter, but the weathered front door is closed. The Whispering Path lies west.",
-        exits: { west: "forestEdge" },
-        actions: ["open cottage door", "go west"],
+        description: "A crooked cottage crouches beneath ancient trees. Warm light flickers behind one shutter, but the weathered front door is closed. The deeper Whispering Forest lies east.",
+        exits: { east: "whisperingForest" },
+        actions: ["open cottage door", "go east"],
         hotspots: [
           { label: "Cottage Door", command: "open cottage door", x: 51, y: 54, w: 20, h: 34 },
-          { label: "Whispering Path", command: "go west", x: 23, y: 79, w: 30, h: 20 }
+          { label: "Whispering Forest", command: "go east", x: 23, y: 79, w: 30, h: 20 }
         ]
       },
       cottage: {
@@ -1614,21 +1638,24 @@
         name: "Fallen Log Crossing",
         description: "A moss-covered tree has fallen across a narrow stream. The water is shallow but quick, and tiny paw prints cross the log toward the deeper forest. The flower clearing lies south; the Whispering Forest waits north.",
         exits: { south: "flowerClearing", north: "whisperingForest" },
-        actions: ["look at fallen log", "look at tracks", "listen to stream", "go north", "go south"],
+        actions: ["look at fallen log", "look at tracks", "listen to stream", "take river charm", "go north", "go south"],
         hotspots: [
           { label: "Fallen Log", command: "look at fallen log", x: 45, y: 45, w: 52, h: 45 },
           { label: "Animal Tracks", command: "look at tracks", x: 72, y: 70, w: 28, h: 22 },
-          { label: "Stream", command: "listen to stream", x: 50, y: 78, w: 65, h: 26 }
+          { label: "Stream", command: "listen to stream", x: 50, y: 78, w: 65, h: 26 },
+          { label: "River Charm", command: "take river charm", x: 72, y: 67, w: 18, h: 14 }
         ]
       },
       whisperingForest: {
         name: "The Whispering Forest",
-        description: "Your lantern pushes back the living dark. Pale moths drift between the trunks, and every path seems to whisper your name. A silver glow waits farther north, while marsh lights shimmer through the trees to the east.",
-        exits: { north: "moonwell", east: "moonfen", south: "forestEdge" },
-        actions: ["listen", "go east", "go north"],
+        description: "Your lantern pushes back the living dark. Pale moths drift between the trunks, and every path seems to whisper your name. The log crossing lies south, a crooked cottage path turns west, a silver glow waits north, and marsh lights shimmer east.",
+        exits: { north: "moonwell", east: "moonfen", south: "fallenLog", west: "cottageApproach" },
+        actions: ["listen", "look at broken courier seal", "take courier seal", "go east", "go north", "go south", "go west"],
         hotspots: [
           { label: "Moonwell Glow", command: "north", x: 50, y: 34, w: 24, h: 22 },
           { label: "Marsh Lights", command: "east", x: 78, y: 52, w: 20, h: 24 },
+          { label: "Cottage Path", command: "west", x: 15, y: 63, w: 22, h: 24 },
+          { label: "Courier Seal", command: "take courier seal", x: 48, y: 76, w: 18, h: 14 },
           { label: "Whispers", command: "listen", x: 22, y: 46, w: 20, h: 24 }
         ]
       },
@@ -1706,7 +1733,7 @@
     };
 
     const initialState = () => ({
-      schemaVersion: 1715,
+      schemaVersion: 1720,
       room: "square",
       view: "center",
       inventory: [],
@@ -1768,6 +1795,11 @@
         sigilTaken: false,
         fairyFreed: false,
         shardTaken: false,
+        forgeCoinsTaken: false,
+        eastRoadRuneRead: false,
+        pilgrimCharmTaken: false,
+        riverCharmTaken: false,
+        courierSealTaken: false,
         ending: null
       },
       log: []
@@ -1805,11 +1837,11 @@
       apothecaryDoor: "assets/scenes/apothecary-door.webp",
       apothecary: "assets/scenes/apothecary-room.webp",
       apothecaryBackRoom: "assets/scenes/apothecary-east.webp",
-      forgeLane: "assets/scenes/forge-lane.webp",
+      forgeLane: "assets/scenes/forge-lane-v1720.webp",
       eastRoad: "assets/scenes/kings-road.webp",
       forgeDoor: "assets/scenes/forge-door.webp",
       blacksmith: "assets/scenes/forge.webp",
-      chapelRoad: "assets/scenes/chapel-road.webp",
+      chapelRoad: "assets/scenes/chapel-road-v1720.webp",
       chapelYard: "assets/scenes/chapel-yard.webp",
       chapelApproach: "assets/scenes/chapel-approach.webp",
       oldCemeteryPath: "assets/scenes/old-cemetery.webp",
@@ -1817,20 +1849,20 @@
       castleRoad: "assets/scenes/kings-road.webp",
       tavern: "assets/scenes/tavern.webp",
       forestEdge: "assets/scenes/forest.webp",
-      willowTrail: "assets/scenes/willow-trail.webp",
-      flowerClearing: "assets/scenes/flower-clearing.webp",
-      fallenLog: "assets/scenes/fallen-log.webp",
+      willowTrail: "assets/scenes/willow-trail-v1720.webp",
+      flowerClearing: "assets/scenes/flower-clearing-v1720.webp",
+      fallenLog: "assets/scenes/fallen-log-v1720.webp",
       whisperingForest: "assets/scenes/forest.webp",
       cottageApproach: "assets/scenes/cottage.webp",
-      cottage: "assets/scenes/cottage-interior.webp",
+      cottage: "assets/scenes/cottage-interior-v1720.webp",
       cellar: "assets/scenes/cottage-cellar.webp",
       moonfen: "assets/scenes/ferry-landing.webp",
       hutExterior: "assets/scenes/hut.webp",
       hutInterior: "assets/scenes/hut-interior.webp",
-      moonwell: "assets/scenes/moonwell-v2.webp",
+      moonwell: "assets/scenes/moonwell-v1720.webp",
       tavernCellar: "assets/scenes/tavern-cellar-v2.webp",
-      secretTunnel: "assets/scenes/hidden-passage-v2.webp",
-      secretAlcove: "assets/scenes/hidden-alcove.webp",
+      secretTunnel: "assets/scenes/hidden-passage-v1720.webp",
+      secretAlcove: "assets/scenes/hidden-alcove-v1720.webp",
       crypt: "assets/scenes/crypt.webp",
       castleGate: "assets/scenes/gate.webp"
     };
@@ -1974,7 +2006,7 @@
         south: "Small kitchen gardens and stacked firewood fill the slope below the lane."
       },
       eastRoad: {
-        east: "The old eastern gate is sealed by a wall of thorn and fallen masonry.",
+        east: "A repaired footpath threads past the ruined gate stones toward the Whispering Path.",
         west: "Forge Lane runs back past Merrin's smoking chimney toward Willowmere Square.",
         north: "The old town wall rises above a strip of neglected gardens.",
         south: "A sloping track joins the King's Road below the village."
@@ -2060,8 +2092,8 @@
       forestEdge: {
         north: "The Whispering Forest darkens beneath the ancient oak.",
         south: "The forest road returns toward the Briar Lantern.",
-        east: "A crooked cottage stands beyond the trees.",
-        west: "The ancient oak's roots twist around a hollow in the trunk."
+        east: "The oldest trees knot together with no clear passage.",
+        west: "East Road returns toward Forge Lane and Willowmere."
       }
     };
 
@@ -2235,8 +2267,9 @@
         oldCemeteryPath: { chapel:"chapelYard", yard:"chapelYard", back:"chapelYard" },
         chapel: { outside:"chapelApproach", door:"chapelApproach", yard:"chapelYard", back:"chapelApproach" },
         castleRoad: { gate:"castleGate", castle:"castleGate", forward:"castleGate", square:"square", willowmere:"square", moonfen:"moonfen" },
-        forestEdge: { cottage:"cottageApproach", "forest road":"whisperingForest", forest:"whisperingForest", forward:"whisperingForest", tavern:"tavernApproach", back:"tavernApproach" },
-        cottageApproach: { cottage:"cottage", inside:"cottage", door:"cottage", forward:"cottage", path:"forestEdge", forest:"forestEdge", back:"forestEdge" },
+        forestEdge: { "willow trail":"willowTrail", forest:"willowTrail", forward:"willowTrail", "east road":"eastRoad", forge:"eastRoad", tavern:"tavernApproach", back:"eastRoad" },
+        whisperingForest: { cottage:"cottageApproach", moonwell:"moonwell", moonfen:"moonfen", ferry:"moonfen", "log crossing":"fallenLog", back:"fallenLog" },
+        cottageApproach: { cottage:"cottage", inside:"cottage", door:"cottage", forward:"cottage", path:"whisperingForest", forest:"whisperingForest", back:"whisperingForest" },
         cottage: { outside:"cottageApproach", door:"cottageApproach", path:"cottageApproach", back:"cottageApproach" },
         moonfen: { hut:"hutExterior", ferry:"hutExterior", west:"whisperingForest", north:"moonwell" },
         hutExterior: { hut:"hutInterior", inside:"hutInterior", ferry:"moonfen", west:"moonfen", back:"moonfen" },
@@ -2600,6 +2633,17 @@
 
     function lookAt(target) {
       if (!target || /^(around|room|area|here)$/.test(target)) return describeRoom(true);
+      if (state.room === "eastRoad" && /(?:road )?rune|carving|marker/.test(target)) {
+        if (!state.flags.eastRoadRuneRead) {
+          state.flags.eastRoadRuneRead = true;
+          award("read-east-road-rune", 1);
+          return addLog("You brush moss from the roadside stone. Its rune shows a winged crown above three paths: forge, forest, and fen. A final scratched line reads: THE COURIER TOOK THE FOREST ROAD.", "success");
+        }
+        return addLog("The road rune still points toward the forest. Beneath it, the courier’s warning remains clear.");
+      }
+      if (state.room === "whisperingForest" && /broken courier seal|courier seal|seal/.test(target) && !state.flags.courierSealTaken) {
+        return addLog("A bent royal seal lies half-buried beneath the roots. Its clasp is broken, and Moonfen mud cakes one edge. You may TAKE COURIER SEAL.", "success");
+      }
       if (state.room === "tavernCellar" && /wine rack|rack/.test(target) && !state.flags.cellarDraftFound) {
         state.flags.cellarDraftFound = true; award("find-secret-passage-clue",1);
         return addLog("You inspect the wine rack closely. A cold draft slips from behind it, and the floor shows long scrape marks. You could MOVE WINE RACK.","success");
@@ -2826,6 +2870,27 @@
     }
 
     function takeTarget(target) {
+      if (state.room === "forgeLane" && /(?:dropped )?coins?|coppers?/.test(target)) {
+        if (state.flags.forgeCoinsTaken) return addLog("You already gathered the dropped coins.");
+        state.flags.forgeCoinsTaken = true; addGold(3, "coins between the forge-lane cobbles"); award("forge-lane-coins",1);
+        addLog("You pry three soot-darkened coins from between the cobbles. Merrin must have dropped them during a delivery.", "success"); return;
+      }
+      if (state.room === "chapelRoad" && /pilgrim charm|charm|sun wheel/.test(target)) {
+        if (state.flags.pilgrimCharmTaken) return addLog("You already took the pilgrim charm.");
+        state.flags.pilgrimCharmTaken = true; addItem("pilgrim charm"); award("chapel-road-charm",1);
+        addLog("You lift the small pilgrim charm from the roadside grass. Its woven sun-wheel is damp but unbroken.", "success"); return;
+      }
+      if (state.room === "fallenLog" && /river charm|blue stone|smooth stone|charm/.test(target)) {
+        if (state.flags.riverCharmTaken) return addLog("You already took the river charm.");
+        state.flags.riverCharmTaken = true; addItem("river charm"); award("fallen-log-charm",1);
+        addLog("You reach beneath the log and recover a blue river charm wrapped in silver wire. The spiral rune warms in your palm.", "success"); return;
+      }
+      if (state.room === "whisperingForest" && /courier seal|seal/.test(target)) {
+        if (state.flags.courierSealTaken) return addLog("You already carry the broken courier seal.");
+        state.flags.courierSealTaken = true; addItem("courier seal"); award("courier-seal",2);
+        addLog("You take the broken royal courier seal. The muddy clasp confirms the missing rider reached the Moonfen route.", "success"); return;
+      }
+
       if (state.room === "tavern" && /(treasure|cache|gold|locket)/.test(target)) {
         if (!state.flags.brickCompartmentOpened) return addLog("You have not uncovered a cache here.", "warning");
         if (state.flags.brickCompartmentLooted) return addLog("The traveler's cache is already empty.");
@@ -3076,20 +3141,17 @@
     }
 
     const worldMapNodes = [
-      ["oldCemeteryPath",0,2,"Old Cemetery"],["chapelYard",1,2,"Chapel Yard"],["chapelRoad",2,2,"Chapel Road"],["square",3,2,"Willowmere"],["forgeLane",4,2,"Forge Lane"],["eastRoad",5,2,"East Road"],
-      ["chapelApproach",1,1,"Chapel Door"],["chapel",1,0,"Saint Orla"],["crypt",0,0,"Crypt"],
-      ["tavernApproach",3,1,"Tavern Road"],["tavern",3,0,"Briar Lantern"],["tavernCellar",4,0,"Tavern Cellar"],["secretTunnel",5,0,"Hidden Passage"],["secretAlcove",6,0,"Collapsed Alcove"],
-      ["forestEdge",4,1,"Whispering Path"],["willowTrail",5,1,"Willow Trail"],["flowerClearing",6,1,"Flower Clearing"],["fallenLog",7,1,"Log Crossing"],["whisperingForest",8,1,"Deep Forest"],["moonwell",9,0,"Moonwell"],["moonfen",9,1,"Ferry Landing"],
-      ["hutExterior",8,2,"Across Moonfen"],["hutInterior",9,2,"Moonfen Hut"],["cottageApproach",6,2,"Witch's Cottage"],["cottage",6,3,"Cottage Interior"],["cellar",5,3,"Cottage Cellar"],
-      ["castleRoad",3,3,"King's Road"],["castleGate",3,4,"Ironthorn Gate"]
+      ["crypt",120,650,"Crypt"],["oldCemeteryPath",255,590,"Old Cemetery"],["chapel",175,610,"Saint Orla"],["chapelApproach",220,545,"Chapel Door"],["chapelYard",280,485,"Chapel Yard"],["chapelRoad",360,430,"Chapel Road"],
+      ["square",435,360,"Willowmere"],["tavernApproach",440,260,"Tavern Road"],["tavern",450,190,"Briar Lantern"],["tavernCellar",555,150,"Tavern Cellar"],["secretTunnel",660,130,"Hidden Passage"],["secretAlcove",760,120,"Collapsed Alcove"],
+      ["forgeLane",560,360,"Forge Lane"],["forgeDoor",565,300,"Forge Door"],["blacksmith",630,285,"Merrin's Forge"],["eastRoad",675,350,"East Road"],["forestEdge",790,330,"Whispering Path"],["willowTrail",875,285,"Willow Trail"],["flowerClearing",960,235,"Flower Clearing"],["fallenLog",1035,285,"Log Crossing"],["whisperingForest",1080,385,"Deep Forest"],
+      ["cottageApproach",1110,480,"Witch's Cottage"],["cottage",1140,550,"Cottage Interior"],["cellar",1085,620,"Cottage Cellar"],["moonwell",1050,505,"Moonwell"],["moonfen",930,510,"Ferry Landing"],["hutExterior",840,560,"Across Moonfen"],["hutInterior",780,620,"Moonfen Hut"],
+      ["castleRoad",420,500,"King's Road"],["castleGate",420,640,"Ironthorn Gate"]
     ];
     const worldMapEdges = [
-      ["oldCemeteryPath","chapelYard"],["chapelYard","chapelRoad"],["chapelRoad","square"],["square","forgeLane"],["forgeLane","eastRoad"],
-      ["chapelYard","chapelApproach"],["chapelApproach","chapel"],["chapel","crypt"],
+      ["oldCemeteryPath","chapelYard"],["chapelYard","chapelRoad"],["chapelRoad","square"],["chapelYard","chapelApproach"],["chapelApproach","chapel"],["chapel","crypt"],
       ["square","tavernApproach"],["tavernApproach","tavern"],["tavern","tavernCellar"],["tavernCellar","secretTunnel"],["secretTunnel","secretAlcove"],
-      ["tavernApproach","forestEdge"],["forestEdge","willowTrail"],["willowTrail","flowerClearing"],["flowerClearing","fallenLog"],["fallenLog","whisperingForest"],["whisperingForest","moonwell"],["whisperingForest","moonfen"],["moonfen","moonwell"],
-      ["moonfen","hutExterior"],["hutExterior","hutInterior"],
-      ["forestEdge","cottageApproach"],["cottageApproach","cottage"],["cottage","cellar"],
+      ["square","forgeLane"],["forgeLane","forgeDoor"],["forgeDoor","blacksmith"],["forgeLane","eastRoad"],["eastRoad","forestEdge"],["tavernApproach","forestEdge"],["forestEdge","willowTrail"],["willowTrail","flowerClearing"],["flowerClearing","fallenLog"],["fallenLog","whisperingForest"],
+      ["whisperingForest","cottageApproach"],["cottageApproach","cottage"],["cottage","cellar"],["whisperingForest","moonwell"],["whisperingForest","moonfen"],["moonfen","moonwell"],["moonfen","hutExterior"],["hutExterior","hutInterior"],
       ["square","castleRoad"],["castleRoad","castleGate"]
     ];
     const FAST_TRAVEL_OK = new Set(["oldCemeteryPath","chapelYard","chapelRoad","square","forgeLane","eastRoad","chapelApproach","tavernApproach","forestEdge","willowTrail","flowerClearing","fallenLog","whisperingForest","moonwell","moonfen","hutExterior","cottageApproach","castleRoad","castleGate"]);
@@ -3098,30 +3160,19 @@
       const visited = new Set(state.visited||[]);
       const adjacent = new Set();
       worldMapEdges.forEach(([a,b])=>{ if (visited.has(a)) adjacent.add(b); if (visited.has(b)) adjacent.add(a); });
-      const pos = {};
-      worldMapNodes.forEach(([id,c,r])=>{ pos[id] = { x: 30 + c*94, y: 26 + r*66 }; });
-      const NW=86, NH=42;
+      const pos = Object.fromEntries(worldMapNodes.map(([id,x,y])=>[id,{x,y}]));
       const shown = worldMapNodes.filter(([id])=>visited.has(id)||adjacent.has(id));
       const shownIds = new Set(shown.map(n=>n[0]));
       const edgesSvg = worldMapEdges.filter(([a,b])=>shownIds.has(a)&&shownIds.has(b)&&(visited.has(a)||visited.has(b))).map(([a,b])=>{
-        const A=pos[a], B=pos[b];
-        const solid = visited.has(a)&&visited.has(b);
-        return `<line x1="${A.x+NW/2}" y1="${A.y+NH/2}" x2="${B.x+NW/2}" y2="${B.y+NH/2}" stroke="${solid?"#c9a659":"#6b5a3a"}" stroke-width="${solid?3:2}" ${solid?"":"stroke-dasharray=\'4 5\'"} stroke-linecap="round" opacity="${solid?0.9:0.5}"/>`;
+        const A=pos[a], B=pos[b], solid=visited.has(a)&&visited.has(b);
+        return `<line x1="${A.x}" y1="${A.y}" x2="${B.x}" y2="${B.y}" class="wm-route ${solid?"known":"nearby"}"/>`;
       }).join("");
-      const nodesSvg = shown.map(([id,c,r,label])=>{
-        const {x,y}=pos[id];
-        const known=visited.has(id), current=state.room===id;
-        const canTravel = known && FAST_TRAVEL_OK.has(id) && !current;
-        const fill = current ? "#3d2f55" : known ? "#241a38" : "#181228";
-        const stroke = current ? "#f3d37c" : known ? "#c9a659" : "#4a3f5c";
-        const words = known ? label.split(" ") : ["???"];
-        const text = words.length>1 && label.length>11
-          ? `<text x="${x+NW/2}" y="${y+17}" class="wm-t">${words.slice(0,Math.ceil(words.length/2)).join(" ")}</text><text x="${x+NW/2}" y="${y+31}" class="wm-t">${words.slice(Math.ceil(words.length/2)).join(" ")}</text>`
-          : `<text x="${x+NW/2}" y="${y+25}" class="wm-t">${words.join(" ")}</text>`;
-        return `<g class="map-node-g ${current?"wm-current":""} ${canTravel?"wm-travel":""}" ${canTravel?`data-travel="${id}"`:""}><rect x="${x}" y="${y}" width="${NW}" height="${NH}" rx="8" fill="${fill}" stroke="${stroke}" stroke-width="${current?3:1.6}" ${known?"":"stroke-dasharray=\'4 4\'"}/>${text}</g>`;
+      const nodesSvg = shown.map(([id,x,y,label])=>{
+        const known=visited.has(id), current=state.room===id, canTravel=known&&FAST_TRAVEL_OK.has(id)&&!current;
+        const safeLabel=escapeHtml(known?label:"Unknown");
+        return `<g class="map-node-g ${current?"wm-current":""} ${known?"wm-known":"wm-unknown"} ${canTravel?"wm-travel":""}" ${canTravel?`data-travel="${id}"`:""} transform="translate(${x} ${y})"><circle r="${current?15:12}" class="wm-dot"/><rect x="-58" y="18" width="116" height="28" rx="10" class="wm-label-bg"/><text y="37" class="wm-t">${safeLabel}</text></g>`;
       }).join("");
-      const regions = `<text x="30" y="16" class="wm-region">THE VILLAGE</text><text x="500" y="16" class="wm-region">BENEATH \u0026 BEYOND THE LANTERN</text><text x="700" y="120" class="wm-region">THE WILD WOOD</text><text x="760" y="212" class="wm-region">THE MOONFEN</text><text x="230" y="330" class="wm-region">THE KING'S ROAD</text>`;
-      return `<h3>Discovered Map</h3><div class="world-map-card"><svg class="world-map-svg" viewBox="0 0 970 356" role="img" aria-label="Discovered world map">${regions}${edgesSvg}${nodesSvg}</svg><p class="map-legend">Gold = explored \u2022 dashed ??? = somewhere nearby, undiscovered \u2022 tap any explored outdoor landmark to travel there.</p></div>`;
+      return `<h3>Illustrated Discovered Map</h3><div class="world-map-card"><div class="world-map-stage"><img class="world-map-bg" src="assets/ui/world-map-v1720.webp" alt="Illustrated fantasy map of Willowmere, the Wild Wood, Moonfen, Saint Orla's chapel, and Ironthorn Gate"><svg class="world-map-svg" viewBox="0 0 1200 760" role="img" aria-label="Discovered locations and travel routes">${edgesSvg}${nodesSvg}</svg></div><p class="map-legend">Gold markers are explored. Faded markers are nearby but undiscovered. Tap any explored outdoor landmark to retrace familiar roads.</p></div>`;
     }
 
     async function fastTravel(id){
@@ -3604,6 +3655,18 @@
         actions.unshift("go west", "look at blocked arch");
       }
 
+      const routeFinds = [
+        ["forgeLane", "forgeCoinsTaken", "take dropped coins"],
+        ["chapelRoad", "pilgrimCharmTaken", "take pilgrim charm"],
+        ["fallenLog", "riverCharmTaken", "take river charm"],
+        ["whisperingForest", "courierSealTaken", "take courier seal"]
+      ];
+      routeFinds.forEach(([roomId, flag, action]) => {
+        if (state.room !== roomId) return;
+        if (state.flags[flag]) removeAction(action); else actions.unshift(action);
+      });
+      if (state.room === "eastRoad" && state.flags.eastRoadRuneRead) removeAction("look at road rune");
+
       // Outdoor scenes keep the four cardinal directions visible. A direction may
       // travel to another room or return an in-world boundary response.
       if (outdoorRooms.has(state.room)) {
@@ -3685,6 +3748,11 @@
       if (a === "ask innkeeper about cellar") return "Ask About Cellar";
       if (a === "move brick") return "Move Loose Brick";
       if (a === "take treasure") return "Collect Treasure";
+      if (a === "take dropped coins") return "Pick Up Coins";
+      if (a === "take pilgrim charm") return "Take Pilgrim Charm";
+      if (a === "take river charm") return "Take River Charm";
+      if (a === "take courier seal") return "Take Courier Seal";
+      if (a === "look at road rune") return "Read Road Rune";
       if (a === "play along with flutist") return "Play Along";
       if (a === "break blocked arch") return "Break Arch";
       if (a === "attune to stones") return "Attune to Stones";
@@ -3803,7 +3871,7 @@
         case "tavern":
           if (/innkeeper/.test(labelKey)) {
             add("talk to innkeeper");
-            if (!state.flags.cellarUnlocked) add("ask innkeeper about cellar");
+            if (state.flags.hatchDiscoveryConfirmed && !state.flags.cellarUnlocked) add("ask innkeeper about cellar");
           } else if (/cellar hatch|cellar door|hatch|scuffed floor/.test(labelKey)) {
             add("look at cellar door");
             if (state.flags.hatchDiscoveryConfirmed) {
@@ -4239,8 +4307,8 @@
       }
       if (state.room === "secretAlcove") {
         imagePath = state.flags.tunnelCoinsFound && !state.flags.tunnelCoinsTaken
-          ? "assets/scenes/hidden-alcove-coins.webp"
-          : "assets/scenes/hidden-alcove.webp";
+          ? "assets/scenes/hidden-alcove-coins-v1720.webp"
+          : "assets/scenes/hidden-alcove-v1720.webp";
       }
       const token = ++sceneRenderToken;
       if (!imagePath) {
@@ -4308,7 +4376,7 @@
     function preloadImportantScenes() {
       const paths = new Set(Object.values(sceneImageMap));
       paths.add("assets/scenes/tavern-cellar-passage.webp");
-      paths.add("assets/scenes/hidden-alcove-coins.webp");
+      paths.add("assets/scenes/hidden-alcove-coins-v1720.webp");
       Object.values(directionalRooms).forEach(config=>Object.values(config.images).forEach(path=>paths.add(path)));
       paths.forEach(path=>preloadScene(path).catch(()=>{}));
     }
@@ -4319,7 +4387,8 @@
       sceneTourRooms.forEach(roomId => {
         const button = document.createElement("button");
         button.className = "scene-card";
-        button.innerHTML = `<img src="${sceneImageMap[roomId]}" alt=""><strong>${rooms[roomId].name}</strong>`;
+        const tourImage = sceneImageMap[roomId] || (directionalRooms[roomId] && directionalRooms[roomId].images.center) || "";
+        button.innerHTML = `<img src="${tourImage}" alt=""><strong>${rooms[roomId].name}</strong>`;
         button.addEventListener("click", () => {
           state.room = roomId;
           if (directionalRooms[roomId]) state.view = "center";
@@ -4601,7 +4670,7 @@
           tavernCellarOpen:false
         });
       }
-      state.schemaVersion = 1715;
+      state.schemaVersion = 1720;
       state.inventory.forEach(i => { if (!state.itemCounts[i]) state.itemCounts[i]=1; });
       state.gold = Number.isFinite(state.gold) ? state.gold : 20;
       state.health = Number.isFinite(state.health) ? state.health : 20;
@@ -4665,7 +4734,7 @@
     function boot() {
       updateMusicButton();
       const vt = document.getElementById("version-tag");
-      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Navigation Integrity & Zoom Restoration`;
+      if (vt) vt.textContent = `Version ${BUILD_VERSION} • World Route Rebuild`;
       const saved = storageGet(SAVE_KEY);
       if (saved) {
         try { state = JSON.parse(saved); migrateState(); restoreDynamicExits(); }

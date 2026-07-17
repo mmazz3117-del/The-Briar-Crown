@@ -1,0 +1,57 @@
+THE BRIAR CROWN v1.7.2.0 — WORLD ROUTE REBUILD
+Release date: July 16, 2026
+
+BUILD SUMMARY
+This release replaces patch-by-patch route repairs with a rebuilt travel chain, protected full-resolution scene assets, an illustrated discovered-world map, and automated interaction/route validation.
+
+WORLD ROUTE REBUILD
+- Connected Forge Lane to East Road and the Forest Edge.
+- Formalized the forest travel chain:
+  Forest Edge -> Willow Trail -> Flower Clearing -> Fallen Log Crossing -> Whispering Forest.
+- Corrected the Deep Forest return route so it no longer skips intermediate travel scenes.
+- Moved the Witch's Cottage approach deeper into the forest route.
+- Preserved the Chapel, Moonfen, Ferry, Moonwell, and Willowmere hub connections.
+
+NEW DISCOVERABLES
+- Dropped coins at Forge Lane (+3 gold).
+- Road rune clue on East Road.
+- Pilgrim charm on Chapel Road.
+- River charm at Fallen Log Crossing.
+- Broken courier seal in the Whispering Forest.
+
+NEW PRODUCTION SCENE ART
+- Forge Lane
+- Chapel Road
+- Willow Trail
+- Flower Clearing
+- Fallen Log Crossing
+- Witch's Cottage Interior
+- Moonwell
+- Hidden Passage
+- Hidden Alcove
+- Hidden Alcove with Coins
+
+MAP AND UI
+- Added a new illustrated parchment world map.
+- Major discovered nodes remain available for tap travel.
+- Scene-by-scene walking remains the primary route experience.
+- Map remains top-left, Menu remains top-right, and Satchel remains available.
+- Pinch zoom remains enabled on the illustrated map.
+- Scene Test remains available in Menu/dev tools.
+
+INTERACTION AND GATING FIXES
+- Tavern cellar actions no longer appear before the cellar hatch is discovered.
+- Go Down remains hidden until the relevant hatch/entrance is opened.
+- Cottage cellar access follows the same discovery/opening rules.
+- Discoverable actions disappear after the item is collected.
+- All active rooms have valid exits and all exits point to real rooms.
+
+ASSET PROTECTION
+- Added assets/scenes/production-manifest-v1720.json.
+- Active replacement scenes are validated by filename, SHA-256 checksum, and minimum dimensions.
+- No thumbnail-derived or missing fallback scene is used by the rebuilt priority locations.
+- Service-worker cache updated to briar-crown-v1.7.2.0.
+
+QA RESULT
+107 of 107 automated checks passed.
+See QA_REPORT_v1.7.2.0.txt for the complete report.

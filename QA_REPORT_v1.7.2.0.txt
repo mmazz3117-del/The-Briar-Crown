@@ -1,0 +1,112 @@
+The Briar Crown v1.7.2.0 QA Report
+Passed: 107/107
+
+[PASS] version:index
+[PASS] version:manifest — 1.7.2.0
+[PASS] version:cache
+[PASS] qa:portable-root
+[PASS] menu:scene-test-button
+[PASS] map:illustrated-asset
+[PASS] map:illustrated-renderer
+[PASS] assets:all-app-references-exist
+[PASS] service-worker:all-precache-files-exist
+[PASS] assets:production-manifest
+[PASS] asset:forge-lane-v1720.webp:exists
+[PASS] asset:forge-lane-v1720.webp:checksum
+[PASS] asset:forge-lane-v1720.webp:dimensions — (1200, 900)
+[PASS] asset:forge-lane-v1720.webp:no-flat-letterbox — 4669.2/4325.4
+[PASS] asset:chapel-road-v1720.webp:exists
+[PASS] asset:chapel-road-v1720.webp:checksum
+[PASS] asset:chapel-road-v1720.webp:dimensions — (1200, 900)
+[PASS] asset:chapel-road-v1720.webp:no-flat-letterbox — 4774.0/222.8
+[PASS] asset:willow-trail-v1720.webp:exists
+[PASS] asset:willow-trail-v1720.webp:checksum
+[PASS] asset:willow-trail-v1720.webp:dimensions — (1200, 900)
+[PASS] asset:willow-trail-v1720.webp:no-flat-letterbox — 15.2/457.3
+[PASS] asset:flower-clearing-v1720.webp:exists
+[PASS] asset:flower-clearing-v1720.webp:checksum
+[PASS] asset:flower-clearing-v1720.webp:dimensions — (1200, 900)
+[PASS] asset:flower-clearing-v1720.webp:no-flat-letterbox — 4167.3/515.9
+[PASS] asset:fallen-log-v1720.webp:exists
+[PASS] asset:fallen-log-v1720.webp:checksum
+[PASS] asset:fallen-log-v1720.webp:dimensions — (1200, 900)
+[PASS] asset:fallen-log-v1720.webp:no-flat-letterbox — 15.5/400.9
+[PASS] asset:cottage-interior-v1720.webp:exists
+[PASS] asset:cottage-interior-v1720.webp:checksum
+[PASS] asset:cottage-interior-v1720.webp:dimensions — (1200, 900)
+[PASS] asset:cottage-interior-v1720.webp:no-flat-letterbox — 303.5/555.9
+[PASS] asset:moonwell-v1720.webp:exists
+[PASS] asset:moonwell-v1720.webp:checksum
+[PASS] asset:moonwell-v1720.webp:dimensions — (1200, 900)
+[PASS] asset:moonwell-v1720.webp:no-flat-letterbox — 3901.2/539.1
+[PASS] asset:hidden-passage-v1720.webp:exists
+[PASS] asset:hidden-passage-v1720.webp:checksum
+[PASS] asset:hidden-passage-v1720.webp:dimensions — (1200, 900)
+[PASS] asset:hidden-passage-v1720.webp:no-flat-letterbox — 1434.0/1187.3
+[PASS] asset:hidden-alcove-v1720.webp:exists
+[PASS] asset:hidden-alcove-v1720.webp:checksum
+[PASS] asset:hidden-alcove-v1720.webp:dimensions — (1200, 900)
+[PASS] asset:hidden-alcove-v1720.webp:no-flat-letterbox — 186.9/252.0
+[PASS] asset:hidden-alcove-coins-v1720.webp:exists
+[PASS] asset:hidden-alcove-coins-v1720.webp:checksum
+[PASS] asset:hidden-alcove-coins-v1720.webp:dimensions — (1200, 900)
+[PASS] asset:hidden-alcove-coins-v1720.webp:no-flat-letterbox — 193.2/250.6
+[PASS] asset-map:forgeLane
+[PASS] asset-map:chapelRoad
+[PASS] asset-map:willowTrail
+[PASS] asset-map:flowerClearing
+[PASS] asset-map:fallenLog
+[PASS] asset-map:cottage
+[PASS] asset-map:moonwell
+[PASS] asset-map:secretTunnel
+[PASS] asset-map:secretAlcove
+[PASS] browser:no-page-errors
+[PASS] ui:map-top-button
+[PASS] ui:satchel-label
+[PASS] zoom:browser-pinch — width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover, interactive-widget=resizes-content
+[PASS] zoom:map-pinch
+[PASS] route:map-edge:forgeLane-eastRoad
+[PASS] route:map-edge:eastRoad-forestEdge
+[PASS] route:map-edge:forestEdge-willowTrail
+[PASS] route:map-edge:willowTrail-flowerClearing
+[PASS] route:map-edge:flowerClearing-fallenLog
+[PASS] route:map-edge:fallenLog-whisperingForest
+[PASS] route:map-edge:whisperingForest-cottageApproach
+[PASS] route:map-edge:whisperingForest-moonfen
+[PASS] route:map-edge:whisperingForest-moonwell
+[PASS] route:east-road-to-forest
+[PASS] route:deep-forest-return
+[PASS] route:cottage-is-deep
+[PASS] route:cottage-return
+[PASS] discoverable:forgeLane:available — ['take dropped coins', 'go forge', 'look east', 'look west', 'go north', 'go east', 'go south', 'go west']
+[PASS] discoverable:forgeLane:consumed — ['go forge', 'look east', 'look west', 'go north', 'go east', 'go south', 'go west']
+[PASS] discoverable:eastRoad:available — ['look at eastern gate', 'look at road rune', 'go east', 'go west', 'go north', 'go south']
+[PASS] discoverable:eastRoad:consumed — ['look at eastern gate', 'go east', 'go west', 'go north', 'go south']
+[PASS] discoverable:chapelRoad:available — ['take pilgrim charm', 'go west', 'go east', 'look at chapel', 'look at roadside graves', 'go north', 'go south']
+[PASS] discoverable:chapelRoad:consumed — ['go west', 'go east', 'look at chapel', 'look at roadside graves', 'go north', 'go south']
+[PASS] discoverable:fallenLog:available — ['take river charm', 'look at fallen log', 'look at tracks', 'listen to stream', 'go north', 'go south', 'go east', 'go west']
+[PASS] discoverable:fallenLog:consumed — ['look at fallen log', 'look at tracks', 'listen to stream', 'go north', 'go south', 'go east', 'go west']
+[PASS] discoverable:whisperingForest:available — ['take courier seal', 'listen', 'look at broken courier seal', 'go east', 'go north', 'go south', 'go west']
+[PASS] discoverable:whisperingForest:consumed — ['listen', 'look at broken courier seal', 'go east', 'go north', 'go south', 'go west']
+[PASS] discoverable:forge-coins-value
+[PASS] contract:tavern:fresh-forbids:go down — ['look north', 'look east', 'look west', 'look south', 'talk to innkeeper', 'go south']
+[PASS] contract:tavern:fresh-forbids:open cellar hatch — ['look north', 'look east', 'look west', 'look south', 'talk to innkeeper', 'go south']
+[PASS] contract:tavern:fresh-forbids:ask innkeeper about cellar — ['look north', 'look east', 'look west', 'look south', 'talk to innkeeper', 'go south']
+[PASS] contract:tavern:no-ask-before-discovery-context — clear ➜
+go outside ●●●
+talk to innkeeper
+[PASS] contract:tavern:hatch-discovered
+[PASS] contract:tavern:ask-after-discovery — ['ask innkeeper about cellar', 'look north', 'look east', 'look west', 'look south', 'talk to innkeeper', 'go south']
+[PASS] contract:tavern:no-go-down-before-open — ['ask innkeeper about cellar', 'look north', 'look east', 'look west', 'look south', 'talk to innkeeper', 'go south']
+[PASS] contract:tavern:go-down-after-open
+[PASS] contract:cottage:no-go-down-fresh
+[PASS] contract:cottage:no-go-down-after-rug-only
+[PASS] contract:cottage:go-down-after-open
+[PASS] navigation:map-opens
+[PASS] navigation:map-background-present
+[PASS] navigation:scene-test-listed
+[PASS] navigation:scene-test-opens
+[PASS] graph:all-exits-target-real-rooms — []
+[PASS] graph:all-rooms-have-exit — []
+[PASS] hotspots:valid-bounds-and-actions — []
+[PASS] actions:no-duplicates — []
