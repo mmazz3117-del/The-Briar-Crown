@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 from pathlib import Path
-import hashlib, json, re, sys
+import hashlib, json, re, sys, shutil
 from PIL import Image, ImageStat
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else Path(__file__).resolve().parents[1]
-VERSION = "1.7.2.0"
+VERSION = "1.7.2.2"
 CONTRACT = json.loads((Path(__file__).parent / "contracts.json").read_text())
 results = []
 
@@ -23,8 +23,8 @@ check("version:manifest", manifest.get("version") == VERSION, str(manifest.get("
 check("version:cache", f"briar-crown-v{VERSION}" in sw)
 check("qa:portable-root", "Path(__file__).resolve().parents[1]" in (ROOT / "qa/run_qa.py").read_text())
 check("menu:scene-test-button", 'id="scene-tour-btn"' in index)
-check("map:illustrated-asset", (ROOT / "assets/ui/world-map-v1720.webp").exists())
-check("map:illustrated-renderer", "Illustrated Discovered Map" in index and "world-map-v1720.webp" in index)
+check("map:illustrated-asset", (ROOT / "assets/ui/world-map-v1722.webp").exists())
+check("map:illustrated-renderer", "Illustrated Discovered Map" in index and "world-map-v1722.webp" in index)
 
 # Every local asset referenced by the app exists.
 refs = sorted(set(re.findall(r"assets/(?:scenes|ui)/[A-Za-z0-9._-]+", index)))
@@ -37,7 +37,7 @@ sw_missing = [r for r in sw_refs if r != "./" and not (ROOT / r[2:]).exists()]
 check("service-worker:all-precache-files-exist", not sw_missing, ", ".join(sw_missing))
 
 # Production scene manifest protects the replacement art from fallback/thumbnail regressions.
-prod_path = ROOT / "assets/scenes/production-manifest-v1720.json"
+prod_path = ROOT / "assets/scenes/production-manifest-v1722.json"
 prod = json.loads(prod_path.read_text()) if prod_path.exists() else {"assets": {}}
 check("assets:production-manifest", prod.get("version") == VERSION)
 for name, meta in prod.get("assets", {}).items():
@@ -56,15 +56,16 @@ for name, meta in prod.get("assets", {}).items():
     check(f"asset:{name}:no-flat-letterbox", edge_var[0] > 8 and edge_var[1] > 8, f"{edge_var[0]:.1f}/{edge_var[1]:.1f}")
 
 priority_active = {
-    "forgeLane": "forge-lane-v1720.webp",
-    "chapelRoad": "chapel-road-v1720.webp",
-    "willowTrail": "willow-trail-v1720.webp",
-    "flowerClearing": "flower-clearing-v1720.webp",
-    "fallenLog": "fallen-log-v1720.webp",
-    "cottage": "cottage-interior-v1720.webp",
-    "moonwell": "moonwell-v1720.webp",
-    "secretTunnel": "hidden-passage-v1720.webp",
-    "secretAlcove": "hidden-alcove-v1720.webp",
+    "square": "square-v1722.webp",
+    "forgeLane": "forge-lane-v1722.webp",
+    "chapelRoad": "chapel-road-v1722.webp",
+    "willowTrail": "willow-trail-v1722.webp",
+    "flowerClearing": "flower-clearing-v1722.webp",
+    "fallenLog": "fallen-log-v1722.webp",
+    "cottage": "witch-cottage-interior-v1722.webp",
+    "moonwell": "moonwell-v1722.webp",
+    "secretTunnel": "hidden-passage-v1722.webp",
+    "secretAlcove": "collapsed-alcove-v1722.webp",
 }
 for room_id, filename in priority_active.items():
     check(f"asset-map:{room_id}", f'{room_id}: "assets/scenes/{filename}"' in index)
@@ -72,7 +73,11 @@ for room_id, filename in priority_active.items():
 # Browser-level contracts.
 html = index.replace("<head>", f'<head><base href="file://{ROOT}/">', 1)
 with sync_playwright() as pw:
-    browser = pw.chromium.launch(headless=True, args=["--no-sandbox", "--allow-file-access-from-files"])
+    launch_args = {"headless": True, "args": ["--no-sandbox", "--allow-file-access-from-files"]}
+    system_chromium = shutil.which("chromium") or shutil.which("chromium-browser") or shutil.which("google-chrome")
+    if system_chromium:
+        launch_args["executable_path"] = system_chromium
+    browser = pw.chromium.launch(**launch_args)
     page = browser.new_page(viewport={"width": 430, "height": 932})
     errors = []
     page.on("pageerror", lambda e: errors.append(str(e)))
