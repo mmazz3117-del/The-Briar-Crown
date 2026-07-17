@@ -1,0 +1,14 @@
+The Briar Crown v1.7.2.2 — Clear Scene & Map Rebuild
+
+This build integrates the bright, clear scene direction approved in July 2026.
+
+Highlights
+- New bright 4:3 scene art for the village, shops, forge, chapel route, forest chain, cottage, Moonfen, Moonwell, passages, alcove, and crypt.
+- New high-resolution world map with revised discovered-node coordinates.
+- Directional scenes now use 4:3 framing instead of the previous wide crop that caused close-ups.
+- The extra dark scene filter is disabled for the rebuilt artwork.
+- Visible NPC/item markers keep Merrin, Elowen, the innkeeper, animals, coins, keys, charms, and quest items easy to find and tap.
+- All active scene paths use v1722 filenames to prevent stale PWA caching.
+
+Note
+The tavern directional set, chapel interior, Ironthorn Gate, Moonfen hut exterior, and tavern cellar were carefully upscaled and enhanced from the strongest existing production scenes because a matching final fresh render was not available in the approved art batch. All other active backgrounds use the newly approved scene direction.

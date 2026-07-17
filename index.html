@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-title" content="Briar Crown" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <title>The Briar Crown — Mobile Adventure v1.7.2.1</title>
+  <title>The Briar Crown — Mobile Adventure v1.7.2.2</title>
   <style>
 
     :root {
@@ -129,13 +129,13 @@
       margin: 0;
       overflow: hidden;
       background: #0d0b11;
-      aspect-ratio: 941 / 726;
+      aspect-ratio: 4 / 3;
       min-height: 280px;
       border-bottom: 3px solid #231b17;
       box-shadow: var(--shadow), inset 0 0 0 2px rgba(0,0,0,.32);
     }
     .scene-shell.directional-room {
-      aspect-ratio: 941 / 529;
+      aspect-ratio: 4 / 3;
       min-height: 210px;
     }
     #scene-art, #scene-art svg, #scene-art img { width: 100%; height: 100%; display: block; }
@@ -178,6 +178,13 @@
       box-shadow: 0 4px 13px rgba(0,0,0,.48);
       backdrop-filter: blur(4px);
     }
+
+    .scene-markers { position:absolute; inset:0; z-index:4; pointer-events:none; }
+    .scene-marker { position:absolute; transform:translate(-50%,-50%); min-width:30px; min-height:30px; display:grid; place-items:center; border:2px solid rgba(242,211,124,.92); border-radius:999px; background:rgba(24,17,32,.84); color:#fff2bd; box-shadow:0 3px 10px rgba(0,0,0,.55); font-size:18px; line-height:1; }
+    .scene-marker.npc { min-width:36px; min-height:36px; background:rgba(51,36,70,.9); }
+    .scene-marker.item { animation:markerPulse 1.8s ease-in-out infinite; }
+    @keyframes markerPulse { 0%,100%{box-shadow:0 3px 10px rgba(0,0,0,.55),0 0 0 0 rgba(242,211,124,.18)} 50%{box-shadow:0 3px 10px rgba(0,0,0,.55),0 0 0 8px rgba(242,211,124,0)} }
+    body.effects-off .scene-marker.item { animation:none; }
     .hotspots { position: absolute; inset: 0; pointer-events: none; }
     .hotspot {
       position: absolute;
@@ -223,7 +230,7 @@
     .location-block { display:grid; gap:2px; min-width:0; }
     #world-time { color:#765d3c; font-size:8px; letter-spacing:.04em; white-space:nowrap; }
     .log-scroll-cushion { height:110px; pointer-events:none; }
-    .scene-shell.long-night-filter #scene-art img.scene-image { filter: brightness(.78) saturate(.88) contrast(1.03) hue-rotate(4deg); }
+    .scene-shell.long-night-filter #scene-art img.scene-image { filter: brightness(.98) saturate(.98) contrast(1.01); }
     .scene-shell.long-night-filter::after {
       content:""; position:absolute; inset:0; z-index:3; pointer-events:none;
       background:linear-gradient(180deg,rgba(20,27,58,.14),rgba(7,10,23,.20)); mix-blend-mode:multiply;
@@ -990,11 +997,11 @@
       width: 100%;
       height: auto !important;
       min-height: 0 !important;
-      aspect-ratio: 941 / 726;
+      aspect-ratio: 4 / 3;
       position: relative;
       z-index: 2;
     }
-    .scene-shell.directional-room { aspect-ratio: 941 / 529; }
+    .scene-shell.directional-room { aspect-ratio: 4 / 3; }
     .story-panel {
       grid-row: 3;
       min-height: 0 !important;
@@ -1113,9 +1120,9 @@
     #map-dialog .world-map-card,
     #map-dialog .world-map-svg { touch-action: pan-x pan-y pinch-zoom; }
 
-    /* v1.7.2.1 illustrated map and production route markers */
+    /* v1.7.2.2 illustrated map and production route markers */
     .world-map-card { background:#17121d; padding:8px; overflow:auto; }
-    .world-map-stage { position:relative; width:100%; aspect-ratio:1200/760; overflow:hidden; border-radius:10px; }
+    .world-map-stage { position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; border-radius:10px; }
     .world-map-bg { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; display:block; }
     .world-map-svg { position:absolute; inset:0; width:100%; height:100%; min-width:0; border-radius:10px; }
     .world-map-svg .wm-route { stroke-linecap:round; pointer-events:none; }
@@ -1215,7 +1222,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.7.2.1 • Visual Rebuild & Mockup Match</small>
+        <small id="version-tag">Version 1.7.2.2 • Clear Scene & Map Rebuild</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -1226,7 +1233,7 @@
       <div id="scene-art"></div>
       <div class="scene-nav-overlay" id="scene-nav-overlay" aria-label="Directional controls"></div>
       <div class="scene-label" id="scene-label"></div>
-      <div class="hotspots" id="hotspots"></div><div class="scene-loader" id="scene-loader">Loading scene…</div><div class="scene-transition-note" id="scene-transition-note" hidden></div>
+      <div class="scene-markers" id="scene-markers" aria-hidden="true"></div><div class="hotspots" id="hotspots"></div><div class="scene-loader" id="scene-loader">Loading scene…</div><div class="scene-transition-note" id="scene-transition-note" hidden></div>
     </section>
 
     <section class="story-panel">
@@ -1299,7 +1306,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.7.2.1";
+    const BUILD_VERSION = "1.7.2.2";
 
     const itemInfo = {
       "tarnished locket": "A traveler's locket found behind the tavern hearth. The portrait inside shows a young woman before a crooked woodland cottage.",
@@ -1830,51 +1837,51 @@
     let commandHistoryIndex = 0;
 
     const sceneImageMap = {
-      square: "assets/scenes/square.webp",
-      tavernApproach: "assets/scenes/tavern-approach.webp",
-      tavernDoor: "assets/scenes/tavern-door.webp",
-      apothecaryApproach: "assets/scenes/apothecary-approach-v3.webp",
-      apothecaryDoor: "assets/scenes/apothecary-door.webp",
-      apothecary: "assets/scenes/apothecary-room.webp",
-      apothecaryBackRoom: "assets/scenes/apothecary-east.webp",
-      forgeLane: "assets/scenes/forge-lane-v1721.webp",
-      eastRoad: "assets/scenes/kings-road.webp",
-      forgeDoor: "assets/scenes/forge-door.webp",
-      blacksmith: "assets/scenes/forge.webp",
-      chapelRoad: "assets/scenes/chapel-road-v1721.webp",
-      chapelYard: "assets/scenes/chapel-yard.webp",
-      chapelApproach: "assets/scenes/chapel-approach.webp",
-      oldCemeteryPath: "assets/scenes/old-cemetery.webp",
-      chapel: "assets/scenes/chapel.webp",
-      castleRoad: "assets/scenes/kings-road.webp",
-      tavern: "assets/scenes/tavern.webp",
-      forestEdge: "assets/scenes/forest.webp",
-      willowTrail: "assets/scenes/willow-trail-v1721.webp",
-      flowerClearing: "assets/scenes/flower-clearing-v1721.webp",
-      fallenLog: "assets/scenes/fallen-log-v1721.webp",
-      whisperingForest: "assets/scenes/forest.webp",
-      cottageApproach: "assets/scenes/cottage.webp",
-      cottage: "assets/scenes/cottage-interior-v1721.webp",
-      cellar: "assets/scenes/cottage-cellar.webp",
-      moonfen: "assets/scenes/ferry-landing.webp",
-      hutExterior: "assets/scenes/hut.webp",
-      hutInterior: "assets/scenes/hut-interior.webp",
-      moonwell: "assets/scenes/moonwell-v1721.webp",
-      tavernCellar: "assets/scenes/tavern-cellar-v2.webp",
-      secretTunnel: "assets/scenes/hidden-passage-v1721.webp",
-      secretAlcove: "assets/scenes/hidden-alcove-v1721.webp",
-      crypt: "assets/scenes/crypt.webp",
-      castleGate: "assets/scenes/gate.webp"
+      square: "assets/scenes/square-v1722.webp",
+      tavernApproach: "assets/scenes/tavern-approach-v1722.webp",
+      tavernDoor: "assets/scenes/tavern-door-v1722.webp",
+      apothecaryApproach: "assets/scenes/apothecary-approach-v1722.webp",
+      apothecaryDoor: "assets/scenes/apothecary-door-v1722.webp",
+      apothecary: "assets/scenes/apothecary-center-v1722.webp",
+      apothecaryBackRoom: "assets/scenes/apothecary-back-room-v1722.webp",
+      forgeLane: "assets/scenes/forge-lane-v1722.webp",
+      eastRoad: "assets/scenes/east-road-v1722.webp",
+      forgeDoor: "assets/scenes/forge-door-v1722.webp",
+      blacksmith: "assets/scenes/forge-interior-v1722.webp",
+      chapelRoad: "assets/scenes/chapel-road-v1722.webp",
+      chapelYard: "assets/scenes/chapel-yard-v1722.webp",
+      chapelApproach: "assets/scenes/chapel-approach-v1722.webp",
+      oldCemeteryPath: "assets/scenes/old-cemetery-v1722.webp",
+      chapel: "assets/scenes/chapel-interior-v1722.webp",
+      castleRoad: "assets/scenes/kings-road-v1722.webp",
+      tavern: "assets/scenes/tavern-center-v1722.webp",
+      forestEdge: "assets/scenes/forest-edge-v1722.webp",
+      willowTrail: "assets/scenes/willow-trail-v1722.webp",
+      flowerClearing: "assets/scenes/flower-clearing-v1722.webp",
+      fallenLog: "assets/scenes/fallen-log-v1722.webp",
+      whisperingForest: "assets/scenes/whispering-forest-v1722.webp",
+      cottageApproach: "assets/scenes/witch-cottage-exterior-v1722.webp",
+      cottage: "assets/scenes/witch-cottage-interior-v1722.webp",
+      cellar: "assets/scenes/witch-cottage-cellar-v1722.webp",
+      moonfen: "assets/scenes/moonfen-ferry-landing-v1722.webp",
+      hutExterior: "assets/scenes/moonfen-hut-exterior-v1722.webp",
+      hutInterior: "assets/scenes/moonfen-hut-interior-v1722.webp",
+      moonwell: "assets/scenes/moonwell-v1722.webp",
+      tavernCellar: "assets/scenes/tavern-cellar-v1722.webp",
+      secretTunnel: "assets/scenes/hidden-passage-v1722.webp",
+      secretAlcove: "assets/scenes/collapsed-alcove-v1722.webp",
+      crypt: "assets/scenes/chapel-crypt-v1722.webp",
+      castleGate: "assets/scenes/ironthorn-gate-v1722.webp"
     };
 
     const sceneTourRooms = ["square", "forgeLane", "eastRoad", "forgeDoor", "blacksmith", "chapelRoad", "chapelYard", "chapelApproach", "oldCemeteryPath", "chapel", "castleRoad", "tavernApproach", "tavernDoor", "tavern", "apothecaryApproach", "apothecaryDoor", "apothecary", "apothecaryBackRoom", "forestEdge", "willowTrail", "flowerClearing", "fallenLog", "whisperingForest", "cottageApproach", "cottage", "cellar", "moonfen", "hutExterior", "hutInterior", "moonwell", "tavernCellar", "secretTunnel", "secretAlcove", "crypt", "castleGate"];
 
     const apothecaryViewImages = {
-      center: "assets/scenes/apothecary-room.webp",
-      north: "assets/scenes/apothecary-north.webp",
-      east: "assets/scenes/apothecary-east.webp",
-      west: "assets/scenes/apothecary-west.webp",
-      south: "assets/scenes/apothecary-south.webp"
+      center: "assets/scenes/apothecary-center-v1722.webp",
+      north: "assets/scenes/apothecary-north-v1722.webp",
+      east: "assets/scenes/apothecary-east-v1722.webp",
+      west: "assets/scenes/apothecary-west-v1722.webp",
+      south: "assets/scenes/apothecary-south-v1722.webp"
     };
 
     const apothecaryViewNames = {
@@ -1936,11 +1943,11 @@
     };
 
     const tavernViewImages = {
-      center: "assets/scenes/tavern.webp",
-      north: "assets/scenes/tavern-north.webp",
-      east: "assets/scenes/tavern-east.webp",
-      west: "assets/scenes/tavern-west.webp",
-      south: "assets/scenes/tavern-south.webp"
+      center: "assets/scenes/tavern-center-v1722.webp",
+      north: "assets/scenes/tavern-north-v1722.webp",
+      east: "assets/scenes/tavern-east-v1722.webp",
+      west: "assets/scenes/tavern-west-v1722.webp",
+      south: "assets/scenes/tavern-south-v1722.webp"
     };
     const tavernViewNames = { center:"Common Room", north:"Bar & Innkeeper", east:"Stairs & Cellar", west:"Hearth", south:"Entrance" };
     const tavernViewDescriptions = {
@@ -2331,6 +2338,7 @@
     const actionsToggleEl = document.getElementById("actions-toggle");
     const sceneNavOverlayEl = document.getElementById("scene-nav-overlay");
     const hotspotsEl = document.getElementById("hotspots");
+    const sceneMarkersEl = document.getElementById("scene-markers");
     const sceneLoaderEl = document.getElementById("scene-loader");
     let sceneRenderToken = 0;
     let transitionLocked = false;
@@ -3141,11 +3149,11 @@
     }
 
     const worldMapNodes = [
-      ["crypt",105,470,"Crypt"],["oldCemeteryPath",155,425,"Old Cemetery"],["chapel",135,390,"Saint Orla"],["chapelApproach",185,410,"Chapel Door"],["chapelYard",225,425,"Chapel Yard"],["chapelRoad",310,390,"Chapel Road"],
-      ["square",455,305,"Willowmere"],["tavernApproach",360,430,"Tavern Road"],["tavern",315,560,"Briar Lantern"],["tavernCellar",365,605,"Tavern Cellar"],["secretTunnel",455,640,"Hidden Passage"],["secretAlcove",535,665,"Collapsed Alcove"],
-      ["forgeLane",600,545,"Forge Lane"],["forgeDoor",630,515,"Forge Door"],["blacksmith",675,535,"Merrin's Forge"],["eastRoad",700,430,"East Road"],["forestEdge",785,365,"Whispering Path"],["willowTrail",850,320,"Willow Trail"],["flowerClearing",920,295,"Flower Clearing"],["fallenLog",985,335,"Log Crossing"],["whisperingForest",1030,365,"Deep Forest"],
-      ["cottageApproach",1000,245,"Witch's Cottage"],["cottage",1035,220,"Cottage Interior"],["cellar",1080,270,"Cottage Cellar"],["moonwell",1045,435,"Moonwell"],["moonfen",970,635,"Ferry Landing"],["hutExterior",1070,580,"Across Moonfen"],["hutInterior",1115,620,"Moonfen Hut"],
-      ["castleRoad",290,210,"King's Road"],["castleGate",620,110,"Ironthorn Gate"]
+      ["crypt",150,600,"Crypt"],["oldCemeteryPath",185,560,"Old Cemetery"],["chapel",160,510,"Saint Orla"],["chapelApproach",205,530,"Chapel Door"],["chapelYard",250,555,"Chapel Yard"],["chapelRoad",330,510,"Chapel Road"],
+      ["square",610,440,"Willowmere"],["tavernApproach",430,620,"Tavern Road"],["tavern",320,820,"Briar Lantern"],["tavernCellar",350,870,"Tavern Cellar"],["secretTunnel",445,910,"Hidden Passage"],["secretAlcove",520,940,"Collapsed Alcove"],
+      ["forgeLane",700,705,"Forge Lane"],["forgeDoor",675,770,"Forge Door"],["blacksmith",720,805,"Merrin's Forge"],["eastRoad",795,590,"East Road"],["forestEdge",875,510,"Forest Edge"],["willowTrail",955,455,"Willow Trail"],["flowerClearing",1040,430,"Flower Clearing"],["fallenLog",1100,470,"Log Crossing"],["whisperingForest",1125,520,"Deep Forest"],
+      ["cottageApproach",1150,300,"Witch's Cottage"],["cottage",1175,330,"Cottage Interior"],["cellar",1205,365,"Cottage Cellar"],["moonwell",1260,590,"Moonwell"],["moonfen",1195,920,"Ferry Landing"],["hutExterior",1260,790,"Across Moonfen"],["hutInterior",1300,830,"Moonfen Hut"],
+      ["castleRoad",385,270,"King's Road"],["castleGate",730,150,"Ironthorn Gate"]
     ];
     const worldMapEdges = [
       ["oldCemeteryPath","chapelYard"],["chapelYard","chapelRoad"],["chapelRoad","square"],["chapelYard","chapelApproach"],["chapelApproach","chapel"],["chapel","crypt"],
@@ -3172,7 +3180,7 @@
         const safeLabel=escapeHtml(known?label:"Unknown");
         return `<g class="map-node-g ${current?"wm-current":""} ${known?"wm-known":"wm-unknown"} ${canTravel?"wm-travel":""}" ${canTravel?`data-travel="${id}"`:""} transform="translate(${x} ${y})"><circle r="${current?15:12}" class="wm-dot"/><rect x="-58" y="18" width="116" height="28" rx="10" class="wm-label-bg"/><text y="37" class="wm-t">${safeLabel}</text></g>`;
       }).join("");
-      return `<h3>Illustrated Discovered Map</h3><div class="world-map-card"><div class="world-map-stage"><img class="world-map-bg" src="assets/ui/world-map-v1721.webp" alt="Hand-painted fantasy map of Willowmere, Forge Lane, Saint Orla's Chapel, Moonfen, Moonwell, the Witch's Cottage, and Ironthorn Gate"><svg class="world-map-svg" viewBox="0 0 1200 760" role="img" aria-label="Discovered locations and travel routes">${edgesSvg}${nodesSvg}</svg></div><p class="map-legend">Gold markers are explored. Faded markers are nearby but undiscovered. Tap any explored outdoor landmark to retrace familiar roads.</p></div>`;
+      return `<h3>Illustrated Discovered Map</h3><div class="world-map-card"><div class="world-map-stage"><img class="world-map-bg" src="assets/ui/world-map-v1722.webp" alt="Hand-painted fantasy map of Willowmere, Forge Lane, Saint Orla's Chapel, Moonfen, Moonwell, the Witch's Cottage, and Ironthorn Gate"><svg class="world-map-svg" viewBox="0 0 1448 1086" role="img" aria-label="Discovered locations and travel routes">${edgesSvg}${nodesSvg}</svg></div><p class="map-legend">Gold markers are explored. Faded markers are nearby but undiscovered. Tap any explored outdoor landmark to retrace familiar roads.</p></div>`;
     }
 
     async function fastTravel(id){
@@ -4248,8 +4256,33 @@
       return spots;
     }
 
+
+    function markerInfo(h) {
+      const label=(h.label||"").toLowerCase();
+      const hiddenByState =
+        (label.includes("dropped coins") && state.flags.forgeCoinsTaken) ||
+        (label.includes("pilgrim charm") && state.flags.pilgrimCharmTaken) ||
+        (label.includes("river charm") && state.flags.riverCharmTaken) ||
+        (label.includes("courier seal") && state.flags.courierSealTaken) ||
+        (label.includes("fairy coin") && state.flags.coinTaken) ||
+        (label.includes("silver key") && state.flags.keyTaken) ||
+        (label === "lantern" && state.flags.lanternTaken) ||
+        (label.includes("ferry crank") && state.flags.ferryCrankTaken) ||
+        (label.includes("moonwort") && has("moonwort"));
+      if (hiddenByState) return null;
+      const icons=[
+        [/elowen|apothecary/,"🧙‍♀️","npc"],[/merrin|blacksmith/,"🔨","npc"],[/innkeeper/,"🧔","npc"],[/travelers/,"👥","npc"],
+        [/young deer/,"🦌","npc"],[/owl/,"🦉","npc"],[/rabbit/,"🐇","npc"],[/fairy cage/,state.flags.fairyFreed?"🧚":"🧚‍♀️","npc"],
+        [/dropped coins|fairy coin|coins/,"🪙","item"],[/silver key/,"🗝️","item"],[/lantern/,"🏮","item"],[/ferry crank/,"⚙️","item"],
+        [/moonwort|bluebells|reeds/,"🌿","item"],[/pilgrim charm|river charm|courier seal/,"💠","item"]
+      ];
+      for (const [re,icon,kind] of icons) if (re.test(label)) return {icon,kind};
+      return null;
+    }
+
     function renderHotspots() {
       hotspotsEl.innerHTML = "";
+      if (sceneMarkersEl) sceneMarkersEl.innerHTML = "";
       currentHotspots().forEach(h => {
         const btn = document.createElement("button");
         btn.className = "hotspot";
@@ -4277,6 +4310,14 @@
           if (navigator.vibrate) navigator.vibrate(12);
         });
         hotspotsEl.appendChild(btn);
+        const marker = markerInfo(h);
+        if (marker && sceneMarkersEl) {
+          const badge=document.createElement("span");
+          badge.className=`scene-marker ${marker.kind}`;
+          badge.textContent=marker.icon;
+          badge.style.left=`${h.x}%`; badge.style.top=`${h.y}%`;
+          sceneMarkersEl.appendChild(badge);
+        }
       });
     }
 
@@ -4299,16 +4340,16 @@
       const shell = document.querySelector(".scene-shell");
       const config = directionalConfig();
       shell.classList.toggle("directional-room", !!config);
-      const longNightArtworkRooms = new Set(["square","forgeLane","eastRoad","forgeDoor","apothecaryApproach","apothecaryDoor","willowTrail","flowerClearing","fallenLog","cottageApproach"]);
+      const longNightArtworkRooms = new Set([]);
       shell.classList.toggle("long-night-filter", longNightArtworkRooms.has(state.room));
       let imagePath = config ? (config.images[currentView()] || config.images.center) : sceneImageMap[state.room];
       if (state.room === "tavernCellar" && state.flags.cellarPassageRevealed) {
-        imagePath = "assets/scenes/tavern-cellar-passage.webp";
+        imagePath = "assets/scenes/tavern-cellar-passage-v1722.webp";
       }
       if (state.room === "secretAlcove") {
         imagePath = state.flags.tunnelCoinsFound && !state.flags.tunnelCoinsTaken
-          ? "assets/scenes/hidden-alcove-coins-v1721.webp"
-          : "assets/scenes/hidden-alcove-v1721.webp";
+          ? "assets/scenes/collapsed-alcove-open-v1722.webp"
+          : "assets/scenes/collapsed-alcove-v1722.webp";
       }
       const token = ++sceneRenderToken;
       if (!imagePath) {
@@ -4375,8 +4416,8 @@
 
     function preloadImportantScenes() {
       const paths = new Set(Object.values(sceneImageMap));
-      paths.add("assets/scenes/tavern-cellar-passage.webp");
-      paths.add("assets/scenes/hidden-alcove-coins-v1721.webp");
+      paths.add("assets/scenes/tavern-cellar-passage-v1722.webp");
+      paths.add("assets/scenes/collapsed-alcove-open-v1722.webp");
       Object.values(directionalRooms).forEach(config=>Object.values(config.images).forEach(path=>paths.add(path)));
       paths.forEach(path=>preloadScene(path).catch(()=>{}));
     }
@@ -4734,7 +4775,7 @@
     function boot() {
       updateMusicButton();
       const vt = document.getElementById("version-tag");
-      if (vt) vt.textContent = `Version ${BUILD_VERSION} • World Route Rebuild`;
+      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Clear Scene & Map Rebuild`;
       const saved = storageGet(SAVE_KEY);
       if (saved) {
         try { state = JSON.parse(saved); migrateState(); restoreDynamicExits(); }

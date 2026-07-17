@@ -1,0 +1,3 @@
+Retired after v1.7.2.2 is verified
+
+The complete FULL package contains only active v1722 scene files in assets/scenes. If using the UPDATE ONLY package, do not delete old files until the new version has loaded correctly. After verification, older scene artwork without -v1722 in its filename may be removed. Keep assets/ui/satchel.png, icons, fonts, audio, and non-scene data files.

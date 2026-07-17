@@ -1,0 +1,51 @@
+THE BRIAR CROWN v1.7.2.2 — ACTIVE SCENE MAPPING
+
+Willowmere / Shops / Forge
+square -> assets/scenes/square-v1722.webp
+tavernApproach -> assets/scenes/tavern-approach-v1722.webp
+tavernDoor -> assets/scenes/tavern-door-v1722.webp
+tavern center -> assets/scenes/tavern-center-v1722.webp
+tavern north/east/west/south -> assets/scenes/tavern-*-v1722.webp
+apothecaryApproach -> assets/scenes/apothecary-approach-v1722.webp
+apothecaryDoor -> assets/scenes/apothecary-door-v1722.webp
+apothecary center/north/east/west/south -> assets/scenes/apothecary-*-v1722.webp
+apothecaryBackRoom -> assets/scenes/apothecary-back-room-v1722.webp
+forgeLane -> assets/scenes/forge-lane-v1722.webp
+eastRoad -> assets/scenes/east-road-v1722.webp
+forgeDoor -> assets/scenes/forge-door-v1722.webp
+blacksmith -> assets/scenes/forge-interior-v1722.webp
+
+Chapel / Castle
+chapelRoad -> assets/scenes/chapel-road-v1722.webp
+chapelYard -> assets/scenes/chapel-yard-v1722.webp
+chapelApproach -> assets/scenes/chapel-approach-v1722.webp
+oldCemeteryPath -> assets/scenes/old-cemetery-v1722.webp
+chapel -> assets/scenes/chapel-interior-v1722.webp
+crypt -> assets/scenes/chapel-crypt-v1722.webp
+castleRoad -> assets/scenes/kings-road-v1722.webp
+castleGate -> assets/scenes/ironthorn-gate-v1722.webp
+
+Forest / Cottage
+forestEdge -> assets/scenes/forest-edge-v1722.webp
+willowTrail -> assets/scenes/willow-trail-v1722.webp
+flowerClearing -> assets/scenes/flower-clearing-v1722.webp
+fallenLog -> assets/scenes/fallen-log-v1722.webp
+whisperingForest -> assets/scenes/whispering-forest-v1722.webp
+cottageApproach -> assets/scenes/witch-cottage-exterior-v1722.webp
+cottage -> assets/scenes/witch-cottage-interior-v1722.webp
+cellar -> assets/scenes/witch-cottage-cellar-v1722.webp
+
+Moonfen / Moonwell
+moonfen -> assets/scenes/moonfen-ferry-landing-v1722.webp
+hutExterior -> assets/scenes/moonfen-hut-exterior-v1722.webp
+hutInterior -> assets/scenes/moonfen-hut-interior-v1722.webp
+moonwell -> assets/scenes/moonwell-v1722.webp
+
+Underground
+tavernCellar -> assets/scenes/tavern-cellar-v1722.webp
+tavernCellar passage state -> assets/scenes/tavern-cellar-passage-v1722.webp
+secretTunnel -> assets/scenes/hidden-passage-v1722.webp
+secretAlcove -> assets/scenes/collapsed-alcove-v1722.webp
+secretAlcove coins visible -> assets/scenes/collapsed-alcove-open-v1722.webp
+
+World map -> assets/ui/world-map-v1722.webp
