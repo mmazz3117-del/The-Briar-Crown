@@ -1,0 +1,9 @@
+The Briar Crown v1.7.2.5 — Mobile Commands & Status Readability
+
+Changes
+- Bounded the mobile story panel and enabled internal narrative scrolling so action controls appear much sooner.
+- Automatically brings the action controls into view after tapping a visible person, object, or entrance.
+- Enlarged the scene name, time/day, health, and gold indicators for phone readability.
+- Kept the Skills control compact enough to preserve one-row status layout.
+- Realigned and enlarged the Apothecary Door hotspot over the visible open entrance.
+- Preserved v1.7.2.4 artwork, map, routes, saved progress, and performance optimizations.

@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-title" content="Briar Crown" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <title>The Briar Crown — Mobile Adventure v1.7.2.4</title>
+  <title>The Briar Crown — Mobile Adventure v1.7.2.5</title>
   <style>
 
     :root {
@@ -1224,6 +1224,96 @@
     .world-map-svg .wm-you-label { fill:#fff4ba; font-size:12px; text-anchor:middle; font-family:Georgia,serif; font-weight:800; }
     .scene-grid img { loading:lazy; }
 
+
+    /* v1.7.2.5 mobile commands and status readability */
+    @media (max-width: 470px) {
+      /* Fill the iPhone viewport while keeping commands permanently reachable. */
+      html, body {
+        height: var(--app-height, 100dvh) !important;
+        min-height: var(--app-height, 100dvh) !important;
+        max-height: var(--app-height, 100dvh) !important;
+        overflow: hidden !important;
+      }
+      body { position: fixed !important; inset: 0 !important; }
+      .app {
+        height: var(--app-height, 100dvh) !important;
+        min-height: var(--app-height, 100dvh) !important;
+        max-height: var(--app-height, 100dvh) !important;
+        grid-template-rows: auto auto minmax(0, 1fr) auto !important;
+        overflow: hidden !important;
+        align-content: stretch !important;
+      }
+      /* The story occupies only the remaining middle space and scrolls internally. */
+      .story-panel {
+        min-height: 0 !important;
+        height: auto !important;
+        max-height: none !important;
+        align-self: stretch !important;
+        flex: none !important;
+      }
+      #log {
+        min-height: 0 !important;
+        height: 100% !important;
+        max-height: none !important;
+        overflow-y: auto !important;
+        padding: 12px 14px 16px !important;
+        scroll-padding-bottom: 18px;
+      }
+      .controls {
+        margin-top: 5px !important;
+        max-height: 40dvh !important;
+        overflow: hidden !important;
+        flex: 0 0 auto !important;
+      }
+      .quick-row {
+        min-height: 0 !important;
+        overflow-y: auto !important;
+      }
+
+      /* Larger, higher-contrast scene/time and resource indicators. */
+      .status-strip {
+        grid-template-columns: minmax(92px, 1fr) minmax(112px, 128px) auto auto !important;
+        gap: 5px !important;
+        min-height: 58px !important;
+        padding: 7px 8px !important;
+      }
+      #location-name {
+        font-size: 12px !important;
+        line-height: 1.08 !important;
+        max-height: 2.25em !important;
+        font-weight: 800 !important;
+      }
+      #world-time {
+        font-size: 9.5px !important;
+        line-height: 1.15 !important;
+        font-weight: 600 !important;
+        letter-spacing: .025em !important;
+      }
+      .skills-launch {
+        min-height: 38px !important;
+        padding: 4px 7px 4px 5px !important;
+        gap: 5px !important;
+      }
+      .skills-launch .skills-icon { width: 27px !important; height: 27px !important; }
+      .skills-launch .skills-copy strong { font-size: 11px !important; }
+      .skills-launch .skills-copy small { font-size: 9.5px !important; }
+      .status-pill {
+        min-height: 36px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 5px 8px !important;
+        font-size: 12px !important;
+        line-height: 1 !important;
+      }
+      .health-pill { min-width: 68px !important; }
+      .gold-pill { min-width: 58px !important; }
+      .gold-coin-icon { width: 20px !important; height: 20px !important; margin-right: 6px !important; }
+
+      /* Keep revealed entrance labels centered on their actual tap area. */
+      .hotspot.revealed::after { max-width: 150px; font-size: 11px; }
+    }
+
   </style>
 </head>
 <body>
@@ -1251,7 +1341,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.7.2.4 • Mobile Performance, Map & Exploration Fix</small>
+        <small id="version-tag">Version 1.7.2.5 • Mobile Commands & Status Readability</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -1335,7 +1425,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.7.2.4";
+    const BUILD_VERSION = "1.7.2.5";
 
     const itemInfo = {
       "tarnished locket": "A traveler's locket found behind the tavern hearth. The portrait inside shows a young woman before a crooked woodland cottage.",
@@ -1404,7 +1494,7 @@
         exits: { west: "square", east: "apothecaryDoor" },
         actions: ["walk to apothecary door", "go east", "go west"],
         hotspots: [
-          { label: "Apothecary Door", command: "walk to apothecary door", x: 79, y: 48, w: 28, h: 50 },
+          { label: "Apothecary Door", command: "walk to apothecary door", x: 67, y: 47, w: 34, h: 52 },
           { label: "Square", command: "go west", x: 30, y: 80, w: 34, h: 22 }
         ]
       },
@@ -4400,6 +4490,10 @@
           clearTimeout(hideTimer);
           hideTimer = setTimeout(() => btn.classList.remove("revealed"), 2800);
           renderQuickActions();
+          window.setTimeout(() => {
+            const controls = document.querySelector(".controls");
+            if (controls) controls.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          }, 40);
           if (navigator.vibrate) navigator.vibrate(12);
         });
         hotspotsEl.appendChild(btn);
@@ -4861,7 +4955,7 @@
     function boot() {
       updateMusicButton();
       const vt = document.getElementById("version-tag");
-      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Mobile Performance, Map & Exploration Fix`;
+      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Mobile Commands & Status Readability`;
       const saved = storageGet(SAVE_KEY);
       if (saved) {
         try { state = JSON.parse(saved); migrateState(); restoreDynamicExits(); }

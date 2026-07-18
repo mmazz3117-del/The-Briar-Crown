@@ -1,0 +1,30 @@
+THE BRIAR CROWN v1.7.2.5 — GITHUB DESKTOP UPDATE INSTRUCTIONS
+
+Package to use:
+The_Briar_Crown_v1_7_2_5_Mobile_Commands_and_Status_Readability_UPDATE_ONLY
+
+1. Extract the ZIP completely.
+2. In GitHub Desktop choose Repository > Show in Explorer.
+3. Copy everything INSIDE the extracted update folder into the main cloned The-Briar-Crown repository folder.
+4. Choose Replace files in the destination and Merge folders when prompted.
+5. Return to GitHub Desktop.
+6. Commit message: The Briar Crown v1.7.2.5 mobile commands and status readability
+7. Click Commit to main, then Push origin.
+
+FILES CHANGED
+Main repository directory:
+- index.html
+- manifest.json
+- service-worker.js
+- RELEASE_NOTES_v1.7.2.5.txt
+- GITHUB_UPLOAD_INSTRUCTIONS_v1.7.2.5.txt
+- QA_REPORT_v1.7.2.5.txt (generated/updated after QA)
+
+qa folder:
+- qa/run_qa.py
+- qa/contracts.json
+
+.github/workflows folder:
+- .github/workflows/briar-crown-qa.yml
+
+No scene artwork needs to be uploaded for this update. Keep all active v1724 images.
