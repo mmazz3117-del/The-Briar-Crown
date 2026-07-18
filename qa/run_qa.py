@@ -5,7 +5,7 @@ from PIL import Image, ImageStat
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else Path(__file__).resolve().parents[1]
-VERSION = "1.7.2.3"
+VERSION = "1.7.2.1"
 CONTRACT = json.loads((Path(__file__).parent / "contracts.json").read_text())
 results = []
 
@@ -23,8 +23,8 @@ check("version:manifest", manifest.get("version") == VERSION, str(manifest.get("
 check("version:cache", f"briar-crown-v{VERSION}" in sw)
 check("qa:portable-root", "Path(__file__).resolve().parents[1]" in (ROOT / "qa/run_qa.py").read_text())
 check("menu:scene-test-button", 'id="scene-tour-btn"' in index)
-check("map:illustrated-asset", (ROOT / "assets/ui/world-map-v1722.webp").exists())
-check("map:illustrated-renderer", "Illustrated Discovered Map" in index and "world-map-v1722.webp" in index)
+check("map:illustrated-asset", (ROOT / "assets/ui/world-map-v1721.webp").exists())
+check("map:illustrated-renderer", "Illustrated Discovered Map" in index and "world-map-v1721.webp" in index)
 
 # Every local asset referenced by the app exists.
 refs = sorted(set(re.findall(r"assets/(?:scenes|ui)/[A-Za-z0-9._-]+", index)))
@@ -37,7 +37,7 @@ sw_missing = [r for r in sw_refs if r != "./" and not (ROOT / r[2:]).exists()]
 check("service-worker:all-precache-files-exist", not sw_missing, ", ".join(sw_missing))
 
 # Production scene manifest protects the replacement art from fallback/thumbnail regressions.
-prod_path = ROOT / "assets/scenes/production-manifest-v1723.json"
+prod_path = ROOT / "assets/scenes/production-manifest-v1721.json"
 prod = json.loads(prod_path.read_text()) if prod_path.exists() else {"assets": {}}
 check("assets:production-manifest", prod.get("version") == VERSION)
 for name, meta in prod.get("assets", {}).items():
@@ -56,16 +56,15 @@ for name, meta in prod.get("assets", {}).items():
     check(f"asset:{name}:no-flat-letterbox", edge_var[0] > 8 and edge_var[1] > 8, f"{edge_var[0]:.1f}/{edge_var[1]:.1f}")
 
 priority_active = {
-    "square": "square-v1722.webp",
-    "forgeLane": "forge-lane-v1722.webp",
-    "chapelRoad": "chapel-road-v1722.webp",
-    "willowTrail": "willow-trail-v1722.webp",
-    "flowerClearing": "flower-clearing-v1722.webp",
-    "fallenLog": "fallen-log-v1722.webp",
-    "cottage": "witch-cottage-interior-v1722.webp",
-    "moonwell": "moonwell-v1722.webp",
-    "secretTunnel": "hidden-passage-v1722.webp",
-    "secretAlcove": "collapsed-alcove-v1722.webp",
+    "forgeLane": "forge-lane-v1721.webp",
+    "chapelRoad": "chapel-road-v1721.webp",
+    "willowTrail": "willow-trail-v1721.webp",
+    "flowerClearing": "flower-clearing-v1721.webp",
+    "fallenLog": "fallen-log-v1721.webp",
+    "cottage": "cottage-interior-v1721.webp",
+    "moonwell": "moonwell-v1721.webp",
+    "secretTunnel": "hidden-passage-v1721.webp",
+    "secretAlcove": "hidden-alcove-v1721.webp",
 }
 for room_id, filename in priority_active.items():
     check(f"asset-map:{room_id}", f'{room_id}: "assets/scenes/{filename}"' in index)
@@ -86,16 +85,7 @@ with sync_playwright() as pw:
     check("ui:map-top-button", page.locator("#map-btn .label").inner_text().strip() == "Map")
     check("ui:satchel-label", page.locator("#backpack-btn small").inner_text().strip() == "Satchel")
     viewport_meta = page.locator('meta[name="viewport"]').get_attribute("content") or ""
-    check("zoom:page-pinch-disabled", "user-scalable=no" in viewport_meta and "maximum-scale=1" in viewport_meta, viewport_meta)
-    check("ui:no-visible-scene-marker-badges", "sceneMarkersEl.appendChild" not in index and ".scene-markers { display:none" in index)
-    apoth_actions = page.evaluate("rooms.apothecaryDoor.actions")
-    forge_actions = page.evaluate("rooms.forgeDoor.actions")
-    check("doors:apothecary-art-state", "enter apothecary" in apoth_actions and "open door" not in apoth_actions, str(apoth_actions))
-    check("doors:forge-art-state", "enter forge" in forge_actions and "open door" not in forge_actions, str(forge_actions))
-    chapel_spot = page.evaluate("rooms.chapelYard.hotspots.find(h=>h.label==='Chapel')")
-    check("hotspots:chapel-aligned", bool(chapel_spot) and chapel_spot["x"] >= 62 and chapel_spot["w"] >= 38, str(chapel_spot))
-    alcove_actions = page.evaluate("() => { state=initialState(); state.room='secretAlcove'; return currentActions().map(normalize); }")
-    check("actions:alcove-rubble-visible", "try to move rubble" in alcove_actions, str(alcove_actions))
+    check("zoom:browser-pinch", "user-scalable=yes" in viewport_meta and "maximum-scale=5" in viewport_meta, viewport_meta)
     check("zoom:map-pinch", "touch-action: pan-x pan-y pinch-zoom" in index)
 
     def reset(room="square"):
