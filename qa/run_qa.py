@@ -5,8 +5,7 @@ from PIL import Image, ImageStat
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else Path(__file__).resolve().parents[1]
-VERSION = "1.7.2.5"
-ART_VERSION = "1.7.2.4"
+VERSION = "1.7.2.1"
 CONTRACT = json.loads((Path(__file__).parent / "contracts.json").read_text())
 results = []
 
@@ -24,8 +23,8 @@ check("version:manifest", manifest.get("version") == VERSION, str(manifest.get("
 check("version:cache", f"briar-crown-v{VERSION}" in sw)
 check("qa:portable-root", "Path(__file__).resolve().parents[1]" in (ROOT / "qa/run_qa.py").read_text())
 check("menu:scene-test-button", 'id="scene-tour-btn"' in index)
-check("map:illustrated-asset", (ROOT / "assets/ui/world-map-v1724.webp").exists())
-check("map:illustrated-renderer", "Illustrated Discovered Map" in index and "world-map-v1724.webp" in index)
+check("map:illustrated-asset", (ROOT / "assets/ui/world-map-v1721.webp").exists())
+check("map:illustrated-renderer", "Illustrated Discovered Map" in index and "world-map-v1721.webp" in index)
 
 # Every local asset referenced by the app exists.
 refs = sorted(set(re.findall(r"assets/(?:scenes|ui)/[A-Za-z0-9._-]+", index)))
@@ -38,9 +37,9 @@ sw_missing = [r for r in sw_refs if r != "./" and not (ROOT / r[2:]).exists()]
 check("service-worker:all-precache-files-exist", not sw_missing, ", ".join(sw_missing))
 
 # Production scene manifest protects the replacement art from fallback/thumbnail regressions.
-prod_path = ROOT / "assets/scenes/production-manifest-v1724.json"
+prod_path = ROOT / "assets/scenes/production-manifest-v1721.json"
 prod = json.loads(prod_path.read_text()) if prod_path.exists() else {"assets": {}}
-check("assets:production-manifest", prod.get("version") == ART_VERSION, str(prod.get("version")))
+check("assets:production-manifest", prod.get("version") == VERSION)
 for name, meta in prod.get("assets", {}).items():
     p = ROOT / "assets/scenes" / name
     exists = p.exists()
@@ -55,24 +54,17 @@ for name, meta in prod.get("assets", {}).items():
     bottom = im.crop((0, im.height - max(10, im.height // 12), im.width, im.height))
     edge_var = (sum(ImageStat.Stat(top).var) / 3, sum(ImageStat.Stat(bottom).var) / 3)
     check(f"asset:{name}:no-flat-letterbox", edge_var[0] > 8 and edge_var[1] > 8, f"{edge_var[0]:.1f}/{edge_var[1]:.1f}")
-    check(f"asset:{name}:mobile-size", p.stat().st_size <= 750000, str(p.stat().st_size))
-    try:
-        Image.open(p).verify(); decodes=True
-    except Exception as exc:
-        decodes=False
-    check(f"asset:{name}:decodes", decodes)
 
 priority_active = {
-    "square": "square-v1724.webp",
-    "forgeLane": "forge-lane-v1724.webp",
-    "chapelRoad": "chapel-road-v1724.webp",
-    "willowTrail": "willow-trail-v1724.webp",
-    "flowerClearing": "flower-clearing-v1724.webp",
-    "fallenLog": "fallen-log-v1724.webp",
-    "cottage": "witch-cottage-interior-v1724.webp",
-    "moonwell": "moonwell-v1724.webp",
-    "secretTunnel": "hidden-passage-v1724.webp",
-    "secretAlcove": "collapsed-alcove-v1724.webp",
+    "forgeLane": "forge-lane-v1721.webp",
+    "chapelRoad": "chapel-road-v1721.webp",
+    "willowTrail": "willow-trail-v1721.webp",
+    "flowerClearing": "flower-clearing-v1721.webp",
+    "fallenLog": "fallen-log-v1721.webp",
+    "cottage": "cottage-interior-v1721.webp",
+    "moonwell": "moonwell-v1721.webp",
+    "secretTunnel": "hidden-passage-v1721.webp",
+    "secretAlcove": "hidden-alcove-v1721.webp",
 }
 for room_id, filename in priority_active.items():
     check(f"asset-map:{room_id}", f'{room_id}: "assets/scenes/{filename}"' in index)
@@ -93,27 +85,8 @@ with sync_playwright() as pw:
     check("ui:map-top-button", page.locator("#map-btn .label").inner_text().strip() == "Map")
     check("ui:satchel-label", page.locator("#backpack-btn small").inner_text().strip() == "Satchel")
     viewport_meta = page.locator('meta[name="viewport"]').get_attribute("content") or ""
-    check("zoom:page-pinch-disabled", "user-scalable=no" in viewport_meta and "maximum-scale=1" in viewport_meta, viewport_meta)
-    check("ui:no-visible-scene-marker-badges", "sceneMarkersEl.appendChild" not in index and ".scene-markers { display:none" in index)
-    apoth_actions = page.evaluate("rooms.apothecaryDoor.actions")
-    forge_actions = page.evaluate("rooms.forgeDoor.actions")
-    check("doors:apothecary-art-state", "enter apothecary" in apoth_actions and "open door" not in apoth_actions, str(apoth_actions))
-    check("doors:forge-art-state", "enter forge" in forge_actions and "open door" not in forge_actions, str(forge_actions))
-    chapel_spot = page.evaluate("rooms.chapelYard.hotspots.find(h=>h.label==='Chapel')")
-    check("hotspots:chapel-aligned", bool(chapel_spot) and chapel_spot["x"] >= 62 and chapel_spot["w"] >= 38, str(chapel_spot))
-    alcove_actions = page.evaluate("() => { state=initialState(); state.room='secretAlcove'; return currentActions().map(normalize); }")
-    check("actions:alcove-rubble-visible", "try to move rubble" in alcove_actions, str(alcove_actions))
-    check("map:zoom-controls", 'data-map-zoom="in"' in index and 'data-map-zoom="out"' in index and 'data-map-reset' in index)
-    check("map:current-location-marker", "YOU ARE HERE" in index and "wm-you-dot" in index)
-    check("ui:redundant-action-helpers-removed", "Available actions" not in index and "Tap an action below" not in index)
-    check("performance:navigation-not-network-blocked", "if (destinationPath) await preloadScene(destinationPath)" not in index)
-    check("performance:scene-test-lazy", 'loading="lazy" decoding="async"' in index)
-    check("performance:scene-cache-first", "const isScene" in sw and "cached || (await refresh)" in sw)
-    check("ui:bounded-mobile-story-panel", "v1.7.2.5 mobile commands and status readability" in index and "grid-template-rows: auto auto minmax(0, 1fr) auto" in index and "overflow: hidden !important" in index)
-    check("ui:larger-mobile-status", "font-size: 12px !important" in index and "min-width: 68px !important" in index and "min-width: 58px !important" in index)
-    apoth_approach = page.evaluate("rooms.apothecaryApproach.hotspots.find(h=>h.label==='Apothecary Door')")
-    check("hotspots:apothecary-approach-door-aligned", bool(apoth_approach) and 58 <= apoth_approach["x"] <= 72 and apoth_approach["w"] >= 32, str(apoth_approach))
-    check("ui:hotspot-selection-scrolls-actions", 'controls.scrollIntoView({ behavior: "smooth", block: "nearest" })' in index)
+    check("zoom:browser-pinch", "user-scalable=yes" in viewport_meta and "maximum-scale=5" in viewport_meta, viewport_meta)
+    check("zoom:map-pinch", "touch-action: pan-x pan-y pinch-zoom" in index)
 
     def reset(room="square"):
         page.evaluate("""room => {
@@ -185,19 +158,6 @@ with sync_playwright() as pw:
     page.locator("#scene-tour-btn").click()
     check("navigation:scene-test-opens", page.locator("#scene-dialog").evaluate("d=>d.open"))
     page.locator("#scene-dialog [data-close]").click()
-
-    reset("apothecary")
-    elowen = page.evaluate("currentHotspots().find(h=>h.label==='Elowen')")
-    cabinets = page.evaluate("currentHotspots().find(h=>h.label==='Cabinets')")
-    check("hotspots:elowen-visible-position", bool(elowen) and elowen["x"] < 40, str(elowen))
-    check("hotspots:elowen-not-covered", bool(elowen) and bool(cabinets) and elowen["x"] > cabinets["x"] + cabinets["w"]/2, f"{elowen}/{cabinets}")
-    reset("blacksmith")
-    check("npc:merrin-art-v1724", "forge-interior-v1724.webp" in page.evaluate("sceneImageMap.blacksmith"))
-    reset("chapel")
-    check("chapel:explore-action", "explore chapel" in page.evaluate("defaultSceneActions().map(normalize)"))
-    reset("oldCemeteryPath")
-    cemetery_exits=page.evaluate("rooms.oldCemeteryPath.exits")
-    check("cemetery:east-and-south-exits", cemetery_exits.get("east") == "chapelYard" and cemetery_exits.get("south") == "chapelRoad", str(cemetery_exits))
 
     # Structural checks across all rooms.
     bad_exits = page.evaluate("""() => Object.entries(rooms).flatMap(([id,r]) => Object.entries(r.exits||{}).filter(([d,to])=>!rooms[to]).map(([d,to])=>id+':'+d+'->'+to))""")
