@@ -1,0 +1,14 @@
+The Briar Crown v1.7.2.4 — Mobile Performance, Map & Exploration Fix
+
+- Removed redundant Available Actions and helper rows.
+- Reworked mobile viewport fill to eliminate the large unused bottom gap.
+- Optimized all active scene images to 1200x900 mobile WebP files.
+- Changed scene loading to immediate navigation with a visible loader.
+- Added cache-first scene delivery and nearby-scene preloading only.
+- Re-encoded the Briar Lantern Cellar art with a fresh v1724 filename.
+- Added true pinch zoom, drag pan, +/− controls, and Current Location reset to the map.
+- Added a strong YOU ARE HERE map marker.
+- Restored visible Merrin artwork inside the forge.
+- Fixed Elowen's hotspot and made character hotspots win overlaps.
+- Added Explore Chapel and made the chapel clues easier to discover.
+- Added clear east and south navigation from Old Cemetery Path.

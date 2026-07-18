@@ -1,0 +1,11 @@
+THE BRIAR CROWN v1.7.2.4 — UPDATE INSTRUCTIONS
+
+Recommended: use GitHub Desktop.
+
+1. Open the cloned The-Briar-Crown repository folder.
+2. Copy everything INSIDE this FULL package into the repository root.
+3. Choose Merge folders and Replace files when prompted.
+4. In GitHub Desktop, commit: The Briar Crown v1.7.2.4 mobile performance map and exploration fix
+5. Push origin.
+
+Do not delete the v1722/v1723 assets until the new version has been tested. The new game references v1724 scene files and world-map-v1724.webp.

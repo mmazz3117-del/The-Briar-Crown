@@ -1,0 +1,23 @@
+{
+  "name": "The Briar Crown",
+  "short_name": "Briar Crown",
+  "description": "A mobile-first illustrated fantasy adventure with corrected hotspots, door states, tunnel actions, mobile layout stability, and no temporary emoji/orb markers.",
+  "start_url": "./index.html?v=1.7.2.3",
+  "display": "standalone",
+  "background_color": "#07070b",
+  "theme_color": "#0b0912",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "version": "1.7.2.4"
+}
