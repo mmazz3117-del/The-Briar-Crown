@@ -5,7 +5,8 @@ from PIL import Image, ImageStat
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else Path(__file__).resolve().parents[1]
-VERSION = "1.7.2.4"
+VERSION = "1.7.2.5"
+ART_VERSION = "1.7.2.4"
 CONTRACT = json.loads((Path(__file__).parent / "contracts.json").read_text())
 results = []
 
@@ -39,7 +40,7 @@ check("service-worker:all-precache-files-exist", not sw_missing, ", ".join(sw_mi
 # Production scene manifest protects the replacement art from fallback/thumbnail regressions.
 prod_path = ROOT / "assets/scenes/production-manifest-v1724.json"
 prod = json.loads(prod_path.read_text()) if prod_path.exists() else {"assets": {}}
-check("assets:production-manifest", prod.get("version") == VERSION)
+check("assets:production-manifest", prod.get("version") == ART_VERSION, str(prod.get("version")))
 for name, meta in prod.get("assets", {}).items():
     p = ROOT / "assets/scenes" / name
     exists = p.exists()
@@ -108,6 +109,11 @@ with sync_playwright() as pw:
     check("performance:navigation-not-network-blocked", "if (destinationPath) await preloadScene(destinationPath)" not in index)
     check("performance:scene-test-lazy", 'loading="lazy" decoding="async"' in index)
     check("performance:scene-cache-first", "const isScene" in sw and "cached || (await refresh)" in sw)
+    check("ui:bounded-mobile-story-panel", "v1.7.2.5 mobile commands and status readability" in index and "grid-template-rows: auto auto minmax(0, 1fr) auto" in index and "overflow: hidden !important" in index)
+    check("ui:larger-mobile-status", "font-size: 12px !important" in index and "min-width: 68px !important" in index and "min-width: 58px !important" in index)
+    apoth_approach = page.evaluate("rooms.apothecaryApproach.hotspots.find(h=>h.label==='Apothecary Door')")
+    check("hotspots:apothecary-approach-door-aligned", bool(apoth_approach) and 58 <= apoth_approach["x"] <= 72 and apoth_approach["w"] >= 32, str(apoth_approach))
+    check("ui:hotspot-selection-scrolls-actions", 'controls.scrollIntoView({ behavior: "smooth", block: "nearest" })' in index)
 
     def reset(room="square"):
         page.evaluate("""room => {
