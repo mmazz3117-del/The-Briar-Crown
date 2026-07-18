@@ -1,0 +1,177 @@
+{
+  "version": "1.7.2.4",
+  "scenes": {
+    "tavern": {
+      "fresh_required": [
+        "talk to innkeeper",
+        "look at fireplace",
+        "go outside"
+      ],
+      "fresh_forbidden": [
+        "go down",
+        "open cellar hatch",
+        "ask innkeeper about cellar"
+      ],
+      "discover_hatch_command": "look at cellar door",
+      "after_hatch_required": [
+        "ask innkeeper about cellar"
+      ]
+    },
+    "apothecary": {
+      "default_required": [
+        "talk to elowen",
+        "show wares",
+        "enter back room",
+        "leave apothecary"
+      ]
+    },
+    "fireplace": {
+      "inspect_command": "look at fireplace",
+      "after_inspect_required": [
+        "move brick"
+      ],
+      "open_command": "move brick",
+      "after_open_required": [
+        "take treasure"
+      ],
+      "collect_command": "take treasure"
+    },
+    "chapelYard": {
+      "hotspot": "Graves",
+      "min_width_percent": 38,
+      "min_top_percent": 66
+    }
+  },
+  "equipment": {
+    "wooden shield": {
+      "slot": "shield",
+      "defense": 1
+    }
+  },
+  "navigation": {
+    "top_left": "Map",
+    "inventory_label": "Satchel",
+    "production_menu_forbidden": [],
+    "scene_test_restored": true,
+    "zoom_enabled": true,
+    "persistent_exits": {
+      "tavern": "go outside",
+      "tavernCellar": "go up",
+      "blacksmith": "leave forge",
+      "apothecary": "leave apothecary"
+    }
+  },
+  "route_rebuild": {
+    "required_edges": [
+      [
+        "forgeLane",
+        "eastRoad"
+      ],
+      [
+        "eastRoad",
+        "forestEdge"
+      ],
+      [
+        "forestEdge",
+        "willowTrail"
+      ],
+      [
+        "willowTrail",
+        "flowerClearing"
+      ],
+      [
+        "flowerClearing",
+        "fallenLog"
+      ],
+      [
+        "fallenLog",
+        "whisperingForest"
+      ],
+      [
+        "whisperingForest",
+        "cottageApproach"
+      ],
+      [
+        "whisperingForest",
+        "moonfen"
+      ],
+      [
+        "whisperingForest",
+        "moonwell"
+      ]
+    ],
+    "discoverables": {
+      "forgeLane": "take dropped coins",
+      "eastRoad": "look at road rune",
+      "chapelRoad": "take pilgrim charm",
+      "fallenLog": "take river charm",
+      "whisperingForest": "take courier seal"
+    }
+  },
+  "visual_rebuild": {
+    "required_map": "assets/ui/world-map-v1724.webp",
+    "priority_assets": [
+      "apothecary-approach-v1724.webp",
+      "apothecary-back-room-v1724.webp",
+      "apothecary-center-v1724.webp",
+      "apothecary-door-v1724.webp",
+      "apothecary-east-v1724.webp",
+      "apothecary-north-v1724.webp",
+      "apothecary-south-v1724.webp",
+      "apothecary-west-v1724.webp",
+      "chapel-approach-v1724.webp",
+      "chapel-crypt-v1724.webp",
+      "chapel-interior-v1724.webp",
+      "chapel-road-v1724.webp",
+      "chapel-yard-v1724.webp",
+      "collapsed-alcove-open-v1724.webp",
+      "collapsed-alcove-v1724.webp",
+      "east-road-v1724.webp",
+      "fallen-log-v1724.webp",
+      "flower-clearing-v1724.webp",
+      "forest-edge-v1724.webp",
+      "forge-door-v1724.webp",
+      "forge-interior-v1724.webp",
+      "forge-lane-v1724.webp",
+      "hidden-passage-v1724.webp",
+      "ironthorn-gate-v1724.webp",
+      "kings-road-v1724.webp",
+      "moonfen-ferry-landing-v1724.webp",
+      "moonfen-hut-exterior-v1724.webp",
+      "moonfen-hut-interior-v1724.webp",
+      "moonwell-v1724.webp",
+      "old-cemetery-v1724.webp",
+      "square-v1724.webp",
+      "tavern-approach-v1724.webp",
+      "tavern-cellar-passage-v1724.webp",
+      "tavern-cellar-v1724.webp",
+      "tavern-center-v1724.webp",
+      "tavern-door-v1724.webp",
+      "tavern-east-v1724.webp",
+      "tavern-north-v1724.webp",
+      "tavern-south-v1724.webp",
+      "tavern-west-v1724.webp",
+      "whispering-forest-v1724.webp",
+      "willow-trail-v1724.webp",
+      "witch-cottage-cellar-v1724.webp",
+      "witch-cottage-exterior-v1724.webp",
+      "witch-cottage-interior-v1724.webp"
+    ],
+    "retired_placeholders": []
+  },
+  "performance": {
+    "max_scene_bytes": 750000,
+    "network_blocking_navigation_forbidden": true,
+    "scene_test_lazy_loading": true,
+    "cache_strategy": "cache-first-scenes"
+  },
+  "exploration": {
+    "chapel_action": "explore chapel",
+    "cemetery_required_exits": [
+      "east",
+      "south"
+    ],
+    "current_map_marker": true,
+    "map_zoom_controls": true
+  }
+}
