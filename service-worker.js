@@ -1,4 +1,4 @@
-const CACHE = "briar-crown-v1.7.2.9-treasure-crypt-d20-combat";
+const CACHE = "briar-crown-v1.7.3.0-story-scroll-interaction-integrity";
 const CORE_ASSETS = [
   "./",
   "./index.html",
@@ -6,7 +6,7 @@ const CORE_ASSETS = [
   "./icon-192.png",
   "./icon-512.png",
   "./assets/ui/satchel.png",
-  "./assets/ui/opening-v1726.webp",
+  "./assets/ui/opening-v1730.webp",
   "./assets/ui/world-map-v1726.png",
   "./assets/scenes/square-v1724.webp",
   "./assets/scenes/production-manifest-v1729.json",

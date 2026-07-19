@@ -1449,7 +1449,7 @@
     body.viewport-refreshing .story-panel,
     body.viewport-refreshing .controls { transition:none!important; }
 
-    /* v1.7.2.9 d20 checks, combat, and keyboard command dock */
+    /* v1.7.3.0 d20 checks, combat, and keyboard command dock */
     .dice-dialog, .combat-dialog { border:0; padding:0; background:transparent; color:#f3dda1; }
     .dice-dialog::backdrop, .combat-dialog::backdrop { background:rgba(3,2,7,.82); backdrop-filter:blur(3px); }
     .dice-panel, .combat-panel {
@@ -1499,6 +1499,17 @@
       body.keyboard-open .command-line { position:relative!important; bottom:auto!important; }
     }
 
+
+    /* v1.7.3.0 story scroll, focused interactions, loot confirmation, and improved die */
+    .lore-step{padding:18px;min-height:min(84dvh,760px);display:grid;place-items:center;background:radial-gradient(circle at 50% 20%,#2b1c39,#0b0910 72%)}
+    .lore-scroll{width:min(92vw,620px);max-height:76dvh;overflow:auto;padding:42px 30px 34px;border:2px solid #9b7838;border-radius:14px;color:#3a2515;background:linear-gradient(90deg,#b88c4f 0,#efd99c 7%,#f7e9b9 50%,#efd99c 93%,#b88c4f 100%);box-shadow:0 18px 60px #000b;transform-origin:50% 0;animation:unfurl .75s cubic-bezier(.2,.8,.2,1)}
+    .lore-scroll h2{text-align:center;margin:0 0 10px;font-size:30px}.lore-scroll .seal{text-align:center;font-size:44px;margin-bottom:8px}.lore-scroll p{font:18px/1.55 Georgia,serif;margin:0 0 15px}.lore-scroll .lore-actions{display:flex;gap:10px;justify-content:center;margin-top:22px}.lore-scroll button{min-height:48px;padding:10px 22px;border:2px solid #75521e;border-radius:9px;background:#24172f;color:#f5dc93;font-weight:700}
+    @keyframes unfurl{0%{transform:scaleY(.08);opacity:.25}65%{transform:scaleY(1.03);opacity:1}100%{transform:scaleY(1)}}
+    .loot-dialog,.focus-dialog{border:0;padding:0;background:transparent;color:#f3dda1}.loot-dialog::backdrop,.focus-dialog::backdrop{background:#030207d9;backdrop-filter:blur(3px)}
+    .loot-panel,.focus-panel{width:min(92vw,560px);border:2px solid #9b7838;border-radius:16px;background:linear-gradient(180deg,#241831,#0d0a12);padding:18px;box-shadow:0 18px 55px #000b;font-family:Georgia,serif}.loot-panel h2,.focus-panel h2{margin:0 0 10px}.loot-list{display:grid;gap:8px;margin:14px 0}.loot-item{padding:10px;border:1px solid #72562c;border-radius:9px;background:#17101f}.loot-actions,.focus-actions{display:flex;gap:8px;flex-wrap:wrap}.loot-actions button,.focus-actions button{flex:1;min-height:46px;border:1px solid #a17a34;border-radius:9px;background:#261933;color:#f1d895;font-weight:700}
+    .d20,.combat-die{transform-style:preserve-3d;will-change:transform}.d20.rolling{animation:d20-tumble .16s linear infinite;box-shadow:0 0 25px rgba(218,177,78,.65)}
+    @keyframes d20-tumble{0%{transform:perspective(260px) rotateX(0) rotateY(0) rotateZ(0) scale(.92)}50%{transform:perspective(260px) rotateX(190deg) rotateY(125deg) rotateZ(85deg) scale(1.08)}100%{transform:perspective(260px) rotateX(360deg) rotateY(360deg) rotateZ(240deg) scale(.92)}}
+
   </style>
 </head>
 <body>
@@ -1506,13 +1517,24 @@
     <div class="start-card">
       <div id="title-step" class="opening-title-step">
         <div class="opening-screen">
-          <img src="assets/ui/opening-v1726.webp" alt="Willowmere village beneath a twilight castle, the opening artwork for The Briar Crown">
+          <img src="assets/ui/opening-v1730.webp" alt="Willowmere village beneath a twilight castle, the opening artwork for The Briar Crown">
           <button id="opening-enter-btn" class="opening-enter" type="button" aria-label="Open the adventure menu"><span class="sr-only">Tap to begin</span></button>
           <div class="opening-menu" id="opening-menu" hidden>
-            <div class="opening-version">Version 1.7.2.9 • Tunnel Treasure, Crypt Encounter & D20 Combat</div>
+            <div class="opening-version" id="opening-version"></div>
             <div class="start-actions"><button id="new-adventure-btn">New Adventure</button><button id="continue-adventure-btn">Continue Adventure</button></div>
           </div>
         </div>
+      </div>
+      <div id="lore-step" class="lore-step" hidden>
+        <article class="lore-scroll" aria-labelledby="lore-title">
+          <div class="seal" aria-hidden="true">📜</div>
+          <h2 id="lore-title">The Crown Is Missing</h2>
+          <p>For generations, the Briar Crown rested within Ironthorn Castle, binding the oldest and most dangerous magic beneath the land.</p>
+          <p>Seven days ago, the Crown vanished. Since then, forgotten roads have shifted, wild creatures have grown restless, and sealed tombs have begun to open.</p>
+          <p>No messenger sent to Ironthorn has returned. Strange relics are surfacing near Willowmere, and something ancient is stirring beneath Saint Orla’s chapel.</p>
+          <p>Your journey begins in Willowmere Square. Follow the clues, recover what was scattered, and discover who took the Crown before the awakened magic consumes the realm.</p>
+          <div class="lore-actions"><button id="lore-back-btn" type="button">Back</button><button id="lore-continue-btn" type="button">Choose Your Hero</button></div>
+        </article>
       </div>
       <div id="class-step" class="class-step" hidden>
         <h3>Choose Your Hero</h3><p>Each path begins with different strengths and a unique starting item.</p>
@@ -1532,7 +1554,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.7.2.9 • Tunnel Treasure, Crypt Encounter & D20 Combat</small>
+        <small id="version-tag">Version 1.7.3.0 • Story Scroll, Interaction Integrity & Crypt Polish</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -1568,6 +1590,13 @@
       </div>
     </section>
   </main>
+
+  <dialog id="loot-dialog" class="loot-dialog">
+    <div class="loot-panel"><h2 id="loot-title">Victory Rewards</h2><div id="loot-body" class="loot-list"></div><div class="loot-actions"><button id="loot-collect-btn" type="button">Collect All</button></div></div>
+  </dialog>
+  <dialog id="focus-dialog" class="focus-dialog">
+    <div class="focus-panel"><h2 id="focus-title">Focused View</h2><p id="focus-text"></p><div id="focus-actions" class="focus-actions"></div></div>
+  </dialog>
 
   <dialog id="inventory-dialog">
     <div class="modal-head"><h2>Satchel</h2><button class="close-btn" data-close="inventory-dialog">×</button></div>
@@ -1654,7 +1683,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.7.2.9";
+    const BUILD_VERSION = "1.7.3.0";
 
     const itemInfo = {
       "tarnished locket": "A traveler's locket found behind the tavern hearth. The portrait inside shows a young woman before a crooked woodland cottage.",
@@ -1692,7 +1721,7 @@
     const rooms = {
       square: {
         name: "Willowmere Square",
-        description: "Willowmere should be waking, but dawn has failed for seven days. A stone well stands beneath the village willow. The Briar Lantern Tavern lies north, Merrin's forge glows east, Saint Orla's chapel waits west, and the king's road descends south toward the sealed castle.",
+        description: "Willowmere gathers beneath a bright late-morning sky, but uneasy rumors travel faster than the market carts. A stone well stands beneath the village willow. The Briar Lantern Tavern lies north, Merrin's forge glows east, Saint Orla's chapel waits west, and the king's road descends south toward the sealed castle.",
         exits: { north: "tavernApproach", east: "forgeLane", west: "chapelRoad", south: "castleRoad" },
         actions: ["look at notice board", "look at well"],
         hotspots: [
@@ -1908,7 +1937,7 @@
       },
       chapel: {
         name: "Saint Orla's Chapel",
-        description: "Moonlight leaks through a cracked stained-glass window. A stone statue of Saint Orla holds out one empty hand. A coin-shaped hollow marks her palm.",
+        description: "Daylight filters through a cracked stained-glass window. A stone statue of Saint Orla holds out one empty hand. A coin-shaped hollow marks her palm.",
         exits: { south: "chapelApproach" },
         actions: ["look at statue", "look at altar", "look at candles", "look at stained glass", "look at stone chest", "use fairy coin on statue", "go south"],
         hotspots: [
@@ -2032,7 +2061,7 @@
       },
       moonfen: {
         name: "Moonfen Ferry Landing",
-        description: "Fog curls above black water while reeds whisper in the dusk. A rope ferry rests at the landing, but its winch is missing a crank. Across the water, a crooked hut glows beneath the moon. The forest lies west and the pilgrim path runs north toward the Moonwell.",
+        description: "Cool mist curls above dark water while reeds whisper in the late afternoon. A rope ferry rests at the landing, but its winch is missing a crank. Across the water, a crooked hut stands among the marsh trees. The forest lies west and the pilgrim path runs north toward the Moonwell.",
         exits: { west: "whisperingForest", north: "moonwell" },
         actions: ["look at hut", "look at ferry", "look at winch", "look across water", "take moonfen reed", "go north"],
         hotspots: [
@@ -2185,6 +2214,12 @@
         description:"A flower-filled clearing opens along the eastward forest route. The fallen log crossing lies east; Willow Trail returns west.",
         exits:{ east:"fallenLog", west:"willowTrail" }, actions:["go east","go west","look at rabbit","take moonwort","look at flowers"]
       });
+      rooms.willowTrail.hotspots = [
+        {label:"Young Deer",command:"look at deer",x:84,y:58,w:26,h:40},{label:"Bluebells",command:"take bluebell sprig",x:24,y:72,w:34,h:28},{label:"Owl",command:"look at owl",x:82,y:20,w:20,h:24},{label:"Flower Clearing",command:"go east",x:78,y:37,w:24,h:28},{label:"Forest Edge",command:"go west",x:14,y:72,w:24,h:22}
+      ];
+      rooms.flowerClearing.hotspots = [
+        {label:"White Rabbit",command:"look at rabbit",x:58,y:58,w:26,h:32},{label:"Moonwort",command:"take moonwort",x:25,y:72,w:36,h:28},{label:"Wildflowers",command:"look at flowers",x:72,y:72,w:42,h:30},{label:"Fallen Log Crossing",command:"go east",x:78,y:30,w:25,h:28},{label:"Willow Trail",command:"go west",x:14,y:72,w:25,h:22}
+      ];
       Object.assign(rooms.fallenLog, {
         description:"A moss-covered log crosses the stream. The deeper Whispering Forest lies east; the flower clearing is west.",
         exits:{ east:"whisperingForest", west:"flowerClearing" }, actions:["go east","go west","look at fallen log","look at tracks","listen to stream","take river charm"]
@@ -2425,14 +2460,30 @@
       renderCombat();
     }
 
+    function showLootReward(reward){
+      state.pendingLoot=reward;
+      document.getElementById("loot-title").textContent=`Victory — ${reward.enemy} defeated`;
+      document.getElementById("loot-body").innerHTML=`<div class="loot-item">🪙 ${reward.gold} gold</div><div class="loot-item">🎒 ${reward.item}</div><div class="loot-item">✨ ${reward.xp} XP</div>`;
+      const dlg=document.getElementById("loot-dialog"); if(!dlg.open) dlg.showModal();
+    }
+    function collectPendingLoot(){
+      const reward=state.pendingLoot;if(!reward)return;
+      addGold(reward.gold,`${reward.enemy} victory reward`);addItem(reward.item);award(reward.awardKey,reward.xp);
+      if(reward.enemyId==="thornHound")state.flags.thornHoundLootCollected=true;
+      if(reward.enemyId==="restlessSkeleton")state.flags.cryptSkeletonLootCollected=true;
+      addLog(`Collected: ${reward.gold} gold and ${reward.item}.`,"success");state.pendingLoot=null;
+      const dlg=document.getElementById("loot-dialog");if(dlg.open)dlg.close();renderAll();autosave();
+    }
     function combatVictory(enemyId) {
       const enemy=enemyCatalog[enemyId];
       if(enemyId==="thornHound"){
-        state.flags.thornHoundDefeated=true; addGold(3,"coins caught in the Thorn Hound's collar"); addItem("briar fang"); award("defeat-thorn-hound",4);
-        addLog("The Thorn Hound dissolves into black leaves. A briar-hard fang and three old coins remain.","success");
+        state.flags.thornHoundDefeated=true;
+        addLog("The Thorn Hound dissolves into black leaves. Its collar falls to the road.","success");
+        showLootReward({enemyId,enemy:enemy.name,gold:3,item:"briar fang",xp:4,awardKey:"defeat-thorn-hound"});
       } else if(enemyId==="restlessSkeleton"){
-        state.flags.cryptSkeletonDefeated=true; addGold(8,"the crypt warden's burial coins"); addItem("ancient chapel charm"); award("defeat-restless-skeleton",6);
-        addLog("The Restless Skeleton collapses into quiet bones. Eight burial coins and an ancient chapel charm remain.","success");
+        state.flags.cryptSkeletonDefeated=true;
+        addLog("The Restless Skeleton collapses into quiet bones. The coffin chamber falls still.","success");
+        showLootReward({enemyId,enemy:enemy.name,gold:8,item:"ancient chapel charm",xp:6,awardKey:"defeat-restless-skeleton"});
       }
       state.combat=null;
       const dlg=document.getElementById("combat-dialog"); if(dlg.open) dlg.close();
@@ -3115,14 +3166,17 @@
       });
     }
 
-    function has(item) { return state.inventory.includes(item) || ((state.itemCounts||{})[item]||0) > 0; }
-    function itemQty(item) { return ((state.itemCounts||{})[item]||0) || (state.inventory.includes(item) ? 1 : 0); }
+    const canonicalItemId = item => ({"healing herb":"healing herbs"}[normalize(item)] || normalize(item));
+    function has(item) { item=canonicalItemId(item); return state.inventory.includes(item) || ((state.itemCounts||{})[item]||0) > 0; }
+    function itemQty(item) { item=canonicalItemId(item); return ((state.itemCounts||{})[item]||0) || (state.inventory.includes(item) ? 1 : 0); }
     function addItem(item, qty = 1) {
+      item=canonicalItemId(item);
       state.itemCounts = state.itemCounts || {};
       state.itemCounts[item] = itemQty(item) + qty;
       if (!state.inventory.includes(item)) state.inventory.push(item);
     }
     function removeItem(item, qty = 1) {
+      item=canonicalItemId(item);
       state.itemCounts = state.itemCounts || {};
       const next = Math.max(0, itemQty(item) - qty);
       state.itemCounts[item] = next;
@@ -3191,18 +3245,23 @@
       ].filter(Boolean).length;
     }
 
+    function worldMinutes() {
+      const travelProgress = Math.max(0, (state.travelMinutes || 0));
+      return (10 * 60 + 30 + travelProgress) % 1440;
+    }
     function worldTimePhase() {
-      if (state.flags.ending === "dawn") return "Dawn";
-      const total=(18*60+30)+((state.turns||0)*8);
-      const minutes=((total%1440)+1440)%1440;
-      const hour24=Math.floor(minutes/60);
-      return hour24>=18&&hour24<21?"Dusk":hour24>=21||hour24<2?"Long Night":hour24<5?"Deep Night":"False Dawn";
+      if (state.flags.ending === "dawn") return "New Dawn";
+      const hour=Math.floor(worldMinutes()/60);
+      if(hour<12) return "Late Morning";
+      if(hour<15) return "Early Afternoon";
+      if(hour<17) return "Afternoon";
+      if(hour<19) return "Late Afternoon";
+      if(hour<21) return "Dusk";
+      return "Evening";
     }
     function worldTimeLabel() {
-      if (state.flags.ending === "dawn") return "Dawn • First Light";
-      const total=(18*60+30)+((state.turns||0)*8);
-      const minutes=((total%1440)+1440)%1440;
-      const hour24=Math.floor(minutes/60), mins=minutes%60;
+      if (state.flags.ending === "dawn") return "New Dawn • First Light";
+      const minutes=worldMinutes(), hour24=Math.floor(minutes/60), mins=minutes%60;
       const hour12=hour24%12||12, suffix=hour24>=12?"PM":"AM";
       return `${worldTimePhase()} • ${hour12}:${String(mins).padStart(2,"0")} ${suffix}`;
     }
@@ -3285,7 +3344,7 @@
 
     function talkTo(target) {
       if (state.room === "square" && /(old woman|woman|elder)/.test(target)) {
-        addLog("The old woman grips your sleeve. “The king broke the Dawn Crown beneath the moonwell. Find what was hidden below the witch's floor, and trust the small folk before you trust the throne.”", "system");
+        addLog("The old woman grips your sleeve. “The Briar Crown is gone from Ironthorn. Find what was hidden below the witch's floor, and trust the small folk before you trust the throne.”", "system");
         return;
       }
       if (state.room === "blacksmith" && /(blacksmith|merrin|smith)/.test(target)) {
@@ -3294,7 +3353,7 @@
           award("met-blacksmith", 2);
           addItem("iron hook");
           addItem("flint");
-          addLog("Merrin studies you, then presses an iron hook and a piece of flint into your hands. “The forest swallows ordinary travelers. Take these. Bring back the dawn—or at least bring back yourself.”", "success");
+          addLog("Merrin studies you, then presses an iron hook and a piece of flint into your hands. “The forest swallows ordinary travelers. Take these. Find what is stirring near Ironthorn—and bring yourself back alive.”", "success");
         } else {
           addLog("Merrin nods toward the dark forest. “A lantern, a spark, and a reason to keep walking. That is all any hero starts with.”", "system");
         }
@@ -3414,7 +3473,7 @@
         "hutInterior:map": "The hand-drawn map links the Moonfen hut, Moonwell, Saint Orla's chapel, and an old tunnel beneath the Briar Lantern.",
         "hutInterior:locked chest": "A crescent-shaped keyhole seals the chest. Whatever is inside can wait for another adventure.",
         "hutInterior:fireplace": "The ashes are cold, but a single blue feather lies beneath the grate.",        "square:notice board": "A fresh posting offers silver for news of the missing royal courier. Someone has added a smaller note beneath it: LAST SEEN NEAR MOONFEN.",
-        "square:well": "The village well is cold and clear. A faint reflection of sunrise shimmers in it, though the sky remains dark.",
+        "square:well": "The village well is cold and clear. For an instant, a crown-shaped glimmer moves beneath the water and vanishes.",
         "square:tavern": "The Briar Lantern is Willowmere's tavern—the timbered building with the tankard sign. Touch it again or type WALK TO TAVERN.",
         "apothecary:herbs": "Lavender, moonwort, feverfew, and several plants you cannot name hang in carefully tied bundles.",
         "apothecary:counter": "The counter is crowded with brass scales, sealed bottles, a ledger, a mortar, and several tiny drawers.",
@@ -3433,7 +3492,7 @@
         "square:apothecary": "Willowmere Apothecary is the herb shop on the eastern side of the square. Blue smoke curls from its chimney, and a painted mortar and pestle hangs above the green door. Touch it again or type WALK TO APOTHECARY to approach.",
         "square:fountain": "The old fountain basin is dry. One carved word remains readable: REMEMBER.",
         "square:statue": "The statue depicts Queen Elowen before her coronation. Thorn marks have been scratched across her face.",
-        "tavern:cellar door": (function(){ if (!state.flags.hatchDiscoveryConfirmed) { state.flags.hatchNoticed = true; state.flags.hatchDiscoveryConfirmed = true; return "You brush aside the scuffed sawdust near the stairs \u2014 and uncover an iron-bound hatch set flush with the floorboards. A cellar! Its heavy lock is dark with age. The innkeeper might know more."; } return state.flags.tavernCellarOpen ? "The heavy hatch stands open, stone steps descending into the cellar dark." : "The iron-bound cellar hatch sits beneath the stairs, its difficult lock waiting for a skilled hand or the innkeeper's permission."; })(),
+        "tavern:cellar door": () => { if (!state.flags.hatchDiscoveryConfirmed) { state.flags.hatchNoticed = true; state.flags.hatchDiscoveryConfirmed = true; return "You brush aside the scuffed sawdust near the stairs — and uncover an iron-bound hatch set flush with the floorboards. A cellar! Its heavy lock is dark with age. The innkeeper might know more."; } return state.flags.tavernCellarOpen ? "The heavy hatch stands open, stone steps descending into the cellar dark." : "The iron-bound cellar hatch sits beneath the stairs, its difficult lock waiting for a skilled hand or the innkeeper's permission."; },
         "tavern:stairs": "The upper rooms are quiet. A hand-lettered sign says: NO CREDIT, NO CURSES, NO DRAGONS.",
         "forgeLane:forge": "Merrin's forge stands beside the lane, its stonework darkened by years of smoke. The public road continues beyond it toward the old eastern gate.",
         "eastRoad:eastern gate": "The old gate has collapsed inward. Thick living thorn has grown through the fallen stones, ending the road for now.",
@@ -3471,7 +3530,7 @@
       };
       for (const [k, response] of Object.entries(responses)) {
         const [r, t] = k.split(":");
-        if (r === state.room && target.includes(t)) return addLog(response);
+        if (r === state.room && target.includes(t)) return addLog(typeof response === "function" ? response() : response);
       }
       addLog("You notice nothing unusual about it.");
     }
@@ -3774,7 +3833,7 @@
       state.flags.ending = state.flags.fairyFreed ? "dawn" : "thorn";
       state.turns++;
       if (state.flags.fairyFreed) {
-        addLog(`<div class="ending-banner"><h3>The Dawnkeeper Ending</h3><p>You place the shard into the gate. Because you freed the fairy before restoring the crown, its power returns to the kingdom rather than the throne. The gates open, the thorns turn to roses, and the first sunrise in seven days spills across Willowmere.</p><p><strong>Prototype complete.</strong></p></div>`, "success");
+        addLog(`<div class="ending-banner"><h3>The Crownkeeper Ending</h3><p>You place the shard into the gate. Because you freed the fairy before restoring the Crown, its power returns to the kingdom rather than the throne. The gates open, the thorns loosen their hold, and warm daylight spreads across the road to Willowmere.</p><p><strong>Prototype complete.</strong></p></div>`, "success");
       } else {
         addLog(`<div class="ending-banner"><h3>The Thorn Crown Ending</h3><p>You place the shard into the gate. The castle awakens, but the thorns remain. Somewhere behind you, the trapped fairy cries out as the crown's power returns to the silent throne.</p><p><strong>Prototype complete—but another ending remains.</strong></p></div>`, "warning");
       }
@@ -3886,7 +3945,7 @@
       const nodesSvg = shown.map(([id,x,y,label])=>{
         const known=visited.has(id), current=currentId===id, canTravel=known&&FAST_TRAVEL_OK.has(id)&&!current;
         const safeLabel=escapeHtml(known?label:"Unknown");
-        return `<g class="map-node-g ${current?"wm-current":""} ${known?"wm-known":"wm-unknown"} ${canTravel?"wm-travel":""}" ${canTravel?`data-travel="${id}"`:""} transform="translate(${x} ${y})"><circle r="${current?19:12}" class="wm-dot"/>${current?'<circle r="9" class="wm-you-dot"/><text y="5" class="wm-you-icon">◆</text>':''}<rect x="-58" y="22" width="116" height="28" rx="10" class="wm-label-bg"/><text y="41" class="wm-t">${safeLabel}</text>${current?'<rect x="-45" y="-49" width="90" height="25" rx="10" class="wm-you-label-bg"/><text y="-32" class="wm-you-label">YOU ARE HERE</text>':''}</g>`;
+        return `<g class="map-node-g ${current?"wm-current":""} ${known?"wm-known":"wm-unknown"} ${canTravel?"wm-travel":""}" ${canTravel?`data-travel="${id}"`:""} transform="translate(${x} ${y})"><circle r="${current?19:12}" class="wm-dot"/>${current?'<circle r="9" class="wm-you-dot"/><text y="5" class="wm-you-icon">◆</text>':''}<rect x="-58" y="22" width="116" height="28" rx="10" class="wm-label-bg"/><text y="41" class="wm-t">${safeLabel}</text>${current?'<rect x="-27" y="-49" width="54" height="25" rx="10" class="wm-you-label-bg"/><text y="-32" class="wm-you-label">HERE</text>':''}</g>`;
       }).join("");
       const currentPos=pos[currentId]||pos.square;
       return `<h3>Illustrated Discovered Map</h3><div class="world-map-card"><div class="map-controls"><button type="button" data-map-zoom="out" aria-label="Zoom map out">−</button><button type="button" data-map-reset>⌖ Current Location</button><button type="button" data-map-zoom="in" aria-label="Zoom map in">+</button><button type="button" class="map-close-inline" data-map-close aria-label="Close map">Done</button></div><div class="world-map-viewport"><div class="world-map-stage" data-current-x="${currentPos.x}" data-current-y="${currentPos.y}"><img class="world-map-bg" src="assets/ui/world-map-v1726.png" alt="Hand-painted fantasy map of Willowmere and the known surrounding region"><svg class="world-map-svg" viewBox="0 0 1448 1086" role="img" aria-label="Discovered locations, travel routes, and your current location">${edgesSvg}${nodesSvg}</svg></div></div><p class="map-legend">The bright marker shows your current region. Pinch or use +/− to zoom, drag freely across the full-screen map, and tap a discovered landmark to travel. Painted roads show the geography without crossing overlay lines.</p></div>`;
@@ -4135,6 +4194,9 @@
         state.turns++; describeRoom(true); return finishTurn();
       }
       if (/^(listen|hear)$/.test(command)) { state.turns++; listen(); return finishTurn(); }
+      if(state.room==="chapel" && /^(?:look at|examine|inspect) (?:statue|open hand)$/.test(command)){openFocusedInteraction("statue");return finishTurn(false);}
+      if(state.room==="crypt" && /^(?:look at|examine|inspect) altar$/.test(command)){openFocusedInteraction("altar");return finishTurn(false);}
+      if(state.room==="crypt" && /^(?:look at|examine|inspect|open) reliquary$/.test(command)){openFocusedInteraction("reliquary");return finishTurn(false);}
 
       
       if ((match = command.match(/^(?:look|face|turn)(?: toward| towards| to)? (north|east|west|south)$/))) {
@@ -4377,7 +4439,7 @@
         state.flags.cryptCoffinLooted=true; addItem("chapel sigil token"); addLog("Beneath the burial cloth you find a tarnished chapel sigil token.","success"); return finishTurn();
       }
 
-      if ((match = command.match(/^(?:look at|look in|look inside|examine|inspect|search|check|read) (.+)$/))) { state.turns++; lookAt(rememberObject(match[1])); return finishTurn(); }
+      if ((match = command.match(/^(?:look at|look in|look inside|look across|examine|inspect|search|check|read) (.+)$/))) { state.turns++; lookAt(rememberObject(match[1])); return finishTurn(); }
       if ((match = command.match(/^(?:open|unlock|pull|push|try handle|turn handle) (.+)$/))) { state.turns++; openTarget(rememberObject(match[1])); return finishTurn(); }
       if ((match = command.match(/^(?:take|get|grab|pick up|collect) (.+)$/))) { state.turns++; takeTarget(rememberObject(match[1])); return finishTurn(); }
       if ((match = command.match(/^(?:move|pull|push|lift) (.+)$/))) { state.turns++; moveTarget(rememberObject(match[1])); return finishTurn(); }
@@ -4397,6 +4459,15 @@
       el.textContent = text; el.hidden = false;
       clearTimeout(sceneNoteTimer);
       sceneNoteTimer = setTimeout(() => { el.hidden = true; }, 1800);
+    }
+
+    function openFocusedInteraction(kind){
+      const title=document.getElementById("focus-title"),text=document.getElementById("focus-text"),actions=document.getElementById("focus-actions");actions.innerHTML="";
+      const add=(label,cmd)=>{const b=document.createElement("button");b.type="button";b.textContent=label;b.addEventListener("click",()=>{document.getElementById("focus-dialog").close();processCommand(cmd);});actions.appendChild(b)};
+      if(kind==="statue"){title.textContent="Saint Orla’s Open Hand";text.textContent=state.flags.cryptOpen?"The winged coin rests in the statue’s palm. Stone steps now descend behind the altar.":"A round hollow in Saint Orla’s open palm matches the winged coin.";if(!state.flags.cryptOpen)add("Place Winged Coin","use fairy coin on statue");if(state.flags.cryptOpen)add("Descend to Crypt","go down");}
+      else if(kind==="altar"){title.textContent="Crypt Altar";text.textContent="The worn inscription speaks of the Crown, the open hand, and a promise that the dawn belongs to all who live beneath it.";add("Read Inscription","look at altar");}
+      else if(kind==="reliquary"){title.textContent="Sealed Reliquary";text.textContent=state.flags.reliquaryOpen?"The reliquary is open.":"A round lock matches the silver token carried from the forest.";if(!state.flags.reliquaryOpen)add("Try Silver Token","use silver token on reliquary");else if(!state.flags.sigilTaken)add("Take Sun Sigil","take sun sigil");}
+      add("Step Back","look");const dlg=document.getElementById("focus-dialog");if(!dlg.open)dlg.showModal();
     }
 
     function finishTurn(save = true) {
@@ -4530,10 +4601,30 @@
         if(!state.flags.outerDitchLooted) actions.unshift("search roadside ditch");
       }
       if(state.room==="crypt"){
+        ["search burial shelf","open stone coffin","search open coffin","open reliquary","use silver token on reliquary"].forEach(removeAction);
         if(!state.flags.cryptBurialShelfLooted) actions.unshift("search burial shelf");
         if(!state.flags.cryptSkeletonDefeated) actions.unshift("open stone coffin");
-        if(state.flags.cryptSkeletonDefeated && !state.flags.cryptCoffinLooted) actions.unshift("search open coffin");
+        else if(!state.flags.cryptCoffinLooted) actions.unshift("search open coffin");
+        if(!state.flags.reliquaryOpen) actions.unshift(has("silver token")?"use silver token on reliquary":"inspect reliquary lock");
+        else if(!state.flags.sigilTaken) actions.unshift("take sun sigil");
+        actions.unshift("look at altar");
       }
+
+      const stateActionRules = [
+        ["tavernCellar","cellarBarrelLooted","search old barrel"],["tavernCellar","cellarFlagstoneLooted","pry up loose flagstone"],
+        ["secretTunnel","tunnelLooseStoneLooted","search loose stone"],["secretTunnel","tunnelNicheLooted","search wall niche"],["secretTunnel","tunnelBonesInspected","inspect old bones"],
+        ["secretAlcove","alcoveWallLooted","inspect cracked wall"],["forestEdge","silverTokenTaken","take silver token"],
+        ["cellar","lanternTaken","take lantern"],["cellar","ferryCrankTaken","take ferry crank"],
+        ["willowTrail","bluebellsTaken","take bluebell sprig"],["flowerClearing","moonwortTaken","take moonwort"],
+        ["hutInterior","coinTaken","take fairy coin"],["thornHedgePass","thornHedgeLooted","search thorn hedge"],
+        ["thornHedgePass","briarBerriesTaken","gather briar berries"],["brokenWatchCrossing","watchWagonLooted","search overturned wagon"],
+        ["brokenWatchCrossing","watchRubbleLooted","move scattered rubble"],["outerGateApproach","outerSigilFound","inspect cracked sigil stone"],
+        ["outerGateApproach","outerDitchLooted","search roadside ditch"]
+      ];
+      stateActionRules.forEach(([roomId,flag,action])=>{if(state.room===roomId&&state.flags[flag])removeAction(action)});
+      if(state.room==="moonfen"&&has("moonfen reed"))removeAction("take moonfen reed");
+      if(state.room==="cottage"&&state.flags.cabinetOpen)removeAction("open cabinet");
+      if(state.room==="cottage"&&state.flags.keyTaken)removeAction("take silver key");
 
       const routeFinds = [
         ["forgeLane", "forgeCoinsTaken", "take dropped coins"],
@@ -4547,13 +4638,8 @@
       });
       if (state.room === "eastRoad" && state.flags.eastRoadRuneRead) removeAction("look at road rune");
 
-      // Outdoor scenes keep the four cardinal directions visible. A direction may
-      // travel to another room or return an in-world boundary response.
-      if (outdoorRooms.has(state.room)) {
-        ["north", "east", "south", "west"].forEach(direction => actions.push(`go ${direction}`));
-      } else {
-        Object.keys(room().exits || {}).forEach(direction => actions.push(`go ${direction}`));
-      }
+      // Show only real routes. Boundary prose remains available through the direction pad.
+      Object.keys(room().exits || {}).forEach(direction => actions.push(`go ${direction}`));
       const seen = new Set();
       return actions.filter(action => {
         const key = canonicalActionKey(action);
@@ -5126,8 +5212,8 @@
     function currentHotspots() {
       const config = directionalConfig();
       const spots = config
-        ? [...(config.hotspots[currentView()] || config.hotspots.center)]
-        : [...(room().hotspots || [])];
+        ? (config.hotspots[currentView()] || config.hotspots.center).map(spot => ({...spot}))
+        : (room().hotspots || []).map(spot => ({...spot}));
       if (state.room === "cottage" && state.flags.rugMoved) {
         const index = spots.findIndex(s => s.label === "Rug");
         const command = state.flags.trapdoorOpen ? "down" : (state.flags.trapdoorUnlocked ? "open trapdoor" : "look at trapdoor");
@@ -5168,7 +5254,29 @@
         const stone = spots.find(s => s.label === "Loose Stone");
         if (stone) stone.command = state.flags.tunnelCoinsTaken ? "look at loose stone" : (state.flags.tunnelCoinsFound ? "take coins" : "search loose stone");
       }
-      return spots;
+      if (state.room === "crypt") {
+        const coffin=spots.find(x=>x.label==="Stone Coffin");
+        if(coffin){
+          if(state.flags.cryptSkeletonDefeated){coffin.label=state.flags.cryptCoffinLooted?"Empty Coffin":"Open Coffin";coffin.command=state.flags.cryptCoffinLooted?"look at empty coffin":"search open coffin";}
+        }
+        const shelf=spots.find(x=>x.label==="Burial Shelf");
+        if(shelf&&state.flags.cryptBurialShelfLooted){shelf.label="Empty Burial Shelf";shelf.command="look at empty burial shelf";}
+        const rel=spots.find(x=>x.label==="Reliquary");
+        if(rel){rel.label=state.flags.reliquaryOpen?"Open Reliquary":"Reliquary";rel.command=state.flags.reliquaryOpen?(state.flags.sigilTaken?"look at open reliquary":"take sun sigil"):"inspect reliquary";}
+      }
+      const hiddenHotspots = [
+        ["tavernCellar","cellarBarrelLooted",/Old Barrel/i],["tavernCellar","cellarFlagstoneLooted",/Loose Flagstone/i],
+        ["secretTunnel","tunnelLooseStoneLooted",/Loose Stone/i],["secretTunnel","tunnelNicheLooted",/Wall Niche/i],["secretTunnel","tunnelBonesInspected",/Old Bones/i],
+        ["secretAlcove","alcoveWallLooted",/Cracked Wall/i],["forgeLane","forgeCoinsTaken",/Dropped Coins/i],
+        ["chapelRoad","pilgrimCharmTaken",/Pilgrim Charm/i],["forestEdge","silverTokenTaken",/Silver Token|Tree Hollow/i],
+        ["cellar","lanternTaken",/^Lantern$/i],["cellar","ferryCrankTaken",/Ferry Crank/i],
+        ["willowTrail","bluebellsTaken",/Bluebells/i],["flowerClearing","moonwortTaken",/Moonwort/i],
+        ["fallenLog","riverCharmTaken",/River Charm/i],["whisperingForest","courierSealTaken",/Courier Seal/i],
+        ["moonfen","moonfenReedTaken",/Moonfen Reeds/i],["hutInterior","coinTaken",/Fairy Coin/i],
+        ["thornHedgePass","thornHedgeLooted",/Thorn Hedge/i],["brokenWatchCrossing","watchWagonLooted",/Overturned Wagon/i],
+        ["brokenWatchCrossing","watchRubbleLooted",/Scattered Rubble/i],["outerGateApproach","outerDitchLooted",/Roadside Ditch/i]
+      ];
+      return spots.filter(spot=>!hiddenHotspots.some(([roomId,flag,re])=>state.room===roomId&&state.flags[flag]&&re.test(spot.label)));
     }
 
 
@@ -5531,12 +5639,14 @@
       const openingEnter=document.getElementById("opening-enter-btn"); if(openingEnter) openingEnter.hidden=false;
       document.getElementById("title-step").hidden = false;
       document.getElementById("class-step").hidden = true;
+      document.getElementById("lore-step").hidden = true;
       document.getElementById("continue-adventure-btn").disabled = !storageGet(SAVE_KEY);
     }
     function showClassScreen() {
       selectedHeroClass = null;
       document.getElementById("title-step").hidden = true;
       document.getElementById("class-step").hidden = false;
+      document.getElementById("lore-step").hidden = true;
       renderHeroClasses(); updateHeroSummary();
     }
     async function beginAdventure() {
@@ -5552,7 +5662,7 @@
       state.log = [];
       addLog(`Welcome, <strong>${escapeHtml(name)}</strong> the ${hero.name}.`, "system");
       addLog(`Your ${hero.gift.toLowerCase()} has been placed in your backpack.`, "system");
-      addLog("Seven nights have passed without sunrise.", "system");
+      addLog("Seven days have passed since the Briar Crown vanished from Ironthorn Castle.", "system");
       describeRoom(true);
       autosave();
       document.getElementById("start-overlay").hidden = true;
@@ -5611,7 +5721,10 @@
       document.getElementById("opening-enter-btn").hidden=true;
       document.getElementById("opening-menu").hidden=false;
     });
-    document.getElementById("new-adventure-btn").addEventListener("click", showClassScreen);
+    document.getElementById("new-adventure-btn").addEventListener("click", () => { document.getElementById("title-step").hidden=true; document.getElementById("class-step").hidden=true; document.getElementById("lore-step").hidden=false; });
+    document.getElementById("lore-back-btn")?.addEventListener("click", showTitleScreen);
+    document.getElementById("lore-continue-btn")?.addEventListener("click", showClassScreen);
+    document.getElementById("loot-collect-btn")?.addEventListener("click", collectPendingLoot);
     document.getElementById("continue-adventure-btn").addEventListener("click", async () => { await unlockMusic(); document.getElementById("start-overlay").hidden = true; loadGame(); });
     document.getElementById("back-title-btn").addEventListener("click", showTitleScreen);
     document.getElementById("begin-adventure-btn").addEventListener("click", beginAdventure);
@@ -5646,8 +5759,14 @@
           tavernCellarOpen:false
         });
       }
-      state.schemaVersion = 1729;
+      state.schemaVersion = 1730;
+      const herbQty=(state.itemCounts["healing herb"]||0)+(state.itemCounts["healing herbs"]||0)+(state.inventory.includes("healing herb")?1:0);
+      delete state.itemCounts["healing herb"];state.inventory=state.inventory.filter(i=>i!=="healing herb");
+      if(herbQty>0){state.itemCounts["healing herbs"]=Math.max(state.itemCounts["healing herbs"]||0,herbQty);if(!state.inventory.includes("healing herbs"))state.inventory.push("healing herbs");}
+      state.inventory=state.inventory.map(canonicalItemId).filter((x,i,a)=>a.indexOf(x)===i);
       state.inventory.forEach(i => { if (!state.itemCounts[i]) state.itemCounts[i]=1; });
+      state.travelMinutes=Number.isFinite(state.travelMinutes)?state.travelMinutes:0;
+      state.pendingLoot=null;
       state.gold = Number.isFinite(state.gold) ? state.gold : 20;
       state.health = Number.isFinite(state.health) ? state.health : 20;
       state.maxHealth = Number.isFinite(state.maxHealth) ? state.maxHealth : 20;
@@ -5767,7 +5886,9 @@
     function boot() {
       updateMusicButton();
       const vt = document.getElementById("version-tag");
-      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Tunnel Treasure, Crypt Encounter & D20 Combat`;
+      const versionLabel=`Version ${BUILD_VERSION} • Story Scroll, Interaction Integrity & Crypt Polish`;
+      if (vt) vt.textContent = versionLabel;
+      const ov=document.getElementById("opening-version");if(ov)ov.textContent=versionLabel;
       const saved = storageGet(SAVE_KEY);
       if (saved) {
         try { state = JSON.parse(saved); migrateState(); restoreDynamicExits(); }
