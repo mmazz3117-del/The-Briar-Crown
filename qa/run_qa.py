@@ -5,8 +5,8 @@ from PIL import Image, ImageStat
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else Path(__file__).resolve().parents[1]
-VERSION = "1.7.2.8"
-ART_VERSION = "1.7.2.4"
+VERSION = "1.7.2.9"
+ART_VERSION = "1.7.2.9"
 CONTRACT = json.loads((Path(__file__).parent / "contracts.json").read_text())
 results = []
 
@@ -38,7 +38,7 @@ sw_missing = [r for r in sw_refs if r != "./" and not (ROOT / r[2:]).exists()]
 check("service-worker:all-precache-files-exist", not sw_missing, ", ".join(sw_missing))
 
 # Production scene manifest protects the replacement art from fallback/thumbnail regressions.
-prod_path = ROOT / "assets/scenes/production-manifest-v1724.json"
+prod_path = ROOT / "assets/scenes/production-manifest-v1729.json"
 prod = json.loads(prod_path.read_text()) if prod_path.exists() else {"assets": {}}
 check("assets:production-manifest", prod.get("version") == ART_VERSION, str(prod.get("version")))
 for name, meta in prod.get("assets", {}).items():
@@ -73,6 +73,9 @@ priority_active = {
     "moonwell": "moonwell-v1724.webp",
     "secretTunnel": "hidden-passage-v1724.webp",
     "secretAlcove": "collapsed-alcove-v1724.webp",
+    "thornHedgePass": "thorn-hedge-pass-v1729.webp",
+    "brokenWatchCrossing": "broken-watch-crossing-v1729.webp",
+    "outerGateApproach": "outer-gate-approach-v1729.webp",
 }
 for room_id, filename in priority_active.items():
     check(f"asset-map:{room_id}", f'{room_id}: "assets/scenes/{filename}"' in index)
@@ -108,7 +111,7 @@ with sync_playwright() as pw:
     check("map:full-screen-viewer", "height:100dvh!important" in index and "world-map-v1726.png" in index)
     check("map:no-crossing-overlay-lines", ".wm-route { display:none!important; }" in index and 'const edgesSvg = "";' in index)
     check("opening:art-present", (ROOT / "assets/ui/opening-v1726.webp").exists() and "opening-v1726.webp" in index)
-    check("opening:version-visible", "Version 1.7.2.8" in index and 'id="opening-enter-btn"' in index)
+    check("opening:version-visible", "Version 1.7.2.9" in index and 'id="opening-enter-btn"' in index)
     hub = page.evaluate("rooms.square.exits")
     check("navigation:four-way-hub", hub == {"north":"tavernApproach","east":"forgeLane","south":"castleRoad","west":"chapelRoad"}, str(hub))
     check("navigation:named-action-labels", "navigationDestinationNames" in index and "Go ${titleCase(compass[1])}" in index)
@@ -119,6 +122,10 @@ with sync_playwright() as pw:
     check("ui:viewport-height-clamped", "Math.min(...heightCandidates)" in index and "--app-width" in index)
     check("ui:orientation-multipass-settle", "settleViewportAfterOrientation" in index and "[0, 80, 180, 360, 700]" in index)
     check("ui:orientation-forced-reflow", "forceViewportLayoutReflow" in index and 'style.setProperty("display", "none", "important")' in index)
+    check("keyboard:visual-viewport-dock", "keyboard-open" in index and "Math.round(vv.height)" in index and "--viewport-top" in index)
+    check("d20:animated-check-dialog", 'id="dice-dialog"' in index and "animatedCheck" in index and "@keyframes d20-roll" in index)
+    check("combat:prototype-present", 'id="combat-dialog"' in index and "enemyCatalog" in index and "combatAction" in index)
+    check("combat:required-actions", all(f'data-combat-action="{a}"' in index for a in ["attack","defend","item","flee"]))
     check("ui:redundant-action-helpers-removed", "Available actions" not in index and "Tap an action below" not in index)
     check("performance:navigation-not-network-blocked", "if (destinationPath) await preloadScene(destinationPath)" not in index)
     check("performance:scene-test-lazy", 'loading="lazy" decoding="async"' in index)
@@ -157,6 +164,11 @@ with sync_playwright() as pw:
     check("route:deep-forest-return", page.evaluate("rooms.whisperingForest.exits.west") == "fallenLog")
     check("route:cottage-is-deep", page.evaluate("rooms.whisperingForest.exits.north") == "cottageApproach")
     check("route:cottage-return", page.evaluate("rooms.cottageApproach.exits.south") == "whisperingForest")
+    check("route:castle-road-to-thorn-pass", page.evaluate("rooms.castleRoad.exits.south") == "thornHedgePass")
+    check("route:thorn-pass-to-watch", page.evaluate("rooms.thornHedgePass.exits.south") == "brokenWatchCrossing")
+    check("route:watch-to-outer-approach", page.evaluate("rooms.brokenWatchCrossing.exits.south") == "outerGateApproach")
+    check("route:outer-approach-to-gate", page.evaluate("rooms.outerGateApproach.exits.south") == "castleGate")
+    check("route:gate-return-to-approach", page.evaluate("rooms.castleGate.exits.north") == "outerGateApproach")
 
     # Discoverables appear before collection and disappear after collection.
     discoverables = CONTRACT["route_rebuild"]["discoverables"]
@@ -222,6 +234,43 @@ with sync_playwright() as pw:
     reset("oldCemeteryPath")
     cemetery_exits=page.evaluate("rooms.oldCemeteryPath.exits")
     check("cemetery:east-and-south-exits", cemetery_exits.get("east") == "chapelYard" and cemetery_exits.get("south") == "chapelRoad", str(cemetery_exits))
+
+    # v1.7.2.9 treasure, crypt and combat prototype.
+    reset("tavernCellar")
+    cellar_actions=page.evaluate("currentActions().map(normalize)")
+    check("treasure:cellar-barrel-action", "search old barrel" in cellar_actions, str(cellar_actions))
+    check("treasure:cellar-flagstone-action", "pry up loose flagstone" in cellar_actions, str(cellar_actions))
+    reset("secretTunnel")
+    tunnel_actions=page.evaluate("currentActions().map(normalize)")
+    check("treasure:tunnel-loose-stone", "search loose stone" in tunnel_actions, str(tunnel_actions))
+    check("treasure:tunnel-wall-niche", "search wall niche" in tunnel_actions, str(tunnel_actions))
+    check("treasure:tunnel-bones", "inspect old bones" in tunnel_actions, str(tunnel_actions))
+    reset("crypt")
+    crypt_actions=page.evaluate("currentActions().map(normalize)")
+    check("crypt:coffin-action", "open stone coffin" in crypt_actions, str(crypt_actions))
+    check("crypt:burial-shelf-action", "search burial shelf" in crypt_actions, str(crypt_actions))
+    check("crypt:quick-actions-show-coffin", "open stone coffin" in page.evaluate("defaultSceneActions().map(normalize)"))
+    reset("thornHedgePass")
+    road_actions=page.evaluate("currentActions().map(normalize)")
+    check("encounter:thorn-hound-action", "investigate growl" in road_actions, str(road_actions))
+    page.evaluate("startCombat('thornHound')")
+    check("combat:dialog-opens", page.locator("#combat-dialog").evaluate("d=>d.open"))
+    check("combat:enemy-is-thorn-hound", page.locator("#combat-enemy-name").inner_text().strip() == "Thorn Hound")
+    page.evaluate("combatVictory('thornHound')")
+    check("combat:victory-flag", page.evaluate("state.flags.thornHoundDefeated") is True)
+    check("combat:victory-item", page.evaluate("has('briar fang')") is True)
+    reset("crypt")
+    page.evaluate("startCombat('restlessSkeleton')")
+    check("combat:skeleton-dialog", page.locator("#combat-enemy-name").inner_text().strip() == "Restless Skeleton")
+    page.evaluate("combatVictory('restlessSkeleton')")
+    check("combat:skeleton-reward", page.evaluate("has('ancient chapel charm')") is True)
+    stats=page.evaluate("adventureStats()")
+    check("d20:derived-stats", all(k in stats for k in ["might","wits","resolve","luck","defense"]), str(stats))
+    page.locator("#command-input").focus()
+    page.wait_for_timeout(120)
+    check("keyboard:focus-class", page.evaluate("document.body.classList.contains('keyboard-open')") is True)
+    page.locator("#command-input").evaluate("el=>el.blur()")
+    page.wait_for_timeout(120)
 
     # Structural checks across all rooms.
     bad_exits = page.evaluate("""() => Object.entries(rooms).flatMap(([id,r]) => Object.entries(r.exits||{}).filter(([d,to])=>!rooms[to]).map(([d,to])=>id+':'+d+'->'+to))""")

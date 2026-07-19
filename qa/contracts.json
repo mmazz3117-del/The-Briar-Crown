@@ -1,5 +1,5 @@
 {
-  "version": "1.7.2.8",
+  "version": "1.7.2.9",
   "scenes": {
     "tavern": {
       "fresh_required": [
@@ -127,6 +127,22 @@
       [
         "whisperingForest",
         "moonwell"
+      ],
+      [
+        "castleRoad",
+        "thornHedgePass"
+      ],
+      [
+        "thornHedgePass",
+        "brokenWatchCrossing"
+      ],
+      [
+        "brokenWatchCrossing",
+        "outerGateApproach"
+      ],
+      [
+        "outerGateApproach",
+        "castleGate"
       ]
     ],
     "discoverables": {
@@ -184,7 +200,10 @@
       "willow-trail-v1724.webp",
       "witch-cottage-cellar-v1724.webp",
       "witch-cottage-exterior-v1724.webp",
-      "witch-cottage-interior-v1724.webp"
+      "witch-cottage-interior-v1724.webp",
+      "thorn-hedge-pass-v1729.webp",
+      "broken-watch-crossing-v1729.webp",
+      "outer-gate-approach-v1729.webp"
     ],
     "retired_placeholders": []
   },
@@ -213,5 +232,46 @@
     "visual_viewport_clamped_to_inner_height": true,
     "orientation_multi_pass_settle": true,
     "portrait_grid_reflow": true
+  },
+  "combat": {
+    "d20_dialog": true,
+    "enemies": [
+      "thornHound",
+      "restlessSkeleton"
+    ],
+    "actions": [
+      "attack",
+      "defend",
+      "item",
+      "flee"
+    ],
+    "crypt_trigger": "open stone coffin",
+    "road_trigger": "investigate growl"
+  },
+  "treasure": {
+    "tavernCellar": [
+      "search old barrel",
+      "pry up loose flagstone"
+    ],
+    "secretTunnel": [
+      "search loose stone",
+      "search wall niche",
+      "inspect old bones"
+    ],
+    "secretAlcove": [
+      "search loose stone",
+      "try to move rubble",
+      "inspect cracked wall"
+    ],
+    "crypt": [
+      "search burial shelf",
+      "open stone coffin",
+      "search open coffin"
+    ]
+  },
+  "keyboard_dock": {
+    "body_class": "keyboard-open",
+    "uses_visual_viewport_height": true,
+    "hides_nonessential_panels": true
   }
 }
