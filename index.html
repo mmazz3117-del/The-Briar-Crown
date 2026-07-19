@@ -1500,11 +1500,81 @@
     }
 
 
-    /* v1.7.3.0 story scroll, focused interactions, loot confirmation, and improved die */
-    .lore-step{padding:18px;min-height:min(84dvh,760px);display:grid;place-items:center;background:radial-gradient(circle at 50% 20%,#2b1c39,#0b0910 72%)}
-    .lore-scroll{width:min(92vw,620px);max-height:76dvh;overflow:auto;padding:42px 30px 34px;border:2px solid #9b7838;border-radius:14px;color:#3a2515;background:linear-gradient(90deg,#b88c4f 0,#efd99c 7%,#f7e9b9 50%,#efd99c 93%,#b88c4f 100%);box-shadow:0 18px 60px #000b;transform-origin:50% 0;animation:unfurl .75s cubic-bezier(.2,.8,.2,1)}
-    .lore-scroll h2{text-align:center;margin:0 0 10px;font-size:30px}.lore-scroll .seal{text-align:center;font-size:44px;margin-bottom:8px}.lore-scroll p{font:18px/1.55 Georgia,serif;margin:0 0 15px}.lore-scroll .lore-actions{display:flex;gap:10px;justify-content:center;margin-top:22px}.lore-scroll button{min-height:48px;padding:10px 22px;border:2px solid #75521e;border-radius:9px;background:#24172f;color:#f5dc93;font-weight:700}
-    @keyframes unfurl{0%{transform:scaleY(.08);opacity:.25}65%{transform:scaleY(1.03);opacity:1}100%{transform:scaleY(1)}}
+    /* v1.7.3.1 animated parchment scroll and hero-screen isolation hotfix */
+    .lore-step[hidden], .class-step[hidden], .opening-title-step[hidden] { display:none!important; }
+    .lore-step {
+      width:100%; height:100%; min-height:0; box-sizing:border-box; overflow:hidden;
+      padding:max(72px,calc(env(safe-area-inset-top) + 18px)) 14px max(24px,calc(env(safe-area-inset-bottom) + 14px));
+      display:grid; place-items:center;
+      background:
+        radial-gradient(circle at 50% 12%,rgba(91,58,121,.35),transparent 34%),
+        radial-gradient(circle at 50% 86%,rgba(93,54,28,.20),transparent 32%),
+        linear-gradient(180deg,#0c0912,#030306 82%);
+    }
+    .scroll-stage { width:100%; height:100%; min-height:0; display:grid; place-items:center; overflow:auto; overscroll-behavior:contain; -webkit-overflow-scrolling:touch; padding:12px 4px 24px; box-sizing:border-box; }
+    .ancient-scroll { position:relative; width:min(92vw,620px); margin:auto; filter:drop-shadow(0 22px 34px rgba(0,0,0,.72)); }
+    .scroll-roll {
+      position:relative; z-index:4; height:42px; margin:0 -10px;
+      border:2px solid #6d421d; border-radius:999px;
+      background:
+        radial-gradient(circle at 12px 50%,#e8c176 0 6px,#6d3b18 7px 11px,transparent 12px),
+        radial-gradient(circle at calc(100% - 12px) 50%,#e8c176 0 6px,#6d3b18 7px 11px,transparent 12px),
+        linear-gradient(180deg,#d3a35a 0,#865222 34%,#4c2b13 53%,#a76b31 74%,#d9b168 100%);
+      box-shadow:inset 0 2px 3px #f8df9a99,inset 0 -5px 8px #2d160d99,0 5px 12px #0008;
+    }
+    .scroll-roll::before,.scroll-roll::after { content:""; position:absolute; top:50%; width:16px; height:28px; transform:translateY(-50%); border:2px solid #5b3215; border-radius:50%; background:radial-gradient(circle at 40% 35%,#f0c878,#8d5726 58%,#3b210f 100%); }
+    .scroll-roll::before { left:-7px; } .scroll-roll::after { right:-7px; }
+    .scroll-sheet {
+      position:relative; z-index:2; margin:-7px 0; max-height:calc(100dvh - 170px); overflow:auto;
+      padding:42px 28px 34px; box-sizing:border-box; color:#382313;
+      border-left:2px solid #8a5b28; border-right:2px solid #8a5b28;
+      background:
+        radial-gradient(circle at 12% 18%,rgba(110,65,28,.12),transparent 18%),
+        radial-gradient(circle at 82% 74%,rgba(117,68,31,.13),transparent 22%),
+        repeating-linear-gradient(0deg,rgba(86,50,22,.025) 0 1px,transparent 1px 4px),
+        linear-gradient(90deg,#b88143 0,#efd39a 5%,#f7e7b8 18%,#faefc8 50%,#f7e7b8 82%,#efd39a 95%,#b88143 100%);
+      box-shadow:inset 15px 0 18px rgba(92,49,16,.16),inset -15px 0 18px rgba(92,49,16,.16);
+      scrollbar-color:#8c5c28 #ead39d;
+    }
+    .scroll-sheet::before,.scroll-sheet::after { content:"✦"; position:absolute; color:#8e5a25; opacity:.65; font-size:22px; }
+    .scroll-sheet::before { left:14px; top:14px; } .scroll-sheet::after { right:14px; bottom:12px; transform:rotate(180deg); }
+    .scroll-crown { text-align:center; color:#82501f; font-size:34px; line-height:1; text-shadow:0 1px #ffe7aa; }
+    .scroll-kicker { margin:7px 0 2px; text-align:center; color:#70431d; font:700 11px/1.2 Georgia,serif; letter-spacing:.16em; text-transform:uppercase; }
+    .scroll-sheet h2 { text-align:center; margin:8px 0 18px; font:700 clamp(30px,8vw,46px)/1.02 Georgia,serif; color:#3b2313; }
+    .scroll-divider { width:68%; height:1px; margin:0 auto 20px; background:linear-gradient(90deg,transparent,#835322,transparent); }
+    .lore-copy p { font:clamp(17px,4.5vw,21px)/1.55 Georgia,serif; margin:0 0 17px; }
+    .lore-copy p:first-child::first-letter { float:left; margin:4px 7px 0 0; font-size:52px; line-height:.78; color:#783f1c; font-weight:700; text-shadow:0 1px #f8dda2; }
+    .scroll-seal { width:54px; height:54px; display:grid; place-items:center; margin:16px auto 4px; border-radius:50%; border:3px double #6e321e; background:radial-gradient(circle at 35% 30%,#be563c,#6d1e20 68%,#391116); color:#f1c976; font-size:25px; box-shadow:0 4px 10px #4b1c16aa; transform:rotate(-7deg); }
+    .lore-actions { display:flex; gap:10px; justify-content:center; margin-top:18px; }
+    .lore-actions button { min-height:50px; padding:10px 20px; border:2px solid #71471f; border-radius:9px; background:linear-gradient(180deg,#30203e,#1b1225); color:#f5dc93; font:700 16px Georgia,serif; box-shadow:inset 0 0 0 1px #c79b4c55; }
+    .ancient-scroll.is-opening .scroll-sheet { animation:parchment-unfurl 1.15s cubic-bezier(.2,.78,.15,1) both; transform-origin:50% 50%; }
+    .ancient-scroll.is-opening .scroll-roll-top { animation:roller-top-open 1.05s cubic-bezier(.2,.78,.15,1) both; }
+    .ancient-scroll.is-opening .scroll-roll-bottom { animation:roller-bottom-open 1.05s cubic-bezier(.2,.78,.15,1) both; }
+    .ancient-scroll.is-opening .scroll-sheet > * { animation:ink-appear .55s ease both; animation-delay:1.02s; }
+    .ancient-scroll.is-opening .lore-copy p:nth-child(2) { animation-delay:1.14s; }
+    .ancient-scroll.is-opening .lore-copy p:nth-child(3) { animation-delay:1.26s; }
+    .ancient-scroll.is-opening .lore-copy p:nth-child(4) { animation-delay:1.38s; }
+    .ancient-scroll.is-opening .lore-actions { animation-delay:1.48s; }
+    @keyframes parchment-unfurl { 0%{clip-path:inset(49% 0 49% 0);opacity:.15;transform:scaleY(.08)} 58%{clip-path:inset(0 0 0 0);opacity:1;transform:scaleY(1.025)} 100%{clip-path:inset(0);transform:scaleY(1)} }
+    @keyframes roller-top-open { 0%{transform:translateY(31dvh) rotate(-2deg)} 68%{transform:translateY(-4px) rotate(.5deg)} 100%{transform:translateY(0)} }
+    @keyframes roller-bottom-open { 0%{transform:translateY(-31dvh) rotate(2deg)} 68%{transform:translateY(4px) rotate(-.5deg)} 100%{transform:translateY(0)} }
+    @keyframes ink-appear { from{opacity:0;filter:blur(2px);transform:translateY(8px)} to{opacity:1;filter:none;transform:none} }
+
+    .class-step {
+      width:100%; height:100%; min-height:0; box-sizing:border-box; overflow-y:auto; overscroll-behavior:contain; -webkit-overflow-scrolling:touch;
+      padding:max(76px,calc(env(safe-area-inset-top) + 22px)) 18px max(34px,calc(env(safe-area-inset-bottom) + 20px));
+      background:radial-gradient(circle at 50% 0,rgba(86,55,111,.42),transparent 33%),linear-gradient(180deg,#100c17,#050508 76%);
+    }
+    .class-step h3 { font-size:clamp(30px,8vw,44px); }
+    .class-step .class-grid { align-items:stretch; }
+    .class-step .class-card { min-height:150px; }
+    @media(max-width:470px){
+      .scroll-stage{padding-inline:0}.ancient-scroll{width:min(94vw,620px)}.scroll-sheet{padding:38px 22px 30px;max-height:calc(100dvh - 158px)}
+      .scroll-roll{height:38px;margin-inline:-6px}.lore-copy p{font-size:18px}.lore-actions{position:sticky;bottom:-30px;padding:12px 0 2px;background:linear-gradient(180deg,transparent 0,#f3dda9 32%,#ecd39b 100%)}
+      .class-step{padding-inline:14px}.class-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.class-card{min-height:138px;padding:10px}.class-card strong{font-size:17px}.class-card small{font-size:11px}.class-stats{font-size:10px}
+    }
+    @media(prefers-reduced-motion:reduce){ .ancient-scroll.is-opening .scroll-sheet,.ancient-scroll.is-opening .scroll-roll-top,.ancient-scroll.is-opening .scroll-roll-bottom,.ancient-scroll.is-opening .scroll-sheet>*{animation:none!important} }
+
     .loot-dialog,.focus-dialog{border:0;padding:0;background:transparent;color:#f3dda1}.loot-dialog::backdrop,.focus-dialog::backdrop{background:#030207d9;backdrop-filter:blur(3px)}
     .loot-panel,.focus-panel{width:min(92vw,560px);border:2px solid #9b7838;border-radius:16px;background:linear-gradient(180deg,#241831,#0d0a12);padding:18px;box-shadow:0 18px 55px #000b;font-family:Georgia,serif}.loot-panel h2,.focus-panel h2{margin:0 0 10px}.loot-list{display:grid;gap:8px;margin:14px 0}.loot-item{padding:10px;border:1px solid #72562c;border-radius:9px;background:#17101f}.loot-actions,.focus-actions{display:flex;gap:8px;flex-wrap:wrap}.loot-actions button,.focus-actions button{flex:1;min-height:46px;border:1px solid #a17a34;border-radius:9px;background:#261933;color:#f1d895;font-weight:700}
     .d20,.combat-die{transform-style:preserve-3d;will-change:transform}.d20.rolling{animation:d20-tumble .16s linear infinite;box-shadow:0 0 25px rgba(218,177,78,.65)}
@@ -1526,17 +1596,28 @@
         </div>
       </div>
       <div id="lore-step" class="lore-step" hidden>
-        <article class="lore-scroll" aria-labelledby="lore-title">
-          <div class="seal" aria-hidden="true">📜</div>
-          <h2 id="lore-title">The Crown Is Missing</h2>
-          <p>For generations, the Briar Crown rested within Ironthorn Castle, binding the oldest and most dangerous magic beneath the land.</p>
-          <p>Seven days ago, the Crown vanished. Since then, forgotten roads have shifted, wild creatures have grown restless, and sealed tombs have begun to open.</p>
-          <p>No messenger sent to Ironthorn has returned. Strange relics are surfacing near Willowmere, and something ancient is stirring beneath Saint Orla’s chapel.</p>
-          <p>Your journey begins in Willowmere Square. Follow the clues, recover what was scattered, and discover who took the Crown before the awakened magic consumes the realm.</p>
-          <div class="lore-actions"><button id="lore-back-btn" type="button">Back</button><button id="lore-continue-btn" type="button">Choose Your Hero</button></div>
-        </article>
+        <div class="scroll-stage">
+          <article class="ancient-scroll" aria-labelledby="lore-title">
+            <div class="scroll-roll scroll-roll-top" aria-hidden="true"></div>
+            <div class="scroll-sheet">
+              <div class="scroll-crown" aria-hidden="true">♛</div>
+              <div class="scroll-kicker">A Proclamation from Willowmere</div>
+              <h2 id="lore-title">The Crown Is Missing</h2>
+              <div class="scroll-divider" aria-hidden="true"></div>
+              <div class="lore-copy">
+                <p>For generations, the Briar Crown rested within Ironthorn Castle, binding the oldest and most dangerous magic beneath the land.</p>
+                <p>Seven days ago, the Crown vanished. Since then, forgotten roads have shifted, wild creatures have grown restless, and sealed tombs have begun to open.</p>
+                <p>No messenger sent to Ironthorn has returned. Strange relics are surfacing near Willowmere, and something ancient is stirring beneath Saint Orla’s chapel.</p>
+                <p>Your journey begins in Willowmere Square. Follow the clues, recover what was scattered, and discover who took the Crown before the awakened magic consumes the realm.</p>
+              </div>
+              <div class="scroll-seal" aria-hidden="true">♛</div>
+              <div class="lore-actions"><button id="lore-back-btn" type="button">Back</button><button id="lore-continue-btn" type="button">Choose Your Hero</button></div>
+            </div>
+            <div class="scroll-roll scroll-roll-bottom" aria-hidden="true"></div>
+          </article>
+        </div>
       </div>
-      <div id="class-step" class="class-step" hidden>
+      <div id="class-step" class="class-step" tabindex="-1" hidden>
         <h3>Choose Your Hero</h3><p>Each path begins with different strengths and a unique starting item.</p>
         <div class="class-grid" id="class-grid"></div>
         <div class="name-row"><label for="hero-name">Name your adventurer</label><input id="hero-name" maxlength="20" value="Rowan" autocomplete="off"></div>
@@ -1554,7 +1635,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.7.3.0 • Story Scroll, Interaction Integrity & Crypt Polish</small>
+        <small id="version-tag">Version 1.7.3.1 • Animated Scroll & Hero Selection Hotfix</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -1683,7 +1764,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.7.3.0";
+    const BUILD_VERSION = "1.7.3.1";
 
     const itemInfo = {
       "tarnished locket": "A traveler's locket found behind the tavern hearth. The portrait inside shows a young woman before a crooked woodland cottage.",
@@ -5642,12 +5723,25 @@
       document.getElementById("lore-step").hidden = true;
       document.getElementById("continue-adventure-btn").disabled = !storageGet(SAVE_KEY);
     }
+    function showLoreScreen() {
+      const titleStep=document.getElementById("title-step");
+      const classStep=document.getElementById("class-step");
+      const loreStep=document.getElementById("lore-step");
+      titleStep.hidden=true; classStep.hidden=true; loreStep.hidden=false;
+      loreStep.scrollTop=0;
+      const scroll=loreStep.querySelector(".ancient-scroll");
+      if(scroll){ scroll.classList.remove("is-opening"); void scroll.offsetWidth; scroll.classList.add("is-opening"); }
+      requestAnimationFrame(()=>{ const stage=loreStep.querySelector(".scroll-stage"); if(stage) stage.scrollTop=0; });
+    }
     function showClassScreen() {
       selectedHeroClass = null;
-      document.getElementById("title-step").hidden = true;
-      document.getElementById("class-step").hidden = false;
-      document.getElementById("lore-step").hidden = true;
+      const titleStep=document.getElementById("title-step");
+      const classStep=document.getElementById("class-step");
+      const loreStep=document.getElementById("lore-step");
+      titleStep.hidden=true; loreStep.hidden=true; classStep.hidden=false;
+      classStep.scrollTop=0;
       renderHeroClasses(); updateHeroSummary();
+      requestAnimationFrame(()=>{ classStep.scrollTop=0; classStep.focus({preventScroll:true}); });
     }
     async function beginAdventure() {
       await unlockMusic();
@@ -5721,7 +5815,7 @@
       document.getElementById("opening-enter-btn").hidden=true;
       document.getElementById("opening-menu").hidden=false;
     });
-    document.getElementById("new-adventure-btn").addEventListener("click", () => { document.getElementById("title-step").hidden=true; document.getElementById("class-step").hidden=true; document.getElementById("lore-step").hidden=false; });
+    document.getElementById("new-adventure-btn").addEventListener("click", showLoreScreen);
     document.getElementById("lore-back-btn")?.addEventListener("click", showTitleScreen);
     document.getElementById("lore-continue-btn")?.addEventListener("click", showClassScreen);
     document.getElementById("loot-collect-btn")?.addEventListener("click", collectPendingLoot);
@@ -5759,7 +5853,7 @@
           tavernCellarOpen:false
         });
       }
-      state.schemaVersion = 1730;
+      state.schemaVersion = 1731;
       const herbQty=(state.itemCounts["healing herb"]||0)+(state.itemCounts["healing herbs"]||0)+(state.inventory.includes("healing herb")?1:0);
       delete state.itemCounts["healing herb"];state.inventory=state.inventory.filter(i=>i!=="healing herb");
       if(herbQty>0){state.itemCounts["healing herbs"]=Math.max(state.itemCounts["healing herbs"]||0,herbQty);if(!state.inventory.includes("healing herbs"))state.inventory.push("healing herbs");}
@@ -5886,7 +5980,7 @@
     function boot() {
       updateMusicButton();
       const vt = document.getElementById("version-tag");
-      const versionLabel=`Version ${BUILD_VERSION} • Story Scroll, Interaction Integrity & Crypt Polish`;
+      const versionLabel=`Version ${BUILD_VERSION} • Animated Scroll & Hero Selection Hotfix`;
       if (vt) vt.textContent = versionLabel;
       const ov=document.getElementById("opening-version");if(ov)ov.textContent=versionLabel;
       const saved = storageGet(SAVE_KEY);

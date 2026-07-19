@@ -1,4 +1,4 @@
-const CACHE = "briar-crown-v1.7.3.0-story-scroll-interaction-integrity";
+const CACHE = "briar-crown-v1.7.3.1-animated-scroll-hero-selection";
 const CORE_ASSETS = [
   "./",
   "./index.html",
