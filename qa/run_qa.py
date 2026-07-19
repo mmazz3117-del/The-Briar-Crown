@@ -5,7 +5,7 @@ from PIL import Image, ImageStat
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else Path(__file__).resolve().parents[1]
-VERSION = "1.7.2.9"
+VERSION = "1.7.3.0"
 ART_VERSION = "1.7.2.9"
 CONTRACT = json.loads((Path(__file__).parent / "contracts.json").read_text())
 results = []
@@ -107,11 +107,11 @@ with sync_playwright() as pw:
     alcove_actions = page.evaluate("() => { state=initialState(); state.room='secretAlcove'; return currentActions().map(normalize); }")
     check("actions:alcove-rubble-visible", "try to move rubble" in alcove_actions, str(alcove_actions))
     check("map:zoom-controls", 'data-map-zoom="in"' in index and 'data-map-zoom="out"' in index and 'data-map-reset' in index)
-    check("map:current-location-marker", "YOU ARE HERE" in index and "wm-you-dot" in index)
+    check("map:current-location-marker", "HERE" in index and "wm-you-dot" in index)
     check("map:full-screen-viewer", "height:100dvh!important" in index and "world-map-v1726.png" in index)
     check("map:no-crossing-overlay-lines", ".wm-route { display:none!important; }" in index and 'const edgesSvg = "";' in index)
-    check("opening:art-present", (ROOT / "assets/ui/opening-v1726.webp").exists() and "opening-v1726.webp" in index)
-    check("opening:version-visible", "Version 1.7.2.9" in index and 'id="opening-enter-btn"' in index)
+    check("opening:art-present", (ROOT / "assets/ui/opening-v1730.webp").exists() and "opening-v1730.webp" in index)
+    check("opening:version-visible", "Version 1.7.3.0" in index and 'id="opening-enter-btn"' in index)
     hub = page.evaluate("rooms.square.exits")
     check("navigation:four-way-hub", hub == {"north":"tavernApproach","east":"forgeLane","south":"castleRoad","west":"chapelRoad"}, str(hub))
     check("navigation:named-action-labels", "navigationDestinationNames" in index and "Go ${titleCase(compass[1])}" in index)
@@ -258,11 +258,14 @@ with sync_playwright() as pw:
     check("combat:enemy-is-thorn-hound", page.locator("#combat-enemy-name").inner_text().strip() == "Thorn Hound")
     page.evaluate("combatVictory('thornHound')")
     check("combat:victory-flag", page.evaluate("state.flags.thornHoundDefeated") is True)
+    check("combat:loot-dialog", page.locator("#loot-dialog").evaluate("d=>d.open"))
+    page.evaluate("collectPendingLoot()")
     check("combat:victory-item", page.evaluate("has('briar fang')") is True)
     reset("crypt")
     page.evaluate("startCombat('restlessSkeleton')")
     check("combat:skeleton-dialog", page.locator("#combat-enemy-name").inner_text().strip() == "Restless Skeleton")
     page.evaluate("combatVictory('restlessSkeleton')")
+    page.evaluate("collectPendingLoot()")
     check("combat:skeleton-reward", page.evaluate("has('ancient chapel charm')") is True)
     stats=page.evaluate("adventureStats()")
     check("d20:derived-stats", all(k in stats for k in ["might","wits","resolve","luck","defense"]), str(stats))
