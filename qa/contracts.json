@@ -1,5 +1,5 @@
 {
-  "version": "1.7.2.6",
+  "version": "1.7.2.8",
   "scenes": {
     "tavern": {
       "fresh_required": [
@@ -208,5 +208,10 @@
     "art": "assets/ui/opening-v1726.webp",
     "version_visible": true,
     "tap_to_begin": true
+  },
+  "viewport_recovery": {
+    "visual_viewport_clamped_to_inner_height": true,
+    "orientation_multi_pass_settle": true,
+    "portrait_grid_reflow": true
   }
 }

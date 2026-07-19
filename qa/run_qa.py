@@ -5,7 +5,7 @@ from PIL import Image, ImageStat
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else Path(__file__).resolve().parents[1]
-VERSION = "1.7.2.6"
+VERSION = "1.7.2.8"
 ART_VERSION = "1.7.2.4"
 CONTRACT = json.loads((Path(__file__).parent / "contracts.json").read_text())
 results = []
@@ -108,21 +108,36 @@ with sync_playwright() as pw:
     check("map:full-screen-viewer", "height:100dvh!important" in index and "world-map-v1726.png" in index)
     check("map:no-crossing-overlay-lines", ".wm-route { display:none!important; }" in index and 'const edgesSvg = "";' in index)
     check("opening:art-present", (ROOT / "assets/ui/opening-v1726.webp").exists() and "opening-v1726.webp" in index)
-    check("opening:version-visible", "Version 1.7.2.6" in index and 'id="opening-enter-btn"' in index)
+    check("opening:version-visible", "Version 1.7.2.8" in index and 'id="opening-enter-btn"' in index)
     hub = page.evaluate("rooms.square.exits")
     check("navigation:four-way-hub", hub == {"north":"tavernApproach","east":"forgeLane","south":"castleRoad","west":"chapelRoad"}, str(hub))
     check("navigation:named-action-labels", "navigationDestinationNames" in index and "Go ${titleCase(compass[1])}" in index)
     check("tavern:hatch-dynamic-label", 'selectedHotspotContext.hotspot.label="Cellar Hatch"' in index)
-    check("ui:command-dock-uses-visual-viewport", "window.visualViewport.height" in index and "display:grid!important" in index)
+    check("tavern:hatch-progress-repair", "const cellarRouteProgress" in index and "cellarHatchIsDiscovered" in index)
+    check("map:close-safe-area", "padding-top:env(safe-area-inset-top)" in index and "data-map-close" in index)
+    check("ui:command-dock-uses-visual-viewport", "visibleViewportMetrics" in index and "window.visualViewport" in index and "display:grid!important" in index)
+    check("ui:viewport-height-clamped", "Math.min(...heightCandidates)" in index and "--app-width" in index)
+    check("ui:orientation-multipass-settle", "settleViewportAfterOrientation" in index and "[0, 80, 180, 360, 700]" in index)
+    check("ui:orientation-forced-reflow", "forceViewportLayoutReflow" in index and 'style.setProperty("display", "none", "important")' in index)
     check("ui:redundant-action-helpers-removed", "Available actions" not in index and "Tap an action below" not in index)
     check("performance:navigation-not-network-blocked", "if (destinationPath) await preloadScene(destinationPath)" not in index)
     check("performance:scene-test-lazy", 'loading="lazy" decoding="async"' in index)
     check("performance:scene-cache-first", "const isScene" in sw and "cached || (await refresh)" in sw)
-    check("ui:bounded-mobile-story-panel", "v1.7.2.6 navigation, map, opening screen, and command dock rebuild" in index and "grid-template-rows: auto auto minmax(0, 1fr) auto" in index and "overflow: hidden !important" in index)
+    check("ui:bounded-mobile-story-panel", "grid-template-rows: auto auto minmax(0, 1fr) auto" in index and "overflow: hidden !important" in index)
     check("ui:larger-mobile-status", "font-size: 12px !important" in index and "min-width: 68px !important" in index and "min-width: 58px !important" in index)
     apoth_approach = page.evaluate("rooms.apothecaryApproach.hotspots.find(h=>h.label==='Apothecary Door')")
     check("hotspots:apothecary-approach-door-aligned", bool(apoth_approach) and 58 <= apoth_approach["x"] <= 72 and apoth_approach["w"] >= 32, str(apoth_approach))
     check("ui:hotspot-selection-scrolls-actions", 'controls.scrollIntoView({ behavior: "smooth", block: "nearest" })' in index)
+
+    # Existing saves that reached the cellar/tunnel must never regress to a Scuffed Floor label.
+    page.evaluate("""() => {
+      state=initialState(); state.schemaVersion=1723; state.room='tavern';
+      state.visited=['square','tavern','tavernCellar','secretTunnel','secretAlcove'];
+      state.flags.tunnelCoinsTaken=true; state.flags.hatchDiscoveryConfirmed=false;
+      migrateState(); renderAll();
+    }""")
+    check("tavern:legacy-progress-repairs-hatch", page.evaluate("state.flags.hatchDiscoveryConfirmed") is True)
+    check("tavern:legacy-progress-label-is-cellar-hatch", page.locator("#hotspots .hotspot").filter(has_text="Cellar Hatch").count() >= 1)
 
     def reset(room="square"):
         page.evaluate("""room => {
@@ -230,6 +245,28 @@ with sync_playwright() as pw:
       state=original; restoreDynamicExits(); renderAll(); return bad;
     }""")
     check("actions:no-duplicates", not duplicates, str(duplicates))
+
+    # Rotate landscape and back to portrait. The flexible story row must recover
+    # without leaving a large black gap and controls must remain inside the viewport.
+    page.evaluate("document.getElementById('start-overlay').hidden=true")
+    page.set_viewport_size({"width": 852, "height": 393})
+    page.evaluate("window.dispatchEvent(new Event('orientationchange'))")
+    page.wait_for_timeout(250)
+    page.set_viewport_size({"width": 430, "height": 932})
+    page.evaluate("window.dispatchEvent(new Event('orientationchange'))")
+    page.wait_for_timeout(850)
+    rotation_geometry = page.evaluate("""() => {
+      const app=document.querySelector('.app').getBoundingClientRect();
+      const scene=document.querySelector('.scene-shell').getBoundingClientRect();
+      const story=document.querySelector('.story-panel').getBoundingClientRect();
+      const controls=document.querySelector('.controls').getBoundingClientRect();
+      return {app,scene,story,controls,innerHeight:window.innerHeight,cssHeight:getComputedStyle(document.documentElement).getPropertyValue('--app-height')};
+    }""")
+    check("ui:orientation-app-height-recovers", abs(rotation_geometry["app"]["height"] - rotation_geometry["innerHeight"]) <= 3, str(rotation_geometry))
+    gap = rotation_geometry["story"]["top"] - rotation_geometry["scene"]["bottom"]
+    check("ui:orientation-no-black-middle-gap", gap <= 20 and rotation_geometry["story"]["height"] > 60, str(rotation_geometry))
+    check("ui:orientation-controls-in-viewport", rotation_geometry["controls"]["bottom"] <= rotation_geometry["innerHeight"] + 3, str(rotation_geometry))
+    check("ui:orientation-no-horizontal-overflow", rotation_geometry["story"]["right"] <= rotation_geometry["app"]["right"] + 1 and rotation_geometry["controls"]["right"] <= rotation_geometry["app"]["right"] + 1, str(rotation_geometry))
 
     browser.close()
 
