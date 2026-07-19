@@ -5,7 +5,7 @@ from PIL import Image, ImageStat
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else Path(__file__).resolve().parents[1]
-VERSION = "1.7.3.1"
+VERSION = "1.7.4.0"
 ART_VERSION = "1.7.2.9"
 CONTRACT = json.loads((Path(__file__).parent / "contracts.json").read_text())
 results = []
@@ -111,7 +111,7 @@ with sync_playwright() as pw:
     check("map:full-screen-viewer", "height:100dvh!important" in index and "world-map-v1726.png" in index)
     check("map:no-crossing-overlay-lines", ".wm-route { display:none!important; }" in index and 'const edgesSvg = "";' in index)
     check("opening:art-present", (ROOT / "assets/ui/opening-v1730.webp").exists() and "opening-v1730.webp" in index)
-    check("opening:version-visible", "Version 1.7.3.1" in index and 'id="opening-enter-btn"' in index)
+    check("opening:version-visible", 'const BUILD_VERSION = "1.7.4.0"' in index and 'id="opening-enter-btn"' in index)
     check("opening:animated-scroll-structure", all(token in index for token in ["ancient-scroll","scroll-roll-top","scroll-roll-bottom","parchment-unfurl","showLoreScreen"]))
     check("opening:hidden-step-isolation-css", '.lore-step[hidden], .class-step[hidden], .opening-title-step[hidden]' in index)
     page.evaluate("showTitleScreen()")
@@ -138,6 +138,10 @@ with sync_playwright() as pw:
     check("d20:animated-check-dialog", 'id="dice-dialog"' in index and "animatedCheck" in index and "@keyframes d20-roll" in index)
     check("combat:prototype-present", 'id="combat-dialog"' in index and "enemyCatalog" in index and "combatAction" in index)
     check("combat:required-actions", all(f'data-combat-action="{a}"' in index for a in ["attack","defend","item","flee"]))
+    check("combat:emergency-retreat-control", 'id="combat-close-btn"' in index and "emergencyRetreatFromCombat" in index)
+    check("combat:finally-cleanup", "finally {" in index and "combatUiBusy=false" in index and "resetCombatPresentation" in index)
+    check("combat:resume-pending-state", "resumePendingInteractionState" in index and "state.pendingLoot=state.pendingLoot" in index)
+    check("skills:unique-combat-practice", "grantSkillPractice" in index and "victory-restlessSkeleton" in index and "victory-thornHound" in index)
     check("ui:redundant-action-helpers-removed", "Available actions" not in index and "Tap an action below" not in index)
     check("performance:navigation-not-network-blocked", "if (destinationPath) await preloadScene(destinationPath)" not in index)
     check("performance:scene-test-lazy", 'loading="lazy" decoding="async"' in index)
@@ -262,23 +266,90 @@ with sync_playwright() as pw:
     check("crypt:coffin-action", "open stone coffin" in crypt_actions, str(crypt_actions))
     check("crypt:burial-shelf-action", "search burial shelf" in crypt_actions, str(crypt_actions))
     check("crypt:quick-actions-show-coffin", "open stone coffin" in page.evaluate("defaultSceneActions().map(normalize)"))
+    # Chapter One combat lifecycle: a completed battle must never lock the next encounter.
     reset("thornHedgePass")
     road_actions=page.evaluate("currentActions().map(normalize)")
     check("encounter:thorn-hound-action", "investigate growl" in road_actions, str(road_actions))
     page.evaluate("startCombat('thornHound')")
     check("combat:dialog-opens", page.locator("#combat-dialog").evaluate("d=>d.open"))
     check("combat:enemy-is-thorn-hound", page.locator("#combat-enemy-name").inner_text().strip() == "Thorn Hound")
+    first_buttons=page.evaluate("combatButtonsState()")
+    check("combat:first-encounter-actions-enabled", not first_buttons["attack"] and not first_buttons["defend"] and not first_buttons["flee"], str(first_buttons))
+    check("combat:first-die-reset", page.locator("#combat-die").inner_text().strip() == "?")
     page.evaluate("combatVictory('thornHound')")
     check("combat:victory-flag", page.evaluate("state.flags.thornHoundDefeated") is True)
     check("combat:loot-dialog", page.locator("#loot-dialog").evaluate("d=>d.open"))
     page.evaluate("collectPendingLoot()")
     check("combat:victory-item", page.evaluate("has('briar fang')") is True)
+    check("combat:thorn-practice-awarded", page.evaluate("state.skillUses.Combat") == 1, str(page.evaluate("state.skillUses")))
+
+    # The exact user-reported sequence: Skeleton victory, then Thorn Hound encounter.
     reset("crypt")
     page.evaluate("startCombat('restlessSkeleton')")
     check("combat:skeleton-dialog", page.locator("#combat-enemy-name").inner_text().strip() == "Restless Skeleton")
     page.evaluate("combatVictory('restlessSkeleton')")
     page.evaluate("collectPendingLoot()")
     check("combat:skeleton-reward", page.evaluate("has('ancient chapel charm')") is True)
+    check("combat:skeleton-practice-awarded", page.evaluate("state.skillUses.Combat") == 1, str(page.evaluate("state.skillUses")))
+    page.evaluate("state.room='thornHedgePass';startCombat('thornHound')")
+    second_buttons=page.evaluate("combatButtonsState()")
+    check("combat:second-encounter-actions-enabled", not second_buttons["attack"] and not second_buttons["defend"] and not second_buttons["flee"], str(second_buttons))
+    check("combat:second-encounter-die-reset", page.locator("#combat-die").inner_text().strip() == "?")
+    check("combat:second-encounter-message-reset", "emerges" in page.locator("#combat-message").inner_text().lower())
+    page.evaluate("emergencyRetreatFromCombat('QA retreat')")
+    check("combat:emergency-retreat-closes", not page.locator("#combat-dialog").evaluate("d=>d.open") and page.evaluate("state.combat") is None)
+
+    # A real attack action must always return controls to an enabled state.
+    reset("thornHedgePass")
+    page.evaluate("startCombat('thornHound');state.combat.enemyHp=1;Math.random=()=>0.99")
+    page.evaluate("combatAction('attack')")
+    check("combat:attack-opens-reward", page.locator("#loot-dialog").evaluate("d=>d.open"))
+    page.evaluate("collectPendingLoot()")
+    page.evaluate("startCombat('restlessSkeleton')")
+    after_action_buttons=page.evaluate("combatButtonsState()")
+    check("combat:post-animation-next-actions-enabled", not after_action_buttons["attack"] and not after_action_buttons["defend"] and not after_action_buttons["flee"], str(after_action_buttons))
+    page.evaluate("emergencyRetreatFromCombat('QA retreat')")
+
+    # Pending rewards and active battles recover correctly after a simulated reload.
+    reset("crypt")
+    page.evaluate("startCombat('restlessSkeleton');combatVictory('restlessSkeleton');const saved=JSON.stringify(state);state=JSON.parse(saved);migrateState();renderAll();resumePendingInteractionState()")
+    check("combat:pending-loot-survives-reload", page.locator("#loot-dialog").evaluate("d=>d.open") and page.evaluate("state.pendingLoot.enemyId") == "restlessSkeleton")
+    page.evaluate("collectPendingLoot()")
+    reset("thornHedgePass")
+    page.evaluate("startCombat('thornHound');state.combat.enemyHp=4;const saved=JSON.stringify(state);state=JSON.parse(saved);migrateState();renderAll();resumePendingInteractionState()")
+    resumed_buttons=page.evaluate("combatButtonsState()")
+    check("combat:active-battle-resumes", page.locator("#combat-dialog").evaluate("d=>d.open") and page.evaluate("state.combat.enemyHp") == 4)
+    check("combat:resumed-actions-enabled", not resumed_buttons["attack"] and not resumed_buttons["defend"] and not resumed_buttons["flee"], str(resumed_buttons))
+    page.evaluate("emergencyRetreatFromCombat('QA retreat')")
+
+    # Prior saves receive missing practice exactly once.
+    page.evaluate("""() => {state=initialState();state.player={name:'QA',classKey:'druid',className:'Druid',stats:heroClasses.druid.stats};state.flags.cryptSkeletonDefeated=true;state.schemaVersion=1731;state.skillPracticeFlags={};migrateState();} """)
+    check("skills:retroactive-skeleton-practice", page.evaluate("state.skillUses.Combat") == 1, str(page.evaluate("state.skillUses")))
+    page.evaluate("migrateState()")
+    check("skills:retroactive-practice-idempotent", page.evaluate("state.skillUses.Combat") == 1, str(page.evaluate("state.skillUses")))
+
+    # Crypt objects align with the visible artwork and progress to completed states.
+    reset("crypt")
+    coffin=page.evaluate("currentHotspots().find(h=>h.label==='Stone Coffin')")
+    reliquary=page.evaluate("currentHotspots().find(h=>h.label==='Reliquary')")
+    check("crypt:coffin-hotspot-visible-object", coffin["x"] >= 70 and coffin["y"] >= 50, str(coffin))
+    check("crypt:coffin-reliquary-do-not-overlap", coffin["x"] >= reliquary["x"]+reliquary["w"]-2, f"{coffin}/{reliquary}")
+    page.evaluate("state.flags.cryptBurialShelfLooted=true;state.flags.cryptSkeletonDefeated=true;state.flags.cryptCoffinLooted=true;state.flags.reliquaryOpen=true;state.flags.sigilTaken=true;renderAll()")
+    done_actions=page.evaluate("currentActions().map(normalize)")
+    done_spots=page.evaluate("currentHotspots().map(h=>({label:h.label,command:h.command}))")
+    check("crypt:completed-actions-removed", all(a not in done_actions for a in ["search burial shelf","open stone coffin","search open coffin","open reliquary","use silver token on reliquary"]), str(done_actions))
+    check("crypt:completed-hotspot-labels", any(h["label"]=="Empty Coffin" for h in done_spots) and any(h["label"]=="Empty Burial Shelf" for h in done_spots) and any(h["label"]=="Open Reliquary" for h in done_spots), str(done_spots))
+
+    # Ten clean back-to-back encounter lifecycles catch stale UI flags.
+    lifecycle_ok=page.evaluate("""() => {
+      for(let i=0;i<10;i++){
+        state=initialState();state.player={name:'QA',classKey:'druid',className:'Druid',stats:heroClasses.druid.stats};state.room='crypt';
+        startCombat('restlessSkeleton');if(Object.values(combatButtonsState()).filter(Boolean).length>1)return false;combatVictory('restlessSkeleton');collectPendingLoot();
+        state.room='thornHedgePass';startCombat('thornHound');const b=combatButtonsState();if(b.attack||b.defend||b.flee||document.getElementById('combat-die').textContent!=='?')return false;emergencyRetreatFromCombat('QA');
+      }return true;
+    }""")
+    check("combat:ten-consecutive-lifecycles", lifecycle_ok)
+
     stats=page.evaluate("adventureStats()")
     check("d20:derived-stats", all(k in stats for k in ["might","wits","resolve","luck","defense"]), str(stats))
     page.locator("#command-input").focus()
