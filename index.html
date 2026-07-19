@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="briar-crown-deployment" content="1741">
+  <meta name="briar-crown-deployment" content="1742">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content" />
   <meta name="theme-color" content="#0b0912" />
@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-title" content="Briar Crown" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <title>The Briar Crown — Mobile Adventure v1.7.4.1</title>
+  <title>The Briar Crown — Mobile Adventure v1.7.4.2</title>
   <style>
 
     :root {
@@ -1606,6 +1606,25 @@
     .combat-history { margin-top:9px; padding:8px 10px; border:1px solid #5f4827; border-radius:8px; background:#0d0912; color:#d9c38e; font-size:12px; line-height:1.35; max-height:94px; overflow-y:auto; }
     .music-resume-needed { border-color:#e1b85d!important; box-shadow:0 0 0 2px rgba(225,184,93,.18)!important; }
 
+  
+
+    /* v1.7.4.2 equipment, loadout and combat-stat integration */
+    .combat-stat-line{display:block;margin-top:5px;color:#d6c18c;line-height:1.25}
+    .equipment-dialog{width:min(98vw,760px);max-height:96dvh;background:#0d0a12}
+    .equipment-dialog .modal-head{position:sticky;top:0;z-index:5;background:#17111f}
+    .equipment-modal-body{max-height:calc(96dvh - 58px);padding:10px!important;background:radial-gradient(circle at 50% 18%,rgba(84,51,103,.28),transparent 34%),#0b0910}
+    .loadout-hero-summary{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 11px;border:1px solid #7d6031;border-radius:9px;background:#18101f;color:#e7cf91}
+    .loadout-hero-summary strong,.loadout-hero-summary small{display:block}.loadout-hero-summary small{margin-top:3px;color:#ad9c77;font-size:11px}.loadout-hero-summary>span{font-size:27px}
+    .loadout-paperdoll{display:grid;grid-template-columns:minmax(82px,1fr) minmax(118px,1.28fr) minmax(82px,1fr);gap:7px;align-items:stretch;margin-top:9px}
+    .loadout-column{display:grid;gap:7px;align-content:start}.loadout-slot{min-width:0;min-height:94px;padding:7px 5px;border:1px solid #76582c;border-radius:8px;background:linear-gradient(145deg,#21152c,#100d16);color:#ecd59a;font-family:Georgia,serif;box-shadow:inset 0 0 0 1px rgba(255,224,137,.05)}
+    .loadout-slot.selected{border-color:#efc55e;box-shadow:0 0 0 2px rgba(239,197,94,.15)}.loadout-slot small,.loadout-slot strong,.loadout-slot em{display:block;overflow-wrap:anywhere}.loadout-slot small{font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:#b79f68}.loadout-slot .slot-icon{display:block;font-size:27px;margin:5px 0}.loadout-slot strong{font-size:12px}.loadout-slot em{margin-top:4px;color:#9e906f;font-size:8px;font-style:normal;line-height:1.2}.loadout-slot.empty{opacity:.72}
+    .loadout-hero-art{position:relative;min-height:365px;border:1px solid #584326;border-radius:10px;overflow:hidden;background:radial-gradient(circle at center,#2a1936,#0d0b12 72%)}.loadout-hero-art img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}.loadout-hero-art>span{position:absolute;left:7px;right:7px;bottom:7px;padding:5px;border:1px solid #785d31;border-radius:999px;background:rgba(16,12,22,.88);color:#ecd69c;text-align:center;font:700 12px Georgia,serif}
+    .loadout-comparison,.loadout-details{margin-top:9px;border:1px solid #71552c;border-radius:9px;background:#14101a;overflow:hidden}.loadout-stat-head,.loadout-stat-row{display:grid;grid-template-columns:1.25fr repeat(3,.75fr);gap:4px;align-items:center;padding:7px 8px;border-bottom:1px solid rgba(113,85,44,.55)}.loadout-stat-head{color:#daba70;font-size:10px;text-align:center}.loadout-stat-head strong{text-align:left;font-size:13px}.loadout-stat-head small{font-size:8px;color:#95866a}.loadout-stat-row{color:#d6c7a0;font-size:12px;text-align:center}.loadout-stat-row strong{text-align:left;color:#eee0b6}.loadout-stat-row .stat-change{color:#8ed27b;font-weight:700}
+    .loadout-details{padding:9px}.loadout-selected-card{position:relative;display:grid;grid-template-columns:48px 1fr auto;gap:9px;align-items:start;padding:8px;border:1px solid #594326;border-radius:8px;background:#1d1425}.selected-icon{display:grid;place-items:center;min-height:48px;border:1px solid #7b5e31;border-radius:7px;background:#261934;font-size:27px}.loadout-selected-card small{color:#9e8c69;text-transform:uppercase;letter-spacing:.07em;font-size:8px}.loadout-selected-card h3{margin:2px 0;color:#efd695;font-size:16px}.loadout-selected-card p{margin:3px 0;color:#bcae8e;font-size:10px;line-height:1.35}.loadout-selected-card .equipped-badge{align-self:start;margin:0;font-size:8px}
+    .loadout-candidates h3{margin:10px 0 6px;color:#e6cc8b;font-size:13px}.loadout-candidates{display:grid;gap:6px}.loadout-candidate{display:grid;grid-template-columns:30px 1fr;gap:0 8px;align-items:center;padding:7px;border:1px solid #594326;border-radius:7px;background:#17111e;color:#e8d29a;text-align:left}.loadout-candidate>span{grid-row:1/3;font-size:23px}.loadout-candidate strong{font:700 12px Georgia,serif}.loadout-candidate small{color:#9f9273;font-size:9px}.loadout-candidate.selected{border-color:#e1b754;background:#281a34}
+    .loadout-actions{position:sticky;bottom:-10px;display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:9px -1px -1px;padding:8px 1px max(8px,env(safe-area-inset-bottom));background:linear-gradient(transparent,#0b0910 18%)}.loadout-actions button{min-height:44px;border:1px solid #a27b35;border-radius:8px;background:#261833;color:#efd798;font:700 13px Georgia,serif}.loadout-actions button:first-child{background:#9b6f22;color:#fff2c1}.loadout-actions button:disabled{opacity:.4}
+    @media(max-width:410px){.loadout-paperdoll{grid-template-columns:82px minmax(112px,1fr) 82px;gap:5px}.loadout-slot{min-height:88px;padding:5px 3px}.loadout-slot .slot-icon{font-size:23px}.loadout-slot strong{font-size:10px}.loadout-hero-art{min-height:340px}.loadout-stat-head,.loadout-stat-row{grid-template-columns:1.15fr repeat(3,.72fr);padding-inline:5px;font-size:10px}.loadout-selected-card{grid-template-columns:42px 1fr}.loadout-selected-card>.equipped-badge{grid-column:1/-1;justify-self:start}}
+
   </style>
 </head>
 <body>
@@ -1661,7 +1680,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.7.3.1 • Animated Scroll & Hero Selection Hotfix</small>
+        <small id="version-tag">Version 1.7.4.2 • Equipment & Combat Stat Integration</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -1710,6 +1729,11 @@
     <div class="modal-body" id="inventory-body"></div>
   </dialog>
 
+  <dialog id="equipment-dialog" class="equipment-dialog">
+    <div class="modal-head"><h2>Equipment &amp; Loadout</h2><button class="close-btn" data-close="equipment-dialog">×</button></div>
+    <div class="modal-body equipment-modal-body" id="equipment-body"></div>
+  </dialog>
+
   <dialog id="map-dialog">
     <div class="modal-head"><h2>Discovered Map</h2><button class="close-btn" data-close="map-dialog">×</button></div>
     <div class="modal-body" id="map-body"></div>
@@ -1733,6 +1757,7 @@
       <div class="modal-actions">
         <button id="save-btn">Save Game</button>
         <button id="load-btn">Load Game</button>
+        <button id="equipment-menu-btn">Equipment &amp; Loadout</button>
         <button id="help-btn">Command Help</button>
         <button id="scene-tour-btn">Scene Test</button>
         <button id="music-toggle-btn" aria-pressed="true">♫ Music: On</button>
@@ -1770,7 +1795,7 @@
         <section class="combatant-card">
           <strong id="combat-player-name">Hero</strong>
           <div class="hp-track"><span id="combat-player-hp-bar"></span></div>
-          <small id="combat-player-hp">20 / 20 HP</small>
+          <small id="combat-player-hp">20 / 20 HP</small><small id="combat-player-stats" class="combat-stat-line">Attack 0 • Defense 10 • Damage 1–4</small>
         </section>
         <div class="combat-die-wrap"><div class="d20 combat-die" id="combat-die">20</div><div id="combat-roll-text">Choose an action.</div></div>
         <section class="combatant-card enemy-card">
@@ -1793,7 +1818,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.7.4.1";
+    const BUILD_VERSION = "1.7.4.2";
 
     const itemInfo = {
       "tarnished locket": "A traveler's locket found behind the tavern hearth. The portrait inside shows a young woman before a crooked woodland cottage.",
@@ -1806,26 +1831,26 @@
       "silver token": "A small silver token etched with the same runes found in the Whispering Path.",
       "sun sigil": "A warm golden emblem shaped like a rising sun.",
       "crown shard": "A broken piece of crystal that glows like dawn through ice.",
-      "wooden shield": "A sturdy round shield marked with a faded village crest. Equip it for +1 Defense.",
-      "hunting knife": "A practical ranger’s knife with a leather-wrapped grip.",
-      "spell crystal": "A violet crystal that grows warm near hidden magic.",
-      "lockpicks": "A compact roll of slender picks and tension tools.",
+      "wooden shield": "A sturdy round shield marked with a faded village crest. Equipped in the Off-Hand slot for +1 Defense.",
+      "hunting knife": "A practical ranger’s knife with a leather-wrapped grip. Weapon: +1 Attack, 1d4 +1 damage.",
+      "spell crystal": "A violet crystal that grows warm near hidden magic. Charm: +1 Wits.",
+      "lockpicks": "A compact roll of slender picks and tension tools. Belt tool: +1 Lockpicking while equipped.",
       "healing herbs": "A fragrant bundle of leaves used to mend minor wounds.",
       "moonwort": "A pale forest flower whose leaves gleam softly in moonlight.",
       "bluebell sprig": "A fragrant sprig of bluebells gathered along the Willow Trail.",
-      "small lute": "A travel-worn lute with a clear, bright voice.",
-      "iron dagger": "A balanced iron dagger suited to close work.",
-      "short sword": "A dependable short sword made in Merrin's forge.",
+      "small lute": "A travel-worn lute with a clear, bright voice. Charm: +1 Luck while equipped.",
+      "iron dagger": "A balanced iron dagger suited to close work. Weapon: +2 Attack, 1d4 +2 damage.",
+      "short sword": "A dependable short sword made in Merrin's forge. Weapon: +1 Attack, 1d6 +2 damage.",
       "rope": "Thirty feet of strong braided rope.",
-      "pilgrim charm": "A little sun-wheel charm woven from yew thread, once carried by a pilgrim to Saint Orla’s chapel.",
-      "river charm": "A smooth blue stone wrapped in silver wire. The current-polished face bears a tiny spiral rune.",
+      "pilgrim charm": "A little sun-wheel charm woven from yew thread, once carried by a pilgrim to Saint Orla’s chapel. Charm: +1 Resolve.",
+      "river charm": "A smooth blue stone wrapped in silver wire. The current-polished face bears a tiny spiral rune. Charm: +1 Luck.",
       "courier seal": "A bent royal seal stamped with the winged crown. Mud in its broken clasp smells faintly of Moonfen reeds.",
       "lantern oil": "A sealed blue-glass bottle of clean-burning lantern oil.",
-      "bone charm": "A tiny charm carved from old bone and wrapped in black thread.",
+      "bone charm": "A tiny charm carved from old bone and wrapped in black thread. Charm: +1 Might.",
       "guard key fragment": "Half of a corroded castle-guard key, snapped near the teeth.",
       "chapel sigil token": "A tarnished token stamped with Saint Orla's sun-wheel.",
       "briar fang": "A black thorn-hard fang taken from a defeated Thorn Hound.",
-      "ancient chapel charm": "A warm silver charm recovered from the restless dead beneath Saint Orla's chapel."
+      "ancient chapel charm": "A warm silver charm recovered from the restless dead beneath Saint Orla's chapel. Charm: +1 Defense."
     };
 
     const rooms = {
@@ -2372,7 +2397,7 @@
     applyV1726NavigationGraph();
 
     const initialState = () => ({
-      schemaVersion: 1741,
+      schemaVersion: 1742,
       room: "square",
       view: "center",
       inventory: [],
@@ -2388,7 +2413,7 @@
       maxFocus: 10,
       reputation: { Elowen: 0 },
       itemCounts: {},
-      equipment: { shield: null, weapon: null },
+      equipment: { weapon:null, offhand:null, armor:null, boots:null, charm:null, ring:null, belt:null },
       shopFlags: { elowenDiscount: false, backRoomAccess: false, cratesSearched: false, reedDelivered: false },
       skills: { Lockpicking:0, Combat:0, Survival:0, Magic:0, Persuasion:0 },
       skillUses: { Lockpicking:0, Combat:0, Survival:0, Magic:0, Persuasion:0 },
@@ -2486,14 +2511,32 @@
       restlessSkeleton:{ name:"Restless Skeleton", icon:"💀", maxHp:10, defense:11, attack:2, damageSides:4, damageBonus:1, fleeTarget:11, escapeRoom:"chapel" }
     };
 
-    function adventureStats() {
+    function baseAdventureStats() {
       const s=(state.player&&state.player.stats)||heroClasses.druid.stats;
       return {
         might:Math.max(1,Math.floor(((s.Strength||5)+(s.Agility||5))/5)),
         wits:Math.max(1,Math.floor(((s.Wisdom||5)+(s.Charisma||5))/6)),
         resolve:Math.max(1,Math.floor(((s.Wisdom||5)+(s.Strength||5))/7)),
         luck:Math.max(1,Math.floor(((s.Agility||5)+(s.Charisma||5))/7)),
-        defense:10+Math.floor((s.Agility||5)/3)+(state.equipment&&state.equipment.shield?1:0)
+        defense:10+Math.floor((s.Agility||5)/3)
+      };
+    }
+    function adventureStats(loadout=state.equipment) {
+      const base=baseAdventureStats(), gear=equipmentTotals(loadout), combat=Math.max(0,Number(state.skills&&state.skills.Combat)||0);
+      const might=base.might+gear.might, wits=base.wits+gear.wits, resolve=base.resolve+gear.resolve, luck=base.luck+gear.luck;
+      return {
+        might,wits,resolve,luck,
+        combat,
+        attack:might+combat+gear.attack,
+        defense:base.defense+gear.defense,
+        baseDefense:base.defense,
+        equipmentDefense:gear.defense,
+        damageSides:gear.damageSides,
+        damageBonus:gear.damageBonus,
+        damageMin:1+gear.damageBonus,
+        damageMax:gear.damageSides+gear.damageBonus,
+        weaponLabel:gear.weaponLabel,
+        defenseBreakdown:gear.defensePieces
       };
     }
     const rollDie = sides => Math.floor(Math.random()*sides)+1;
@@ -2578,6 +2621,7 @@
       document.getElementById("combat-player-name").textContent=(state.player&&state.player.name)||"Rowan";
       document.getElementById("combat-round").textContent=`Round ${state.combat.round||1}`;
       document.getElementById("combat-player-hp").textContent=`${state.health} / ${state.maxHealth} HP`;
+      document.getElementById("combat-player-stats").textContent=`Attack ${stats.attack} • Defense ${stats.defense} • Damage ${stats.damageMin}–${stats.damageMax}`;
       document.getElementById("combat-enemy-hp").textContent=`${state.combat.enemyHp} / ${enemy.maxHp} HP`;
       document.getElementById("combat-player-hp-bar").style.width=`${Math.max(0,state.health/state.maxHealth*100)}%`;
       document.getElementById("combat-enemy-hp-bar").style.width=`${Math.max(0,state.combat.enemyHp/enemy.maxHp*100)}%`;
@@ -2632,14 +2676,16 @@
       const enemy=enemyCatalog[state.combat.enemyId], stats=adventureStats();
       const roll=await animateCombatRoll(token);
       if(!state.combat||token!==combatActionToken) return;
-      const defense=stats.defense+(defending?2:0), total=roll+enemy.attack;
+      const defendBonus=defending?2:0, defense=stats.defense+defendBonus, total=roll+enemy.attack;
+      const gearDefense=stats.equipmentDefense?` + Gear ${stats.equipmentDefense}`:"";
+      const defendText=defendBonus?` + Defend ${defendBonus}`:"";
       let resultText;
       if(total>=defense){
-        const damage=rollDie(enemy.damageSides)+enemy.damageBonus;
+        const damageRoll=rollDie(enemy.damageSides), damage=damageRoll+enemy.damageBonus;
         state.health=Math.max(0,state.health-damage);
-        resultText=`${enemy.name}: ${roll} + Attack ${enemy.attack} = ${total}. HIT for ${damage} damage.`;
-      } else resultText=`${enemy.name}: ${roll} + Attack ${enemy.attack} = ${total}. Miss against defense ${defense}.`;
-      state.combat.rollText=`Enemy roll: ${roll} + ${enemy.attack} = ${total}`;
+        resultText=`${enemy.name}: d20 ${roll} + Attack ${enemy.attack} = ${total} vs Defense ${defense} (Base ${stats.baseDefense}${gearDefense}${defendText}) — HIT. Damage: d${enemy.damageSides} ${damageRoll}${enemy.damageBonus?` + ${enemy.damageBonus}`:""} = ${damage}.`;
+      } else resultText=`${enemy.name}: d20 ${roll} + Attack ${enemy.attack} = ${total} vs Defense ${defense} (Base ${stats.baseDefense}${gearDefense}${defendText}) — MISS.`;
+      state.combat.rollText=`Enemy total ${total} vs your Defense ${defense}`;
       state.combat.message=resultText;appendCombatHistory(resultText);
       if(state.health<=0){
         state.health=Math.max(1,Math.floor(state.maxHealth/2));
@@ -2704,20 +2750,23 @@
         }
         if(action==="attack"){
           const roll=await animateCombatRoll(token);if(!state.combat||token!==combatActionToken)return;
-          const total=roll+stats.might;
+          const gear=equipmentTotals(), weapon=gear.weaponLabel, total=roll+stats.attack;
+          const attackParts=[`d20 ${roll}`,`Might ${stats.might}`,`Combat ${stats.combat}`];
+          if(gear.attack) attackParts.push(`${weapon} ${gear.attack}`);
           if(total>=enemy.defense){
-            const damage=rollDie(6)+1+(state.equipment&&state.equipment.weapon?1:0);
+            const damageRoll=rollDie(stats.damageSides), damage=damageRoll+stats.damageBonus;
             state.combat.enemyHp=Math.max(0,state.combat.enemyHp-damage);
-            const text=`You: ${roll} + Might ${stats.might} = ${total}. HIT for ${damage} damage.`;
-            appendCombatHistory(text);state.combat.message=text;state.combat.rollText=`Your roll: ${roll} + ${stats.might} = ${total}`;renderCombat();
+            const damageBonusText=stats.damageBonus?` + ${stats.damageBonus}`:"";
+            const text=`You: ${attackParts.join(" + ")} = ${total} vs Defense ${enemy.defense} — HIT. Damage: d${stats.damageSides} ${damageRoll}${damageBonusText} = ${damage}.`;
+            appendCombatHistory(text);state.combat.message=text;state.combat.rollText=`Attack total ${total} • ${weapon} damage ${stats.damageMin}–${stats.damageMax}`;renderCombat();
             if(state.combat.enemyHp<=0){await wait(250);if(state.combat&&token===combatActionToken)combatVictory(state.combat.enemyId);return;}
             prepareEnemyTurn(text,"Tap Continue when you have read your result.",false);
           } else {
-            const text=`You: ${roll} + Might ${stats.might} = ${total}. Miss against defense ${enemy.defense}.`;
+            const text=`You: ${attackParts.join(" + ")} = ${total} vs Defense ${enemy.defense} — MISS.`;
             appendCombatHistory(text);prepareEnemyTurn(text,"Tap Continue when you have read your result.",false);
           }
         } else if(action==="defend"){
-          const text="You brace and gain +2 defense against the next attack.";appendCombatHistory(text);prepareEnemyTurn(text,"Tap Continue for the enemy turn.",true);
+          const text=`You brace for the next attack. Defense ${stats.defense} + Defend 2 = ${stats.defense+2}.`;appendCombatHistory(text);prepareEnemyTurn(text,"Tap Continue for the enemy turn.",true);
         } else if(action==="item"){
           let text;
           if(!has("healing herbs")) text="You have no healing herbs.";
@@ -3417,7 +3466,10 @@
       state.itemCounts = state.itemCounts || {};
       const next = Math.max(0, itemQty(item) - qty);
       state.itemCounts[item] = next;
-      if (next <= 0) state.inventory = state.inventory.filter(i => i !== item);
+      if (next <= 0) {
+        state.inventory = state.inventory.filter(i => i !== item);
+        if(state.equipment){for(const slot of Object.keys(equipmentSlots||{}))if(state.equipment[slot]===item)state.equipment[slot]=null;}
+      }
       return next;
     }
     function addGold(amount, reason = "") { state.gold = Math.max(0, (state.gold||0) + amount); if (reason) addLog(`${amount>=0?"+":""}${amount} gold — ${reason}`, amount>=0?"success":"warning"); }
@@ -4122,59 +4174,165 @@
       else addLog("You pause and listen. Nothing unusual breaks the silence.");
     }
 
-    const equipmentInfo = {
-      "wooden shield": { slot:"shield", defense:1, label:"Wooden Shield" }
+    const equipmentSlots = {
+      weapon:{label:"Weapon",icon:"⚔"}, offhand:{label:"Off-Hand",icon:"🛡"}, armor:{label:"Armor",icon:"🧥"},
+      boots:{label:"Boots",icon:"🥾"}, charm:{label:"Charm",icon:"✦"}, ring:{label:"Ring",icon:"◯"}, belt:{label:"Belt",icon:"▱"}
     };
-    function totalDefense() {
-      const shield = state.equipment && state.equipment.shield;
-      return shield && equipmentInfo[shield] ? equipmentInfo[shield].defense : 0;
+    const equipmentInfo = {
+      "hunting knife": {slot:"weapon",attack:1,damageSides:4,damageBonus:1,label:"Hunting Knife",icon:"🗡️",rarity:"Common"},
+      "iron dagger": {slot:"weapon",attack:2,damageSides:4,damageBonus:2,label:"Iron Dagger",icon:"🗡️",rarity:"Common"},
+      "short sword": {slot:"weapon",attack:1,damageSides:6,damageBonus:2,label:"Short Sword",icon:"⚔️",rarity:"Fine"},
+      "wooden shield": {slot:"offhand",defense:1,label:"Wooden Shield",icon:"🛡️",rarity:"Common"},
+      "ancient chapel charm": {slot:"charm",defense:1,label:"Ancient Chapel Charm",icon:"☼",rarity:"Rare"},
+      "pilgrim charm": {slot:"charm",resolve:1,label:"Pilgrim Charm",icon:"☀",rarity:"Common"},
+      "river charm": {slot:"charm",luck:1,label:"River Charm",icon:"◉",rarity:"Uncommon"},
+      "bone charm": {slot:"charm",might:1,label:"Bone Charm",icon:"◆",rarity:"Uncommon"},
+      "spell crystal": {slot:"charm",wits:1,label:"Spell Crystal",icon:"🔮",rarity:"Uncommon"},
+      "small lute": {slot:"charm",luck:1,label:"Small Lute",icon:"🎵",rarity:"Common"},
+      "lockpicks": {slot:"belt",lockpicking:1,label:"Lockpicks",icon:"🗝️",rarity:"Common"}
+    };
+    const emptyEquipment = () => ({weapon:null,offhand:null,armor:null,boots:null,charm:null,ring:null,belt:null});
+    function normalizeEquipment(loadout={}) {
+      const next=Object.assign(emptyEquipment(),loadout||{});
+      if(!next.offhand&&next.shield)next.offhand=next.shield;
+      delete next.shield;
+      const seen=new Set();
+      for(const slot of Object.keys(equipmentSlots)){
+        const item=canonicalItemId(next[slot]||"");
+        if(!item||!equipmentInfo[item]||equipmentInfo[item].slot!==slot||seen.has(item)||!has(item)) next[slot]=null;
+        else {next[slot]=item;seen.add(item);}
+      }
+      if(next.weapon&&equipmentInfo[next.weapon].twoHanded)next.offhand=null;
+      return next;
+    }
+    function equipmentTotals(loadout=state.equipment) {
+      const normalized=Object.assign(emptyEquipment(),loadout||{});
+      const totals={attack:0,defense:0,might:0,wits:0,resolve:0,luck:0,lockpicking:0,damageSides:4,damageBonus:0,weaponLabel:"Unarmed",defensePieces:[]};
+      for(const [slot,item] of Object.entries(normalized)){
+        const info=equipmentInfo[item]; if(!info)continue;
+        for(const stat of ["attack","defense","might","wits","resolve","luck","lockpicking"]) totals[stat]+=Number(info[stat]||0);
+        if(info.defense)totals.defensePieces.push(`${info.label} +${info.defense}`);
+        if(slot==="weapon"){
+          totals.damageSides=Number(info.damageSides||4); totals.damageBonus=Number(info.damageBonus||0); totals.weaponLabel=info.label;
+        }
+      }
+      return totals;
+    }
+    function combatStatBundle(loadout=state.equipment){
+      const base=baseAdventureStats(), gear=equipmentTotals(loadout), combat=Math.max(0,Number(state.skills&&state.skills.Combat)||0);
+      const current=adventureStats(loadout);
+      return {
+        base:{health:state.maxHealth||20,attack:base.might+combat,defense:base.defense,damageMin:1,damageMax:4,might:base.might,luck:base.luck,combat},
+        current:{health:state.maxHealth||20,attack:current.attack,defense:current.defense,damageMin:current.damageMin,damageMax:current.damageMax,might:current.might,luck:current.luck,combat},
+        gear
+      };
+    }
+    function totalDefense(){return adventureStats().defense;}
+    function equipmentBonusSummary(item){
+      const info=equipmentInfo[item];if(!info)return "Not equippable";
+      const bits=[];
+      if(info.attack)bits.push(`Attack +${info.attack}`); if(info.defense)bits.push(`Defense +${info.defense}`);
+      if(info.might)bits.push(`Might +${info.might}`); if(info.wits)bits.push(`Wits +${info.wits}`);
+      if(info.resolve)bits.push(`Resolve +${info.resolve}`); if(info.luck)bits.push(`Luck +${info.luck}`);
+      if(info.lockpicking)bits.push(`Lockpicking +${info.lockpicking}`);
+      if(info.damageSides)bits.push(`Damage 1d${info.damageSides}${info.damageBonus?` +${info.damageBonus}`:""}`);
+      return bits.join(" • ")||"No stat bonus";
     }
     function equipItem(item) {
-      const info = equipmentInfo[item];
-      if (!info || !has(item)) return addLog(`${titleCase(item)} cannot be equipped.`, "warning");
-      state.equipment = Object.assign({shield:null,weapon:null}, state.equipment||{});
-      state.equipment[info.slot] = item;
-      addLog(`You equip the ${titleCase(item)}. Defense is now ${totalDefense()}.`, "success");
+      item=canonicalItemId(item); const info=equipmentInfo[item];
+      if(!info||!has(item))return addLog(`${titleCase(item)} cannot be equipped.`,"warning");
+      state.equipment=normalizeEquipment(state.equipment||{});
+      if(info.slot==="offhand"&&state.equipment.weapon&&equipmentInfo[state.equipment.weapon]?.twoHanded)return addLog("That weapon requires both hands.","warning");
+      if(info.twoHanded)state.equipment.offhand=null;
+      state.equipment[info.slot]=item;
+      const stats=adventureStats();
+      addLog(`You equip the ${info.label}. Attack ${stats.attack}, Defense ${stats.defense}, Damage ${stats.damageMin}–${stats.damageMax}.`,"success");
       autosave();
     }
-    function unequipItem(item) {
-      const info = equipmentInfo[item];
-      if (!info || !state.equipment || state.equipment[info.slot] !== item) return;
-      state.equipment[info.slot] = null;
-      addLog(`You stow the ${titleCase(item)} in your satchel. Defense is now ${totalDefense()}.`, "system");
+    function unequipSlot(slot){
+      state.equipment=normalizeEquipment(state.equipment||{}); const item=state.equipment[slot]; if(!item)return;
+      state.equipment[slot]=null; const stats=adventureStats();
+      addLog(`You stow the ${titleCase(item)}. Attack ${stats.attack}, Defense ${stats.defense}, Damage ${stats.damageMin}–${stats.damageMax}.`,"system");
       autosave();
     }
-
+    function unequipItem(item){
+      item=canonicalItemId(item);state.equipment=normalizeEquipment(state.equipment||{});
+      const slot=Object.keys(equipmentSlots).find(key=>state.equipment[key]===item);if(slot)unequipSlot(slot);
+    }
+    function equippedSlotForItem(item){item=canonicalItemId(item);return Object.keys(equipmentSlots).find(slot=>state.equipment&&state.equipment[slot]===item)||null;}
+    function projectedLoadout(item){
+      const next=Object.assign(emptyEquipment(),state.equipment||{}), info=equipmentInfo[item];
+      if(info){if(info.twoHanded)next.offhand=null;next[info.slot]=item;}return next;
+    }
+    let selectedEquipmentItem=null, selectedEquipmentSlot="weapon";
+    function equipmentStatRows(base,current,preview){
+      const rows=[
+        ["Health",base.health,current.health,preview.health],
+        ["Attack",base.attack,current.attack,preview.attack],
+        ["Defense",base.defense,current.defense,preview.defense],
+        ["Damage",`${base.damageMin}–${base.damageMax}`,`${current.damageMin}–${current.damageMax}`,`${preview.damageMin}–${preview.damageMax}`],
+        ["Might",base.might,current.might,preview.might],
+        ["Luck",base.luck,current.luck,preview.luck],
+        ["Combat",base.combat,current.combat,preview.combat]
+      ];
+      return rows.map(([name,b,c,p])=>`<div class="loadout-stat-row"><strong>${name}</strong><span>${b}</span><span>${c}</span><span class="${String(p)!==String(c)?"stat-change":""}">${p}</span></div>`).join("");
+    }
+    function renderEquipment(){
+      state.equipment=normalizeEquipment(state.equipment||{});
+      const body=document.getElementById("equipment-body");if(!body)return;
+      const player=state.player||{name:"Rowan",className:"Ranger",classKey:"ranger"};
+      if(selectedEquipmentItem&&!has(selectedEquipmentItem))selectedEquipmentItem=null;
+      const selectedInfo=selectedEquipmentItem&&equipmentInfo[selectedEquipmentItem];
+      if(selectedInfo)selectedEquipmentSlot=selectedInfo.slot;
+      const currentBundle=combatStatBundle(), previewBundle=combatStatBundle(selectedInfo?projectedLoadout(selectedEquipmentItem):state.equipment);
+      const slotCard=(slot)=>{
+        const meta=equipmentSlots[slot],item=state.equipment[slot],info=equipmentInfo[item];
+        const selected=selectedEquipmentSlot===slot;
+        return `<button type="button" class="loadout-slot ${selected?"selected":""} ${item?"filled":"empty"}" data-loadout-slot="${slot}"><small>${meta.label}</small><span class="slot-icon">${info?.icon||meta.icon}</span><strong>${info?.label||"Empty"}</strong>${info?`<em>${equipmentBonusSummary(item)}</em>`:""}</button>`;
+      };
+      const candidates=Object.keys(equipmentInfo).filter(item=>has(item)&&equipmentInfo[item].slot===selectedEquipmentSlot);
+      const candidateHtml=candidates.length?candidates.map(item=>{const info=equipmentInfo[item],equipped=equippedSlotForItem(item),selected=item===selectedEquipmentItem;return `<button type="button" class="loadout-candidate ${selected?"selected":""}" data-loadout-item="${item}"><span>${info.icon}</span><strong>${info.label}</strong><small>${equipmentBonusSummary(item)}${equipped?` • Equipped`:""}</small></button>`;}).join(""):`<p class="empty-state">No ${equipmentSlots[selectedEquipmentSlot].label.toLowerCase()} items are currently in the Satchel.</p>`;
+      const selectedItem=selectedInfo?selectedEquipmentItem:(state.equipment[selectedEquipmentSlot]||null), details=selectedItem&&equipmentInfo[selectedItem];
+      const equipped=selectedItem&&equippedSlotForItem(selectedItem);
+      body.innerHTML=`
+        <section class="loadout-hero-summary"><div><strong>${escapeHtml(player.name)} — ${escapeHtml(player.className)}</strong><small>Level ${state.level||1} • Equipment affects every combat roll</small></div><span>${heroClasses[player.classKey]?.icon||"⚔️"}</span></section>
+        <section class="loadout-paperdoll">
+          <div class="loadout-column">${slotCard("weapon")}${slotCard("offhand")}${slotCard("charm")}</div>
+          <div class="loadout-hero-art"><img src="assets/ui/rowan-equipment-v1742.webp" alt="Rowan, the current Briar Crown adventurer"><span>${escapeHtml(player.name)}</span></div>
+          <div class="loadout-column">${slotCard("armor")}${slotCard("boots")}${slotCard("ring")}${slotCard("belt")}</div>
+        </section>
+        <section class="loadout-comparison"><div class="loadout-stat-head"><strong>Stats Comparison</strong><span>Base<br><small>Without Gear</small></span><span>Current<br><small>Equipped</small></span><span>Preview<br><small>Selected</small></span></div>${equipmentStatRows(currentBundle.base,currentBundle.current,previewBundle.current)}</section>
+        <section class="loadout-details"><div class="loadout-selected-card"><span class="selected-icon">${details?.icon||equipmentSlots[selectedEquipmentSlot].icon}</span><div><small>Selected ${equipmentSlots[selectedEquipmentSlot].label}</small><h3>${details?.label||"Empty Slot"}</h3><p>${details?equipmentBonusSummary(selectedItem):"Choose a compatible item from the Satchel."}</p><p>${details?(itemInfo[selectedItem]||"An adventure item."):""}</p></div>${equipped?`<span class="equipped-badge">Equipped</span>`:""}</div><div class="loadout-candidates"><h3>Compatible Items in Satchel</h3>${candidateHtml}</div></section>
+        <div class="loadout-actions"><button type="button" data-loadout-equip ${details&&has(selectedItem)&&!equipped?"":"disabled"}>Equip</button><button type="button" data-loadout-unequip ${state.equipment[selectedEquipmentSlot]?"":"disabled"}>Unequip</button><button type="button" data-loadout-inspect ${details?"":"disabled"}>Inspect</button></div>`;
+      body.querySelectorAll("[data-loadout-slot]").forEach(btn=>btn.addEventListener("click",()=>{selectedEquipmentSlot=btn.dataset.loadoutSlot;selectedEquipmentItem=state.equipment[selectedEquipmentSlot]||null;renderEquipment();}));
+      body.querySelectorAll("[data-loadout-item]").forEach(btn=>btn.addEventListener("click",()=>{selectedEquipmentItem=btn.dataset.loadoutItem;selectedEquipmentSlot=equipmentInfo[selectedEquipmentItem].slot;renderEquipment();}));
+      body.querySelector("[data-loadout-equip]")?.addEventListener("click",()=>{if(selectedEquipmentItem)equipItem(selectedEquipmentItem);renderEquipment();renderAll();});
+      body.querySelector("[data-loadout-unequip]")?.addEventListener("click",()=>{unequipSlot(selectedEquipmentSlot);selectedEquipmentItem=null;renderEquipment();renderAll();});
+      body.querySelector("[data-loadout-inspect]")?.addEventListener("click",()=>{if(selectedItem)addLog(`<strong>${titleCase(selectedItem)}:</strong> ${itemInfo[selectedItem]||equipmentBonusSummary(selectedItem)}`,"system");renderLog();});
+    }
+    function showEquipment(preselectItem=null){
+      if(preselectItem&&equipmentInfo[canonicalItemId(preselectItem)]){selectedEquipmentItem=canonicalItemId(preselectItem);selectedEquipmentSlot=equipmentInfo[selectedEquipmentItem].slot;}
+      else if(!selectedEquipmentItem){selectedEquipmentItem=state.equipment?.weapon||Object.keys(equipmentInfo).find(has)||null;selectedEquipmentSlot=selectedEquipmentItem?equipmentInfo[selectedEquipmentItem].slot:"weapon";}
+      renderEquipment();const dlg=document.getElementById("equipment-dialog");if(!dlg.open)dlg.showModal();
+    }
     function showInventory() {
-      const body = document.getElementById("inventory-body");
-      const shield = state.equipment && state.equipment.shield;
-      const equipSummary = `<div class="equipment-summary"><strong>Equipped Shield:</strong> ${shield ? `${titleCase(shield)} — Defense +${totalDefense()}` : "None — Defense +0"}</div>`;
-      if (!state.inventory.length) {
-        body.innerHTML = equipSummary + `<p>Your satchel is empty.</p>`;
-      } else {
-        body.innerHTML = equipSummary + state.inventory.map(item => {
-          const info = equipmentInfo[item];
-          const equipped = info && state.equipment && state.equipment[info.slot] === item;
-          const action = info
-            ? `<button data-${equipped?"unequip":"equip"}-item="${item}">${equipped?"Unequip":"Equip"}</button>`
-            : `<button data-use-item="${item}">Use</button>`;
-          return `<div class="item-card"><strong>${titleCase(item)}${itemQty(item)>1?` ×${itemQty(item)}`:""}${equipped?`<span class="equipped-badge">Equipped</span>`:""}</strong><p>${itemInfo[item] || (apothecaryShop[item]&&apothecaryShop[item].info) || "An adventure item."}</p><div class="item-actions"><button data-examine-item="${item}">Examine</button>${action}</div></div>`;
-        }).join("");
-        body.querySelectorAll("[data-examine-item]").forEach(btn => btn.addEventListener("click", () => {
-          addLog(`<strong>${titleCase(btn.dataset.examineItem)}:</strong> ${itemInfo[btn.dataset.examineItem] || "An adventure item."}`, "system");
-          document.getElementById("inventory-dialog").close(); renderAll();
-        }));
-        body.querySelectorAll("[data-equip-item]").forEach(btn => btn.addEventListener("click", () => {
-          equipItem(btn.dataset.equipItem); document.getElementById("inventory-dialog").close(); renderAll();
-        }));
-        body.querySelectorAll("[data-unequip-item]").forEach(btn => btn.addEventListener("click", () => {
-          unequipItem(btn.dataset.unequipItem); document.getElementById("inventory-dialog").close(); renderAll();
-        }));
-        body.querySelectorAll("[data-use-item]").forEach(btn => btn.addEventListener("click", () => {
-          inputEl.value = `use ${btn.dataset.useItem} on `; document.getElementById("inventory-dialog").close();
-        }));
-      }
-      document.getElementById("inventory-dialog").showModal();
+      const body=document.getElementById("inventory-body");state.equipment=normalizeEquipment(state.equipment||{});
+      const stats=adventureStats();
+      const equippedNames=Object.entries(state.equipment).filter(([,item])=>item).map(([slot,item])=>`${equipmentSlots[slot].label}: ${equipmentInfo[item]?.label||titleCase(item)}`);
+      const equipSummary=`<div class="equipment-summary"><strong>Current Loadout:</strong> ${equippedNames.length?equippedNames.join(" • "):"Nothing equipped"}<br><small>Attack ${stats.attack} • Defense ${stats.defense} • Damage ${stats.damageMin}–${stats.damageMax}</small><div class="item-actions"><button type="button" data-open-equipment>Equipment &amp; Loadout</button></div></div>`;
+      if(!state.inventory.length)body.innerHTML=equipSummary+`<p>Your satchel is empty.</p>`;
+      else body.innerHTML=equipSummary+state.inventory.map(item=>{
+        const info=equipmentInfo[item],equipped=!!equippedSlotForItem(item);
+        const action=info?`<button data-${equipped?"unequip":"equip"}-item="${item}">${equipped?"Unequip":"Equip"}</button>`:`<button data-use-item="${item}">Use</button>`;
+        return `<div class="item-card"><strong>${titleCase(item)}${itemQty(item)>1?` ×${itemQty(item)}`:""}${equipped?`<span class="equipped-badge">Equipped</span>`:""}</strong><p>${itemInfo[item]||(apothecaryShop[item]&&apothecaryShop[item].info)||"An adventure item."}</p>${info?`<p><small>${equipmentBonusSummary(item)}</small></p>`:""}<div class="item-actions"><button data-examine-item="${item}">Examine</button>${action}${info?`<button data-loadout-from-inventory="${item}">Loadout</button>`:""}</div></div>`;
+      }).join("");
+      body.querySelector("[data-open-equipment]")?.addEventListener("click",()=>{document.getElementById("inventory-dialog").close();showEquipment();});
+      body.querySelectorAll("[data-examine-item]").forEach(btn=>btn.addEventListener("click",()=>{addLog(`<strong>${titleCase(btn.dataset.examineItem)}:</strong> ${itemInfo[btn.dataset.examineItem]||"An adventure item."}`,"system");document.getElementById("inventory-dialog").close();renderAll();}));
+      body.querySelectorAll("[data-equip-item]").forEach(btn=>btn.addEventListener("click",()=>{equipItem(btn.dataset.equipItem);showInventory();renderAll();}));
+      body.querySelectorAll("[data-unequip-item]").forEach(btn=>btn.addEventListener("click",()=>{unequipItem(btn.dataset.unequipItem);showInventory();renderAll();}));
+      body.querySelectorAll("[data-use-item]").forEach(btn=>btn.addEventListener("click",()=>{inputEl.value=`use ${btn.dataset.useItem} on `;document.getElementById("inventory-dialog").close();}));
+      body.querySelectorAll("[data-loadout-from-inventory]").forEach(btn=>btn.addEventListener("click",()=>{document.getElementById("inventory-dialog").close();showEquipment(btn.dataset.loadoutFromInventory);}));
+      const dlg=document.getElementById("inventory-dialog");if(!dlg.open)dlg.showModal();
     }
 
     const worldMapNodes = [
@@ -4298,10 +4456,15 @@
         [state.flags.blacksmithGift,"Friend of the Forge"], [state.flags.sigilTaken,"Crypt Seeker"], [Boolean(state.flags.ending),"Crownkeeper"]
       ].filter(a=>a[0]).map(a=>a[1]);
       const summary = document.getElementById("journal-summary");
-      if (summary) summary.innerHTML = `<h3>Hero</h3><div class="quest-card"><strong>${escapeHtml(hero.name)} — ${escapeHtml(hero.className)}</strong><p>Level ${state.level||1} • XP ${(state.score||0)%10}/10 • Health ${state.health||20}/${state.maxHealth||20} • Focus ${state.focus||10}/${state.maxFocus||10} • Gold ${state.gold||0} • Defense ${totalDefense()} • Turns ${state.turns||0}</p><p>Equipped shield: ${state.equipment&&state.equipment.shield?titleCase(state.equipment.shield):"None"}</p></div>`+
+      if (summary) {
+        const stats=adventureStats();
+        const loadout=Object.entries(state.equipment||{}).filter(([,item])=>item).map(([slot,item])=>`${equipmentSlots[slot]?.label||titleCase(slot)}: ${equipmentInfo[item]?.label||titleCase(item)}`).join(" • ")||"Nothing equipped";
+        summary.innerHTML = `<h3>Hero</h3><div class="quest-card"><strong>${escapeHtml(hero.name)} — ${escapeHtml(hero.className)}</strong><p>Level ${state.level||1} • XP ${(state.score||0)%10}/10 • Health ${state.health||20}/${state.maxHealth||20} • Gold ${state.gold||0} • Attack ${stats.attack} • Defense ${stats.defense} • Damage ${stats.damageMin}–${stats.damageMax} • Turns ${state.turns||0}</p><p>${loadout}</p><div class="item-actions"><button type="button" data-journal-equipment>Equipment &amp; Loadout</button></div></div>`+
         `<h3>Satchel</h3><div class="quest-card"><p>${state.inventory.length ? state.inventory.map(titleCase).join(" • ") : "Your satchel is empty."}</p></div>`+
         `<h3>Discovered Places</h3><div class="quest-card"><p>${visitedNames.join(" • ")}</p></div>`+
         `<h3>Achievements</h3><div class="quest-card"><p>${achievements.length ? achievements.join(" • ") : "No achievements yet."}</p></div>`;
+        summary.querySelector("[data-journal-equipment]")?.addEventListener("click",()=>{document.getElementById("menu-dialog").close();showEquipment();});
+      }
     }
 
     function titleCase(text) { return text.replace(/\b\w/g, c => c.toUpperCase()); }
@@ -4444,6 +4607,7 @@
 
       if (/^(help|commands|command help)$/.test(command)) return showHelp();
       if (/^(inventory|inv|i|bag|pack|backpack|satchel)$/.test(command)) return showInventory();
+      if (/^(equipment|gear|loadout|equipment loadout)$/.test(command)) return showEquipment();
       if (/^(map|world map|discovered map)$/.test(command)) { renderMap(); document.getElementById("map-dialog").showModal(); return; }
       if (/^(scene test|test scenes|scene tour)$/.test(command)) { renderSceneTour(); document.getElementById("scene-dialog").showModal(); return; }
       if (/^equip (.+)$/.test(command)) { equipItem(command.replace(/^equip /,"")); renderAll(); return; }
@@ -6009,7 +6173,7 @@
       addItem(hero.item);
       state.log = [];
       addLog(`Welcome, <strong>${escapeHtml(name)}</strong> the ${hero.name}.`, "system");
-      addLog(`Your ${hero.gift.toLowerCase()} has been placed in your backpack.`, "system");
+      addLog(`Your ${hero.gift.toLowerCase()} has been placed in your backpack. Open Satchel → Equipment & Loadout to equip usable gear.`, "system");
       addLog("Seven days have passed since the Briar Crown vanished from Ironthorn Castle.", "system");
       describeRoom(true);
       autosave();
@@ -6103,6 +6267,7 @@
     document.querySelectorAll("[data-command]").forEach(btn => btn.addEventListener("click", () => processCommand(btn.dataset.command)));
     document.getElementById("backpack-btn").addEventListener("click", showInventory);
     document.getElementById("skills-btn").addEventListener("click", () => { renderSkills(); document.getElementById("skills-dialog").showModal(); });
+    document.getElementById("equipment-menu-btn")?.addEventListener("click",()=>{document.getElementById("menu-dialog").close();showEquipment();});
     actionsToggleEl.addEventListener("click",()=>{actionsPanelExpanded=!actionsPanelExpanded;storageSet(ACTION_PANEL_PREF_KEY,String(actionsPanelExpanded));renderQuickActions();});
     document.getElementById("map-btn").addEventListener("click", () => { renderMap(); document.getElementById("map-dialog").showModal(); });
     document.addEventListener("click", (event) => {
@@ -6149,7 +6314,7 @@
       if (!savedConfig) state.view = "center";
       state.inventory = Array.isArray(state.inventory) ? state.inventory : [];
       state.itemCounts = state.itemCounts && typeof state.itemCounts === "object" ? state.itemCounts : {};
-      state.equipment = Object.assign({shield:null,weapon:null}, state.equipment||{});
+      state.equipment = normalizeEquipment(state.equipment||{});
       const priorSchema = Number.isFinite(state.schemaVersion) ? state.schemaVersion : 0;
       if (priorSchema < 1715) {
         const legacyFlags = state.flags || {};
@@ -6168,7 +6333,7 @@
           tavernCellarOpen:false
         });
       }
-      state.schemaVersion = 1741;
+      state.schemaVersion = 1742;
       const herbQty=(state.itemCounts["healing herb"]||0)+(state.itemCounts["healing herbs"]||0)+(state.inventory.includes("healing herb")?1:0);
       delete state.itemCounts["healing herb"];state.inventory=state.inventory.filter(i=>i!=="healing herb");
       if(herbQty>0){state.itemCounts["healing herbs"]=Math.max(state.itemCounts["healing herbs"]||0,herbQty);if(!state.inventory.includes("healing herbs"))state.inventory.push("healing herbs");}
@@ -6304,7 +6469,7 @@
     function boot() {
       updateMusicButton();
       const vt = document.getElementById("version-tag");
-      const versionLabel=`Version ${BUILD_VERSION} • Interaction, Audio & Mobile Stability`;
+      const versionLabel=`Version ${BUILD_VERSION} • Equipment & Combat Stat Integration`;
       if (vt) vt.textContent = versionLabel;
       const ov=document.getElementById("opening-version");if(ov)ov.textContent=versionLabel;
       const saved = storageGet(SAVE_KEY);
@@ -6319,7 +6484,7 @@
       }
       renderAll();
       showTitleScreen();
-      if ("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js?build=1741").catch(() => {});
+      if ("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js?build=1742").catch(() => {});
     }
 
     boot();

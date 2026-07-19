@@ -1,4 +1,4 @@
-const CACHE = "briar-crown-v1.7.4.1-interaction-audio-mobile-stability";
+const CACHE = "briar-crown-v1.7.4.2-equipment-combat-stat-integration";
 const CORE_ASSETS = [
   "./",
   "./index.html",
@@ -8,6 +8,7 @@ const CORE_ASSETS = [
   "./assets/ui/satchel.png",
   "./assets/ui/opening-v1730.webp",
   "./assets/ui/world-map-v1726.png",
+  "./assets/ui/rowan-equipment-v1742.webp",
   "./assets/scenes/square-v1724.webp",
   "./assets/scenes/production-manifest-v1729.json",
   "./assets/scenes/thorn-hedge-pass-v1729.webp",
