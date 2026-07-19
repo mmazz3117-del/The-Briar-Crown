@@ -1,5 +1,5 @@
 {
-  "version": "1.7.2.1",
+  "version": "1.7.2.6",
   "scenes": {
     "tavern": {
       "fresh_required": [
@@ -59,10 +59,39 @@
       "tavernCellar": "go up",
       "blacksmith": "leave forge",
       "apothecary": "leave apothecary"
+    },
+    "hub_exits": {
+      "north": "tavernApproach",
+      "east": "forgeLane",
+      "south": "castleRoad",
+      "west": "chapelRoad"
+    },
+    "route_directions": {
+      "forestEdge-east": "willowTrail",
+      "willowTrail-east": "flowerClearing",
+      "flowerClearing-east": "fallenLog",
+      "fallenLog-east": "whisperingForest",
+      "whisperingForest-west": "fallenLog"
     }
   },
   "route_rebuild": {
     "required_edges": [
+      [
+        "square",
+        "tavernApproach"
+      ],
+      [
+        "square",
+        "forgeLane"
+      ],
+      [
+        "square",
+        "chapelRoad"
+      ],
+      [
+        "square",
+        "castleRoad"
+      ],
       [
         "forgeLane",
         "eastRoad"
@@ -109,27 +138,75 @@
     }
   },
   "visual_rebuild": {
-    "required_map": "assets/ui/world-map-v1721.webp",
+    "required_map": "assets/ui/world-map-v1726.png",
     "priority_assets": [
-      "forge-lane-v1721.webp",
-      "chapel-road-v1721.webp",
-      "willow-trail-v1721.webp",
-      "flower-clearing-v1721.webp",
-      "fallen-log-v1721.webp",
-      "cottage-interior-v1721.webp",
-      "moonwell-v1721.webp",
-      "hidden-passage-v1721.webp",
-      "hidden-alcove-v1721.webp",
-      "hidden-alcove-coins-v1721.webp"
+      "apothecary-approach-v1724.webp",
+      "apothecary-back-room-v1724.webp",
+      "apothecary-center-v1724.webp",
+      "apothecary-door-v1724.webp",
+      "apothecary-east-v1724.webp",
+      "apothecary-north-v1724.webp",
+      "apothecary-south-v1724.webp",
+      "apothecary-west-v1724.webp",
+      "chapel-approach-v1724.webp",
+      "chapel-crypt-v1724.webp",
+      "chapel-interior-v1724.webp",
+      "chapel-road-v1724.webp",
+      "chapel-yard-v1724.webp",
+      "collapsed-alcove-open-v1724.webp",
+      "collapsed-alcove-v1724.webp",
+      "east-road-v1724.webp",
+      "fallen-log-v1724.webp",
+      "flower-clearing-v1724.webp",
+      "forest-edge-v1724.webp",
+      "forge-door-v1724.webp",
+      "forge-interior-v1724.webp",
+      "forge-lane-v1724.webp",
+      "hidden-passage-v1724.webp",
+      "ironthorn-gate-v1724.webp",
+      "kings-road-v1724.webp",
+      "moonfen-ferry-landing-v1724.webp",
+      "moonfen-hut-exterior-v1724.webp",
+      "moonfen-hut-interior-v1724.webp",
+      "moonwell-v1724.webp",
+      "old-cemetery-v1724.webp",
+      "square-v1724.webp",
+      "tavern-approach-v1724.webp",
+      "tavern-cellar-passage-v1724.webp",
+      "tavern-cellar-v1724.webp",
+      "tavern-center-v1724.webp",
+      "tavern-door-v1724.webp",
+      "tavern-east-v1724.webp",
+      "tavern-north-v1724.webp",
+      "tavern-south-v1724.webp",
+      "tavern-west-v1724.webp",
+      "whispering-forest-v1724.webp",
+      "willow-trail-v1724.webp",
+      "witch-cottage-cellar-v1724.webp",
+      "witch-cottage-exterior-v1724.webp",
+      "witch-cottage-interior-v1724.webp"
     ],
-    "retired_placeholders": [
-      "willow-trail-v1720.webp",
-      "flower-clearing-v1720.webp",
-      "fallen-log-v1720.webp",
-      "cottage-interior-v1720.webp",
-      "moonwell-v1720.webp",
-      "chapel-road-v1720.webp",
-      "hidden-alcove-v1720.webp"
-    ]
+    "retired_placeholders": []
+  },
+  "performance": {
+    "max_scene_bytes": 750000,
+    "network_blocking_navigation_forbidden": true,
+    "scene_test_lazy_loading": true,
+    "cache_strategy": "cache-first-scenes"
+  },
+  "exploration": {
+    "chapel_action": "explore chapel",
+    "cemetery_required_exits": [
+      "east",
+      "south"
+    ],
+    "current_map_marker": true,
+    "map_zoom_controls": true,
+    "map_overlay_lines_hidden": true
+  },
+  "opening_screen": {
+    "art": "assets/ui/opening-v1726.webp",
+    "version_visible": true,
+    "tap_to_begin": true
   }
 }
