@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="briar-crown-deployment" content="1728">
+  <meta name="briar-crown-deployment" content="1741">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content" />
   <meta name="theme-color" content="#0b0912" />
@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-title" content="Briar Crown" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <title>The Briar Crown — Mobile Adventure v1.7.2.8</title>
+  <title>The Briar Crown — Mobile Adventure v1.7.4.1</title>
   <style>
 
     :root {
@@ -1582,6 +1582,30 @@
     .d20,.combat-die{transform-style:preserve-3d;will-change:transform}.d20.rolling{animation:d20-tumble .16s linear infinite;box-shadow:0 0 25px rgba(218,177,78,.65)}
     @keyframes d20-tumble{0%{transform:perspective(260px) rotateX(0) rotateY(0) rotateZ(0) scale(.92)}50%{transform:perspective(260px) rotateX(190deg) rotateY(125deg) rotateZ(85deg) scale(1.08)}100%{transform:perspective(260px) rotateX(360deg) rotateY(360deg) rotateZ(240deg) scale(.92)}}
 
+
+    /* v1.7.4.1 interaction, audio, and mobile stability */
+    html, body {
+      height:var(--app-height,100dvh)!important;
+      min-height:var(--app-height,100dvh)!important;
+      max-height:var(--app-height,100dvh)!important;
+      overflow:hidden!important;
+    }
+    body { position:fixed!important; inset:0!important; }
+    .app {
+      height:100%!important;
+      min-height:100%!important;
+      max-height:100%!important;
+      display:grid!important;
+      grid-template-rows:auto auto minmax(0,1fr) auto!important;
+      align-content:stretch!important;
+      overflow:hidden!important;
+    }
+    .story-panel { min-height:0!important; height:100%!important; align-self:stretch!important; }
+    .controls { align-self:end!important; margin-top:0!important; }
+    .combat-actions [data-combat-action="continue"] { grid-column:1/-1; background:#3a2850; }
+    .combat-history { margin-top:9px; padding:8px 10px; border:1px solid #5f4827; border-radius:8px; background:#0d0912; color:#d9c38e; font-size:12px; line-height:1.35; max-height:94px; overflow-y:auto; }
+    .music-resume-needed { border-color:#e1b85d!important; box-shadow:0 0 0 2px rgba(225,184,93,.18)!important; }
+
   </style>
 </head>
 <body>
@@ -1761,13 +1785,15 @@
         <button type="button" data-combat-action="defend">🛡 Defend</button>
         <button type="button" data-combat-action="item">🧪 Use Herbs</button>
         <button type="button" data-combat-action="flee">➜ Flee</button>
+        <button type="button" data-combat-action="continue" hidden>Continue — Enemy Turn ➜</button>
       </div>
+      <div class="combat-history" id="combat-history" aria-live="polite">No rolls yet.</div>
     </div>
   </dialog>
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.7.4.0";
+    const BUILD_VERSION = "1.7.4.1";
 
     const itemInfo = {
       "tarnished locket": "A traveler's locket found behind the tavern hearth. The portrait inside shows a young woman before a crooked woodland cottage.",
@@ -2207,10 +2233,11 @@
         name: "Thorn Hedge Pass",
         description: "The King's Road narrows between walls of living thorn. Yellow eyes watch from the right-hand hedge, clawed tracks cross the mud, and red briar berries cling to the branches. King's Road lies north; a ruined watch crossing waits south.",
         exits: { north: "castleRoad", south: "brokenWatchCrossing" },
-        actions: ["go north", "go south", "inspect strange tracks", "search thorn hedge", "gather briar berries", "investigate growl"],
+        actions: ["go north", "go south", "inspect strange tracks", "search abandoned pack", "search thorn hedge", "gather briar berries", "investigate growl"],
         hotspots: [
           { label: "Strange Tracks", command: "inspect strange tracks", x: 55, y: 72, w: 30, h: 20 },
           { label: "Thorn Hedge", command: "search thorn hedge", x: 18, y: 54, w: 28, h: 38 },
+          { label: "Abandoned Pack", command: "search abandoned pack", x: 72, y: 79, w: 22, h: 25 },
           { label: "Yellow Eyes", command: "investigate growl", x: 84, y: 53, w: 24, h: 28 },
           { label: "Road South", command: "go south", x: 54, y: 32, w: 26, h: 22 }
         ]
@@ -2345,7 +2372,7 @@
     applyV1726NavigationGraph();
 
     const initialState = () => ({
-      schemaVersion: 1740,
+      schemaVersion: 1741,
       room: "square",
       view: "center",
       inventory: [],
@@ -2415,20 +2442,33 @@
         pilgrimCharmTaken: false,
         riverCharmTaken: false,
         courierSealTaken: false,
+        cellarBarrelAttempted: false,
         cellarBarrelLooted: false,
+        cellarFlagstoneAttempted: false,
         cellarFlagstoneLooted: false,
+        tunnelLooseStoneAttempted: false,
         tunnelLooseStoneLooted: false,
+        tunnelNicheAttempted: false,
         tunnelNicheLooted: false,
         tunnelBonesInspected: false,
+        alcoveWallAttempted: false,
         alcoveWallLooted: false,
+        archAttempted: false,
         thornTracksInspected: false,
+        thornHedgeAttempted: false,
         thornHedgeLooted: false,
+        abandonedPackSearched: false,
         briarBerriesTaken: false,
         thornHoundDefeated: false,
+        watchWagonAttempted: false,
         watchWagonLooted: false,
+        watchPostExamined: false,
+        watchRubbleAttempted: false,
         watchRubbleLooted: false,
         outerSigilFound: false,
+        outerDitchAttempted: false,
         outerDitchLooted: false,
+        cryptBurialShelfAttempted: false,
         cryptBurialShelfLooted: false,
         cryptCoffinOpened: false,
         cryptSkeletonDefeated: false,
@@ -2486,6 +2526,11 @@
       else addLog(failureText,"warning");
       return outcome.success;
     }
+    async function runOneAttemptCheck(attemptFlag,label,statName,target,successText,failureText,onSuccess){
+      state.flags[attemptFlag]=true;
+      autosave();
+      return runExplorationCheck(label,statName,target,successText,failureText,onSuccess);
+    }
 
     let combatUiBusy=false;
     let combatActionToken=0;
@@ -2495,9 +2540,14 @@
     }
 
     function setCombatButtons(disabled) {
+      const phase=state.combat&&state.combat.phase||"player";
       document.querySelectorAll("[data-combat-action]").forEach(btn=>{
-        const itemUnavailable=btn.dataset.combatAction==="item" && (!has("healing herbs")||state.health>=state.maxHealth);
-        btn.disabled=!!disabled || itemUnavailable;
+        const action=btn.dataset.combatAction;
+        const isContinue=action==="continue";
+        btn.hidden=isContinue && phase!=="enemy-ready";
+        const itemUnavailable=action==="item" && (!has("healing herbs")||state.health>=state.maxHealth);
+        const wrongPhase=isContinue ? phase!=="enemy-ready" : phase!=="player";
+        btn.disabled=!!disabled || wrongPhase || itemUnavailable;
         btn.setAttribute("aria-disabled",String(btn.disabled));
       });
     }
@@ -2508,7 +2558,15 @@
       const die=document.getElementById("combat-die");
       if(die){die.classList.remove("rolling");die.textContent="?";}
       const rollText=document.getElementById("combat-roll-text");if(rollText)rollText.textContent="Choose an action.";
+      const history=document.getElementById("combat-history");if(history)history.textContent="No rolls yet.";
       setCombatButtons(false);
+    }
+
+    function appendCombatHistory(text){
+      if(!state.combat||!text)return;
+      state.combat.history=Array.isArray(state.combat.history)?state.combat.history:[];
+      state.combat.history.push(text);
+      state.combat.history=state.combat.history.slice(-5);
     }
 
     function renderCombat() {
@@ -2524,6 +2582,8 @@
       document.getElementById("combat-player-hp-bar").style.width=`${Math.max(0,state.health/state.maxHealth*100)}%`;
       document.getElementById("combat-enemy-hp-bar").style.width=`${Math.max(0,state.combat.enemyHp/enemy.maxHp*100)}%`;
       document.getElementById("combat-message").textContent=state.combat.message||`${enemy.name} blocks your path. Your defense is ${stats.defense}.`;
+      document.getElementById("combat-roll-text").textContent=state.combat.rollText||"Choose an action.";
+      const history=document.getElementById("combat-history");if(history)history.innerHTML=(state.combat.history&&state.combat.history.length)?state.combat.history.map(escapeHtml).join("<br>"):"No rolls yet.";
       setCombatButtons(combatUiBusy);
     }
 
@@ -2537,9 +2597,7 @@
           value=rollDie(20);die.textContent=value;await wait(55+i*4);
         }
         return value;
-      } finally {
-        die.classList.remove("rolling");
-      }
+      } finally { die.classList.remove("rolling"); }
     }
 
     function startCombat(enemyId) {
@@ -2548,12 +2606,10 @@
       const loot=document.getElementById("loot-dialog");if(loot&&loot.open)loot.close();
       const dlg=document.getElementById("combat-dialog");if(dlg.open)dlg.close();
       state.pendingLoot=null;
-      state.combat={enemyId,enemyHp:enemy.maxHp,round:1,message:`${enemy.name} emerges! Choose your action.`,busy:false};
+      state.combat={enemyId,enemyHp:enemy.maxHp,round:1,phase:"player",rollText:"Choose an action.",message:`${enemy.name} emerges! Choose your action.`,history:[],pendingDefend:false,busy:false};
       resetCombatPresentation();
-      renderCombat();
-      dlg.showModal();
-      setCombatButtons(false);
-      autosave();
+      state.combat.phase="player";state.combat.rollText="Choose an action.";
+      renderCombat();dlg.showModal();setCombatButtons(false);autosave();
       return true;
     }
 
@@ -2566,12 +2622,9 @@
       if(state.combat){
         const enemy=enemyCatalog[state.combat.enemyId];
         if(enemy&&enemy.escapeRoom) state.room=enemy.escapeRoom;
-        state.view="center";
-        state.combat=null;
-        addLog(reason,"warning");
+        state.view="center";state.combat=null;addLog(reason,"warning");
       }
-      closeCombatDialogOnly();
-      renderAll();autosave();
+      closeCombatDialogOnly();renderAll();autosave();
     }
 
     async function enemyCombatTurn(defending=false,token=combatActionToken) {
@@ -2580,19 +2633,22 @@
       const roll=await animateCombatRoll(token);
       if(!state.combat||token!==combatActionToken) return;
       const defense=stats.defense+(defending?2:0), total=roll+enemy.attack;
+      let resultText;
       if(total>=defense){
         const damage=rollDie(enemy.damageSides)+enemy.damageBonus;
         state.health=Math.max(0,state.health-damage);
-        state.combat.message=`${enemy.name} rolls ${roll} + ${enemy.attack} = ${total} and hits for ${damage} damage.`;
-      } else state.combat.message=`${enemy.name} rolls ${roll} + ${enemy.attack} = ${total}, missing your defense ${defense}.`;
+        resultText=`${enemy.name}: ${roll} + Attack ${enemy.attack} = ${total}. HIT for ${damage} damage.`;
+      } else resultText=`${enemy.name}: ${roll} + Attack ${enemy.attack} = ${total}. Miss against defense ${defense}.`;
+      state.combat.rollText=`Enemy roll: ${roll} + ${enemy.attack} = ${total}`;
+      state.combat.message=resultText;appendCombatHistory(resultText);
       if(state.health<=0){
         state.health=Math.max(1,Math.floor(state.maxHealth/2));
         const escape=enemy.escapeRoom;
         addLog(`${enemy.name} overwhelms you. You awaken battered but alive, having crawled back to safety.`,"warning");
-        state.room=escape;state.view="center";state.combat=null;
-        closeCombatDialogOnly();renderAll();autosave();return;
+        state.room=escape;state.view="center";state.combat=null;closeCombatDialogOnly();renderAll();autosave();return;
       }
       state.combat.round=(state.combat.round||1)+1;
+      state.combat.phase="player";state.combat.pendingDefend=false;
       renderCombat();
     }
 
@@ -2602,8 +2658,7 @@
       document.getElementById("loot-title").textContent=`Victory — ${reward.enemy} defeated`;
       const practice=reward.skill?`<div class="loot-item">⚔ +1 ${reward.skill} Practice</div>`:"";
       document.getElementById("loot-body").innerHTML=`<div class="loot-item">🪙 ${reward.gold} gold</div><div class="loot-item">🎒 ${reward.item}</div><div class="loot-item">✨ ${reward.xp} XP</div>${practice}`;
-      const dlg=document.getElementById("loot-dialog");if(!dlg.open)dlg.showModal();
-      autosave();
+      const dlg=document.getElementById("loot-dialog");if(!dlg.open)dlg.showModal();autosave();
     }
 
     function collectPendingLoot(){
@@ -2617,8 +2672,7 @@
     }
 
     function combatVictory(enemyId) {
-      const enemy=enemyCatalog[enemyId];
-      if(!enemy) return;
+      const enemy=enemyCatalog[enemyId];if(!enemy)return;
       let reward=null;
       if(enemyId==="thornHound"){
         state.flags.thornHoundDefeated=true;
@@ -2629,35 +2683,47 @@
         addLog("The Restless Skeleton collapses into quiet bones. The coffin chamber falls still.","success");
         reward={enemyId,enemy:enemy.name,gold:8,item:"ancient chapel charm",xp:6,awardKey:"defeat-restless-skeleton",skill:"Combat",practiceKey:"victory-restlessSkeleton"};
       }
-      state.combat=null;
-      closeCombatDialogOnly();
-      renderAll();
-      if(reward) showLootReward(reward); else autosave();
+      state.combat=null;closeCombatDialogOnly();renderAll();if(reward)showLootReward(reward);else autosave();
+    }
+
+    function prepareEnemyTurn(message,rollText,defending=false){
+      if(!state.combat)return;
+      state.combat.message=message;state.combat.rollText=rollText;state.combat.pendingDefend=!!defending;state.combat.phase="enemy-ready";
+      renderCombat();autosave();
     }
 
     async function combatAction(action) {
-      if(!state.combat||combatUiBusy) return;
-      const token=++combatActionToken;
-      combatUiBusy=true;setCombatButtons(true);
+      if(!state.combat||combatUiBusy)return;
+      if(action!=="continue"&&state.combat.phase!=="player")return;
+      if(action==="continue"&&state.combat.phase!=="enemy-ready")return;
+      const token=++combatActionToken;combatUiBusy=true;setCombatButtons(true);
       try{
         const enemy=enemyCatalog[state.combat.enemyId], stats=adventureStats();
+        if(action==="continue"){
+          await enemyCombatTurn(!!state.combat.pendingDefend,token);return;
+        }
         if(action==="attack"){
           const roll=await animateCombatRoll(token);if(!state.combat||token!==combatActionToken)return;
           const total=roll+stats.might;
           if(total>=enemy.defense){
             const damage=rollDie(6)+1+(state.equipment&&state.equipment.weapon?1:0);
             state.combat.enemyHp=Math.max(0,state.combat.enemyHp-damage);
-            state.combat.message=`Attack roll ${roll} + Might ${stats.might} = ${total}: HIT for ${damage} damage.`;
-            renderCombat();
-            if(state.combat.enemyHp<=0){await wait(350);if(state.combat&&token===combatActionToken)combatVictory(state.combat.enemyId);return;}
-          } else {state.combat.message=`Attack roll ${roll} + Might ${stats.might} = ${total}: miss against defense ${enemy.defense}.`;renderCombat();}
-          await wait(300);await enemyCombatTurn(false,token);
+            const text=`You: ${roll} + Might ${stats.might} = ${total}. HIT for ${damage} damage.`;
+            appendCombatHistory(text);state.combat.message=text;state.combat.rollText=`Your roll: ${roll} + ${stats.might} = ${total}`;renderCombat();
+            if(state.combat.enemyHp<=0){await wait(250);if(state.combat&&token===combatActionToken)combatVictory(state.combat.enemyId);return;}
+            prepareEnemyTurn(text,"Tap Continue when you have read your result.",false);
+          } else {
+            const text=`You: ${roll} + Might ${stats.might} = ${total}. Miss against defense ${enemy.defense}.`;
+            appendCombatHistory(text);prepareEnemyTurn(text,"Tap Continue when you have read your result.",false);
+          }
         } else if(action==="defend"){
-          state.combat.message="You brace and gain +2 defense against the next attack.";renderCombat();await wait(250);await enemyCombatTurn(true,token);
+          const text="You brace and gain +2 defense against the next attack.";appendCombatHistory(text);prepareEnemyTurn(text,"Tap Continue for the enemy turn.",true);
         } else if(action==="item"){
-          if(!has("healing herbs")) state.combat.message="You have no healing herbs.";
-          else if(state.health>=state.maxHealth) state.combat.message="You are already at full health.";
-          else {removeItem("healing herbs",1);const healed=Math.min(5,state.maxHealth-state.health);state.health+=healed;state.combat.message=`You use healing herbs and recover ${healed} health.`;renderCombat();await wait(250);await enemyCombatTurn(false,token);}
+          let text;
+          if(!has("healing herbs")) text="You have no healing herbs.";
+          else if(state.health>=state.maxHealth) text="You are already at full health.";
+          else {removeItem("healing herbs",1);const healed=Math.min(5,state.maxHealth-state.health);state.health+=healed;text=`You use healing herbs and recover ${healed} health.`;}
+          appendCombatHistory(text);prepareEnemyTurn(text,"Tap Continue for the enemy turn.",false);
         } else if(action==="flee"){
           const roll=await animateCombatRoll(token);if(!state.combat||token!==combatActionToken)return;
           const total=roll+stats.luck;
@@ -2665,10 +2731,10 @@
             const escape=enemy.escapeRoom;addLog(`You escape from ${enemy.name} and retreat to safety.`,"system");
             state.room=escape;state.view="center";state.combat=null;closeCombatDialogOnly();renderAll();autosave();return;
           }
-          state.combat.message=`Flee roll ${roll} + Luck ${stats.luck} = ${total}: failed. The enemy strikes.`;renderCombat();await wait(250);await enemyCombatTurn(false,token);
+          const text=`Flee: ${roll} + Luck ${stats.luck} = ${total}. Failed.`;appendCombatHistory(text);prepareEnemyTurn(text,"Tap Continue for the enemy turn.",false);
         }
       } catch(error){
-        if(state.combat){state.combat.message="The encounter paused safely. Choose an action to continue or use × to retreat.";renderCombat();}
+        if(state.combat){state.combat.phase="player";state.combat.message="The encounter paused safely. Choose an action to continue or use × to retreat.";renderCombat();}
         console.error("Combat action recovered",error);
       } finally {
         if(token===combatActionToken){
@@ -2684,10 +2750,10 @@
       const loot=document.getElementById("loot-dialog");if(loot&&loot.open)loot.close();
       if(state.pendingLoot){showLootReward(state.pendingLoot);return "loot";}
       if(state.combat&&enemyCatalog[state.combat.enemyId]&&state.combat.enemyHp>0){
-        state.combat.busy=false;
+        state.combat.busy=false;state.combat.phase=state.combat.phase==="enemy-ready"?"enemy-ready":"player";
+        state.combat.history=Array.isArray(state.combat.history)?state.combat.history:[];
         resetCombatPresentation();renderCombat();
-        const dlg=document.getElementById("combat-dialog");if(!dlg.open)dlg.showModal();
-        setCombatButtons(false);return "combat";
+        const dlg=document.getElementById("combat-dialog");if(!dlg.open)dlg.showModal();setCombatButtons(false);return "combat";
       }
       state.combat=null;resetCombatPresentation();return "none";
     }
@@ -3682,6 +3748,8 @@
         "apothecary:door": "The green front door leads back outside to the square.",
         "apothecary:crates": "The delivery crates are stamped with a crescent moon. One is marked for Moonfen Crossing.",
         "apothecary:back room": "Beyond the curtain is a narrow workroom filled with copper coils and blue-glass vessels. Elowen has not invited you inside.",
+        "apothecaryBackRoom:brewing table": "Copper coils wind around a blackened kettle. A cooling draught bubbles slowly beneath a label in Elowen’s precise hand.",
+        "apothecaryBackRoom:recipe chest": "The recipe chest is locked with a delicate brass mechanism. Elowen would notice if it were disturbed.",
         "square:apothecary": "Willowmere Apothecary is the herb shop on the eastern side of the square. Blue smoke curls from its chimney, and a painted mortar and pestle hangs above the green door. Touch it again or type WALK TO APOTHECARY to approach.",
         "square:fountain": "The old fountain basin is dry. One carved word remains readable: REMEMBER.",
         "square:statue": "The statue depicts Queen Elowen before her coronation. Thorn marks have been scratched across her face.",
@@ -3716,6 +3784,21 @@
         "moonfen:ferry": state.flags.ferryRepaired ? "The rope ferry is repaired and ready to cross." : "The ferry itself is sound, but the shoreline winch is missing its crank.",
         "moonwell:well": state.flags.shardTaken ? "The water has gone still. Nothing else shines below." : "Far below, a crystal shard rests on a narrow stone ledge beyond your reach.",
         "moonwell:fairy": state.flags.fairyFreed ? "The fairy hovers above the flowers, free and radiant." : "The fairy's wings are pinned by thorny vines. She points frantically at the golden sigil you carry.",
+        "brokenWatchCrossing:ruined watch post": state.flags.watchPostExamined ? "The searched watch post bears the warning: THE CROWN ROAD IS COMPROMISED." : "The roofless watch post still holds a torn royal banner and a shadowed interior worth examining.",
+        "brokenWatchCrossing:searched wagon": state.flags.watchWagonLooted ? "The wagon’s torn seat and hidden compartment are empty." : "The collapsed wagon has already been searched. Nothing useful can be reached.",
+        "brokenWatchCrossing:rubble": state.flags.watchRubbleLooted ? "The cleared cache beneath the rubble is empty." : "The broken lintel is wedged too tightly to move safely.",
+        "thornHedgePass:thorn hedge": state.flags.thornHedgeLooted ? "The searched opening in the hedge is empty." : "The living thorns have sealed the searched opening.",
+        "tavernCellar:old barrel": state.flags.cellarBarrelLooted ? "The false stave is open and empty." : "The searched barrel contains only sour rainwater and rotten cork.",
+        "tavernCellar:loose flagstone": state.flags.cellarFlagstoneLooted ? "The cache beneath the lifted flagstone is empty." : "The flagstone is wedged tightly and will not move without tools.",
+        "secretTunnel:wall niche": state.flags.tunnelNicheLooted ? "The hidden shelf in the wall niche is empty." : "The searched niche holds no hidden catch.",
+        "secretTunnel:loose stone": state.flags.tunnelLooseStoneLooted ? "The stone niche is open and empty." : "Cold grit seals the stone firmly in place.",
+        "secretAlcove:cracked wall": state.flags.alcoveWallLooted ? "The concealed wall pocket is empty." : "The crack is marked for a future visit with the right tool.",
+        "secretAlcove:blocked arch": state.flags.archBroken ? "The arch has been broken open." : "The rubble has settled into an unsafe, immovable angle.",
+        "outerGateApproach:roadside ditch": state.flags.outerDitchLooted ? "The searched ditch is empty." : "The ditch has been searched thoroughly and holds only rainwater and broken shafts.",
+        "crypt:burial shelf": state.flags.cryptBurialShelfLooted ? "The burial shelf is empty." : "The searched shelf holds no hidden seam.",
+        "outerGateApproach:broken statues": "The broken statues were royal road wardens. Each stone face has been deliberately struck away, but their hands still point toward the crown-shaped gate socket.",
+        "thornHedgePass:abandoned pack": state.flags.abandonedPackSearched ? "The torn Ironthorn watch pack is empty." : "A weather-stained guard pack lies beside the marker stone. It may contain supplies or a clue.",
+        "thornHedgePass:fading tracks": "Black leaf fragments and fading claw marks are all that remain of the defeated Thorn Hound.",
         "castleRoad:thorns": "The vines recoil slightly from the sun sigil, as though remembering daylight.",
         "castleGate:gate": "The iron portcullis is fused with thorn-black rust. Royal banners hang above it, and the crown-shaped socket sits at the center of the locking plate.",
         "castleGate:winch": "The chain is rusted tight. A crest-shaped lock suggests the winch once answered to the royal crown.",
@@ -4480,7 +4563,8 @@
         state.turns++;
         if (state.flags.archBroken) { addLog("The rockfall is already breached; the small alcove behind it stands empty."); return finishTurn(); }
         useSkill("Combat");
-        const moved=await runExplorationCheck("Move Collapsed Rubble","might",12,"With a grinding roar the keystone gives. Behind it you find six gold, lantern oil, and an oath-stone carved with a kneeling knight.","A sharp edge scrapes your arm as the rockfall settles back into place (−1 health). You may try again.",()=>{state.flags.archBroken=true;addGold(6);addItem("lantern oil");award("break-tunnel-arch",3);});
+        if(state.flags.archAttempted){addLog(state.flags.archBroken?"The broken arch remains open.":"The rubble settled too tightly after your attempt. You will need another route or a proper tool.","system");return finishTurn();}
+        const moved=await runOneAttemptCheck("archAttempted","Move Collapsed Rubble","might",12,"With a grinding roar the keystone gives. Behind it you find six gold, lantern oil, and an oath-stone carved with a kneeling knight.","A sharp edge scrapes your arm as the rockfall settles back into place. The unstable stones cannot be safely tried again.",()=>{state.flags.archBroken=true;addGold(6);addItem("lantern oil");award("break-tunnel-arch",3);});
         if(!moved){state.health=Math.max(1,(state.health||20)-1);updateStatus();}
         return finishTurn();
       }
@@ -4542,25 +4626,29 @@
       if (state.room==="tavernCellar" && /^(?:search|open) (?:the )?(?:old )?barrel$/.test(command)) {
         state.turns++;
         if(state.flags.cellarBarrelLooted){ addLog("The marked barrel is empty."); return finishTurn(); }
-        await runExplorationCheck("Search Old Barrel","wits",8,"Behind a false stave you find three gold and a sealed bottle of lantern oil.","You find only sour rainwater and rotten cork. You may try again.",()=>{state.flags.cellarBarrelLooted=true;addGold(3);addItem("lantern oil");});
+        if(state.flags.cellarBarrelAttempted){addLog(state.flags.cellarBarrelLooted?"The false stave is open and empty.":"The barrel contains only sour rainwater and rotten cork.");return finishTurn();}
+        await runOneAttemptCheck("cellarBarrelAttempted","Search Old Barrel","wits",8,"Behind a false stave you find three gold and a sealed bottle of lantern oil.","You search every stave and find only sour rainwater and rotten cork.",()=>{state.flags.cellarBarrelLooted=true;addGold(3);addItem("lantern oil");});
         return finishTurn();
       }
       if (state.room==="tavernCellar" && /^(?:pry up|lift|examine|search) (?:the )?(?:loose )?flagstone$/.test(command)) {
         state.turns++;
         if(state.flags.cellarFlagstoneLooted){ addLog("The hollow beneath the flagstone is empty."); return finishTurn(); }
-        await runExplorationCheck("Pry Up Flagstone","might",10,"The stone lifts. A small purse beneath it holds three gold.","The stone shifts but slips back into place. You may try again.",()=>{state.flags.cellarFlagstoneLooted=true;addGold(3);});
+        if(state.flags.cellarFlagstoneAttempted){addLog(state.flags.cellarFlagstoneLooted?"The hiding place beneath the flagstone is empty.":"The flagstone is wedged too tightly to move again without tools.");return finishTurn();}
+        await runOneAttemptCheck("cellarFlagstoneAttempted","Pry Up Flagstone","might",10,"The stone lifts. A small purse beneath it holds three gold.","The stone slips back and wedges firmly. It cannot be tried again without a proper tool.",()=>{state.flags.cellarFlagstoneLooted=true;addGold(3);});
         return finishTurn();
       }
       if (state.room==="secretTunnel" && /^search (?:the )?loose stone$/.test(command)) {
         state.turns++;
         if(state.flags.tunnelLooseStoneLooted){ addLog("The small hollow behind the loose stone is empty."); return finishTurn(); }
-        await runExplorationCheck("Search Loose Stone","wits",10,"The stone comes free, revealing four old gold pieces.","Cold grit fills the seam, but you cannot free the stone yet.",()=>{state.flags.tunnelLooseStoneLooted=true;addGold(4);});
+        if(state.flags.tunnelLooseStoneAttempted){addLog(state.flags.tunnelLooseStoneLooted?"The stone niche is empty.":"The stone is sealed by cold grit and will not move.");return finishTurn();}
+        await runOneAttemptCheck("tunnelLooseStoneAttempted","Search Loose Stone","wits",10,"The stone comes free, revealing four old gold pieces.","Cold grit fills the seam. The stone will not move again without tools.",()=>{state.flags.tunnelLooseStoneLooted=true;addGold(4);});
         return finishTurn();
       }
       if (state.room==="secretTunnel" && /^search (?:the )?wall niche$/.test(command)) {
         state.turns++;
         if(state.flags.tunnelNicheLooted){ addLog("The wall niche is empty."); return finishTurn(); }
-        await runExplorationCheck("Search Wall Niche","wits",12,"Your fingers find a hidden shelf containing a bone charm.","You probe the dark niche but find no catch. You may try again.",()=>{state.flags.tunnelNicheLooted=true;addItem("bone charm");});
+        if(state.flags.tunnelNicheAttempted){addLog(state.flags.tunnelNicheLooted?"The hidden shelf is empty.":"You already checked the niche thoroughly and found no catch.");return finishTurn();}
+        await runOneAttemptCheck("tunnelNicheAttempted","Search Wall Niche","wits",12,"Your fingers find a hidden shelf containing a bone charm.","You probe the niche thoroughly but find no hidden catch.",()=>{state.flags.tunnelNicheLooted=true;addItem("bone charm");});
         return finishTurn();
       }
       if (state.room==="secretTunnel" && /^(?:inspect|look at) (?:the )?(?:old )?bones$/.test(command)) {
@@ -4569,7 +4657,8 @@
       if (state.room==="secretAlcove" && /^inspect (?:the )?cracked wall$/.test(command)) {
         state.turns++;
         if(state.flags.alcoveWallLooted){ addLog("The hidden crack stands open and empty."); return finishTurn(); }
-        await runExplorationCheck("Inspect Cracked Wall","wits",12,"A concealed pocket yields a tarnished chapel sigil token.","The crack is too narrow to explore without a better angle.",()=>{state.flags.alcoveWallLooted=true;addItem("chapel sigil token");});
+        if(state.flags.alcoveWallAttempted){addLog(state.flags.alcoveWallLooted?"The concealed pocket is empty.":"The crack is too narrow to explore further without a tool.");return finishTurn();}
+        await runOneAttemptCheck("alcoveWallAttempted","Inspect Cracked Wall","wits",12,"A concealed pocket yields a tarnished chapel sigil token.","The crack is too narrow. You mark it for a future visit with the right tool.",()=>{state.flags.alcoveWallLooted=true;addItem("chapel sigil token");});
         return finishTurn();
       }
       if (state.room==="thornHedgePass" && /^inspect (?:the )?strange tracks$/.test(command)) {
@@ -4578,8 +4667,15 @@
       if (state.room==="thornHedgePass" && /^search (?:the )?thorn hedge$/.test(command)) {
         state.turns++;
         if(state.flags.thornHedgeLooted){ addLog("You already searched the safest opening in the hedge."); return finishTurn(); }
-        await runExplorationCheck("Search Thorn Hedge","wits",10,"Behind the briars you find a rusty token and two gold.","The thorns close around your sleeve and force you back.",()=>{state.flags.thornHedgeLooted=true;addGold(2);addItem("guard key fragment");});
+        if(state.flags.thornHedgeAttempted){addLog(state.flags.thornHedgeLooted?"The opening in the hedge is empty.":"The thorns have closed over the opening you searched.");return finishTurn();}
+        await runOneAttemptCheck("thornHedgeAttempted","Search Thorn Hedge","wits",10,"Behind the briars you find a rusty token and two gold.","The thorns close around your sleeve and seal the opening behind them.",()=>{state.flags.thornHedgeLooted=true;addGold(2);addItem("guard key fragment");});
         return finishTurn();
+      }
+      if (state.room==="thornHedgePass" && /^(?:search|examine|inspect|open) (?:the )?(?:abandoned )?pack$/.test(command)) {
+        state.turns++;
+        if(state.flags.abandonedPackSearched){addLog("The abandoned pack is empty. Its torn straps bear the Ironthorn watch crest.");return finishTurn();}
+        state.flags.abandonedPackSearched=true;addGold(3);addItem("healing herbs");useSkill("Survival");
+        addLog("Inside the abandoned pack you find three gold, healing herbs, and a water-damaged watch order warning that the road ahead was abandoned before the Crown vanished.","success");return finishTurn();
       }
       if (state.room==="thornHedgePass" && /^(?:gather|take|pick) (?:the )?briar berries$/.test(command)) {
         state.turns++;
@@ -4591,16 +4687,24 @@
         if(state.flags.thornHoundDefeated){ addLog("Only black leaves remain where the Thorn Hound fell."); return finishTurn(); }
         addLog("A Thorn Hound tears free of the hedge, its hide woven from black briars.","warning"); startCombat("thornHound"); return;
       }
+      if (state.room==="brokenWatchCrossing" && /^(?:examine|inspect|search|look at) (?:the )?(?:ruined )?watch post$/.test(command)) {
+        state.turns++;
+        if(state.flags.watchPostExamined){addLog("The searched watch post still bears the scratched warning: THE CROWN ROAD IS COMPROMISED.");return finishTurn();}
+        state.flags.watchPostExamined=true;useSkill("Survival");award("inspect-ruined-watch-post",1);
+        addLog("Inside the ruined post you uncover a carved warning beneath the torn banner: THE CROWN ROAD IS COMPROMISED. Fresh boot marks continue south toward Ironthorn.","success");return finishTurn();
+      }
       if (state.room==="brokenWatchCrossing" && /^search (?:the )?(?:overturned )?wagon$/.test(command)) {
         state.turns++;
         if(state.flags.watchWagonLooted){ addLog("The overturned wagon has been thoroughly searched."); return finishTurn(); }
-        await runExplorationCheck("Search Guard Wagon","wits",10,"Beneath a torn seat you find five gold and a bottle of lantern oil.","The wagon shifts dangerously before you can reach the locked compartment.",()=>{state.flags.watchWagonLooted=true;addGold(5);addItem("lantern oil");});
+        if(state.flags.watchWagonAttempted){addLog(state.flags.watchWagonLooted?"The overturned wagon has been thoroughly searched.":"The wagon collapsed after your search. Nothing useful can be reached now.");return finishTurn();}
+        await runOneAttemptCheck("watchWagonAttempted","Search Guard Wagon","wits",10,"Beneath a torn seat you find five gold and a bottle of lantern oil.","The wagon collapses before you reach the locked compartment. The single safe search is over.",()=>{state.flags.watchWagonLooted=true;addGold(5);addItem("lantern oil");});
         return finishTurn();
       }
       if (state.room==="brokenWatchCrossing" && /^(?:move|clear) (?:the )?(?:scattered )?rubble$/.test(command)) {
         state.turns++;
         if(state.flags.watchRubbleLooted){ addLog("The small cache beneath the rubble is empty."); return finishTurn(); }
-        await runExplorationCheck("Move Watch Rubble","might",12,"You shift a broken lintel and recover the matching half of a guard key.","The stone is too heavy this time. You may try again.",()=>{state.flags.watchRubbleLooted=true;addItem("guard key fragment");});
+        if(state.flags.watchRubbleAttempted){addLog(state.flags.watchRubbleLooted?"The cache beneath the rubble is empty.":"The broken lintel is wedged too tightly to move again safely.");return finishTurn();}
+        await runOneAttemptCheck("watchRubbleAttempted","Move Watch Rubble","might",12,"You shift a broken lintel and recover the matching half of a guard key.","The lintel settles into a dangerous angle. You cannot safely try again.",()=>{state.flags.watchRubbleLooted=true;addItem("guard key fragment");});
         return finishTurn();
       }
       if (state.room==="outerGateApproach" && /^(?:inspect|study) (?:the )?(?:cracked )?sigil stone$/.test(command)) {
@@ -4611,13 +4715,15 @@
       if (state.room==="outerGateApproach" && /^search (?:the )?roadside ditch$/.test(command)) {
         state.turns++;
         if(state.flags.outerDitchLooted){ addLog("The roadside ditch holds nothing else."); return finishTurn(); }
-        await runExplorationCheck("Search Roadside Ditch","luck",10,"You uncover a prayer coin and three gold beneath a torn banner.","You find only rainwater and broken spear shafts.",()=>{state.flags.outerDitchLooted=true;addGold(3);addItem("chapel sigil token");});
+        if(state.flags.outerDitchAttempted){addLog(state.flags.outerDitchLooted?"The roadside ditch is empty.":"You already searched the ditch and found only rainwater and broken shafts.");return finishTurn();}
+        await runOneAttemptCheck("outerDitchAttempted","Search Roadside Ditch","luck",10,"You uncover a prayer coin and three gold beneath a torn banner.","You search the entire ditch and find only rainwater and broken spear shafts.",()=>{state.flags.outerDitchLooted=true;addGold(3);addItem("chapel sigil token");});
         return finishTurn();
       }
       if (state.room==="crypt" && /^search (?:the )?burial shelf$/.test(command)) {
         state.turns++;
         if(state.flags.cryptBurialShelfLooted){ addLog("The burial shelf has already been searched."); return finishTurn(); }
-        await runExplorationCheck("Search Burial Shelf","wits",11,"Behind a clay urn you find four burial coins.","Dust and old wax hide the shelf's seams. You may try again.",()=>{state.flags.cryptBurialShelfLooted=true;addGold(4);});
+        if(state.flags.cryptBurialShelfAttempted){addLog(state.flags.cryptBurialShelfLooted?"The burial shelf is empty.":"You already searched the sealed shelf and found no hidden seam.");return finishTurn();}
+        await runOneAttemptCheck("cryptBurialShelfAttempted","Search Burial Shelf","wits",11,"Behind a clay urn you find four burial coins.","You search through the dust and old wax but find no hidden seam.",()=>{state.flags.cryptBurialShelfLooted=true;addGold(4);});
         return finishTurn();
       }
       if (state.room==="crypt" && /^(?:open|pry open) (?:the )?(?:stone )?coffin$/.test(command)) {
@@ -4765,39 +4871,41 @@
       if (state.room === "moonfen" && state.flags.ferryRepaired) actions.unshift("cross ferry", "go east");
       if (state.room === "hutInterior" && !state.flags.coinTaken) actions.unshift("take fairy coin");
       if (state.room === "tavernCellar") {
-        if(!state.flags.cellarBarrelLooted) actions.unshift("search old barrel");
-        if(!state.flags.cellarFlagstoneLooted) actions.unshift("pry up loose flagstone");
+        if(!state.flags.cellarBarrelAttempted) actions.unshift("search old barrel");
+        if(!state.flags.cellarFlagstoneAttempted) actions.unshift("pry up loose flagstone");
       }
       if (state.room === "secretTunnel") {
         actions.unshift("go east", "go west", "look at passage");
-        if(!state.flags.tunnelLooseStoneLooted) actions.unshift("search loose stone");
-        if(!state.flags.tunnelNicheLooted) actions.unshift("search wall niche");
+        if(!state.flags.tunnelLooseStoneAttempted) actions.unshift("search loose stone");
+        if(!state.flags.tunnelNicheAttempted) actions.unshift("search wall niche");
         if(!state.flags.tunnelBonesInspected) actions.unshift("inspect old bones");
       }
       if (state.room === "secretAlcove") {
         if (!state.flags.tunnelCoinsFound) actions.unshift("search loose stone");
         else if (!state.flags.tunnelCoinsTaken) actions.unshift("take coins");
         else removeAction("search loose stone");
-        if(!state.flags.alcoveWallLooted) actions.unshift("inspect cracked wall");
+        if(!state.flags.alcoveWallAttempted) actions.unshift("inspect cracked wall");
         actions.unshift("go west", "look at blocked arch");
       }
       if(state.room==="thornHedgePass"){
         if(!state.flags.thornTracksInspected) actions.unshift("inspect strange tracks");
-        if(!state.flags.thornHedgeLooted) actions.unshift("search thorn hedge");
+        if(!state.flags.thornHedgeAttempted) actions.unshift("search thorn hedge");
+        if(!state.flags.abandonedPackSearched) actions.unshift("search abandoned pack");
         if(!state.flags.briarBerriesTaken) actions.unshift("gather briar berries");
         if(!state.flags.thornHoundDefeated) actions.unshift("investigate growl");
       }
       if(state.room==="brokenWatchCrossing"){
-        if(!state.flags.watchWagonLooted) actions.unshift("search overturned wagon");
-        if(!state.flags.watchRubbleLooted) actions.unshift("move scattered rubble");
+        if(!state.flags.watchWagonAttempted) actions.unshift("search overturned wagon");
+        if(!state.flags.watchPostExamined) actions.unshift("examine ruined watch post");
+        if(!state.flags.watchRubbleAttempted) actions.unshift("move scattered rubble");
       }
       if(state.room==="outerGateApproach"){
         if(!state.flags.outerSigilFound) actions.unshift("inspect cracked sigil stone");
-        if(!state.flags.outerDitchLooted) actions.unshift("search roadside ditch");
+        if(!state.flags.outerDitchAttempted) actions.unshift("search roadside ditch");
       }
       if(state.room==="crypt"){
         ["search burial shelf","open stone coffin","search open coffin","open reliquary","use silver token on reliquary"].forEach(removeAction);
-        if(!state.flags.cryptBurialShelfLooted) actions.unshift("search burial shelf");
+        if(!state.flags.cryptBurialShelfAttempted) actions.unshift("search burial shelf");
         if(!state.flags.cryptSkeletonDefeated) actions.unshift("open stone coffin");
         else if(!state.flags.cryptCoffinLooted) actions.unshift("search open coffin");
         if(!state.flags.reliquaryOpen) actions.unshift(has("silver token")?"use silver token on reliquary":"inspect reliquary lock");
@@ -4806,15 +4914,17 @@
       }
 
       const stateActionRules = [
-        ["tavernCellar","cellarBarrelLooted","search old barrel"],["tavernCellar","cellarFlagstoneLooted","pry up loose flagstone"],
-        ["secretTunnel","tunnelLooseStoneLooted","search loose stone"],["secretTunnel","tunnelNicheLooted","search wall niche"],["secretTunnel","tunnelBonesInspected","inspect old bones"],
-        ["secretAlcove","alcoveWallLooted","inspect cracked wall"],["forestEdge","silverTokenTaken","take silver token"],
+        ["tavernCellar","cellarBarrelAttempted","search old barrel"],["tavernCellar","cellarFlagstoneAttempted","pry up loose flagstone"],
+        ["secretTunnel","tunnelLooseStoneAttempted","search loose stone"],["secretTunnel","tunnelNicheAttempted","search wall niche"],["secretTunnel","tunnelBonesInspected","inspect old bones"],
+        ["secretAlcove","alcoveWallAttempted","inspect cracked wall"],["forestEdge","silverTokenTaken","take silver token"],
         ["cellar","lanternTaken","take lantern"],["cellar","ferryCrankTaken","take ferry crank"],
         ["willowTrail","bluebellsTaken","take bluebell sprig"],["flowerClearing","moonwortTaken","take moonwort"],
-        ["hutInterior","coinTaken","take fairy coin"],["thornHedgePass","thornHedgeLooted","search thorn hedge"],
-        ["thornHedgePass","briarBerriesTaken","gather briar berries"],["brokenWatchCrossing","watchWagonLooted","search overturned wagon"],
-        ["brokenWatchCrossing","watchRubbleLooted","move scattered rubble"],["outerGateApproach","outerSigilFound","inspect cracked sigil stone"],
-        ["outerGateApproach","outerDitchLooted","search roadside ditch"]
+        ["hutInterior","coinTaken","take fairy coin"],["thornHedgePass","thornHedgeAttempted","search thorn hedge"],
+        ["thornHedgePass","abandonedPackSearched","search abandoned pack"],["thornHedgePass","thornHoundDefeated","investigate growl"],
+        ["thornHedgePass","briarBerriesTaken","gather briar berries"],["brokenWatchCrossing","watchWagonAttempted","search overturned wagon"],
+        ["brokenWatchCrossing","watchPostExamined","examine ruined watch post"],
+        ["brokenWatchCrossing","watchRubbleAttempted","move scattered rubble"],["outerGateApproach","outerSigilFound","inspect cracked sigil stone"],
+        ["outerGateApproach","outerDitchAttempted","search roadside ditch"]
       ];
       stateActionRules.forEach(([roomId,flag,action])=>{if(state.room===roomId&&state.flags[flag])removeAction(action)});
       if(state.room==="moonfen"&&has("moonfen reed"))removeAction("take moonfen reed");
@@ -5343,7 +5453,7 @@
         moonwell:["go west","go south","look in well"],
         moonfen:["go north","go west","look at ferry"],
         castleRoad:["go north","go south","look at thorns"],
-        thornHedgePass:["go north","go south","inspect strange tracks","investigate growl","search thorn hedge"],
+        thornHedgePass:["go north","go south","inspect strange tracks","search abandoned pack","investigate growl","search thorn hedge"],
         brokenWatchCrossing:["go north","go south","search overturned wagon","examine ruined watch post","move scattered rubble"],
         outerGateApproach:["go north","go south","inspect cracked sigil stone","search roadside ditch"],
         blacksmith:["leave forge","talk to blacksmith","browse forge wares"],
@@ -5454,6 +5564,31 @@
         const stone = spots.find(s => s.label === "Loose Stone");
         if (stone) stone.command = state.flags.tunnelCoinsTaken ? "look at loose stone" : (state.flags.tunnelCoinsFound ? "take coins" : "search loose stone");
       }
+      if(state.room==="thornHedgePass"){
+        const hedge=spots.find(s=>s.label==="Thorn Hedge");if(hedge&&state.flags.thornHedgeAttempted){hedge.label=state.flags.thornHedgeLooted?"Searched Hedge":"Closed Thorn Opening";hedge.command="look at thorn hedge";}
+        const pack=spots.find(s=>s.label==="Abandoned Pack");if(pack&&state.flags.abandonedPackSearched){pack.label="Empty Pack";pack.command="look at abandoned pack";}
+        const eyes=spots.find(s=>s.label==="Yellow Eyes");if(eyes&&state.flags.thornHoundDefeated){eyes.label="Fading Tracks";eyes.command="look at fading tracks";}
+      }
+      if(state.room==="brokenWatchCrossing"){
+        const wagon=spots.find(s=>s.label==="Overturned Wagon");if(wagon&&state.flags.watchWagonAttempted){wagon.label="Searched Wagon";wagon.command="look at searched wagon";}
+        const post=spots.find(s=>s.label==="Ruined Watch Post");if(post&&state.flags.watchPostExamined){post.label="Searched Watch Post";post.command="look at ruined watch post";}
+        const rubble=spots.find(s=>s.label==="Scattered Rubble");if(rubble&&state.flags.watchRubbleAttempted){rubble.label=state.flags.watchRubbleLooted?"Cleared Rubble":"Wedged Rubble";rubble.command="look at rubble";}
+      }
+      if(state.room==="tavernCellar"){
+        const barrel=spots.find(s=>s.label==="Old Barrel");if(barrel&&state.flags.cellarBarrelAttempted){barrel.label=state.flags.cellarBarrelLooted?"Empty Barrel":"Searched Barrel";barrel.command="look at old barrel";}
+        const flagstone=spots.find(s=>s.label==="Loose Flagstone");if(flagstone&&state.flags.cellarFlagstoneAttempted){flagstone.label=state.flags.cellarFlagstoneLooted?"Empty Flagstone Cache":"Wedged Flagstone";flagstone.command="look at loose flagstone";}
+      }
+      if(state.room==="secretTunnel"){
+        const stone=spots.find(s=>s.label==="Loose Stone");if(stone&&state.flags.tunnelLooseStoneAttempted){stone.label=state.flags.tunnelLooseStoneLooted?"Empty Stone Niche":"Sealed Stone";stone.command="look at loose stone";}
+        const niche=spots.find(s=>s.label==="Wall Niche");if(niche&&state.flags.tunnelNicheAttempted){niche.label=state.flags.tunnelNicheLooted?"Empty Wall Niche":"Searched Wall Niche";niche.command="look at wall niche";}
+      }
+      if(state.room==="secretAlcove"){
+        const rubble=spots.find(s=>s.label==="Collapsed Rubble");if(rubble&&state.flags.archAttempted){rubble.label=state.flags.archBroken?"Broken Arch":"Settled Rubble";rubble.command="look at blocked arch";}
+        const wall=spots.find(s=>s.label==="Cracked Wall");if(wall&&state.flags.alcoveWallAttempted){wall.label=state.flags.alcoveWallLooted?"Empty Wall Pocket":"Marked Crack";wall.command="look at cracked wall";}
+      }
+      if(state.room==="outerGateApproach"){
+        const ditch=spots.find(s=>s.label==="Roadside Ditch");if(ditch&&state.flags.outerDitchAttempted){ditch.label=state.flags.outerDitchLooted?"Empty Ditch":"Searched Ditch";ditch.command="look at roadside ditch";}
+      }
       if (state.room === "crypt") {
         const coffin=spots.find(x=>x.label==="Stone Coffin");
         if(coffin){
@@ -5461,21 +5596,18 @@
           if(state.flags.cryptSkeletonDefeated){coffin.label=state.flags.cryptCoffinLooted?"Empty Coffin":"Open Coffin";coffin.command=state.flags.cryptCoffinLooted?"look at empty coffin":"search open coffin";}
         }
         const shelf=spots.find(x=>x.label==="Burial Shelf");
-        if(shelf&&state.flags.cryptBurialShelfLooted){shelf.label="Empty Burial Shelf";shelf.command="look at empty burial shelf";}
+        if(shelf&&state.flags.cryptBurialShelfAttempted){shelf.label=state.flags.cryptBurialShelfLooted?"Empty Burial Shelf":"Searched Burial Shelf";shelf.command="look at burial shelf";}
         const rel=spots.find(x=>x.label==="Reliquary");
         if(rel){rel.x=57;rel.y=40;rel.w=17;rel.h=17;rel.label=state.flags.reliquaryOpen?"Open Reliquary":"Reliquary";rel.command=state.flags.reliquaryOpen?(state.flags.sigilTaken?"look at open reliquary":"take sun sigil"):"inspect reliquary";}
       }
       const hiddenHotspots = [
-        ["tavernCellar","cellarBarrelLooted",/Old Barrel/i],["tavernCellar","cellarFlagstoneLooted",/Loose Flagstone/i],
-        ["secretTunnel","tunnelLooseStoneLooted",/Loose Stone/i],["secretTunnel","tunnelNicheLooted",/Wall Niche/i],["secretTunnel","tunnelBonesInspected",/Old Bones/i],
-        ["secretAlcove","alcoveWallLooted",/Cracked Wall/i],["forgeLane","forgeCoinsTaken",/Dropped Coins/i],
+        ["secretTunnel","tunnelBonesInspected",/Old Bones/i],
+        ["forgeLane","forgeCoinsTaken",/Dropped Coins/i],
         ["chapelRoad","pilgrimCharmTaken",/Pilgrim Charm/i],["forestEdge","silverTokenTaken",/Silver Token|Tree Hollow/i],
         ["cellar","lanternTaken",/^Lantern$/i],["cellar","ferryCrankTaken",/Ferry Crank/i],
         ["willowTrail","bluebellsTaken",/Bluebells/i],["flowerClearing","moonwortTaken",/Moonwort/i],
         ["fallenLog","riverCharmTaken",/River Charm/i],["whisperingForest","courierSealTaken",/Courier Seal/i],
         ["moonfen","moonfenReedTaken",/Moonfen Reeds/i],["hutInterior","coinTaken",/Fairy Coin/i],
-        ["thornHedgePass","thornHedgeLooted",/Thorn Hedge/i],["brokenWatchCrossing","watchWagonLooted",/Overturned Wagon/i],
-        ["brokenWatchCrossing","watchRubbleLooted",/Scattered Rubble/i],["outerGateApproach","outerDitchLooted",/Roadside Ditch/i]
       ];
       return spots.filter(spot=>!hiddenHotspots.some(([roomId,flag,re])=>state.room===roomId&&state.flags[flag]&&re.test(spot.label)));
     }
@@ -5888,19 +6020,79 @@
 
     const MUSIC_PREF_KEY = "briar-crown-music-enabled";
     let musicEnabled = storageGet(MUSIC_PREF_KEY) !== "false";
-    let audioContext = null, musicTimer = null, musicLoopIndex = 0;
+    let audioContext=null, musicTimer=null, musicLoopIndex=0, musicUnlocked=false, musicNeedsGesture=false, musicWatchdog=null;
     let effectsEnabled = storageGet("bc-effects") !== "off";
     function updateEffectsButton(){ const btn=document.getElementById("effects-toggle-btn"); if(!btn)return; btn.textContent=effectsEnabled?"✨ Effects: On":"✨ Effects: Off"; btn.setAttribute("aria-pressed",String(effectsEnabled)); }
     function toggleEffects(){ effectsEnabled=!effectsEnabled; storageSet("bc-effects", effectsEnabled?"on":"off"); updateEffectsButton(); updateStatus(); addLog(effectsEnabled?"Ambient scene effects enabled.":"Ambient scene effects disabled.","system"); renderLog(); }
-    function updateMusicButton(){ const btn=document.getElementById("music-toggle-btn"); if(!btn)return; btn.textContent=musicEnabled?"♫ Music: On":"♫ Music: Off"; btn.setAttribute("aria-pressed",String(musicEnabled)); }
-    function harpPluck(frequency,when,duration=1.8,volume=.045){ if(!audioContext)return; const osc=audioContext.createOscillator(), over=audioContext.createOscillator(), gain=audioContext.createGain(), overGain=audioContext.createGain(); osc.type="triangle"; over.type="sine"; osc.frequency.setValueAtTime(frequency,when); over.frequency.setValueAtTime(frequency*2.01,when); gain.gain.setValueAtTime(.0001,when); gain.gain.exponentialRampToValueAtTime(volume,when+.015); gain.gain.exponentialRampToValueAtTime(.0001,when+duration); overGain.gain.setValueAtTime(.0001,when); overGain.gain.exponentialRampToValueAtTime(volume*.24,when+.01); overGain.gain.exponentialRampToValueAtTime(.0001,when+duration*.55); osc.connect(gain).connect(audioContext.destination); over.connect(overGain).connect(audioContext.destination); osc.start(when); over.start(when); osc.stop(when+duration+.05); over.stop(when+duration+.05); }
-    function scheduleHarpPhrase(){ if(!musicEnabled||!audioContext||audioContext.state!=="running")return; const scales=[[261.63,329.63,392,523.25,392,329.63,293.66,349.23],[220,261.63,329.63,440,329.63,261.63,246.94,293.66],[196,246.94,293.66,392,293.66,246.94,220,261.63]]; const melody=scales[musicLoopIndex++%scales.length], start=audioContext.currentTime+.08; melody.forEach((note,i)=>{harpPluck(note,start+i*.72,1.65,.042); if(i%2===0)harpPluck(note/2,start+i*.72,2.2,.02);}); clearTimeout(musicTimer); musicTimer=setTimeout(scheduleHarpPhrase,6700); }
-    async function startMusic(){ if(!musicEnabled)return; const Ctx=window.AudioContext||window.webkitAudioContext; if(!Ctx){musicEnabled=false;updateMusicButton();return;} if(!audioContext)audioContext=new Ctx(); if(audioContext.state==="suspended")await audioContext.resume(); if(!musicTimer)scheduleHarpPhrase(); }
-    async function stopMusic(){ clearTimeout(musicTimer); musicTimer=null; if(audioContext&&audioContext.state==="running")await audioContext.suspend(); }
-    async function toggleMusic(){ musicEnabled=!musicEnabled; storageSet(MUSIC_PREF_KEY,String(musicEnabled)); updateMusicButton(); if(musicEnabled){await startMusic();addLog("Old-world harp music is now playing.","system");}else{await stopMusic();addLog("Background music is now off.","system");} renderLog(); }
-    let musicUnlocked=false;
-    async function unlockMusic(){ if(musicUnlocked||!musicEnabled)return; try{await startMusic(); musicUnlocked=!!audioContext&&audioContext.state==="running";}catch(e){} }
-    ["pointerdown","touchend","click","keydown"].forEach(evt=>document.addEventListener(evt,unlockMusic,{passive:true}));
+    function updateMusicButton(){
+      const btn=document.getElementById("music-toggle-btn");if(!btn)return;
+      btn.classList.toggle("music-resume-needed",musicEnabled&&musicNeedsGesture);
+      btn.textContent=!musicEnabled?"♫ Music: Off":(musicNeedsGesture?"♫ Music: Tap to Resume":"♫ Music: On");
+      btn.setAttribute("aria-pressed",String(musicEnabled));
+    }
+    function clearMusicTimer(){if(musicTimer){clearTimeout(musicTimer);musicTimer=null;}}
+    function attachAudioStateListener(){
+      if(!audioContext||audioContext.__briarStateListener)return;
+      audioContext.__briarStateListener=true;
+      audioContext.addEventListener?.("statechange",()=>{
+        const running=audioContext&&audioContext.state==="running";
+        if(running){musicNeedsGesture=false;musicUnlocked=true;if(musicEnabled&&!musicTimer)scheduleHarpPhrase();}
+        else if(musicEnabled){clearMusicTimer();musicNeedsGesture=true;}
+        updateMusicButton();
+      });
+    }
+    function harpPluck(frequency,when,duration=1.8,volume=.045){
+      if(!audioContext||audioContext.state!=="running")return;
+      const osc=audioContext.createOscillator(), over=audioContext.createOscillator(), gain=audioContext.createGain(), overGain=audioContext.createGain();
+      osc.type="triangle";over.type="sine";osc.frequency.setValueAtTime(frequency,when);over.frequency.setValueAtTime(frequency*2.01,when);
+      gain.gain.setValueAtTime(.0001,when);gain.gain.exponentialRampToValueAtTime(volume,when+.015);gain.gain.exponentialRampToValueAtTime(.0001,when+duration);
+      overGain.gain.setValueAtTime(.0001,when);overGain.gain.exponentialRampToValueAtTime(volume*.24,when+.01);overGain.gain.exponentialRampToValueAtTime(.0001,when+duration*.55);
+      osc.connect(gain).connect(audioContext.destination);over.connect(overGain).connect(audioContext.destination);osc.start(when);over.start(when);osc.stop(when+duration+.05);over.stop(when+duration+.05);
+    }
+    function scheduleHarpPhrase(){
+      clearMusicTimer();
+      if(!musicEnabled||!audioContext||audioContext.state!=="running"){if(musicEnabled){musicNeedsGesture=true;updateMusicButton();}return;}
+      musicNeedsGesture=false;updateMusicButton();
+      const scales=[[261.63,329.63,392,523.25,392,329.63,293.66,349.23],[220,261.63,329.63,440,329.63,261.63,246.94,293.66],[196,246.94,293.66,392,293.66,246.94,220,261.63]];
+      const melody=scales[musicLoopIndex++%scales.length],start=audioContext.currentTime+.08;
+      melody.forEach((note,i)=>{harpPluck(note,start+i*.72,1.65,.042);if(i%2===0)harpPluck(note/2,start+i*.72,2.2,.02);});
+      musicTimer=setTimeout(()=>{musicTimer=null;scheduleHarpPhrase();},6700);
+    }
+    async function ensureMusicPlaying(userInitiated=false){
+      if(!musicEnabled){musicNeedsGesture=false;updateMusicButton();return false;}
+      const Ctx=window.AudioContext||window.webkitAudioContext;
+      if(!Ctx){musicEnabled=false;storageSet(MUSIC_PREF_KEY,"false");updateMusicButton();return false;}
+      try{
+        if(!audioContext||audioContext.state==="closed"){audioContext=new Ctx();attachAudioStateListener();}
+        if(audioContext.state!=="running")await audioContext.resume();
+        if(audioContext.state==="running"){
+          musicUnlocked=true;musicNeedsGesture=false;if(!musicTimer)scheduleHarpPhrase();updateMusicButton();return true;
+        }
+      }catch(error){if(userInitiated)console.warn("Music resume was blocked",error);}
+      clearMusicTimer();musicNeedsGesture=true;updateMusicButton();return false;
+    }
+    async function startMusic(){return ensureMusicPlaying(false);}
+    async function stopMusic(){clearMusicTimer();musicNeedsGesture=false;if(audioContext&&audioContext.state==="running")await audioContext.suspend();updateMusicButton();}
+    async function toggleMusic(){
+      if(musicEnabled&&musicNeedsGesture){await ensureMusicPlaying(true);return;}
+      musicEnabled=!musicEnabled;storageSet(MUSIC_PREF_KEY,String(musicEnabled));
+      if(musicEnabled){await ensureMusicPlaying(true);addLog("Old-world harp music is now playing.","system");}
+      else {await stopMusic();addLog("Background music is now off.","system");}
+      updateMusicButton();renderLog();
+    }
+    async function unlockMusic(){if(!musicEnabled)return;await ensureMusicPlaying(true);}
+    function recoverMusicAfterInterruption(){
+      if(!musicEnabled||document.hidden)return;
+      ensureMusicPlaying(false).then(ok=>{if(!ok){musicNeedsGesture=true;updateMusicButton();}});
+    }
+    ["pointerdown","touchend","click","keydown"].forEach(evt=>document.addEventListener(evt,()=>{if(musicEnabled&&(!musicUnlocked||musicNeedsGesture||!audioContext||audioContext.state!=="running"))unlockMusic();},{passive:true}));
+    document.addEventListener("visibilitychange",()=>{if(document.hidden){clearMusicTimer();}else recoverMusicAfterInterruption();});
+    window.addEventListener("pageshow",recoverMusicAfterInterruption,{passive:true});
+    window.addEventListener("focus",recoverMusicAfterInterruption,{passive:true});
+    musicWatchdog=setInterval(()=>{
+      if(!musicEnabled||document.hidden)return;
+      if(!audioContext||audioContext.state!=="running"||!musicTimer)recoverMusicAfterInterruption();
+    },5000);
 
     document.getElementById("send-btn").addEventListener("click", () => processCommand(inputEl.value));
     inputEl.addEventListener("keydown", (e) => {
@@ -5976,7 +6168,7 @@
           tavernCellarOpen:false
         });
       }
-      state.schemaVersion = 1740;
+      state.schemaVersion = 1741;
       const herbQty=(state.itemCounts["healing herb"]||0)+(state.itemCounts["healing herbs"]||0)+(state.inventory.includes("healing herb")?1:0);
       delete state.itemCounts["healing herb"];state.inventory=state.inventory.filter(i=>i!=="healing herb");
       if(herbQty>0){state.itemCounts["healing herbs"]=Math.max(state.itemCounts["healing herbs"]||0,herbQty);if(!state.inventory.includes("healing herbs"))state.inventory.push("healing herbs");}
@@ -6028,6 +6220,9 @@
       if(state.pendingLoot) state.combat=null;
       else if(state.combat&&enemyCatalog[state.combat.enemyId]&&Number.isFinite(state.combat.enemyHp)&&state.combat.enemyHp>0){
         state.combat.round=Math.max(1,Number(state.combat.round)||1);state.combat.busy=false;
+        state.combat.phase=state.combat.phase==="enemy-ready"?"enemy-ready":"player";
+        state.combat.history=Array.isArray(state.combat.history)?state.combat.history:[];
+        state.combat.rollText=typeof state.combat.rollText==="string"?state.combat.rollText:"Choose an action.";
       } else state.combat=null;
       repairCompletedCombatPractice();
       commandHistoryIndex = state.commandHistory.length;
@@ -6041,11 +6236,12 @@
       const keyboardActive=document.body.classList.contains("keyboard-open") && vv;
       const visualHeight = vv ? Math.round(vv.height + (keyboardActive?0:Math.max(0, vv.offsetTop || 0))) : innerHeight;
       const visualWidth = vv ? Math.round(vv.width + (keyboardActive?0:Math.max(0, vv.offsetLeft || 0))) : innerWidth;
-      const heightCandidates = [innerHeight, visualHeight].filter(value => Number.isFinite(value) && value >= 240);
-      const widthCandidates = [innerWidth, visualWidth].filter(value => Number.isFinite(value) && value >= 280);
+      const standalone=window.matchMedia?.("(display-mode: standalone)")?.matches||window.navigator.standalone===true;
+      const heightCandidates = [innerHeight, visualHeight, document.documentElement.clientHeight, standalone?window.screen.height:0].filter(value => Number.isFinite(value) && value >= 240);
+      const widthCandidates = [innerWidth, visualWidth, document.documentElement.clientWidth].filter(value => Number.isFinite(value) && value >= 280);
       return {
-        height: keyboardActive ? Math.max(240,Math.round(vv.height)) : (heightCandidates.length ? Math.min(...heightCandidates) : Math.max(innerHeight, 320)),
-        width: widthCandidates.length ? Math.min(...widthCandidates) : Math.max(innerWidth, 320),
+        height: keyboardActive ? Math.max(240,Math.round(vv.height)) : (heightCandidates.length ? Math.max(...heightCandidates) : Math.max(innerHeight, 320)),
+        width: widthCandidates.length ? Math.max(...widthCandidates) : Math.max(innerWidth, 320),
         top: keyboardActive ? Math.max(0,Math.round(vv.offsetTop||0)) : 0
       };
     }
@@ -6108,7 +6304,7 @@
     function boot() {
       updateMusicButton();
       const vt = document.getElementById("version-tag");
-      const versionLabel=`Version ${BUILD_VERSION} • Chapter One Stability Baseline`;
+      const versionLabel=`Version ${BUILD_VERSION} • Interaction, Audio & Mobile Stability`;
       if (vt) vt.textContent = versionLabel;
       const ov=document.getElementById("opening-version");if(ov)ov.textContent=versionLabel;
       const saved = storageGet(SAVE_KEY);
@@ -6123,7 +6319,7 @@
       }
       renderAll();
       showTitleScreen();
-      if ("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js?build=1740").catch(() => {});
+      if ("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js?build=1741").catch(() => {});
     }
 
     boot();

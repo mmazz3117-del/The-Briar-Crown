@@ -1,4 +1,4 @@
-const CACHE = "briar-crown-v1.7.4.0-chapter-one-stability";
+const CACHE = "briar-crown-v1.7.4.1-interaction-audio-mobile-stability";
 const CORE_ASSETS = [
   "./",
   "./index.html",
