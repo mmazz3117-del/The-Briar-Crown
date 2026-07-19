@@ -1,5 +1,5 @@
 {
-  "version": "1.7.4.0",
+  "version": "1.7.4.1",
   "scenes": {
     "tavern": {
       "fresh_required": [
@@ -231,7 +231,8 @@
   "viewport_recovery": {
     "visual_viewport_clamped_to_inner_height": true,
     "orientation_multi_pass_settle": true,
-    "portrait_grid_reflow": true
+    "portrait_grid_reflow": true,
+    "standalone_screen_height": true
   },
   "combat": {
     "d20_dialog": true,
@@ -251,7 +252,8 @@
       "consecutive_encounters": true,
       "emergency_retreat": true,
       "practice_per_unique_victory": true,
-      "resume_after_reload": true
+      "resume_after_reload": true,
+      "player_acknowledged_turns": true
     },
     "crypt_coffin_hotspot": {
       "min_x_percent": 70,
@@ -284,5 +286,18 @@
     "body_class": "keyboard-open",
     "uses_visual_viewport_height": true,
     "hides_nonessential_panels": true
+  },
+  "audio_stability": {
+    "central_controller": true,
+    "visibility_recovery": true,
+    "gesture_resume": true,
+    "watchdog": true
+  },
+  "hotspot_integrity": {
+    "no_generic_look_noops": true,
+    "one_attempt_searches": true,
+    "post_combat_state_transform": true,
+    "abandoned_pack_interactive": true,
+    "watch_post_interactive": true
   }
 }

@@ -5,7 +5,7 @@ from PIL import Image, ImageStat
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else Path(__file__).resolve().parents[1]
-VERSION = "1.7.4.0"
+VERSION = "1.7.4.1"
 ART_VERSION = "1.7.2.9"
 CONTRACT = json.loads((Path(__file__).parent / "contracts.json").read_text())
 results = []
@@ -111,7 +111,7 @@ with sync_playwright() as pw:
     check("map:full-screen-viewer", "height:100dvh!important" in index and "world-map-v1726.png" in index)
     check("map:no-crossing-overlay-lines", ".wm-route { display:none!important; }" in index and 'const edgesSvg = "";' in index)
     check("opening:art-present", (ROOT / "assets/ui/opening-v1730.webp").exists() and "opening-v1730.webp" in index)
-    check("opening:version-visible", 'const BUILD_VERSION = "1.7.4.0"' in index and 'id="opening-enter-btn"' in index)
+    check("opening:version-visible", 'const BUILD_VERSION = "1.7.4.1"' in index and 'id="opening-enter-btn"' in index)
     check("opening:animated-scroll-structure", all(token in index for token in ["ancient-scroll","scroll-roll-top","scroll-roll-bottom","parchment-unfurl","showLoreScreen"]))
     check("opening:hidden-step-isolation-css", '.lore-step[hidden], .class-step[hidden], .opening-title-step[hidden]' in index)
     page.evaluate("showTitleScreen()")
@@ -131,17 +131,21 @@ with sync_playwright() as pw:
     check("tavern:hatch-progress-repair", "const cellarRouteProgress" in index and "cellarHatchIsDiscovered" in index)
     check("map:close-safe-area", "padding-top:env(safe-area-inset-top)" in index and "data-map-close" in index)
     check("ui:command-dock-uses-visual-viewport", "visibleViewportMetrics" in index and "window.visualViewport" in index and "display:grid!important" in index)
-    check("ui:viewport-height-clamped", "Math.min(...heightCandidates)" in index and "--app-width" in index)
+    check("ui:viewport-height-fills-standalone", "Math.max(...heightCandidates)" in index and "window.screen.height" in index and "--app-width" in index)
     check("ui:orientation-multipass-settle", "settleViewportAfterOrientation" in index and "[0, 80, 180, 360, 700]" in index)
     check("ui:orientation-forced-reflow", "forceViewportLayoutReflow" in index and 'style.setProperty("display", "none", "important")' in index)
     check("keyboard:visual-viewport-dock", "keyboard-open" in index and "Math.round(vv.height)" in index and "--viewport-top" in index)
     check("d20:animated-check-dialog", 'id="dice-dialog"' in index and "animatedCheck" in index and "@keyframes d20-roll" in index)
     check("combat:prototype-present", 'id="combat-dialog"' in index and "enemyCatalog" in index and "combatAction" in index)
-    check("combat:required-actions", all(f'data-combat-action="{a}"' in index for a in ["attack","defend","item","flee"]))
+    check("combat:required-actions", all(f'data-combat-action="{a}"' in index for a in ["attack","defend","item","flee","continue"]))
     check("combat:emergency-retreat-control", 'id="combat-close-btn"' in index and "emergencyRetreatFromCombat" in index)
     check("combat:finally-cleanup", "finally {" in index and "combatUiBusy=false" in index and "resetCombatPresentation" in index)
     check("combat:resume-pending-state", "resumePendingInteractionState" in index and "state.pendingLoot=state.pendingLoot" in index)
     check("skills:unique-combat-practice", "grantSkillPractice" in index and "victory-restlessSkeleton" in index and "victory-thornHound" in index)
+    check("combat:player-acknowledged-phases", "enemy-ready" in index and "Continue — Enemy Turn" in index and "combat-history" in index)
+    check("audio:central-recovery-controller", all(token in index for token in ["ensureMusicPlaying","recoverMusicAfterInterruption","visibilitychange","pageshow","musicWatchdog","Tap to Resume"]))
+    check("audio:timer-clears-before-reschedule", "function clearMusicTimer" in index and "musicTimer=null;scheduleHarpPhrase()" in index)
+    check("searches:one-attempt-helper", "runOneAttemptCheck" in index and "You may try again" not in index)
     check("ui:redundant-action-helpers-removed", "Available actions" not in index and "Tap an action below" not in index)
     check("performance:navigation-not-network-blocked", "if (destinationPath) await preloadScene(destinationPath)" not in index)
     check("performance:scene-test-lazy", 'loading="lazy" decoding="async"' in index)
@@ -334,7 +338,7 @@ with sync_playwright() as pw:
     reliquary=page.evaluate("currentHotspots().find(h=>h.label==='Reliquary')")
     check("crypt:coffin-hotspot-visible-object", coffin["x"] >= 70 and coffin["y"] >= 50, str(coffin))
     check("crypt:coffin-reliquary-do-not-overlap", coffin["x"] >= reliquary["x"]+reliquary["w"]-2, f"{coffin}/{reliquary}")
-    page.evaluate("state.flags.cryptBurialShelfLooted=true;state.flags.cryptSkeletonDefeated=true;state.flags.cryptCoffinLooted=true;state.flags.reliquaryOpen=true;state.flags.sigilTaken=true;renderAll()")
+    page.evaluate("state.flags.cryptBurialShelfAttempted=true;state.flags.cryptBurialShelfLooted=true;state.flags.cryptSkeletonDefeated=true;state.flags.cryptCoffinLooted=true;state.flags.reliquaryOpen=true;state.flags.sigilTaken=true;renderAll()")
     done_actions=page.evaluate("currentActions().map(normalize)")
     done_spots=page.evaluate("currentHotspots().map(h=>({label:h.label,command:h.command}))")
     check("crypt:completed-actions-removed", all(a not in done_actions for a in ["search burial shelf","open stone coffin","search open coffin","open reliquary","use silver token on reliquary"]), str(done_actions))
@@ -344,11 +348,101 @@ with sync_playwright() as pw:
     lifecycle_ok=page.evaluate("""() => {
       for(let i=0;i<10;i++){
         state=initialState();state.player={name:'QA',classKey:'druid',className:'Druid',stats:heroClasses.druid.stats};state.room='crypt';
-        startCombat('restlessSkeleton');if(Object.values(combatButtonsState()).filter(Boolean).length>1)return false;combatVictory('restlessSkeleton');collectPendingLoot();
-        state.room='thornHedgePass';startCombat('thornHound');const b=combatButtonsState();if(b.attack||b.defend||b.flee||document.getElementById('combat-die').textContent!=='?')return false;emergencyRetreatFromCombat('QA');
+        startCombat('restlessSkeleton');let a=combatButtonsState();if(a.attack||a.defend||a.flee||!a.continue)return false;combatVictory('restlessSkeleton');collectPendingLoot();
+        state.room='thornHedgePass';startCombat('thornHound');const b=combatButtonsState();if(b.attack||b.defend||b.flee||!b.continue||document.getElementById('combat-die').textContent!=='?')return false;emergencyRetreatFromCombat('QA');
       }return true;
     }""")
     check("combat:ten-consecutive-lifecycles", lifecycle_ok)
+
+    # Player results remain visible until Continue explicitly begins the enemy turn.
+    reset("thornHedgePass")
+    page.evaluate("startCombat('thornHound');Math.random=()=>0.5")
+    page.evaluate("combatAction('attack')")
+    phased=page.evaluate("({phase:state.combat.phase,message:state.combat.message,rollText:state.combat.rollText,buttons:combatButtonsState(),history:state.combat.history})")
+    check("combat:player-result-persists", phased["phase"] == "enemy-ready" and phased["message"].startswith("You:") and phased["buttons"]["continue"] is False and phased["buttons"]["attack"] is True, str(phased))
+    check("combat:player-roll-in-history", len(phased["history"]) == 1 and phased["history"][0].startswith("You:"), str(phased["history"]))
+    page.evaluate("combatAction('continue')")
+    enemy_phase=page.evaluate("({phase:state.combat.phase,message:state.combat.message,buttons:combatButtonsState(),history:state.combat.history})")
+    check("combat:enemy-turn-requires-continue", enemy_phase["phase"] == "player" and "Thorn Hound:" in enemy_phase["message"] and enemy_phase["buttons"]["attack"] is False, str(enemy_phase))
+    page.evaluate("emergencyRetreatFromCombat('QA')")
+
+    # Prominent new scene objects are wired and persist completed states.
+    reset("thornHedgePass")
+    pack=page.evaluate("currentHotspots().find(h=>h.label==='Abandoned Pack')")
+    check("hotspots:abandoned-pack-present", bool(pack) and pack["x"] <= 75 and pack["w"] >= 20, str(pack))
+    page.evaluate("processCommand('search abandoned pack')")
+    pack_after=page.evaluate("({flag:state.flags.abandonedPackSearched,actions:currentActions().map(normalize),spot:currentHotspots().find(h=>h.label==='Empty Pack')})")
+    check("hotspots:abandoned-pack-completes", pack_after["flag"] is True and "search abandoned pack" not in pack_after["actions"] and bool(pack_after["spot"]), str(pack_after))
+
+    reset("brokenWatchCrossing")
+    page.evaluate("processCommand('examine ruined watch post')")
+    post_after=page.evaluate("({flag:state.flags.watchPostExamined,last:state.log.at(-1)?.text||'',spot:currentHotspots().find(h=>h.label==='Searched Watch Post')})")
+    check("hotspots:watch-post-meaningful", post_after["flag"] is True and "nothing unusual" not in post_after["last"].lower() and bool(post_after["spot"]), str(post_after))
+
+    # Chance searches are one-attempt-only on failure, including after save migration.
+    reset("brokenWatchCrossing")
+    page.evaluate("Math.random=()=>0;processCommand('search overturned wagon')")
+    wagon_once=page.evaluate("({attempted:state.flags.watchWagonAttempted,looted:state.flags.watchWagonLooted,gold:state.gold,actions:currentActions().map(normalize),spot:currentHotspots().find(h=>h.label==='Searched Wagon')})")
+    page.evaluate("processCommand('search overturned wagon')")
+    wagon_twice=page.evaluate("({gold:state.gold,attempted:state.flags.watchWagonAttempted,actions:currentActions().map(normalize)})")
+    check("searches:wagon-one-attempt", wagon_once["attempted"] is True and wagon_once["looted"] is False and "search overturned wagon" not in wagon_once["actions"] and bool(wagon_once["spot"]) and wagon_twice["gold"] == wagon_once["gold"], f"{wagon_once}/{wagon_twice}")
+    page.evaluate("const saved=JSON.stringify(state);state=JSON.parse(saved);migrateState();renderAll()")
+    check("searches:wagon-attempt-persists-reload", page.evaluate("state.flags.watchWagonAttempted && !currentActions().map(normalize).includes('search overturned wagon')"))
+
+    # Defeated encounter triggers become meaningful post-battle observations.
+    reset("thornHedgePass")
+    page.evaluate("state.flags.thornHoundDefeated=true;renderAll()")
+    eyes=page.evaluate("currentHotspots().find(h=>h.label==='Fading Tracks')")
+    page.evaluate("processCommand('look at fading tracks')")
+    check("hotspots:defeated-eyes-transform", bool(eyes) and eyes["command"] == "look at fading tracks" and page.evaluate("state.combat===null"), str(eyes))
+
+    # Full hotspot look/examine audit: no generic no-op result is allowed.
+    no_op_hotspots=page.evaluate("""async () => {
+      const bad=[];
+      for(const [rid,r] of Object.entries(rooms)){
+        for(const h of (r.hotspots||[])){
+          const c=normalize(h.command);
+          if(!/^(look|examine|inspect|study|listen|read|ring)/.test(c))continue;
+          if(/inspect cracked wall/.test(c))continue;
+          state=initialState();state.player={name:'QA',classKey:'knight',className:'Knight',stats:heroClasses.knight.stats};state.room=rid;state.log=[];
+          await processCommand(c);
+          const text=String(state.log.at(-1)?.text||'').toLowerCase();
+          if(text.includes('nothing unusual')||text.includes('could not carry out'))bad.push(`${rid}:${h.label}:${c}`);
+          document.querySelectorAll('dialog[open]').forEach(d=>d.close());
+        }
+      }
+      return bad;
+    }""")
+    check("hotspots:no-look-flicker-noops", not no_op_hotspots, str(no_op_hotspots))
+    empty_contexts=page.evaluate("""() => {
+      const bad=[];
+      for(const [rid,r] of Object.entries(rooms)){
+        state=initialState();state.player={name:'QA',classKey:'knight',className:'Knight',stats:heroClasses.knight.stats};state.room=rid;
+        for(const h of currentHotspots())if(!contextualActionsForHotspot(h).length)bad.push(`${rid}:${h.label}`);
+      }
+      return bad;
+    }""")
+    check("hotspots:all-have-context-actions", not empty_contexts, str(empty_contexts))
+
+    # Synthetic audio context verifies interruption recovery without real speakers.
+    audio_state=page.evaluate("""async () => {
+      clearMusicTimer();audioContext=null;musicUnlocked=false;musicNeedsGesture=false;musicEnabled=true;
+      class P{setValueAtTime(){} exponentialRampToValueAtTime(){}}
+      class N{constructor(){this.frequency=new P();this.gain=new P()}connect(){return this}start(){}stop(){}}
+      class C{constructor(){this.state='suspended';this.currentTime=0;this.destination={};this.l=[]}createOscillator(){return new N()}createGain(){return new N()}addEventListener(n,f){if(n==='statechange')this.l.push(f)}async resume(){this.state='running';this.l.forEach(f=>f())}async suspend(){this.state='suspended';this.l.forEach(f=>f())}}
+      window.AudioContext=C;window.webkitAudioContext=C;
+      const first=await ensureMusicPlaying(true);const started=!!musicTimer&&audioContext.state==='running'&&!musicNeedsGesture;
+      audioContext.state='suspended';audioContext.l.forEach(f=>f());const interrupted=musicNeedsGesture&&!musicTimer;
+      const resumed=await ensureMusicPlaying(true);const recovered=resumed&&!!musicTimer&&audioContext.state==='running'&&!musicNeedsGesture;
+      clearMusicTimer();return {first,started,interrupted,recovered,label:document.getElementById('music-toggle-btn').textContent};
+    }""")
+    check("audio:interruption-recovers", all(audio_state[k] for k in ["first","started","interrupted","recovered"]), str(audio_state))
+
+    # The shortest Chapter One scene must still fill the phone through the controls.
+    reset("thornHedgePass")
+    page.evaluate("state.log=[{text:'Short scene.',type:'system'}];renderAll();syncVisibleViewportHeight()")
+    short_geom=page.evaluate("() => {const a=document.querySelector('.app').getBoundingClientRect(),c=document.querySelector('.controls').getBoundingClientRect();return {appBottom:a.bottom,controlsBottom:c.bottom,inner:window.innerHeight,appHeight:a.height}}")
+    check("ui:short-scene-no-bottom-gap", abs(short_geom["appBottom"]-short_geom["inner"]) <= 3 and abs(short_geom["controlsBottom"]-short_geom["inner"]) <= 3, str(short_geom))
 
     stats=page.evaluate("adventureStats()")
     check("d20:derived-stats", all(k in stats for k in ["might","wits","resolve","luck","defense"]), str(stats))
