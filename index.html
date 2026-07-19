@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="briar-crown-deployment" content="1726R1">
+  <meta name="briar-crown-deployment" content="1728">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content" />
   <meta name="theme-color" content="#0b0912" />
@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-title" content="Briar Crown" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <title>The Briar Crown — Mobile Adventure v1.7.2.6</title>
+  <title>The Briar Crown — Mobile Adventure v1.7.2.8</title>
   <style>
 
     :root {
@@ -1359,6 +1359,96 @@
       #map-dialog .modal-body { height:calc(100dvh - 58px)!important; }
     }
 
+
+    /* v1.7.2.7 map exit and cellar label hotfix */
+    #map-dialog[open] {
+      display:flex!important;
+      flex-direction:column!important;
+      box-sizing:border-box!important;
+      padding-top:env(safe-area-inset-top)!important;
+      padding-bottom:env(safe-area-inset-bottom)!important;
+    }
+    #map-dialog .modal-head {
+      flex:0 0 auto!important;
+      min-height:58px!important;
+      box-sizing:border-box!important;
+      padding:8px 10px 8px 14px!important;
+    }
+    #map-dialog .modal-head h2 { min-width:0; }
+    #map-dialog .close-btn {
+      position:relative!important;
+      z-index:30!important;
+      flex:0 0 48px!important;
+      width:48px!important;
+      height:48px!important;
+      min-width:48px!important;
+      min-height:48px!important;
+      display:inline-flex!important;
+      align-items:center!important;
+      justify-content:center!important;
+      border:1px solid #8e6c35!important;
+      border-radius:8px!important;
+      background:#181221!important;
+      touch-action:manipulation!important;
+      -webkit-tap-highlight-color:transparent!important;
+    }
+    #map-dialog .modal-body {
+      flex:1 1 auto!important;
+      height:auto!important;
+      min-height:0!important;
+      max-height:none!important;
+    }
+    #map-dialog .map-controls {
+      grid-template-columns:48px minmax(0,1fr) 48px 62px!important;
+    }
+    #map-dialog .map-close-inline {
+      min-width:0!important;
+      padding:0 6px!important;
+      touch-action:manipulation!important;
+    }
+    @media (max-width:470px) {
+      #map-dialog .modal-head {
+        min-height:54px!important;
+        padding:6px 8px 6px 12px!important;
+      }
+      #map-dialog .modal-body { height:auto!important; }
+      #map-dialog .map-controls { grid-template-columns:42px minmax(0,1fr) 42px 58px!important; }
+    }
+
+
+    /* v1.7.2.8 orientation and viewport recovery hotfix */
+    :root { --app-width:100vw; }
+    @media (max-width:470px) {
+      html, body {
+        width:var(--app-width,100vw)!important;
+        max-width:var(--app-width,100vw)!important;
+      }
+      .app {
+        width:var(--app-width,100vw)!important;
+        max-width:var(--app-width,100vw)!important;
+        grid-template-rows:auto auto minmax(0,1fr) auto!important;
+        align-content:stretch!important;
+      }
+      .story-panel {
+        align-self:stretch!important;
+        justify-self:stretch!important;
+        width:auto!important;
+        max-width:none!important;
+        height:100%!important;
+        min-height:0!important;
+        max-height:100%!important;
+      }
+      #log {
+        height:auto!important;
+        min-height:0!important;
+        max-height:none!important;
+      }
+      .controls { align-self:stretch!important; }
+    }
+    body.viewport-refreshing .app { contain:layout paint!important; }
+    body.viewport-refreshing .story-panel,
+    body.viewport-refreshing .controls { transition:none!important; }
+
   </style>
 </head>
 <body>
@@ -1369,7 +1459,7 @@
           <img src="assets/ui/opening-v1726.webp" alt="Willowmere village beneath a twilight castle, the opening artwork for The Briar Crown">
           <button id="opening-enter-btn" class="opening-enter" type="button" aria-label="Open the adventure menu"><span class="sr-only">Tap to begin</span></button>
           <div class="opening-menu" id="opening-menu" hidden>
-            <div class="opening-version">Version 1.7.2.6 • Navigation, Map & Opening Screen Rebuild • Recovery R1</div>
+            <div class="opening-version">Version 1.7.2.8 • Orientation & Viewport Recovery Hotfix</div>
             <div class="start-actions"><button id="new-adventure-btn">New Adventure</button><button id="continue-adventure-btn">Continue Adventure</button></div>
           </div>
         </div>
@@ -1392,7 +1482,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.7.2.6 • Navigation, Map & Opening Screen Rebuild</small>
+        <small id="version-tag">Version 1.7.2.8 • Orientation & Viewport Recovery Hotfix</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -1476,7 +1566,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.7.2.6";
+    const BUILD_VERSION = "1.7.2.8";
 
     const itemInfo = {
       "tarnished locket": "A traveler's locket found behind the tavern hearth. The portrait inside shows a young woman before a crooked woodland cottage.",
@@ -3452,7 +3542,7 @@
         return `<g class="map-node-g ${current?"wm-current":""} ${known?"wm-known":"wm-unknown"} ${canTravel?"wm-travel":""}" ${canTravel?`data-travel="${id}"`:""} transform="translate(${x} ${y})"><circle r="${current?19:12}" class="wm-dot"/>${current?'<circle r="9" class="wm-you-dot"/><text y="5" class="wm-you-icon">◆</text>':''}<rect x="-58" y="22" width="116" height="28" rx="10" class="wm-label-bg"/><text y="41" class="wm-t">${safeLabel}</text>${current?'<rect x="-45" y="-49" width="90" height="25" rx="10" class="wm-you-label-bg"/><text y="-32" class="wm-you-label">YOU ARE HERE</text>':''}</g>`;
       }).join("");
       const currentPos=pos[currentId]||pos.square;
-      return `<h3>Illustrated Discovered Map</h3><div class="world-map-card"><div class="map-controls"><button type="button" data-map-zoom="out" aria-label="Zoom map out">−</button><button type="button" data-map-reset>⌖ Current Location</button><button type="button" data-map-zoom="in" aria-label="Zoom map in">+</button></div><div class="world-map-viewport"><div class="world-map-stage" data-current-x="${currentPos.x}" data-current-y="${currentPos.y}"><img class="world-map-bg" src="assets/ui/world-map-v1726.png" alt="Hand-painted fantasy map of Willowmere and the known surrounding region"><svg class="world-map-svg" viewBox="0 0 1448 1086" role="img" aria-label="Discovered locations, travel routes, and your current location">${edgesSvg}${nodesSvg}</svg></div></div><p class="map-legend">The bright marker shows your current region. Pinch or use +/− to zoom, drag freely across the full-screen map, and tap a discovered landmark to travel. Painted roads show the geography without crossing overlay lines.</p></div>`;
+      return `<h3>Illustrated Discovered Map</h3><div class="world-map-card"><div class="map-controls"><button type="button" data-map-zoom="out" aria-label="Zoom map out">−</button><button type="button" data-map-reset>⌖ Current Location</button><button type="button" data-map-zoom="in" aria-label="Zoom map in">+</button><button type="button" class="map-close-inline" data-map-close aria-label="Close map">Done</button></div><div class="world-map-viewport"><div class="world-map-stage" data-current-x="${currentPos.x}" data-current-y="${currentPos.y}"><img class="world-map-bg" src="assets/ui/world-map-v1726.png" alt="Hand-painted fantasy map of Willowmere and the known surrounding region"><svg class="world-map-svg" viewBox="0 0 1448 1086" role="img" aria-label="Discovered locations, travel routes, and your current location">${edgesSvg}${nodesSvg}</svg></div></div><p class="map-legend">The bright marker shows your current region. Pinch or use +/− to zoom, drag freely across the full-screen map, and tap a discovered landmark to travel. Painted roads show the geography without crossing overlay lines.</p></div>`;
     }
 
     async function fastTravel(id){
@@ -4528,6 +4618,19 @@
       return dedupeActionList([...persistentNavigationActions(), ...source]).slice(0,5);
     }
 
+    function cellarHatchIsDiscovered() {
+      const visited = Array.isArray(state.visited) ? state.visited : [];
+      return !!(
+        state.flags.hatchDiscoveryConfirmed ||
+        state.flags.cellarDraftFound ||
+        state.flags.cellarPassageRevealed ||
+        state.flags.tunnelCoinsFound ||
+        state.flags.tunnelCoinsTaken ||
+        ["tavernCellar","secretTunnel","secretAlcove"].includes(state.room) ||
+        visited.some(id => ["tavernCellar","secretTunnel","secretAlcove"].includes(id))
+      );
+    }
+
     function renderQuickActions() {
       quickActionsEl.innerHTML="";
       if(selectedHotspotContext&&(selectedHotspotContext.room!==state.room||selectedHotspotContext.view!==currentView())) selectedHotspotContext=null;
@@ -4543,7 +4646,7 @@
       if(!actionsPanelExpanded)return;
 
       if(selectedHotspotContext){
-        if (state.room === "tavern" && state.flags.hatchDiscoveryConfirmed && /scuffed floor|cellar hatch/i.test(selectedHotspotContext.hotspot.label||"")) {
+        if (state.room === "tavern" && cellarHatchIsDiscovered() && /scuffed floor|cellar hatch/i.test(selectedHotspotContext.hotspot.label||"")) {
           selectedHotspotContext.hotspot.label="Cellar Hatch"; selectedHotspotContext.hotspot.command="look at cellar door";
         }
         const context=document.createElement("div"); context.className="quick-context-label";
@@ -4590,7 +4693,7 @@
       }
       if (state.room === "tavern") {
         const hatch = spots.find(s => /Cellar Hatch|Scuffed Floor/.test(s.label));
-        if (hatch && state.flags.hatchDiscoveryConfirmed) { hatch.label = "Cellar Hatch"; hatch.x=72; hatch.y=88; hatch.w=27; hatch.h=15; }
+        if (hatch && cellarHatchIsDiscovered()) { hatch.label = "Cellar Hatch"; hatch.x=72; hatch.y=88; hatch.w=27; hatch.h=15; }
         if (hatch && state.flags.hatchDiscoveryConfirmed && state.flags.tavernCellarOpen) hatch.command = "go down";
       }
       if (state.room === "tavernCellar" && state.flags.cellarPassageRevealed) {
@@ -4635,7 +4738,7 @@
       currentHotspots().forEach(h => {
         const btn = document.createElement("button");
         btn.className = "hotspot";
-        const shownLabel = (/Cellar Hatch|Scuffed Floor/.test(h.label) && !state.flags.hatchDiscoveryConfirmed) ? "Scuffed Floor" : h.label;
+        const shownLabel = (/Cellar Hatch|Scuffed Floor/.test(h.label) && !cellarHatchIsDiscovered()) ? "Scuffed Floor" : (/Cellar Hatch|Scuffed Floor/.test(h.label) ? "Cellar Hatch" : h.label);
         btn.textContent = shownLabel;
         btn.dataset.label = shownLabel;
         btn.setAttribute("aria-label", `Explore ${h.label}`);
@@ -5020,6 +5123,7 @@
     document.getElementById("skills-btn").addEventListener("click", () => { renderSkills(); document.getElementById("skills-dialog").showModal(); });
     actionsToggleEl.addEventListener("click",()=>{actionsPanelExpanded=!actionsPanelExpanded;storageSet(ACTION_PANEL_PREF_KEY,String(actionsPanelExpanded));renderQuickActions();});
     document.getElementById("map-btn").addEventListener("click", () => { renderMap(); document.getElementById("map-dialog").showModal(); });
+    document.addEventListener("click", (event) => { const closeMap = event.target.closest && event.target.closest("[data-map-close]"); if (closeMap) { const dlg=document.getElementById("map-dialog"); if (dlg && dlg.open) dlg.close(); } });
     document.getElementById("menu-btn").addEventListener("click", () => { renderQuests(); document.getElementById("menu-dialog").showModal(); });
     document.querySelectorAll("[data-close]").forEach(btn => btn.addEventListener("click", () => document.getElementById(btn.dataset.close).close()));
     document.getElementById("save-btn").addEventListener("click", saveGame);
@@ -5089,6 +5193,15 @@
       state.skillUses = Object.assign({}, defaults.skillUses, state.skillUses || {});
       state.visited = Array.isArray(state.visited) ? state.visited : [state.room || "square"];
       state.flags = Object.assign({}, defaults.flags, state.flags || {});
+      const cellarRouteProgress = ["tavernCellar","secretTunnel","secretAlcove"].includes(state.room) ||
+        state.visited.some(id => ["tavernCellar","secretTunnel","secretAlcove"].includes(id)) ||
+        !!(state.flags.cellarDraftFound || state.flags.cellarPassageRevealed || state.flags.tunnelCoinsFound || state.flags.tunnelCoinsTaken);
+      if (cellarRouteProgress) {
+        state.flags.hatchNoticed = true;
+        state.flags.hatchDiscoveryConfirmed = true;
+        state.flags.cellarUnlocked = true;
+        state.flags.tavernCellarOpen = true;
+      }
       if (!state.flags.hatchDiscoveryConfirmed) { state.flags.hatchNoticed=false; state.flags.cellarUnlocked=false; state.flags.tavernCellarOpen=false; }
       if (state.flags.brickCompartmentLooted) state.flags.brickCompartmentOpened = true;
       if (state.flags.tunnelCoinsTaken) state.flags.tunnelCoinsFound = true;
@@ -5109,9 +5222,33 @@
       if (!rooms[state.room]) state.room = "square";
     }
 
+    function visibleViewportMetrics() {
+      const vv = window.visualViewport;
+      const innerHeight = Math.round(window.innerHeight || 0);
+      const innerWidth = Math.round(window.innerWidth || 0);
+      const visualHeight = vv ? Math.round(vv.height + Math.max(0, vv.offsetTop || 0)) : innerHeight;
+      const visualWidth = vv ? Math.round(vv.width + Math.max(0, vv.offsetLeft || 0)) : innerWidth;
+      const heightCandidates = [innerHeight, visualHeight].filter(value => Number.isFinite(value) && value >= 280);
+      const widthCandidates = [innerWidth, visualWidth].filter(value => Number.isFinite(value) && value >= 280);
+      return {
+        height: heightCandidates.length ? Math.min(...heightCandidates) : Math.max(innerHeight, 320),
+        width: widthCandidates.length ? Math.min(...widthCandidates) : Math.max(innerWidth, 320)
+      };
+    }
+
     function syncVisibleViewportHeight() {
-      const visible = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-      document.documentElement.style.setProperty("--app-height", `${Math.round(visible)}px`);
+      const metrics = visibleViewportMetrics();
+      document.documentElement.style.setProperty("--app-height", `${metrics.height}px`);
+      document.documentElement.style.setProperty("--app-width", `${metrics.width}px`);
+    }
+
+    function forceViewportLayoutReflow() {
+      const app = document.querySelector(".app");
+      if (!app) return;
+      app.style.setProperty("display", "none", "important");
+      void document.documentElement.offsetHeight;
+      app.style.removeProperty("display");
+      void app.offsetHeight;
     }
 
     let viewportSyncFrame = 0;
@@ -5119,9 +5256,29 @@
       cancelAnimationFrame(viewportSyncFrame);
       viewportSyncFrame = requestAnimationFrame(syncVisibleViewportHeight);
     }
+
+    let orientationSettleTimers = [];
+    function settleViewportAfterOrientation() {
+      orientationSettleTimers.forEach(clearTimeout);
+      orientationSettleTimers = [];
+      document.body.classList.add("viewport-refreshing");
+      [0, 80, 180, 360, 700].forEach((delay, index, passes) => {
+        orientationSettleTimers.push(setTimeout(() => {
+          syncVisibleViewportHeight();
+          forceViewportLayoutReflow();
+          if (index === 2 && typeof renderAll === "function") renderAll();
+          if (index === passes.length - 1) {
+            window.scrollTo(0, 0);
+            document.body.classList.remove("viewport-refreshing");
+          }
+        }, delay));
+      });
+    }
+
     syncVisibleViewportHeight();
     window.addEventListener("resize", queueViewportSync, { passive: true });
-    window.addEventListener("orientationchange", () => setTimeout(queueViewportSync, 120), { passive: true });
+    window.addEventListener("orientationchange", settleViewportAfterOrientation, { passive: true });
+    window.screen?.orientation?.addEventListener?.("change", settleViewportAfterOrientation, { passive: true });
     window.visualViewport?.addEventListener("resize", queueViewportSync, { passive: true });
     window.visualViewport?.addEventListener("scroll", queueViewportSync, { passive: true });
     inputEl.addEventListener("focus", () => setTimeout(queueViewportSync, 80));
@@ -5130,7 +5287,7 @@
     function boot() {
       updateMusicButton();
       const vt = document.getElementById("version-tag");
-      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Navigation, Map & Opening Screen Rebuild`;
+      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Orientation & Viewport Recovery Hotfix`;
       const saved = storageGet(SAVE_KEY);
       if (saved) {
         try { state = JSON.parse(saved); migrateState(); restoreDynamicExits(); }
@@ -5143,7 +5300,7 @@
       }
       renderAll();
       showTitleScreen();
-      if ("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js?build=1726R1").catch(() => {});
+      if ("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js?build=1728").catch(() => {});
     }
 
     boot();
