@@ -1,8 +1,8 @@
 {
   "name": "The Briar Crown",
   "short_name": "Briar Crown",
-  "description": "A mobile-first illustrated fantasy adventure with an animated parchment story introduction, reliable hero selection, crypt exploration, d20 checks, and combat.",
-  "start_url": "./index.html?build=1731",
+  "description": "A mobile-first illustrated fantasy adventure with a stable Chapter One playthrough, recoverable combat, persistent rewards, skill progression, and state-safe interactions.",
+  "start_url": "./index.html?build=1740",
   "display": "standalone",
   "background_color": "#07070b",
   "theme_color": "#0b0912",
@@ -19,5 +19,5 @@
       "type": "image/png"
     }
   ],
-  "version": "1.7.3.1"
+  "version": "1.7.4.0"
 }

@@ -1470,8 +1470,10 @@
     .dice-breakdown { font-size:18px; }
     .dice-result { min-height:30px; margin-top:8px; font-size:24px; font-weight:800; }
     .dice-result.success { color:#9ed56c; } .dice-result.failure { color:#df7777; }
-    .combat-panel { width:min(95vw,690px); text-align:left; }
-    .combat-head { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; border-bottom:1px solid #72562c; padding-bottom:10px; }
+    .combat-panel { width:min(95vw,690px); text-align:left; position:relative; }
+    .combat-close-btn { position:absolute; top:10px; right:10px; width:42px; height:42px; border:1px solid #a17a34; border-radius:10px; background:#1a1223; color:#f1d895; font:700 25px Georgia,serif; z-index:3; }
+    .combat-close-btn:focus-visible { outline:3px solid #f1d895; outline-offset:2px; }
+    .combat-head { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; border-bottom:1px solid #72562c; padding:0 52px 10px 0; }
     .combat-head h2 { margin:3px 0 0; font-size:25px; }
     .combat-round { border:1px solid #7c6030; border-radius:999px; padding:6px 10px; color:#d5bd7a; white-space:nowrap; }
     .combatants { display:grid; grid-template-columns:1fr auto 1fr; gap:10px; align-items:center; margin:14px 0; }
@@ -1735,6 +1737,7 @@
 
   <dialog id="combat-dialog" class="combat-dialog">
     <div class="combat-panel">
+      <button id="combat-close-btn" class="combat-close-btn" type="button" aria-label="Emergency retreat from combat">×</button>
       <div class="combat-head">
         <div><span class="combat-kicker">Encounter</span><h2 id="combat-enemy-name">Enemy</h2></div>
         <div class="combat-round" id="combat-round">Round 1</div>
@@ -1764,7 +1767,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.7.3.1";
+    const BUILD_VERSION = "1.7.4.0";
 
     const itemInfo = {
       "tarnished locket": "A traveler's locket found behind the tavern hearth. The portrait inside shows a young woman before a crooked woodland cottage.",
@@ -2032,13 +2035,13 @@
       },
       crypt: {
         name: "The Chapel Crypt",
-        description: "Candle stubs flicker among old stone tombs. A heavy stone coffin rests near the center, burial shelves line the walls, and a locked reliquary waits beneath a faded banner. The dead air feels watchful.",
+        description: "Candle stubs flicker among old stone tombs. A heavy stone coffin rests at the front-right of the chamber, burial shelves line the walls, and a locked reliquary waits beneath a faded banner. The dead air feels watchful.",
         exits: { up: "chapel" },
         actions: ["look at stone coffin", "search burial shelf", "open stone coffin", "open reliquary", "use silver token on reliquary", "go up"],
         hotspots: [
-          { label: "Stone Coffin", command: "open stone coffin", x: 50, y: 63, w: 30, h: 23 },
+          { label: "Stone Coffin", command: "open stone coffin", x: 76, y: 58, w: 23, h: 34 },
           { label: "Burial Shelf", command: "search burial shelf", x: 23, y: 51, w: 25, h: 28 },
-          { label: "Reliquary", command: "open reliquary", x: 78, y: 54, w: 20, h: 24 },
+          { label: "Reliquary", command: "open reliquary", x: 57, y: 40, w: 17, h: 17 },
           { label: "Altar", command: "look at altar", x: 50, y: 35, w: 26, h: 22 },
           { label: "Stairs", command: "up", x: 18, y: 27, w: 18, h: 26 }
         ]
@@ -2342,7 +2345,7 @@
     applyV1726NavigationGraph();
 
     const initialState = () => ({
-      schemaVersion: 1729,
+      schemaVersion: 1740,
       room: "square",
       view: "center",
       inventory: [],
@@ -2362,6 +2365,9 @@
       shopFlags: { elowenDiscount: false, backRoomAccess: false, cratesSearched: false, reedDelivered: false },
       skills: { Lockpicking:0, Combat:0, Survival:0, Magic:0, Persuasion:0 },
       skillUses: { Lockpicking:0, Combat:0, Survival:0, Magic:0, Persuasion:0 },
+      skillPracticeFlags: {},
+      pendingLoot: null,
+      combat: null,
       visited: ["square"],
       lastObject: "",
       lastPerson: "",
@@ -2481,9 +2487,34 @@
       return outcome.success;
     }
 
+    let combatUiBusy=false;
+    let combatActionToken=0;
+
+    function combatButtonsState() {
+      return [...document.querySelectorAll("[data-combat-action]")].reduce((out,btn)=>{out[btn.dataset.combatAction]=btn.disabled;return out;},{});
+    }
+
+    function setCombatButtons(disabled) {
+      document.querySelectorAll("[data-combat-action]").forEach(btn=>{
+        const itemUnavailable=btn.dataset.combatAction==="item" && (!has("healing herbs")||state.health>=state.maxHealth);
+        btn.disabled=!!disabled || itemUnavailable;
+        btn.setAttribute("aria-disabled",String(btn.disabled));
+      });
+    }
+
+    function resetCombatPresentation() {
+      combatUiBusy=false;
+      combatActionToken++;
+      const die=document.getElementById("combat-die");
+      if(die){die.classList.remove("rolling");die.textContent="?";}
+      const rollText=document.getElementById("combat-roll-text");if(rollText)rollText.textContent="Choose an action.";
+      setCombatButtons(false);
+    }
+
     function renderCombat() {
       if(!state.combat) return;
       const enemy=enemyCatalog[state.combat.enemyId], stats=adventureStats();
+      if(!enemy) return;
       document.getElementById("combat-enemy-name").textContent=enemy.name;
       document.getElementById("combat-enemy-icon").textContent=enemy.icon;
       document.getElementById("combat-player-name").textContent=(state.player&&state.player.name)||"Rowan";
@@ -2493,37 +2524,62 @@
       document.getElementById("combat-player-hp-bar").style.width=`${Math.max(0,state.health/state.maxHealth*100)}%`;
       document.getElementById("combat-enemy-hp-bar").style.width=`${Math.max(0,state.combat.enemyHp/enemy.maxHp*100)}%`;
       document.getElementById("combat-message").textContent=state.combat.message||`${enemy.name} blocks your path. Your defense is ${stats.defense}.`;
-      const herbBtn=document.querySelector('[data-combat-action="item"]');
-      if(herbBtn) herbBtn.disabled=!has("healing herbs")||state.health>=state.maxHealth;
+      setCombatButtons(combatUiBusy);
     }
 
-    function setCombatButtons(disabled) {
-      document.querySelectorAll("[data-combat-action]").forEach(btn=>btn.disabled=disabled || (btn.dataset.combatAction==="item" && (!has("healing herbs")||state.health>=state.maxHealth)));
-    }
-
-    async function animateCombatRoll() {
+    async function animateCombatRoll(token=combatActionToken) {
       const die=document.getElementById("combat-die");
       die.classList.add("rolling");
       let value=1;
-      for(let i=0;i<11;i++){ value=rollDie(20); die.textContent=value; await wait(55+i*4); }
-      die.classList.remove("rolling");
-      return value;
+      try{
+        for(let i=0;i<11;i++){
+          if(token!==combatActionToken) return value;
+          value=rollDie(20);die.textContent=value;await wait(55+i*4);
+        }
+        return value;
+      } finally {
+        die.classList.remove("rolling");
+      }
     }
 
     function startCombat(enemyId) {
       const enemy=enemyCatalog[enemyId];
-      if(!enemy) return;
-      state.combat={enemyId,enemyHp:enemy.maxHp,round:1,message:`${enemy.name} emerges! Choose your action.`};
+      if(!enemy) return false;
+      const loot=document.getElementById("loot-dialog");if(loot&&loot.open)loot.close();
+      const dlg=document.getElementById("combat-dialog");if(dlg.open)dlg.close();
+      state.pendingLoot=null;
+      state.combat={enemyId,enemyHp:enemy.maxHp,round:1,message:`${enemy.name} emerges! Choose your action.`,busy:false};
+      resetCombatPresentation();
       renderCombat();
-      const dlg=document.getElementById("combat-dialog");
-      if(!dlg.open) dlg.showModal();
+      dlg.showModal();
+      setCombatButtons(false);
       autosave();
+      return true;
     }
 
-    async function enemyCombatTurn(defending=false) {
-      if(!state.combat) return;
+    function closeCombatDialogOnly(){
+      const dlg=document.getElementById("combat-dialog");if(dlg&&dlg.open)dlg.close();
+      resetCombatPresentation();
+    }
+
+    function emergencyRetreatFromCombat(reason="You retreat from the encounter and recover your footing.") {
+      if(state.combat){
+        const enemy=enemyCatalog[state.combat.enemyId];
+        if(enemy&&enemy.escapeRoom) state.room=enemy.escapeRoom;
+        state.view="center";
+        state.combat=null;
+        addLog(reason,"warning");
+      }
+      closeCombatDialogOnly();
+      renderAll();autosave();
+    }
+
+    async function enemyCombatTurn(defending=false,token=combatActionToken) {
+      if(!state.combat||token!==combatActionToken) return;
       const enemy=enemyCatalog[state.combat.enemyId], stats=adventureStats();
-      const roll=await animateCombatRoll(), defense=stats.defense+(defending?2:0), total=roll+enemy.attack;
+      const roll=await animateCombatRoll(token);
+      if(!state.combat||token!==combatActionToken) return;
+      const defense=stats.defense+(defending?2:0), total=roll+enemy.attack;
       if(total>=defense){
         const damage=rollDie(enemy.damageSides)+enemy.damageBonus;
         state.health=Math.max(0,state.health-damage);
@@ -2533,73 +2589,107 @@
         state.health=Math.max(1,Math.floor(state.maxHealth/2));
         const escape=enemy.escapeRoom;
         addLog(`${enemy.name} overwhelms you. You awaken battered but alive, having crawled back to safety.`,"warning");
-        state.room=escape; state.view="center"; state.combat=null;
-        const dlg=document.getElementById("combat-dialog"); if(dlg.open) dlg.close();
-        renderAll(); autosave(); return;
+        state.room=escape;state.view="center";state.combat=null;
+        closeCombatDialogOnly();renderAll();autosave();return;
       }
       state.combat.round=(state.combat.round||1)+1;
       renderCombat();
     }
 
     function showLootReward(reward){
+      if(!reward) return;
       state.pendingLoot=reward;
       document.getElementById("loot-title").textContent=`Victory — ${reward.enemy} defeated`;
-      document.getElementById("loot-body").innerHTML=`<div class="loot-item">🪙 ${reward.gold} gold</div><div class="loot-item">🎒 ${reward.item}</div><div class="loot-item">✨ ${reward.xp} XP</div>`;
-      const dlg=document.getElementById("loot-dialog"); if(!dlg.open) dlg.showModal();
+      const practice=reward.skill?`<div class="loot-item">⚔ +1 ${reward.skill} Practice</div>`:"";
+      document.getElementById("loot-body").innerHTML=`<div class="loot-item">🪙 ${reward.gold} gold</div><div class="loot-item">🎒 ${reward.item}</div><div class="loot-item">✨ ${reward.xp} XP</div>${practice}`;
+      const dlg=document.getElementById("loot-dialog");if(!dlg.open)dlg.showModal();
+      autosave();
     }
+
     function collectPendingLoot(){
       const reward=state.pendingLoot;if(!reward)return;
       addGold(reward.gold,`${reward.enemy} victory reward`);addItem(reward.item);award(reward.awardKey,reward.xp);
+      if(reward.skill) grantSkillPractice(reward.skill,reward.practiceKey||`victory-${reward.enemyId}`,1,false);
       if(reward.enemyId==="thornHound")state.flags.thornHoundLootCollected=true;
       if(reward.enemyId==="restlessSkeleton")state.flags.cryptSkeletonLootCollected=true;
       addLog(`Collected: ${reward.gold} gold and ${reward.item}.`,"success");state.pendingLoot=null;
       const dlg=document.getElementById("loot-dialog");if(dlg.open)dlg.close();renderAll();autosave();
     }
+
     function combatVictory(enemyId) {
       const enemy=enemyCatalog[enemyId];
+      if(!enemy) return;
+      let reward=null;
       if(enemyId==="thornHound"){
         state.flags.thornHoundDefeated=true;
         addLog("The Thorn Hound dissolves into black leaves. Its collar falls to the road.","success");
-        showLootReward({enemyId,enemy:enemy.name,gold:3,item:"briar fang",xp:4,awardKey:"defeat-thorn-hound"});
+        reward={enemyId,enemy:enemy.name,gold:3,item:"briar fang",xp:4,awardKey:"defeat-thorn-hound",skill:"Combat",practiceKey:"victory-thornHound"};
       } else if(enemyId==="restlessSkeleton"){
         state.flags.cryptSkeletonDefeated=true;
         addLog("The Restless Skeleton collapses into quiet bones. The coffin chamber falls still.","success");
-        showLootReward({enemyId,enemy:enemy.name,gold:8,item:"ancient chapel charm",xp:6,awardKey:"defeat-restless-skeleton"});
+        reward={enemyId,enemy:enemy.name,gold:8,item:"ancient chapel charm",xp:6,awardKey:"defeat-restless-skeleton",skill:"Combat",practiceKey:"victory-restlessSkeleton"};
       }
       state.combat=null;
-      const dlg=document.getElementById("combat-dialog"); if(dlg.open) dlg.close();
-      renderAll(); autosave();
+      closeCombatDialogOnly();
+      renderAll();
+      if(reward) showLootReward(reward); else autosave();
     }
 
     async function combatAction(action) {
-      if(!state.combat) return;
-      setCombatButtons(true);
-      const enemy=enemyCatalog[state.combat.enemyId], stats=adventureStats();
-      if(action==="attack"){
-        const roll=await animateCombatRoll(), total=roll+stats.might;
-        if(total>=enemy.defense){
-          const damage=rollDie(6)+1+(state.equipment&&state.equipment.weapon?1:0);
-          state.combat.enemyHp=Math.max(0,state.combat.enemyHp-damage);
-          state.combat.message=`Attack roll ${roll} + Might ${stats.might} = ${total}: HIT for ${damage} damage.`;
-          renderCombat();
-          if(state.combat.enemyHp<=0){ await wait(500); combatVictory(state.combat.enemyId); return; }
-        } else { state.combat.message=`Attack roll ${roll} + Might ${stats.might} = ${total}: miss against defense ${enemy.defense}.`; renderCombat(); }
-        await wait(450); await enemyCombatTurn(false);
-      } else if(action==="defend"){
-        state.combat.message="You brace and gain +2 defense against the next attack."; renderCombat(); await wait(350); await enemyCombatTurn(true);
-      } else if(action==="item"){
-        if(!has("healing herbs")) state.combat.message="You have no healing herbs.";
-        else if(state.health>=state.maxHealth) state.combat.message="You are already at full health.";
-        else { removeItem("healing herbs",1); const healed=Math.min(5,state.maxHealth-state.health); state.health+=healed; state.combat.message=`You use healing herbs and recover ${healed} health.`; renderCombat(); await wait(350); await enemyCombatTurn(false); }
-      } else if(action==="flee"){
-        const roll=await animateCombatRoll(), total=roll+stats.luck;
-        if(total>=enemy.fleeTarget){
-          const escape=enemy.escapeRoom; addLog(`You escape from ${enemy.name} and retreat to safety.`,"system");
-          state.room=escape; state.view="center"; state.combat=null; const dlg=document.getElementById("combat-dialog"); if(dlg.open) dlg.close(); renderAll(); autosave(); return;
+      if(!state.combat||combatUiBusy) return;
+      const token=++combatActionToken;
+      combatUiBusy=true;setCombatButtons(true);
+      try{
+        const enemy=enemyCatalog[state.combat.enemyId], stats=adventureStats();
+        if(action==="attack"){
+          const roll=await animateCombatRoll(token);if(!state.combat||token!==combatActionToken)return;
+          const total=roll+stats.might;
+          if(total>=enemy.defense){
+            const damage=rollDie(6)+1+(state.equipment&&state.equipment.weapon?1:0);
+            state.combat.enemyHp=Math.max(0,state.combat.enemyHp-damage);
+            state.combat.message=`Attack roll ${roll} + Might ${stats.might} = ${total}: HIT for ${damage} damage.`;
+            renderCombat();
+            if(state.combat.enemyHp<=0){await wait(350);if(state.combat&&token===combatActionToken)combatVictory(state.combat.enemyId);return;}
+          } else {state.combat.message=`Attack roll ${roll} + Might ${stats.might} = ${total}: miss against defense ${enemy.defense}.`;renderCombat();}
+          await wait(300);await enemyCombatTurn(false,token);
+        } else if(action==="defend"){
+          state.combat.message="You brace and gain +2 defense against the next attack.";renderCombat();await wait(250);await enemyCombatTurn(true,token);
+        } else if(action==="item"){
+          if(!has("healing herbs")) state.combat.message="You have no healing herbs.";
+          else if(state.health>=state.maxHealth) state.combat.message="You are already at full health.";
+          else {removeItem("healing herbs",1);const healed=Math.min(5,state.maxHealth-state.health);state.health+=healed;state.combat.message=`You use healing herbs and recover ${healed} health.`;renderCombat();await wait(250);await enemyCombatTurn(false,token);}
+        } else if(action==="flee"){
+          const roll=await animateCombatRoll(token);if(!state.combat||token!==combatActionToken)return;
+          const total=roll+stats.luck;
+          if(total>=enemy.fleeTarget){
+            const escape=enemy.escapeRoom;addLog(`You escape from ${enemy.name} and retreat to safety.`,"system");
+            state.room=escape;state.view="center";state.combat=null;closeCombatDialogOnly();renderAll();autosave();return;
+          }
+          state.combat.message=`Flee roll ${roll} + Luck ${stats.luck} = ${total}: failed. The enemy strikes.`;renderCombat();await wait(250);await enemyCombatTurn(false,token);
         }
-        state.combat.message=`Flee roll ${roll} + Luck ${stats.luck} = ${total}: failed. The enemy strikes.`; renderCombat(); await wait(350); await enemyCombatTurn(false);
+      } catch(error){
+        if(state.combat){state.combat.message="The encounter paused safely. Choose an action to continue or use × to retreat.";renderCombat();}
+        console.error("Combat action recovered",error);
+      } finally {
+        if(token===combatActionToken){
+          combatUiBusy=false;
+          if(state.combat){state.combat.busy=false;setCombatButtons(false);renderCombat();autosave();updateStatus();}
+          else resetCombatPresentation();
+        }
       }
-      if(state.combat){ setCombatButtons(false); autosave(); updateStatus(); }
+    }
+
+    function resumePendingInteractionState(){
+      closeCombatDialogOnly();
+      const loot=document.getElementById("loot-dialog");if(loot&&loot.open)loot.close();
+      if(state.pendingLoot){showLootReward(state.pendingLoot);return "loot";}
+      if(state.combat&&enemyCatalog[state.combat.enemyId]&&state.combat.enemyHp>0){
+        state.combat.busy=false;
+        resetCombatPresentation();renderCombat();
+        const dlg=document.getElementById("combat-dialog");if(!dlg.open)dlg.showModal();
+        setCombatButtons(false);return "combat";
+      }
+      state.combat=null;resetCombatPresentation();return "none";
     }
 
     const heroClasses = {
@@ -3281,15 +3371,37 @@
         addLog(`<strong>Level up!</strong> You are now level ${state.level}. Continued practice makes your skills more reliable.`, "success");
       }
     }
-    function useSkill(name, amount = 1) {
+    function applySkillPractice(name, amount = 1, silent = false) {
       state.skillUses = state.skillUses || {}; state.skills = state.skills || {};
-      state.skillUses[name] = (state.skillUses[name] || 0) + amount;
-      const threshold = 3 + (state.skills[name] || 0) * 2;
-      if (state.skillUses[name] >= threshold) {
-        state.skillUses[name] = 0; state.skills[name] = (state.skills[name] || 0) + 1;
-        const meta=skillMeta[name]||{icon:"✦",color:"#c8a356"};
-        addLog(`<strong style="color:${meta.color}">${meta.icon} ${name} increased to Level ${state.skills[name]}.</strong>`, "success");
+      state.skillUses[name] = Math.max(0,(state.skillUses[name] || 0) + amount);
+      let leveled=false;
+      let threshold = 3 + (state.skills[name] || 0) * 2;
+      while (state.skillUses[name] >= threshold) {
+        state.skillUses[name] -= threshold;
+        state.skills[name] = (state.skills[name] || 0) + 1;
+        leveled=true;
+        threshold = 3 + (state.skills[name] || 0) * 2;
       }
+      const nextThreshold=3+(state.skills[name]||0)*2;
+      if(!silent){
+        const meta=skillMeta[name]||{icon:"✦",color:"#c8a356"};
+        if(leveled) addLog(`<strong style="color:${meta.color}">${meta.icon} ${name} increased to Level ${state.skills[name]}.</strong>`, "success");
+        else addLog(`<strong style="color:${meta.color}">+${amount} ${name} Practice</strong> (${state.skillUses[name]}/${nextThreshold})`, "success");
+      }
+      return {leveled,level:state.skills[name]||0,uses:state.skillUses[name]||0,threshold:nextThreshold};
+    }
+    function useSkill(name, amount = 1) { return applySkillPractice(name,amount,false); }
+    function grantSkillPractice(name, key, amount = 1, silent = false) {
+      state.skillPracticeFlags = state.skillPracticeFlags || {};
+      if (key && state.skillPracticeFlags[key]) return false;
+      if (key) state.skillPracticeFlags[key]=true;
+      applySkillPractice(name,amount,silent);
+      return true;
+    }
+    function repairCompletedCombatPractice() {
+      if(!state.flags) return;
+      if(state.flags.cryptSkeletonDefeated) grantSkillPractice("Combat","victory-restlessSkeleton",1,true);
+      if(state.flags.thornHoundDefeated) grantSkillPractice("Combat","victory-thornHound",1,true);
     }
     function room() { return rooms[state.room]; }
 
@@ -4581,6 +4693,7 @@
         addLog("Saved game loaded.", "system");
         renderAll();
         document.getElementById("menu-dialog").close();
+        requestAnimationFrame(resumePendingInteractionState);
       } catch (e) {
         addLog("The saved game could not be loaded.", "warning");
       }
@@ -4589,10 +4702,11 @@
     function restartGame() {
       if (!confirm("Restart the adventure and erase the current autosave?")) return;
       storageRemove(SAVE_KEY);
+      document.querySelectorAll("dialog[open]").forEach(d=>d.close());
+      resetCombatPresentation();
       state = initialState();
       restoreDynamicExits();
       state.log = [];
-      document.getElementById("menu-dialog").close();
       showTitleScreen();
     }
 
@@ -5238,7 +5352,12 @@
         chapelYard:["approach chapel","go east","go west"],
         chapelApproach:["enter chapel","look inside","go south"],
         chapel:["explore chapel","look at statue","look at altar","go south"],
-        crypt:[state.flags.cryptSkeletonDefeated?"search open coffin":"open stone coffin","search burial shelf","use silver token on reliquary","go up"],
+        crypt:[
+          state.flags.cryptSkeletonDefeated?(state.flags.cryptCoffinLooted?"look at empty coffin":"search open coffin"):"open stone coffin",
+          state.flags.cryptBurialShelfLooted?"look at empty burial shelf":"search burial shelf",
+          state.flags.reliquaryOpen?(state.flags.sigilTaken?"look at open reliquary":"take sun sigil"):(has("silver token")?"use silver token on reliquary":"inspect reliquary lock"),
+          "go up"
+        ],
         oldCemeteryPath:["go east","go south","look at old graves","look at collapsed wall"],
         castleGate:(state.flags.gateShardReady&&!state.flags.ending)?["confirm ending","look at gate","go north"]:["look at gate","look at winch","look at socket","go north"],
         secretTunnel:["go east","go west","search passage","look at passage"],
@@ -5338,12 +5457,13 @@
       if (state.room === "crypt") {
         const coffin=spots.find(x=>x.label==="Stone Coffin");
         if(coffin){
+          coffin.x=76;coffin.y=58;coffin.w=23;coffin.h=34;
           if(state.flags.cryptSkeletonDefeated){coffin.label=state.flags.cryptCoffinLooted?"Empty Coffin":"Open Coffin";coffin.command=state.flags.cryptCoffinLooted?"look at empty coffin":"search open coffin";}
         }
         const shelf=spots.find(x=>x.label==="Burial Shelf");
         if(shelf&&state.flags.cryptBurialShelfLooted){shelf.label="Empty Burial Shelf";shelf.command="look at empty burial shelf";}
         const rel=spots.find(x=>x.label==="Reliquary");
-        if(rel){rel.label=state.flags.reliquaryOpen?"Open Reliquary":"Reliquary";rel.command=state.flags.reliquaryOpen?(state.flags.sigilTaken?"look at open reliquary":"take sun sigil"):"inspect reliquary";}
+        if(rel){rel.x=57;rel.y=40;rel.w=17;rel.h=17;rel.label=state.flags.reliquaryOpen?"Open Reliquary":"Reliquary";rel.command=state.flags.reliquaryOpen?(state.flags.sigilTaken?"look at open reliquary":"take sun sigil"):"inspect reliquary";}
       }
       const hiddenHotspots = [
         ["tavernCellar","cellarBarrelLooted",/Old Barrel/i],["tavernCellar","cellarFlagstoneLooted",/Loose Flagstone/i],
@@ -5691,7 +5811,7 @@
         return `<section class="skill-card" style="--skill:${meta.color}"><div class="skill-card-head"><div class="skill-icon">${meta.icon}</div><div><div class="skill-name">${name}</div><div class="skill-rank">${skillRank(value)}</div></div><div class="skill-level">Level ${value}</div></div><p class="skill-description">${meta.description}</p><div class="skill-progress-meta"><span>Practice ${uses}/${needed}</span><span>${Math.round(pct)}%</span></div><div class="skill-progress"><span style="width:${pct}%"></span></div></section>`;
       }).join("");
       const a=adventureStats();
-      body.innerHTML=`<section class="hero-summary-card"><div class="hero-summary-top"><div><h3>${escapeHtml(player.name)} — ${escapeHtml(player.className)}</h3><p>Class strengths: ${specialty}<br>Total XP ${state.score||0} • Next hero level at ${nextLevel} XP</p><p><strong>D20 abilities:</strong> Might +${a.might} • Wits +${a.wits} • Resolve +${a.resolve} • Luck +${a.luck} • Defense ${a.defense}</p></div><div class="hero-level-badge">Level ${state.level||1}</div></div></section>${cards}<p class="empty-state">Skills improve separately through successful use. D20 abilities are derived from your hero's class attributes and equipment.</p>`;
+      body.innerHTML=`<section class="hero-summary-card"><div class="hero-summary-top"><div><h3>${escapeHtml(player.name)} — ${escapeHtml(player.className)}</h3><p>Class strengths: ${specialty}<br>Total XP ${state.score||0} • Next hero level at ${nextLevel} XP</p><p><strong>D20 abilities:</strong> Might +${a.might} • Wits +${a.wits} • Resolve +${a.resolve} • Luck +${a.luck} • Defense ${a.defense}</p></div><div class="hero-level-badge">Level ${state.level||1}</div></div></section>${cards}<p class="empty-state">Skills improve separately through successful use. Each unique victory grants Combat practice once. D20 abilities are derived from your hero's class attributes and equipment.</p>`;
     }
 
     function renderHeroClasses() {
@@ -5748,6 +5868,8 @@
       const hero = heroClasses[selectedHeroClass];
       if (!hero) return;
       const name = document.getElementById("hero-name").value.trim() || "Rowan";
+      document.querySelectorAll("dialog[open]").forEach(d=>d.close());
+      resetCombatPresentation();
       state = initialState();
       state.player = { name, classKey:selectedHeroClass, className:hero.name, stats:{...hero.stats} };
       Object.assign(state.skills, classSkillStarts[selectedHeroClass] || {});
@@ -5797,7 +5919,8 @@
       const combatBtn=event.target.closest && event.target.closest("[data-combat-action]");
       if(combatBtn) combatAction(combatBtn.dataset.combatAction);
     });
-    document.getElementById("combat-dialog")?.addEventListener("cancel",event=>event.preventDefault());
+    document.getElementById("combat-close-btn")?.addEventListener("click",()=>emergencyRetreatFromCombat());
+    document.getElementById("combat-dialog")?.addEventListener("cancel",event=>{event.preventDefault();emergencyRetreatFromCombat();});
     document.getElementById("menu-btn").addEventListener("click", () => { renderQuests(); document.getElementById("menu-dialog").showModal(); });
     document.querySelectorAll("[data-close]").forEach(btn => btn.addEventListener("click", () => document.getElementById(btn.dataset.close).close()));
     document.getElementById("save-btn").addEventListener("click", saveGame);
@@ -5853,14 +5976,14 @@
           tavernCellarOpen:false
         });
       }
-      state.schemaVersion = 1731;
+      state.schemaVersion = 1740;
       const herbQty=(state.itemCounts["healing herb"]||0)+(state.itemCounts["healing herbs"]||0)+(state.inventory.includes("healing herb")?1:0);
       delete state.itemCounts["healing herb"];state.inventory=state.inventory.filter(i=>i!=="healing herb");
       if(herbQty>0){state.itemCounts["healing herbs"]=Math.max(state.itemCounts["healing herbs"]||0,herbQty);if(!state.inventory.includes("healing herbs"))state.inventory.push("healing herbs");}
       state.inventory=state.inventory.map(canonicalItemId).filter((x,i,a)=>a.indexOf(x)===i);
       state.inventory.forEach(i => { if (!state.itemCounts[i]) state.itemCounts[i]=1; });
       state.travelMinutes=Number.isFinite(state.travelMinutes)?state.travelMinutes:0;
-      state.pendingLoot=null;
+      state.pendingLoot=state.pendingLoot&&typeof state.pendingLoot==="object"?state.pendingLoot:null;
       state.gold = Number.isFinite(state.gold) ? state.gold : 20;
       state.health = Number.isFinite(state.health) ? state.health : 20;
       state.maxHealth = Number.isFinite(state.maxHealth) ? state.maxHealth : 20;
@@ -5874,6 +5997,7 @@
       state.level = Number.isFinite(state.level) ? state.level : Math.floor((state.score||0)/10)+1;
       state.skills = Object.assign({}, defaults.skills, state.skills || {});
       state.skillUses = Object.assign({}, defaults.skillUses, state.skillUses || {});
+      state.skillPracticeFlags = state.skillPracticeFlags && typeof state.skillPracticeFlags === "object" ? state.skillPracticeFlags : {};
       state.visited = Array.isArray(state.visited) ? state.visited : [state.room || "square"];
       state.flags = Object.assign({}, defaults.flags, state.flags || {});
       const cellarRouteProgress = ["tavernCellar","secretTunnel","secretAlcove"].includes(state.room) ||
@@ -5901,7 +6025,11 @@
       state.lastPerson = typeof state.lastPerson === "string" ? state.lastPerson : "";
       state.lastCommand = typeof state.lastCommand === "string" ? state.lastCommand : "";
       state.commandHistory = Array.isArray(state.commandHistory) ? state.commandHistory : [];
-      state.combat = null;
+      if(state.pendingLoot) state.combat=null;
+      else if(state.combat&&enemyCatalog[state.combat.enemyId]&&Number.isFinite(state.combat.enemyHp)&&state.combat.enemyHp>0){
+        state.combat.round=Math.max(1,Number(state.combat.round)||1);state.combat.busy=false;
+      } else state.combat=null;
+      repairCompletedCombatPractice();
       commandHistoryIndex = state.commandHistory.length;
       if (!rooms[state.room]) state.room = "square";
     }
@@ -5980,7 +6108,7 @@
     function boot() {
       updateMusicButton();
       const vt = document.getElementById("version-tag");
-      const versionLabel=`Version ${BUILD_VERSION} • Animated Scroll & Hero Selection Hotfix`;
+      const versionLabel=`Version ${BUILD_VERSION} • Chapter One Stability Baseline`;
       if (vt) vt.textContent = versionLabel;
       const ov=document.getElementById("opening-version");if(ov)ov.textContent=versionLabel;
       const saved = storageGet(SAVE_KEY);
@@ -5995,7 +6123,7 @@
       }
       renderAll();
       showTitleScreen();
-      if ("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js?build=1729").catch(() => {});
+      if ("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js?build=1740").catch(() => {});
     }
 
     boot();
