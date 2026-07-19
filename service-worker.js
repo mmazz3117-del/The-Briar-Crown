@@ -1,4 +1,4 @@
-const CACHE = "briar-crown-v1.7.2.8-orientation-viewport-recovery";
+const CACHE = "briar-crown-v1.7.2.9-treasure-crypt-d20-combat";
 const CORE_ASSETS = [
   "./",
   "./index.html",
@@ -9,7 +9,10 @@ const CORE_ASSETS = [
   "./assets/ui/opening-v1726.webp",
   "./assets/ui/world-map-v1726.png",
   "./assets/scenes/square-v1724.webp",
-  "./assets/scenes/production-manifest-v1724.json"
+  "./assets/scenes/production-manifest-v1729.json",
+  "./assets/scenes/thorn-hedge-pass-v1729.webp",
+  "./assets/scenes/broken-watch-crossing-v1729.webp",
+  "./assets/scenes/outer-gate-approach-v1729.webp"
 ];
 
 self.addEventListener("install", event => {

@@ -1449,6 +1449,56 @@
     body.viewport-refreshing .story-panel,
     body.viewport-refreshing .controls { transition:none!important; }
 
+    /* v1.7.2.9 d20 checks, combat, and keyboard command dock */
+    .dice-dialog, .combat-dialog { border:0; padding:0; background:transparent; color:#f3dda1; }
+    .dice-dialog::backdrop, .combat-dialog::backdrop { background:rgba(3,2,7,.82); backdrop-filter:blur(3px); }
+    .dice-panel, .combat-panel {
+      width:min(92vw,560px); border:2px solid #9b7838; border-radius:16px;
+      background:linear-gradient(180deg,#241831,#0d0a12); box-shadow:0 18px 55px rgba(0,0,0,.72);
+      padding:18px; text-align:center; font-family:Georgia,serif;
+    }
+    .dice-kicker,.combat-kicker { color:#c8a554; text-transform:uppercase; letter-spacing:.12em; font-size:12px; }
+    .d20 {
+      width:112px; height:112px; margin:14px auto; display:grid; place-items:center;
+      color:#ffe69a; font-size:38px; font-weight:800;
+      clip-path:polygon(50% 0%,90% 20%,100% 65%,72% 100%,28% 100%,0 65%,10% 20%);
+      background:radial-gradient(circle at 50% 38%,#5c3f79,#1c1228 72%);
+      border:4px solid #c39b43; filter:drop-shadow(0 0 12px rgba(196,154,62,.45));
+    }
+    .d20.rolling { animation:d20-roll .12s linear infinite; }
+    @keyframes d20-roll { 0%{transform:rotate(-7deg) scale(.96)}50%{transform:rotate(8deg) scale(1.04)}100%{transform:rotate(-7deg) scale(.96)} }
+    .dice-breakdown { font-size:18px; }
+    .dice-result { min-height:30px; margin-top:8px; font-size:24px; font-weight:800; }
+    .dice-result.success { color:#9ed56c; } .dice-result.failure { color:#df7777; }
+    .combat-panel { width:min(95vw,690px); text-align:left; }
+    .combat-head { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; border-bottom:1px solid #72562c; padding-bottom:10px; }
+    .combat-head h2 { margin:3px 0 0; font-size:25px; }
+    .combat-round { border:1px solid #7c6030; border-radius:999px; padding:6px 10px; color:#d5bd7a; white-space:nowrap; }
+    .combatants { display:grid; grid-template-columns:1fr auto 1fr; gap:10px; align-items:center; margin:14px 0; }
+    .combatant-card { min-width:0; padding:10px; border:1px solid #71552c; border-radius:10px; background:#17101f; text-align:center; }
+    .enemy-icon { font-size:58px; line-height:1; margin-bottom:7px; }
+    .hp-track { height:12px; background:#2c1820; border:1px solid #806038; border-radius:999px; overflow:hidden; margin:8px 0 5px; }
+    .hp-track span { display:block; height:100%; width:100%; background:linear-gradient(90deg,#8f1d2c,#d65a45); transition:width .25s ease; }
+    .combat-die { width:82px; height:82px; font-size:28px; margin:0 auto 8px; }
+    .combat-die-wrap { width:110px; text-align:center; font-size:12px; color:#d8c391; }
+    .combat-message { min-height:54px; padding:11px; border:1px solid #634925; border-radius:9px; background:#120d18; line-height:1.35; }
+    .combat-actions { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-top:12px; }
+    .combat-actions button { min-height:48px; border:1px solid #a17a34; border-radius:9px; background:#261933; color:#f1d895; font:700 16px Georgia,serif; }
+    .combat-actions button:disabled { opacity:.45; }
+    @media(max-width:470px){
+      .combat-panel{padding:13px}.combatants{grid-template-columns:1fr 88px 1fr}.combat-die-wrap{width:88px}
+      .combat-die{width:70px;height:70px}.enemy-icon{font-size:46px}.combat-actions button{font-size:14px}
+      body.keyboard-open { top:var(--viewport-top,0px)!important; height:var(--app-height,100dvh)!important; }
+      body.keyboard-open .app { height:var(--app-height,100dvh)!important; max-height:var(--app-height,100dvh)!important; grid-template-rows:auto minmax(0,1fr) auto!important; }
+      body.keyboard-open .game-header { display:none!important; }
+      body.keyboard-open .story-panel { display:none!important; }
+      body.keyboard-open .scene-shell { min-height:0!important; height:auto!important; }
+      body.keyboard-open .controls { margin-top:auto!important; padding-bottom:4px!important; max-height:none!important; }
+      body.keyboard-open .quick-row { display:none!important; }
+      body.keyboard-open .actions-toggle { display:none!important; }
+      body.keyboard-open .command-line { position:relative!important; bottom:auto!important; }
+    }
+
   </style>
 </head>
 <body>
@@ -1459,7 +1509,7 @@
           <img src="assets/ui/opening-v1726.webp" alt="Willowmere village beneath a twilight castle, the opening artwork for The Briar Crown">
           <button id="opening-enter-btn" class="opening-enter" type="button" aria-label="Open the adventure menu"><span class="sr-only">Tap to begin</span></button>
           <div class="opening-menu" id="opening-menu" hidden>
-            <div class="opening-version">Version 1.7.2.8 • Orientation & Viewport Recovery Hotfix</div>
+            <div class="opening-version">Version 1.7.2.9 • Tunnel Treasure, Crypt Encounter & D20 Combat</div>
             <div class="start-actions"><button id="new-adventure-btn">New Adventure</button><button id="continue-adventure-btn">Continue Adventure</button></div>
           </div>
         </div>
@@ -1482,7 +1532,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.7.2.8 • Orientation & Viewport Recovery Hotfix</small>
+        <small id="version-tag">Version 1.7.2.9 • Tunnel Treasure, Crypt Encounter & D20 Combat</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -1564,9 +1614,47 @@
     </div>
   </dialog>
 
+  <dialog id="dice-dialog" class="dice-dialog">
+    <div class="dice-panel">
+      <div class="dice-kicker" id="dice-label">Ability Check</div>
+      <div class="d20" id="dice-value">?</div>
+      <div class="dice-breakdown" id="dice-breakdown">Rolling…</div>
+      <div class="dice-result" id="dice-result"></div>
+    </div>
+  </dialog>
+
+  <dialog id="combat-dialog" class="combat-dialog">
+    <div class="combat-panel">
+      <div class="combat-head">
+        <div><span class="combat-kicker">Encounter</span><h2 id="combat-enemy-name">Enemy</h2></div>
+        <div class="combat-round" id="combat-round">Round 1</div>
+      </div>
+      <div class="combatants">
+        <section class="combatant-card">
+          <strong id="combat-player-name">Hero</strong>
+          <div class="hp-track"><span id="combat-player-hp-bar"></span></div>
+          <small id="combat-player-hp">20 / 20 HP</small>
+        </section>
+        <div class="combat-die-wrap"><div class="d20 combat-die" id="combat-die">20</div><div id="combat-roll-text">Choose an action.</div></div>
+        <section class="combatant-card enemy-card">
+          <div class="enemy-icon" id="combat-enemy-icon">💀</div>
+          <div class="hp-track"><span id="combat-enemy-hp-bar"></span></div>
+          <small id="combat-enemy-hp">10 / 10 HP</small>
+        </section>
+      </div>
+      <div class="combat-message" id="combat-message" aria-live="polite">The enemy blocks your path.</div>
+      <div class="combat-actions">
+        <button type="button" data-combat-action="attack">⚔ Attack</button>
+        <button type="button" data-combat-action="defend">🛡 Defend</button>
+        <button type="button" data-combat-action="item">🧪 Use Herbs</button>
+        <button type="button" data-combat-action="flee">➜ Flee</button>
+      </div>
+    </div>
+  </dialog>
+
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.7.2.8";
+    const BUILD_VERSION = "1.7.2.9";
 
     const itemInfo = {
       "tarnished locket": "A traveler's locket found behind the tavern hearth. The portrait inside shows a young woman before a crooked woodland cottage.",
@@ -1592,7 +1680,13 @@
       "rope": "Thirty feet of strong braided rope.",
       "pilgrim charm": "A little sun-wheel charm woven from yew thread, once carried by a pilgrim to Saint Orla’s chapel.",
       "river charm": "A smooth blue stone wrapped in silver wire. The current-polished face bears a tiny spiral rune.",
-      "courier seal": "A bent royal seal stamped with the winged crown. Mud in its broken clasp smells faintly of Moonfen reeds."
+      "courier seal": "A bent royal seal stamped with the winged crown. Mud in its broken clasp smells faintly of Moonfen reeds.",
+      "lantern oil": "A sealed blue-glass bottle of clean-burning lantern oil.",
+      "bone charm": "A tiny charm carved from old bone and wrapped in black thread.",
+      "guard key fragment": "Half of a corroded castle-guard key, snapped near the teeth.",
+      "chapel sigil token": "A tarnished token stamped with Saint Orla's sun-wheel.",
+      "briar fang": "A black thorn-hard fang taken from a defeated Thorn Hound.",
+      "ancient chapel charm": "A warm silver charm recovered from the restless dead beneath Saint Orla's chapel."
     };
 
     const rooms = {
@@ -1678,10 +1772,11 @@
         name: "Briar Lantern Cellar",
         description: "Cool stone walls surround rows of dusty bottles, old barrels, and a heavy wine rack. A faint draft slips through the stones behind the rack. The hatch back to the tavern is above.",
         exits: { up: "tavern" },
-        actions: ["look at wine rack", "look at barrels", "search crates", "go up"],
+        actions: ["look at wine rack", "look at barrels", "search old barrel", "pry up loose flagstone", "search crates", "go up"],
         hotspots: [
           { label: "Wine Rack", command: "look at wine rack", x: 24, y: 47, w: 31, h: 45 },
-          { label: "Barrels", command: "look at barrels", x: 72, y: 62, w: 28, h: 35 },
+          { label: "Old Barrel", command: "search old barrel", x: 72, y: 62, w: 28, h: 35 },
+          { label: "Loose Flagstone", command: "pry up loose flagstone", x: 49, y: 75, w: 28, h: 18 },
           { label: "Stone Seam", command: "look at wall", x: 49, y: 46, w: 19, h: 48 },
           { label: "Hatch Above", command: "go up", x: 84, y: 14, w: 20, h: 22 }
         ]
@@ -1690,10 +1785,12 @@
         name: "Hidden Passage",
         description: "A narrow stone passage continues beneath the tavern. The cellar opening is behind you to the west, while a weak lantern glow and cooler air draw you east toward a collapsed alcove. You will need to walk farther before there is anywhere useful to search.",
         exits: { west: "tavernCellar", east: "secretAlcove" },
-        actions: ["go east", "go west", "look at passage", "search passage", "look at lantern"],
+        actions: ["go east", "go west", "look at passage", "search loose stone", "search wall niche", "inspect old bones", "look at lantern"],
         hotspots: [
           { label: "Passage Ahead", command: "go east", x: 51, y: 43, w: 34, h: 48 },
-          { label: "Passage Floor", command: "search passage", x: 49, y: 72, w: 46, h: 28 },
+          { label: "Loose Stone", command: "search loose stone", x: 49, y: 72, w: 28, h: 20 },
+          { label: "Wall Niche", command: "search wall niche", x: 80, y: 44, w: 18, h: 24 },
+          { label: "Old Bones", command: "inspect old bones", x: 32, y: 74, w: 22, h: 18 },
           { label: "Wall Lantern", command: "look at lantern", x: 17, y: 31, w: 18, h: 28 },
           { label: "Cellar Opening", command: "go west", x: 14, y: 78, w: 25, h: 20 }
         ]
@@ -1702,11 +1799,12 @@
         name: "Collapsed Passage Alcove",
         description: "After a short walk, the passage opens into a cramped alcove. A rockfall seals the far arch, an iron lantern burns on the wall, and several floor stones sit unevenly beneath the rubble. The hidden passage returns west.",
         exits: { west: "secretTunnel" },
-        actions: ["look at collapsed rubble", "try to move rubble", "search loose stone", "go west"],
+        actions: ["look at collapsed rubble", "try to move rubble", "search loose stone", "inspect cracked wall", "go west"],
         hotspots: [
           { label: "Collapsed Rubble", command: "try to move rubble", x: 25, y: 43, w: 46, h: 58 },
           { label: "Loose Stone", command: "search loose stone", x: 45, y: 73, w: 38, h: 25 },
-          { label: "Wall Lantern", command: "look at lantern", x: 74, y: 40, w: 22, h: 38 }
+          { label: "Cracked Wall", command: "inspect cracked wall", x: 78, y: 58, w: 20, h: 30 },
+          { label: "Wall Lantern", command: "look at lantern", x: 74, y: 40, w: 22, h: 20 }
         ]
       },
       apothecaryBackRoom: {
@@ -1824,10 +1922,12 @@
       },
       crypt: {
         name: "The Chapel Crypt",
-        description: "Candle stubs flicker among old stone tombs. An altar stands at the north wall, and a locked reliquary rests beneath a faded banner. A round depression in its lid is the exact size of the silver token from the Whispering Path.",
+        description: "Candle stubs flicker among old stone tombs. A heavy stone coffin rests near the center, burial shelves line the walls, and a locked reliquary waits beneath a faded banner. The dead air feels watchful.",
         exits: { up: "chapel" },
-        actions: ["open reliquary", "use silver token on reliquary", "go up"],
+        actions: ["look at stone coffin", "search burial shelf", "open stone coffin", "open reliquary", "use silver token on reliquary", "go up"],
         hotspots: [
+          { label: "Stone Coffin", command: "open stone coffin", x: 50, y: 63, w: 30, h: 23 },
+          { label: "Burial Shelf", command: "search burial shelf", x: 23, y: 51, w: 25, h: 28 },
           { label: "Reliquary", command: "open reliquary", x: 78, y: 54, w: 20, h: 24 },
           { label: "Altar", command: "look at altar", x: 50, y: 35, w: 26, h: 22 },
           { label: "Stairs", command: "up", x: 18, y: 27, w: 18, h: 26 }
@@ -1982,18 +2082,54 @@
       },
       castleRoad: {
         name: "The King's Road",
-        description: "The road descends between dead hedges toward the mountain castle. Thorn vines crawl across the stones like sleeping serpents. The Ironthorn Gate stands south; Willowmere is north, and the Moonfen ferry lands to the west.",
-        exits: { north: "square", south: "castleGate", west: "moonfen" },
+        description: "The road descends between dead hedges toward the mountain castle. Thorn vines crawl across the stones like sleeping serpents. Thorn Hedge Pass lies south; Willowmere is north. The road ahead grows narrower and more dangerous with every step.",
+        exits: { north: "square", south: "thornHedgePass" },
         actions: ["go south", "look at thorns", "go north"],
         hotspots: [
           { label: "Castle", command: "south", x: 51, y: 29, w: 30, h: 26 },
           { label: "Thorns", command: "look at thorns", x: 69, y: 69, w: 24, h: 20 }
         ]
       },
+      thornHedgePass: {
+        name: "Thorn Hedge Pass",
+        description: "The King's Road narrows between walls of living thorn. Yellow eyes watch from the right-hand hedge, clawed tracks cross the mud, and red briar berries cling to the branches. King's Road lies north; a ruined watch crossing waits south.",
+        exits: { north: "castleRoad", south: "brokenWatchCrossing" },
+        actions: ["go north", "go south", "inspect strange tracks", "search thorn hedge", "gather briar berries", "investigate growl"],
+        hotspots: [
+          { label: "Strange Tracks", command: "inspect strange tracks", x: 55, y: 72, w: 30, h: 20 },
+          { label: "Thorn Hedge", command: "search thorn hedge", x: 18, y: 54, w: 28, h: 38 },
+          { label: "Yellow Eyes", command: "investigate growl", x: 84, y: 53, w: 24, h: 28 },
+          { label: "Road South", command: "go south", x: 54, y: 32, w: 26, h: 22 }
+        ]
+      },
+      brokenWatchCrossing: {
+        name: "Broken Watch Crossing",
+        description: "A ruined watch post overlooks the road. An overturned guard wagon lies beside scattered stones, and carrion crows argue from the broken tower. Thorn Hedge Pass is north; the outer gate approach continues south.",
+        exits: { north: "thornHedgePass", south: "outerGateApproach" },
+        actions: ["go north", "go south", "search overturned wagon", "examine ruined watch post", "move scattered rubble", "look at carrion crows"],
+        hotspots: [
+          { label: "Overturned Wagon", command: "search overturned wagon", x: 24, y: 72, w: 35, h: 25 },
+          { label: "Ruined Watch Post", command: "examine ruined watch post", x: 78, y: 35, w: 30, h: 42 },
+          { label: "Scattered Rubble", command: "move scattered rubble", x: 55, y: 75, w: 30, h: 20 },
+          { label: "Road South", command: "go south", x: 69, y: 55, w: 24, h: 30 }
+        ]
+      },
+      outerGateApproach: {
+        name: "Outer Gate Approach",
+        description: "The castle walls loom over the final rise. Torn royal banners hang from roadside posts, broken statues stare toward the portcullis, and a cracked sigil stone rests in the ditch. Broken Watch Crossing is north; Ironthorn Gate stands south.",
+        exits: { north: "brokenWatchCrossing", south: "castleGate" },
+        actions: ["go north", "go south", "study broken statues", "inspect cracked sigil stone", "search roadside ditch"],
+        hotspots: [
+          { label: "Broken Statues", command: "study broken statues", x: 23, y: 52, w: 28, h: 34 },
+          { label: "Cracked Sigil Stone", command: "inspect cracked sigil stone", x: 64, y: 72, w: 30, h: 20 },
+          { label: "Roadside Ditch", command: "search roadside ditch", x: 85, y: 72, w: 24, h: 22 },
+          { label: "Ironthorn Gate", command: "go south", x: 64, y: 30, w: 34, h: 26 }
+        ]
+      },
       castleGate: {
         name: "The Ironthorn Gate",
         description: "An immense portcullis blocks the castle entrance beneath royal banners. A rusted chain winch stands beside the guard post. At the center of the gate is a jagged crown-shaped socket.",
-        exits: { north: "castleRoad" },
+        exits: { north: "outerGateApproach" },
         actions: ["look at gate", "look at winch", "look at socket", "use crown shard on gate", "go north"],
         hotspots: [
           { label: "Winch", command: "look at winch", x: 80, y: 60, w: 18, h: 24 },
@@ -2080,13 +2216,17 @@
         exits:{ west:"whisperingForest", south:"moonfen" }, actions:["go west","go south","look in well","look at fairy cage","look at white flowers","look at carved stones","use iron hook on well","use sun sigil on cage"]
       });
       const moonPath=rooms.moonwell.hotspots.find(h=>h.label==="Forest Path"); if(moonPath){moonPath.command="go west";moonPath.label="Whispering Forest";}
-      rooms.castleRoad.exits={ north:"square", south:"castleGate" };
+      rooms.castleRoad.exits={ north:"square", south:"thornHedgePass" };
       rooms.castleRoad.actions=["go north","go south","look at thorns"];
+      rooms.thornHedgePass.exits={ north:"castleRoad", south:"brokenWatchCrossing" };
+      rooms.brokenWatchCrossing.exits={ north:"thornHedgePass", south:"outerGateApproach" };
+      rooms.outerGateApproach.exits={ north:"brokenWatchCrossing", south:"castleGate" };
+      rooms.castleGate.exits={ north:"outerGateApproach" };
     }
     applyV1726NavigationGraph();
 
     const initialState = () => ({
-      schemaVersion: 1720,
+      schemaVersion: 1729,
       room: "square",
       view: "center",
       inventory: [],
@@ -2153,12 +2293,182 @@
         pilgrimCharmTaken: false,
         riverCharmTaken: false,
         courierSealTaken: false,
+        cellarBarrelLooted: false,
+        cellarFlagstoneLooted: false,
+        tunnelLooseStoneLooted: false,
+        tunnelNicheLooted: false,
+        tunnelBonesInspected: false,
+        alcoveWallLooted: false,
+        thornTracksInspected: false,
+        thornHedgeLooted: false,
+        briarBerriesTaken: false,
+        thornHoundDefeated: false,
+        watchWagonLooted: false,
+        watchRubbleLooted: false,
+        outerSigilFound: false,
+        outerDitchLooted: false,
+        cryptBurialShelfLooted: false,
+        cryptCoffinOpened: false,
+        cryptSkeletonDefeated: false,
+        cryptCoffinLooted: false,
         ending: null
       },
+      combat: null,
       log: []
     });
 
     let state = initialState();
+
+    const enemyCatalog = {
+      thornHound:{ name:"Thorn Hound", icon:"🐺", maxHp:8, defense:10, attack:1, damageSides:4, damageBonus:0, fleeTarget:9, escapeRoom:"castleRoad" },
+      restlessSkeleton:{ name:"Restless Skeleton", icon:"💀", maxHp:10, defense:11, attack:2, damageSides:4, damageBonus:1, fleeTarget:11, escapeRoom:"chapel" }
+    };
+
+    function adventureStats() {
+      const s=(state.player&&state.player.stats)||heroClasses.druid.stats;
+      return {
+        might:Math.max(1,Math.floor(((s.Strength||5)+(s.Agility||5))/5)),
+        wits:Math.max(1,Math.floor(((s.Wisdom||5)+(s.Charisma||5))/6)),
+        resolve:Math.max(1,Math.floor(((s.Wisdom||5)+(s.Strength||5))/7)),
+        luck:Math.max(1,Math.floor(((s.Agility||5)+(s.Charisma||5))/7)),
+        defense:10+Math.floor((s.Agility||5)/3)+(state.equipment&&state.equipment.shield?1:0)
+      };
+    }
+    const rollDie = sides => Math.floor(Math.random()*sides)+1;
+    const wait = ms => new Promise(resolve=>setTimeout(resolve,ms));
+
+    async function animatedCheck(label, statName, target) {
+      const dlg=document.getElementById("dice-dialog"), die=document.getElementById("dice-value");
+      const breakdown=document.getElementById("dice-breakdown"), result=document.getElementById("dice-result");
+      const bonus=adventureStats()[statName]||0;
+      document.getElementById("dice-label").textContent=label;
+      die.classList.add("rolling"); result.className="dice-result"; result.textContent="";
+      breakdown.textContent=`Rolling d20 + ${titleCase(statName)}…`;
+      if(!dlg.open) dlg.showModal();
+      let final=1;
+      for(let i=0;i<12;i++){ final=rollDie(20); die.textContent=final; await wait(55+i*4); }
+      die.classList.remove("rolling");
+      const total=final+bonus, success=total>=target;
+      breakdown.textContent=`Roll ${final} + ${titleCase(statName)} ${bonus} = ${total} • Target ${target}`;
+      result.textContent=success?"SUCCESS":"FAILED";
+      result.classList.add(success?"success":"failure");
+      await wait(900);
+      if(dlg.open) dlg.close();
+      return {roll:final,bonus,total,target,success};
+    }
+
+    async function runExplorationCheck(label, statName, target, successText, failureText, onSuccess) {
+      const outcome=await animatedCheck(label,statName,target);
+      addLog(`<strong>${escapeHtml(label)}:</strong> d20 ${outcome.roll} + ${titleCase(statName)} ${outcome.bonus} = ${outcome.total} (target ${target}).`, "system");
+      if(outcome.success){ if(onSuccess) onSuccess(); addLog(successText,"success"); }
+      else addLog(failureText,"warning");
+      return outcome.success;
+    }
+
+    function renderCombat() {
+      if(!state.combat) return;
+      const enemy=enemyCatalog[state.combat.enemyId], stats=adventureStats();
+      document.getElementById("combat-enemy-name").textContent=enemy.name;
+      document.getElementById("combat-enemy-icon").textContent=enemy.icon;
+      document.getElementById("combat-player-name").textContent=(state.player&&state.player.name)||"Rowan";
+      document.getElementById("combat-round").textContent=`Round ${state.combat.round||1}`;
+      document.getElementById("combat-player-hp").textContent=`${state.health} / ${state.maxHealth} HP`;
+      document.getElementById("combat-enemy-hp").textContent=`${state.combat.enemyHp} / ${enemy.maxHp} HP`;
+      document.getElementById("combat-player-hp-bar").style.width=`${Math.max(0,state.health/state.maxHealth*100)}%`;
+      document.getElementById("combat-enemy-hp-bar").style.width=`${Math.max(0,state.combat.enemyHp/enemy.maxHp*100)}%`;
+      document.getElementById("combat-message").textContent=state.combat.message||`${enemy.name} blocks your path. Your defense is ${stats.defense}.`;
+      const herbBtn=document.querySelector('[data-combat-action="item"]');
+      if(herbBtn) herbBtn.disabled=!has("healing herbs")||state.health>=state.maxHealth;
+    }
+
+    function setCombatButtons(disabled) {
+      document.querySelectorAll("[data-combat-action]").forEach(btn=>btn.disabled=disabled || (btn.dataset.combatAction==="item" && (!has("healing herbs")||state.health>=state.maxHealth)));
+    }
+
+    async function animateCombatRoll() {
+      const die=document.getElementById("combat-die");
+      die.classList.add("rolling");
+      let value=1;
+      for(let i=0;i<11;i++){ value=rollDie(20); die.textContent=value; await wait(55+i*4); }
+      die.classList.remove("rolling");
+      return value;
+    }
+
+    function startCombat(enemyId) {
+      const enemy=enemyCatalog[enemyId];
+      if(!enemy) return;
+      state.combat={enemyId,enemyHp:enemy.maxHp,round:1,message:`${enemy.name} emerges! Choose your action.`};
+      renderCombat();
+      const dlg=document.getElementById("combat-dialog");
+      if(!dlg.open) dlg.showModal();
+      autosave();
+    }
+
+    async function enemyCombatTurn(defending=false) {
+      if(!state.combat) return;
+      const enemy=enemyCatalog[state.combat.enemyId], stats=adventureStats();
+      const roll=await animateCombatRoll(), defense=stats.defense+(defending?2:0), total=roll+enemy.attack;
+      if(total>=defense){
+        const damage=rollDie(enemy.damageSides)+enemy.damageBonus;
+        state.health=Math.max(0,state.health-damage);
+        state.combat.message=`${enemy.name} rolls ${roll} + ${enemy.attack} = ${total} and hits for ${damage} damage.`;
+      } else state.combat.message=`${enemy.name} rolls ${roll} + ${enemy.attack} = ${total}, missing your defense ${defense}.`;
+      if(state.health<=0){
+        state.health=Math.max(1,Math.floor(state.maxHealth/2));
+        const escape=enemy.escapeRoom;
+        addLog(`${enemy.name} overwhelms you. You awaken battered but alive, having crawled back to safety.`,"warning");
+        state.room=escape; state.view="center"; state.combat=null;
+        const dlg=document.getElementById("combat-dialog"); if(dlg.open) dlg.close();
+        renderAll(); autosave(); return;
+      }
+      state.combat.round=(state.combat.round||1)+1;
+      renderCombat();
+    }
+
+    function combatVictory(enemyId) {
+      const enemy=enemyCatalog[enemyId];
+      if(enemyId==="thornHound"){
+        state.flags.thornHoundDefeated=true; addGold(3,"coins caught in the Thorn Hound's collar"); addItem("briar fang"); award("defeat-thorn-hound",4);
+        addLog("The Thorn Hound dissolves into black leaves. A briar-hard fang and three old coins remain.","success");
+      } else if(enemyId==="restlessSkeleton"){
+        state.flags.cryptSkeletonDefeated=true; addGold(8,"the crypt warden's burial coins"); addItem("ancient chapel charm"); award("defeat-restless-skeleton",6);
+        addLog("The Restless Skeleton collapses into quiet bones. Eight burial coins and an ancient chapel charm remain.","success");
+      }
+      state.combat=null;
+      const dlg=document.getElementById("combat-dialog"); if(dlg.open) dlg.close();
+      renderAll(); autosave();
+    }
+
+    async function combatAction(action) {
+      if(!state.combat) return;
+      setCombatButtons(true);
+      const enemy=enemyCatalog[state.combat.enemyId], stats=adventureStats();
+      if(action==="attack"){
+        const roll=await animateCombatRoll(), total=roll+stats.might;
+        if(total>=enemy.defense){
+          const damage=rollDie(6)+1+(state.equipment&&state.equipment.weapon?1:0);
+          state.combat.enemyHp=Math.max(0,state.combat.enemyHp-damage);
+          state.combat.message=`Attack roll ${roll} + Might ${stats.might} = ${total}: HIT for ${damage} damage.`;
+          renderCombat();
+          if(state.combat.enemyHp<=0){ await wait(500); combatVictory(state.combat.enemyId); return; }
+        } else { state.combat.message=`Attack roll ${roll} + Might ${stats.might} = ${total}: miss against defense ${enemy.defense}.`; renderCombat(); }
+        await wait(450); await enemyCombatTurn(false);
+      } else if(action==="defend"){
+        state.combat.message="You brace and gain +2 defense against the next attack."; renderCombat(); await wait(350); await enemyCombatTurn(true);
+      } else if(action==="item"){
+        if(!has("healing herbs")) state.combat.message="You have no healing herbs.";
+        else if(state.health>=state.maxHealth) state.combat.message="You are already at full health.";
+        else { removeItem("healing herbs",1); const healed=Math.min(5,state.maxHealth-state.health); state.health+=healed; state.combat.message=`You use healing herbs and recover ${healed} health.`; renderCombat(); await wait(350); await enemyCombatTurn(false); }
+      } else if(action==="flee"){
+        const roll=await animateCombatRoll(), total=roll+stats.luck;
+        if(total>=enemy.fleeTarget){
+          const escape=enemy.escapeRoom; addLog(`You escape from ${enemy.name} and retreat to safety.`,"system");
+          state.room=escape; state.view="center"; state.combat=null; const dlg=document.getElementById("combat-dialog"); if(dlg.open) dlg.close(); renderAll(); autosave(); return;
+        }
+        state.combat.message=`Flee roll ${roll} + Luck ${stats.luck} = ${total}: failed. The enemy strikes.`; renderCombat(); await wait(350); await enemyCombatTurn(false);
+      }
+      if(state.combat){ setCombatButtons(false); autosave(); updateStatus(); }
+    }
 
     const heroClasses = {
       knight: { name:"Knight", icon:"⚔️", tagline:"A steadfast protector", stats:{Strength:9,Agility:5,Wisdom:4,Charisma:5}, item:"wooden shield", gift:"Shield" },
@@ -2200,6 +2510,9 @@
       oldCemeteryPath: "assets/scenes/old-cemetery-v1724.webp",
       chapel: "assets/scenes/chapel-interior-v1724.webp",
       castleRoad: "assets/scenes/kings-road-v1724.webp",
+      thornHedgePass: "assets/scenes/thorn-hedge-pass-v1729.webp",
+      brokenWatchCrossing: "assets/scenes/broken-watch-crossing-v1729.webp",
+      outerGateApproach: "assets/scenes/outer-gate-approach-v1729.webp",
       tavern: "assets/scenes/tavern-center-v1724.webp",
       forestEdge: "assets/scenes/forest-edge-v1724.webp",
       willowTrail: "assets/scenes/willow-trail-v1724.webp",
@@ -2220,7 +2533,7 @@
       castleGate: "assets/scenes/ironthorn-gate-v1724.webp"
     };
 
-    const sceneTourRooms = ["square", "forgeLane", "eastRoad", "forgeDoor", "blacksmith", "chapelRoad", "chapelYard", "chapelApproach", "oldCemeteryPath", "chapel", "castleRoad", "tavernApproach", "tavernDoor", "tavern", "apothecaryApproach", "apothecaryDoor", "apothecary", "apothecaryBackRoom", "forestEdge", "willowTrail", "flowerClearing", "fallenLog", "whisperingForest", "cottageApproach", "cottage", "cellar", "moonfen", "hutExterior", "hutInterior", "moonwell", "tavernCellar", "secretTunnel", "secretAlcove", "crypt", "castleGate"];
+    const sceneTourRooms = ["square", "forgeLane", "eastRoad", "forgeDoor", "blacksmith", "chapelRoad", "chapelYard", "chapelApproach", "oldCemeteryPath", "chapel", "castleRoad", "thornHedgePass", "brokenWatchCrossing", "outerGateApproach", "tavernApproach", "tavernDoor", "tavern", "apothecaryApproach", "apothecaryDoor", "apothecary", "apothecaryBackRoom", "forestEdge", "willowTrail", "flowerClearing", "fallenLog", "whisperingForest", "cottageApproach", "cottage", "cellar", "moonfen", "hutExterior", "hutInterior", "moonwell", "tavernCellar", "secretTunnel", "secretAlcove", "crypt", "castleGate"];
 
     const apothecaryViewImages = {
       center: "assets/scenes/apothecary-center-v1724.webp",
@@ -2436,8 +2749,26 @@
         west: "The Moonfen ferry landing lies beyond the dead hedges.",
         east: "Thorn-choked slopes rise beneath the castle cliffs."
       },
+      thornHedgePass: {
+        north: "The road opens back toward Willowmere.",
+        south: "The thorn walls narrow toward a ruined watch post.",
+        east: "Living briars knot together around a pair of yellow eyes.",
+        west: "Red berries and hooked thorns cover the hedge."
+      },
+      brokenWatchCrossing: {
+        north: "The road returns through Thorn Hedge Pass.",
+        south: "The castle walls rise beyond the final approach.",
+        east: "A ruined watchtower leans above scattered guard stones.",
+        west: "An overturned wagon lies half-swallowed by weeds."
+      },
+      outerGateApproach: {
+        north: "The broken watch crossing lies behind you.",
+        south: "Ironthorn Gate fills the road ahead.",
+        east: "A cracked sigil stone rests in the roadside ditch.",
+        west: "Broken statues and torn banners line the approach."
+      },
       castleGate: {
-        north: "The king's road returns toward Willowmere.",
+        north: "The outer gate approach returns toward Willowmere.",
         south: "The sealed portcullis bars the castle entrance.",
         east: "A rusted chain winch stands beside the guard post.",
         west: "Royal banners hang in tatters against the stone wall."
@@ -2454,7 +2785,7 @@
       "square", "tavernApproach", "apothecaryApproach", "forgeLane", "eastRoad",
       "forgeDoor", "tavernDoor", "apothecaryDoor", "chapelRoad", "chapelYard", "chapelApproach",
       "oldCemeteryPath", "forestEdge", "willowTrail", "flowerClearing", "fallenLog", "whisperingForest", "cottageApproach",
-      "moonfen", "hutExterior", "moonwell", "castleRoad", "castleGate"
+      "moonfen", "hutExterior", "moonwell", "castleRoad", "thornHedgePass", "brokenWatchCrossing", "outerGateApproach", "castleGate"
     ]);
 
     const travelBoundaryResponses = {
@@ -2531,6 +2862,18 @@
       },
       castleRoad: {
         east: "The eastern slope ends in thorn-covered cliffs beneath the castle walls.",
+      },
+      thornHedgePass: {
+        east: "The living thorn hedge is too dense to cross.",
+        west: "Hooked branches knot together without a path."
+      },
+      brokenWatchCrossing: {
+        east: "The ruined watch wall drops into a rocky ravine.",
+        west: "The overturned wagon and thorn-choked ditch block the shoulder."
+      },
+      outerGateApproach: {
+        east: "The castle wall rises sheer above the ditch.",
+        west: "Broken statues and a steep drop close the western side."
       },
       castleGate: {
         south: "The Ironthorn Gate bars the road south. The crown-shaped socket may be the only way through.",
@@ -2619,7 +2962,11 @@
         chapelApproach: { chapel:"chapel", inside:"chapel", door:"chapel", yard:"chapelYard", outside:"chapelYard", back:"chapelYard" },
         oldCemeteryPath: { chapel:"chapelYard", yard:"chapelYard", back:"chapelYard" },
         chapel: { outside:"chapelApproach", door:"chapelApproach", yard:"chapelYard", back:"chapelApproach" },
-        castleRoad: { gate:"castleGate", castle:"castleGate", forward:"castleGate", square:"square", willowmere:"square", moonfen:"moonfen" },
+        castleRoad: { pass:"thornHedgePass", "thorn hedge":"thornHedgePass", forward:"thornHedgePass", square:"square", willowmere:"square" },
+        thornHedgePass: { watch:"brokenWatchCrossing", crossing:"brokenWatchCrossing", forward:"brokenWatchCrossing", road:"castleRoad", back:"castleRoad" },
+        brokenWatchCrossing: { approach:"outerGateApproach", gate:"outerGateApproach", forward:"outerGateApproach", pass:"thornHedgePass", back:"thornHedgePass" },
+        outerGateApproach: { gate:"castleGate", castle:"castleGate", forward:"castleGate", crossing:"brokenWatchCrossing", back:"brokenWatchCrossing" },
+        castleGate: { approach:"outerGateApproach", road:"outerGateApproach", back:"outerGateApproach" },
         forestEdge: { "willow trail":"willowTrail", forest:"willowTrail", forward:"willowTrail", "east road":"eastRoad", forge:"eastRoad", tavern:"tavernApproach", back:"eastRoad" },
         whisperingForest: { cottage:"cottageApproach", moonwell:"moonwell", moonfen:"moonfen", ferry:"moonfen", "log crossing":"fallenLog", back:"fallenLog" },
         cottageApproach: { cottage:"cottage", inside:"cottage", door:"cottage", forward:"cottage", path:"whisperingForest", forest:"whisperingForest", back:"whisperingForest" },
@@ -3511,7 +3858,7 @@
     // Logical connections are used for discovery only. The painted roads remain unobscured; no intersecting overlay lines are drawn.
     const worldMapEdges = [
       ["square","tavernApproach"],["square","forgeLane"],["square","chapelRoad"],["square","castleRoad"],
-      ["castleRoad","castleGate"],["forgeLane","eastRoad"],["eastRoad","forestEdge"],
+      ["castleRoad","thornHedgePass"],["thornHedgePass","brokenWatchCrossing"],["brokenWatchCrossing","outerGateApproach"],["outerGateApproach","castleGate"],["forgeLane","eastRoad"],["eastRoad","forestEdge"],
       ["forestEdge","willowTrail"],["willowTrail","flowerClearing"],["flowerClearing","fallenLog"],["fallenLog","whisperingForest"],
       ["whisperingForest","cottageApproach"],["whisperingForest","moonwell"],["whisperingForest","moonfen"],
       ["moonwell","moonfen"],["moonfen","hutExterior"]
@@ -3523,7 +3870,7 @@
       forgeDoor:"forgeLane", blacksmith:"forgeLane", eastRoad:"forgeLane", willowTrail:"forestEdge", flowerClearing:"forestEdge", fallenLog:"forestEdge", whisperingForest:"forestEdge",
       tavernDoor:"tavernApproach", tavern:"tavernApproach", tavernCellar:"tavernApproach", secretTunnel:"tavernApproach", secretAlcove:"tavernApproach",
       chapelYard:"chapelRoad", chapelApproach:"chapelRoad", chapel:"chapelRoad", crypt:"chapelRoad", oldCemeteryPath:"chapelRoad",
-      cottage:"cottageApproach", cellar:"cottageApproach", hutInterior:"hutExterior"
+      cottage:"cottageApproach", cellar:"cottageApproach", hutInterior:"hutExterior", thornHedgePass:"castleRoad", brokenWatchCrossing:"castleRoad", outerGateApproach:"castleRoad"
     };
     function currentMapAnchor(){ return mapAnchorAliases[state.room] || state.room; }
 
@@ -3878,18 +4225,8 @@
         state.turns++;
         if (state.flags.archBroken) { addLog("The rockfall is already breached; the small alcove behind it stands empty."); return finishTurn(); }
         useSkill("Combat");
-        const croll = Math.floor(Math.random()*20)+1;
-        const cbonus = ((state.player&&state.player.classKey)==="knight"?4:0)+(state.skills.Combat||0);
-        addLog(`<strong style="color:${skillMeta.Combat.color}">${skillMeta.Combat.icon} Strength check:</strong> d20 ${croll} + ${cbonus} = ${croll+cbonus}. Need 12.`, "system");
-        if (croll+cbonus < 12) {
-          state.health = Math.max(1,(state.health||20)-1); updateStatus();
-          addLog("You heave against the fallen stone and it shifts, then bites back — a sharp edge scrapes your arm (−1 health). The rockfall holds. You can try again.", "warning");
-          return finishTurn();
-        }
-        state.flags.archBroken = true;
-        state.gold = (state.gold||0) + 8;
-        award("break-tunnel-arch", 3);
-        addLog("With a grinding roar the keystone gives and part of the rockfall collapses inward, revealing a small alcove. Inside: eight gold pieces and an oath-stone carved with a kneeling knight — proof this passage once served the castle guard.", "success");
+        const moved=await runExplorationCheck("Move Collapsed Rubble","might",12,"With a grinding roar the keystone gives. Behind it you find six gold, lantern oil, and an oath-stone carved with a kneeling knight.","A sharp edge scrapes your arm as the rockfall settles back into place (−1 health). You may try again.",()=>{state.flags.archBroken=true;addGold(6);addItem("lantern oil");award("break-tunnel-arch",3);});
+        if(!moved){state.health=Math.max(1,(state.health||20)-1);updateStatus();}
         return finishTurn();
       }
       if (/^attune(?: to)? (?:the )?stones?$/.test(command) && state.room === "moonwell") {
@@ -3947,6 +4284,99 @@
         state.lastObject="chapel"; useSkill("Investigation"); award("explore-chapel",2); return finishTurn();
       }
       if (/^(?:search|open|check) crates$/.test(command) && state.room === "apothecary") { state.turns++; if(!state.shopFlags.cratesSearched){state.shopFlags.cratesSearched=true;addGold(3,"coins beneath a delivery crate");addItem("healing herb",1);addLog("You also find a loose healing herb. Elowen raises an eyebrow but allows you to keep it.","success");changeReputation("Elowen",1);}else lookAt(rememberObject("crates")); return finishTurn(); }
+      if (state.room==="tavernCellar" && /^(?:search|open) (?:the )?(?:old )?barrel$/.test(command)) {
+        state.turns++;
+        if(state.flags.cellarBarrelLooted){ addLog("The marked barrel is empty."); return finishTurn(); }
+        await runExplorationCheck("Search Old Barrel","wits",8,"Behind a false stave you find three gold and a sealed bottle of lantern oil.","You find only sour rainwater and rotten cork. You may try again.",()=>{state.flags.cellarBarrelLooted=true;addGold(3);addItem("lantern oil");});
+        return finishTurn();
+      }
+      if (state.room==="tavernCellar" && /^(?:pry up|lift|examine|search) (?:the )?(?:loose )?flagstone$/.test(command)) {
+        state.turns++;
+        if(state.flags.cellarFlagstoneLooted){ addLog("The hollow beneath the flagstone is empty."); return finishTurn(); }
+        await runExplorationCheck("Pry Up Flagstone","might",10,"The stone lifts. A small purse beneath it holds three gold.","The stone shifts but slips back into place. You may try again.",()=>{state.flags.cellarFlagstoneLooted=true;addGold(3);});
+        return finishTurn();
+      }
+      if (state.room==="secretTunnel" && /^search (?:the )?loose stone$/.test(command)) {
+        state.turns++;
+        if(state.flags.tunnelLooseStoneLooted){ addLog("The small hollow behind the loose stone is empty."); return finishTurn(); }
+        await runExplorationCheck("Search Loose Stone","wits",10,"The stone comes free, revealing four old gold pieces.","Cold grit fills the seam, but you cannot free the stone yet.",()=>{state.flags.tunnelLooseStoneLooted=true;addGold(4);});
+        return finishTurn();
+      }
+      if (state.room==="secretTunnel" && /^search (?:the )?wall niche$/.test(command)) {
+        state.turns++;
+        if(state.flags.tunnelNicheLooted){ addLog("The wall niche is empty."); return finishTurn(); }
+        await runExplorationCheck("Search Wall Niche","wits",12,"Your fingers find a hidden shelf containing a bone charm.","You probe the dark niche but find no catch. You may try again.",()=>{state.flags.tunnelNicheLooted=true;addItem("bone charm");});
+        return finishTurn();
+      }
+      if (state.room==="secretTunnel" && /^(?:inspect|look at) (?:the )?(?:old )?bones$/.test(command)) {
+        state.turns++; state.flags.tunnelBonesInspected=true; addLog("The bones belong to a castle courier. A snapped key fragment is clenched in one hand, but the rest of the key is missing.","system"); return finishTurn();
+      }
+      if (state.room==="secretAlcove" && /^inspect (?:the )?cracked wall$/.test(command)) {
+        state.turns++;
+        if(state.flags.alcoveWallLooted){ addLog("The hidden crack stands open and empty."); return finishTurn(); }
+        await runExplorationCheck("Inspect Cracked Wall","wits",12,"A concealed pocket yields a tarnished chapel sigil token.","The crack is too narrow to explore without a better angle.",()=>{state.flags.alcoveWallLooted=true;addItem("chapel sigil token");});
+        return finishTurn();
+      }
+      if (state.room==="thornHedgePass" && /^inspect (?:the )?strange tracks$/.test(command)) {
+        state.turns++; state.flags.thornTracksInspected=true; addLog("The prints are canine, but each claw mark ends in a thorn point. Whatever made them is circling through the hedge.","system"); return finishTurn();
+      }
+      if (state.room==="thornHedgePass" && /^search (?:the )?thorn hedge$/.test(command)) {
+        state.turns++;
+        if(state.flags.thornHedgeLooted){ addLog("You already searched the safest opening in the hedge."); return finishTurn(); }
+        await runExplorationCheck("Search Thorn Hedge","wits",10,"Behind the briars you find a rusty token and two gold.","The thorns close around your sleeve and force you back.",()=>{state.flags.thornHedgeLooted=true;addGold(2);addItem("guard key fragment");});
+        return finishTurn();
+      }
+      if (state.room==="thornHedgePass" && /^(?:gather|take|pick) (?:the )?briar berries$/.test(command)) {
+        state.turns++;
+        if(state.flags.briarBerriesTaken){ addLog("You already gathered the usable berries."); return finishTurn(); }
+        state.flags.briarBerriesTaken=true; addItem("healing herbs"); addLog("You gather the least thorny berries and wrap them with healing leaves. They can be used as healing herbs.","success"); return finishTurn();
+      }
+      if (state.room==="thornHedgePass" && /^(?:investigate|approach|face) (?:the )?(?:growl|yellow eyes|thorn hound)$/.test(command)) {
+        state.turns++;
+        if(state.flags.thornHoundDefeated){ addLog("Only black leaves remain where the Thorn Hound fell."); return finishTurn(); }
+        addLog("A Thorn Hound tears free of the hedge, its hide woven from black briars.","warning"); startCombat("thornHound"); return;
+      }
+      if (state.room==="brokenWatchCrossing" && /^search (?:the )?(?:overturned )?wagon$/.test(command)) {
+        state.turns++;
+        if(state.flags.watchWagonLooted){ addLog("The overturned wagon has been thoroughly searched."); return finishTurn(); }
+        await runExplorationCheck("Search Guard Wagon","wits",10,"Beneath a torn seat you find five gold and a bottle of lantern oil.","The wagon shifts dangerously before you can reach the locked compartment.",()=>{state.flags.watchWagonLooted=true;addGold(5);addItem("lantern oil");});
+        return finishTurn();
+      }
+      if (state.room==="brokenWatchCrossing" && /^(?:move|clear) (?:the )?(?:scattered )?rubble$/.test(command)) {
+        state.turns++;
+        if(state.flags.watchRubbleLooted){ addLog("The small cache beneath the rubble is empty."); return finishTurn(); }
+        await runExplorationCheck("Move Watch Rubble","might",12,"You shift a broken lintel and recover the matching half of a guard key.","The stone is too heavy this time. You may try again.",()=>{state.flags.watchRubbleLooted=true;addItem("guard key fragment");});
+        return finishTurn();
+      }
+      if (state.room==="outerGateApproach" && /^(?:inspect|study) (?:the )?(?:cracked )?sigil stone$/.test(command)) {
+        state.turns++;
+        if(state.flags.outerSigilFound){ addLog("The sigil stone's message remains: THE CROWN OPENS WHAT FORCE CANNOT."); return finishTurn(); }
+        state.flags.outerSigilFound=true; award("read-outer-gate-sigil",2); addLog("The cracked stone bears a crown-shaped socket and the words: THE CROWN OPENS WHAT FORCE CANNOT.","success"); return finishTurn();
+      }
+      if (state.room==="outerGateApproach" && /^search (?:the )?roadside ditch$/.test(command)) {
+        state.turns++;
+        if(state.flags.outerDitchLooted){ addLog("The roadside ditch holds nothing else."); return finishTurn(); }
+        await runExplorationCheck("Search Roadside Ditch","luck",10,"You uncover a prayer coin and three gold beneath a torn banner.","You find only rainwater and broken spear shafts.",()=>{state.flags.outerDitchLooted=true;addGold(3);addItem("chapel sigil token");});
+        return finishTurn();
+      }
+      if (state.room==="crypt" && /^search (?:the )?burial shelf$/.test(command)) {
+        state.turns++;
+        if(state.flags.cryptBurialShelfLooted){ addLog("The burial shelf has already been searched."); return finishTurn(); }
+        await runExplorationCheck("Search Burial Shelf","wits",11,"Behind a clay urn you find four burial coins.","Dust and old wax hide the shelf's seams. You may try again.",()=>{state.flags.cryptBurialShelfLooted=true;addGold(4);});
+        return finishTurn();
+      }
+      if (state.room==="crypt" && /^(?:open|pry open) (?:the )?(?:stone )?coffin$/.test(command)) {
+        state.turns++;
+        if(state.flags.cryptSkeletonDefeated){ addLog("The coffin stands open. The dead within will not rise again."); return finishTurn(); }
+        state.flags.cryptCoffinOpened=true; addLog("The lid grinds aside. A skeleton wrapped in rotted burial cloth rises as pale light fills its eyes.","warning"); startCombat("restlessSkeleton"); return;
+      }
+      if (state.room==="crypt" && /^search (?:the )?open coffin$/.test(command)) {
+        state.turns++;
+        if(!state.flags.cryptSkeletonDefeated){ addLog("The coffin is not safe to search while its guardian still moves.","warning"); return finishTurn(); }
+        if(state.flags.cryptCoffinLooted){ addLog("The open coffin is empty."); return finishTurn(); }
+        state.flags.cryptCoffinLooted=true; addItem("chapel sigil token"); addLog("Beneath the burial cloth you find a tarnished chapel sigil token.","success"); return finishTurn();
+      }
+
       if ((match = command.match(/^(?:look at|look in|look inside|examine|inspect|search|check|read) (.+)$/))) { state.turns++; lookAt(rememberObject(match[1])); return finishTurn(); }
       if ((match = command.match(/^(?:open|unlock|pull|push|try handle|turn handle) (.+)$/))) { state.turns++; openTarget(rememberObject(match[1])); return finishTurn(); }
       if ((match = command.match(/^(?:take|get|grab|pick up|collect) (.+)$/))) { state.turns++; takeTarget(rememberObject(match[1])); return finishTurn(); }
@@ -4068,12 +4498,41 @@
       if (state.room === "moonfen" && has("ferry crank") && !state.flags.ferryRepaired) actions.unshift("use ferry crank on winch");
       if (state.room === "moonfen" && state.flags.ferryRepaired) actions.unshift("cross ferry", "go east");
       if (state.room === "hutInterior" && !state.flags.coinTaken) actions.unshift("take fairy coin");
-      if (state.room === "secretTunnel") actions.unshift("go east", "go west", "look at passage");
+      if (state.room === "tavernCellar") {
+        if(!state.flags.cellarBarrelLooted) actions.unshift("search old barrel");
+        if(!state.flags.cellarFlagstoneLooted) actions.unshift("pry up loose flagstone");
+      }
+      if (state.room === "secretTunnel") {
+        actions.unshift("go east", "go west", "look at passage");
+        if(!state.flags.tunnelLooseStoneLooted) actions.unshift("search loose stone");
+        if(!state.flags.tunnelNicheLooted) actions.unshift("search wall niche");
+        if(!state.flags.tunnelBonesInspected) actions.unshift("inspect old bones");
+      }
       if (state.room === "secretAlcove") {
         if (!state.flags.tunnelCoinsFound) actions.unshift("search loose stone");
         else if (!state.flags.tunnelCoinsTaken) actions.unshift("take coins");
         else removeAction("search loose stone");
+        if(!state.flags.alcoveWallLooted) actions.unshift("inspect cracked wall");
         actions.unshift("go west", "look at blocked arch");
+      }
+      if(state.room==="thornHedgePass"){
+        if(!state.flags.thornTracksInspected) actions.unshift("inspect strange tracks");
+        if(!state.flags.thornHedgeLooted) actions.unshift("search thorn hedge");
+        if(!state.flags.briarBerriesTaken) actions.unshift("gather briar berries");
+        if(!state.flags.thornHoundDefeated) actions.unshift("investigate growl");
+      }
+      if(state.room==="brokenWatchCrossing"){
+        if(!state.flags.watchWagonLooted) actions.unshift("search overturned wagon");
+        if(!state.flags.watchRubbleLooted) actions.unshift("move scattered rubble");
+      }
+      if(state.room==="outerGateApproach"){
+        if(!state.flags.outerSigilFound) actions.unshift("inspect cracked sigil stone");
+        if(!state.flags.outerDitchLooted) actions.unshift("search roadside ditch");
+      }
+      if(state.room==="crypt"){
+        if(!state.flags.cryptBurialShelfLooted) actions.unshift("search burial shelf");
+        if(!state.flags.cryptSkeletonDefeated) actions.unshift("open stone coffin");
+        if(state.flags.cryptSkeletonDefeated && !state.flags.cryptCoffinLooted) actions.unshift("search open coffin");
       }
 
       const routeFinds = [
@@ -4150,7 +4609,7 @@
       willowTrail:"Willow Trail", flowerClearing:"Flower Clearing", fallenLog:"Fallen Log Crossing",
       whisperingForest:"Whispering Forest", cottageApproach:"Witch's Cottage", moonwell:"Moonwell", moonfen:"Moonfen",
       chapelRoad:"Chapel Road", chapelYard:"Chapel Yard", chapelApproach:"Saint Orla's Chapel", oldCemeteryPath:"Old Cemetery",
-      castleRoad:"King's Road", castleGate:"Ironthorn Gate"
+      castleRoad:"King's Road", thornHedgePass:"Thorn Hedge Pass", brokenWatchCrossing:"Broken Watch Crossing", outerGateApproach:"Outer Gate Approach", castleGate:"Ironthorn Gate"
     };
     function quickActionLabel(action) {
       const a = normalize(action);
@@ -4603,12 +5062,16 @@
         moonwell:["go west","go south","look in well"],
         moonfen:["go north","go west","look at ferry"],
         castleRoad:["go north","go south","look at thorns"],
+        thornHedgePass:["go north","go south","inspect strange tracks","investigate growl","search thorn hedge"],
+        brokenWatchCrossing:["go north","go south","search overturned wagon","examine ruined watch post","move scattered rubble"],
+        outerGateApproach:["go north","go south","inspect cracked sigil stone","search roadside ditch"],
         blacksmith:["leave forge","talk to blacksmith","browse forge wares"],
         apothecary:["talk to Elowen","show wares","go in back room","leave apothecary"],
         chapelRoad:["go west","go east","look at chapel"],
         chapelYard:["approach chapel","go east","go west"],
         chapelApproach:["enter chapel","look inside","go south"],
         chapel:["explore chapel","look at statue","look at altar","go south"],
+        crypt:[state.flags.cryptSkeletonDefeated?"search open coffin":"open stone coffin","search burial shelf","use silver token on reliquary","go up"],
         oldCemeteryPath:["go east","go south","look at old graves","look at collapsed wall"],
         castleGate:(state.flags.gateShardReady&&!state.flags.ending)?["confirm ending","look at gate","go north"]:["look at gate","look at winch","look at socket","go north"],
         secretTunnel:["go east","go west","search passage","look at passage"],
@@ -5010,7 +5473,7 @@
         <g transform="translate(610 210)"><path d="M-55 95 V-15 Q0-70 55-15 V95Z" fill="none" stroke="#4d644d" stroke-width="10"/><g stroke="#4d644d" stroke-width="6"><line x1="-28" y1="-40" x2="-28" y2="95"/><line y1="-55" y2="95"/><line x1="28" y1="-40" x2="28" y2="95"/></g><g class="float" filter="url(#glow)"><circle cy="15" r="11" fill="#ffe98c"/><path d="M-8 18 L-30 5 L-15 30Z M8 18 L30 5 L15 30Z" fill="#bfe8e1"/></g></g>
         <g fill="#e7e0d2"><circle cx="165" cy="365" r="6"/><circle cx="205" cy="390" r="5"/><circle cx="575" cy="380" r="5"/><circle cx="650" cy="360" r="6"/><circle cx="700" cy="405" r="5"/></g>`, "#15162d", "#223128");
 
-      if (id === "castleRoad") return frame(`${commonStars}
+      if (["castleRoad","thornHedgePass","brokenWatchCrossing","outerGateApproach"].includes(id)) return frame(`${commonStars}
         <path d="M0 270 L120 160 215 245 350 110 490 250 650 130 800 260 V330 H0Z" fill="#171421"/>
         <g transform="translate(400 130)"><rect x="-130" y="60" width="260" height="145" fill="#403846"/><rect x="-170" y="10" width="70" height="195" fill="#4a414f"/><rect x="100" y="10" width="70" height="195" fill="#4a414f"/><polygon points="-180,10 -135,-45 -90,10" fill="#302937"/><polygon points="90,10 135,-45 180,10" fill="#302937"/><rect x="-36" y="110" width="72" height="95" fill="#17131b"/></g>
         <path d="M275 450 Q330 325 390 300 Q455 325 525 450" fill="#4a3f42"/>
@@ -5038,7 +5501,8 @@
         const uses=(state.skillUses&&state.skillUses[name])||0,needed=3+value*2,pct=Math.min(100,uses/needed*100);
         return `<section class="skill-card" style="--skill:${meta.color}"><div class="skill-card-head"><div class="skill-icon">${meta.icon}</div><div><div class="skill-name">${name}</div><div class="skill-rank">${skillRank(value)}</div></div><div class="skill-level">Level ${value}</div></div><p class="skill-description">${meta.description}</p><div class="skill-progress-meta"><span>Practice ${uses}/${needed}</span><span>${Math.round(pct)}%</span></div><div class="skill-progress"><span style="width:${pct}%"></span></div></section>`;
       }).join("");
-      body.innerHTML=`<section class="hero-summary-card"><div class="hero-summary-top"><div><h3>${escapeHtml(player.name)} — ${escapeHtml(player.className)}</h3><p>Class strengths: ${specialty}<br>Total XP ${state.score||0} • Next hero level at ${nextLevel} XP</p></div><div class="hero-level-badge">Level ${state.level||1}</div></div></section>${cards}<p class="empty-state">Skills improve separately through successful use. Your class begins with its signature abilities already ahead, but every hero can practice every skill.</p>`;
+      const a=adventureStats();
+      body.innerHTML=`<section class="hero-summary-card"><div class="hero-summary-top"><div><h3>${escapeHtml(player.name)} — ${escapeHtml(player.className)}</h3><p>Class strengths: ${specialty}<br>Total XP ${state.score||0} • Next hero level at ${nextLevel} XP</p><p><strong>D20 abilities:</strong> Might +${a.might} • Wits +${a.wits} • Resolve +${a.resolve} • Luck +${a.luck} • Defense ${a.defense}</p></div><div class="hero-level-badge">Level ${state.level||1}</div></div></section>${cards}<p class="empty-state">Skills improve separately through successful use. D20 abilities are derived from your hero's class attributes and equipment.</p>`;
     }
 
     function renderHeroClasses() {
@@ -5123,7 +5587,13 @@
     document.getElementById("skills-btn").addEventListener("click", () => { renderSkills(); document.getElementById("skills-dialog").showModal(); });
     actionsToggleEl.addEventListener("click",()=>{actionsPanelExpanded=!actionsPanelExpanded;storageSet(ACTION_PANEL_PREF_KEY,String(actionsPanelExpanded));renderQuickActions();});
     document.getElementById("map-btn").addEventListener("click", () => { renderMap(); document.getElementById("map-dialog").showModal(); });
-    document.addEventListener("click", (event) => { const closeMap = event.target.closest && event.target.closest("[data-map-close]"); if (closeMap) { const dlg=document.getElementById("map-dialog"); if (dlg && dlg.open) dlg.close(); } });
+    document.addEventListener("click", (event) => {
+      const closeMap = event.target.closest && event.target.closest("[data-map-close]");
+      if (closeMap) { const dlg=document.getElementById("map-dialog"); if (dlg && dlg.open) dlg.close(); }
+      const combatBtn=event.target.closest && event.target.closest("[data-combat-action]");
+      if(combatBtn) combatAction(combatBtn.dataset.combatAction);
+    });
+    document.getElementById("combat-dialog")?.addEventListener("cancel",event=>event.preventDefault());
     document.getElementById("menu-btn").addEventListener("click", () => { renderQuests(); document.getElementById("menu-dialog").showModal(); });
     document.querySelectorAll("[data-close]").forEach(btn => btn.addEventListener("click", () => document.getElementById(btn.dataset.close).close()));
     document.getElementById("save-btn").addEventListener("click", saveGame);
@@ -5176,7 +5646,7 @@
           tavernCellarOpen:false
         });
       }
-      state.schemaVersion = 1723;
+      state.schemaVersion = 1729;
       state.inventory.forEach(i => { if (!state.itemCounts[i]) state.itemCounts[i]=1; });
       state.gold = Number.isFinite(state.gold) ? state.gold : 20;
       state.health = Number.isFinite(state.health) ? state.health : 20;
@@ -5218,6 +5688,7 @@
       state.lastPerson = typeof state.lastPerson === "string" ? state.lastPerson : "";
       state.lastCommand = typeof state.lastCommand === "string" ? state.lastCommand : "";
       state.commandHistory = Array.isArray(state.commandHistory) ? state.commandHistory : [];
+      state.combat = null;
       commandHistoryIndex = state.commandHistory.length;
       if (!rooms[state.room]) state.room = "square";
     }
@@ -5226,13 +5697,15 @@
       const vv = window.visualViewport;
       const innerHeight = Math.round(window.innerHeight || 0);
       const innerWidth = Math.round(window.innerWidth || 0);
-      const visualHeight = vv ? Math.round(vv.height + Math.max(0, vv.offsetTop || 0)) : innerHeight;
-      const visualWidth = vv ? Math.round(vv.width + Math.max(0, vv.offsetLeft || 0)) : innerWidth;
-      const heightCandidates = [innerHeight, visualHeight].filter(value => Number.isFinite(value) && value >= 280);
+      const keyboardActive=document.body.classList.contains("keyboard-open") && vv;
+      const visualHeight = vv ? Math.round(vv.height + (keyboardActive?0:Math.max(0, vv.offsetTop || 0))) : innerHeight;
+      const visualWidth = vv ? Math.round(vv.width + (keyboardActive?0:Math.max(0, vv.offsetLeft || 0))) : innerWidth;
+      const heightCandidates = [innerHeight, visualHeight].filter(value => Number.isFinite(value) && value >= 240);
       const widthCandidates = [innerWidth, visualWidth].filter(value => Number.isFinite(value) && value >= 280);
       return {
-        height: heightCandidates.length ? Math.min(...heightCandidates) : Math.max(innerHeight, 320),
-        width: widthCandidates.length ? Math.min(...widthCandidates) : Math.max(innerWidth, 320)
+        height: keyboardActive ? Math.max(240,Math.round(vv.height)) : (heightCandidates.length ? Math.min(...heightCandidates) : Math.max(innerHeight, 320)),
+        width: widthCandidates.length ? Math.min(...widthCandidates) : Math.max(innerWidth, 320),
+        top: keyboardActive ? Math.max(0,Math.round(vv.offsetTop||0)) : 0
       };
     }
 
@@ -5240,6 +5713,7 @@
       const metrics = visibleViewportMetrics();
       document.documentElement.style.setProperty("--app-height", `${metrics.height}px`);
       document.documentElement.style.setProperty("--app-width", `${metrics.width}px`);
+      document.documentElement.style.setProperty("--viewport-top", `${metrics.top||0}px`);
     }
 
     function forceViewportLayoutReflow() {
@@ -5281,13 +5755,19 @@
     window.screen?.orientation?.addEventListener?.("change", settleViewportAfterOrientation, { passive: true });
     window.visualViewport?.addEventListener("resize", queueViewportSync, { passive: true });
     window.visualViewport?.addEventListener("scroll", queueViewportSync, { passive: true });
-    inputEl.addEventListener("focus", () => setTimeout(queueViewportSync, 80));
-    inputEl.addEventListener("blur", () => setTimeout(queueViewportSync, 80));
+    inputEl.addEventListener("focus", () => {
+      document.body.classList.add("keyboard-open");
+      [0,80,180,360].forEach(delay=>setTimeout(()=>{syncVisibleViewportHeight();document.querySelector(".controls")?.scrollIntoView({block:"end"});},delay));
+    });
+    inputEl.addEventListener("blur", () => {
+      document.body.classList.remove("keyboard-open");
+      setTimeout(settleViewportAfterOrientation,80);
+    });
 
     function boot() {
       updateMusicButton();
       const vt = document.getElementById("version-tag");
-      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Orientation & Viewport Recovery Hotfix`;
+      if (vt) vt.textContent = `Version ${BUILD_VERSION} • Tunnel Treasure, Crypt Encounter & D20 Combat`;
       const saved = storageGet(SAVE_KEY);
       if (saved) {
         try { state = JSON.parse(saved); migrateState(); restoreDynamicExits(); }
@@ -5300,7 +5780,7 @@
       }
       renderAll();
       showTitleScreen();
-      if ("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js?build=1728").catch(() => {});
+      if ("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js?build=1729").catch(() => {});
     }
 
     boot();
