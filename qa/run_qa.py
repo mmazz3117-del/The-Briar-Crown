@@ -5,7 +5,7 @@ from PIL import Image, ImageStat
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else Path(__file__).resolve().parents[1]
-VERSION = "1.7.3.0"
+VERSION = "1.7.3.1"
 ART_VERSION = "1.7.2.9"
 CONTRACT = json.loads((Path(__file__).parent / "contracts.json").read_text())
 results = []
@@ -111,7 +111,19 @@ with sync_playwright() as pw:
     check("map:full-screen-viewer", "height:100dvh!important" in index and "world-map-v1726.png" in index)
     check("map:no-crossing-overlay-lines", ".wm-route { display:none!important; }" in index and 'const edgesSvg = "";' in index)
     check("opening:art-present", (ROOT / "assets/ui/opening-v1730.webp").exists() and "opening-v1730.webp" in index)
-    check("opening:version-visible", "Version 1.7.3.0" in index and 'id="opening-enter-btn"' in index)
+    check("opening:version-visible", "Version 1.7.3.1" in index and 'id="opening-enter-btn"' in index)
+    check("opening:animated-scroll-structure", all(token in index for token in ["ancient-scroll","scroll-roll-top","scroll-roll-bottom","parchment-unfurl","showLoreScreen"]))
+    check("opening:hidden-step-isolation-css", '.lore-step[hidden], .class-step[hidden], .opening-title-step[hidden]' in index)
+    page.evaluate("showTitleScreen()")
+    page.click("#opening-enter-btn")
+    page.click("#new-adventure-btn")
+    check("opening:lore-only-visible", page.locator("#lore-step").is_visible() and not page.locator("#class-step").is_visible())
+    check("opening:scroll-rolls-visible", page.locator(".scroll-roll-top").is_visible() and page.locator(".scroll-roll-bottom").is_visible())
+    page.click("#lore-continue-btn")
+    check("opening:hero-only-visible", page.locator("#class-step").is_visible() and not page.locator("#lore-step").is_visible())
+    hero_geom=page.locator("#class-step").evaluate("e=>({top:e.getBoundingClientRect().top,bottom:e.getBoundingClientRect().bottom,h:e.clientHeight,scroll:e.scrollHeight,inner:window.innerHeight})")
+    check("opening:hero-screen-fills-mobile", hero_geom["top"] <= 1 and hero_geom["bottom"] <= hero_geom["inner"]+1 and hero_geom["h"] > 500, str(hero_geom))
+    check("opening:hero-cards-interactive", page.locator("#class-grid .class-card").count() >= 4)
     hub = page.evaluate("rooms.square.exits")
     check("navigation:four-way-hub", hub == {"north":"tavernApproach","east":"forgeLane","south":"castleRoad","west":"chapelRoad"}, str(hub))
     check("navigation:named-action-labels", "navigationDestinationNames" in index and "Go ${titleCase(compass[1])}" in index)
