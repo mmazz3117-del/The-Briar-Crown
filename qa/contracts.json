@@ -1,5 +1,5 @@
 {
-  "version": "1.7.4.1",
+  "version": "1.7.4.2",
   "scenes": {
     "tavern": {
       "fresh_required": [
@@ -43,8 +43,31 @@
     }
   },
   "equipment": {
+    "slots": [
+      "weapon",
+      "offhand",
+      "armor",
+      "boots",
+      "charm",
+      "ring",
+      "belt"
+    ],
+    "iron dagger": {
+      "slot": "weapon",
+      "attack": 2,
+      "damage": "1d4+2"
+    },
+    "short sword": {
+      "slot": "weapon",
+      "attack": 1,
+      "damage": "1d6+2"
+    },
     "wooden shield": {
-      "slot": "shield",
+      "slot": "offhand",
+      "defense": 1
+    },
+    "ancient chapel charm": {
+      "slot": "charm",
       "defense": 1
     }
   },

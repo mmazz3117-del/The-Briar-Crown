@@ -5,7 +5,7 @@ from PIL import Image, ImageStat
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else Path(__file__).resolve().parents[1]
-VERSION = "1.7.4.1"
+VERSION = "1.7.4.2"
 ART_VERSION = "1.7.2.9"
 CONTRACT = json.loads((Path(__file__).parent / "contracts.json").read_text())
 results = []
@@ -111,7 +111,7 @@ with sync_playwright() as pw:
     check("map:full-screen-viewer", "height:100dvh!important" in index and "world-map-v1726.png" in index)
     check("map:no-crossing-overlay-lines", ".wm-route { display:none!important; }" in index and 'const edgesSvg = "";' in index)
     check("opening:art-present", (ROOT / "assets/ui/opening-v1730.webp").exists() and "opening-v1730.webp" in index)
-    check("opening:version-visible", 'const BUILD_VERSION = "1.7.4.1"' in index and 'id="opening-enter-btn"' in index)
+    check("opening:version-visible", 'const BUILD_VERSION = "1.7.4.2"' in index and 'id="opening-enter-btn"' in index)
     check("opening:animated-scroll-structure", all(token in index for token in ["ancient-scroll","scroll-roll-top","scroll-roll-bottom","parchment-unfurl","showLoreScreen"]))
     check("opening:hidden-step-isolation-css", '.lore-step[hidden], .class-step[hidden], .opening-title-step[hidden]' in index)
     page.evaluate("showTitleScreen()")
@@ -143,6 +143,10 @@ with sync_playwright() as pw:
     check("combat:resume-pending-state", "resumePendingInteractionState" in index and "state.pendingLoot=state.pendingLoot" in index)
     check("skills:unique-combat-practice", "grantSkillPractice" in index and "victory-restlessSkeleton" in index and "victory-thornHound" in index)
     check("combat:player-acknowledged-phases", "enemy-ready" in index and "Continue — Enemy Turn" in index and "combat-history" in index)
+    check("equipment:dialog-present", 'id="equipment-dialog"' in index and "Equipment &amp; Loadout" in index)
+    check("equipment:hero-art-present", (ROOT / "assets/ui/rowan-equipment-v1742.webp").exists() and "rowan-equipment-v1742.webp" in index)
+    check("equipment:slots-present", all(f'{slot}:{{label:' in index for slot in ["weapon","offhand","armor","boots","charm","ring","belt"]))
+    check("equipment:combat-formulas-present", "stats.attack" in index and "stats.defense" in index and "equipmentTotals" in index and "Damage:" in index)
     check("audio:central-recovery-controller", all(token in index for token in ["ensureMusicPlaying","recoverMusicAfterInterruption","visibilitychange","pageshow","musicWatchdog","Tap to Resume"]))
     check("audio:timer-clears-before-reschedule", "function clearMusicTimer" in index and "musicTimer=null;scheduleHarpPhrase()" in index)
     check("searches:one-attempt-helper", "runOneAttemptCheck" in index and "You may try again" not in index)
@@ -446,6 +450,60 @@ with sync_playwright() as pw:
 
     stats=page.evaluate("adventureStats()")
     check("d20:derived-stats", all(k in stats for k in ["might","wits","resolve","luck","defense"]), str(stats))
+
+    # Equipment & Loadout: base/current/preview stats and combat calculations.
+    page.evaluate("""() => {
+      document.querySelectorAll('dialog[open]').forEach(d=>d.close());
+      state=initialState();
+      state.player={name:'Rowan',classKey:'knight',className:'Knight',stats:heroClasses.knight.stats};
+      state.skills.Combat=2;
+      addItem('iron dagger');addItem('short sword');addItem('wooden shield');addItem('ancient chapel charm');
+      document.getElementById('start-overlay').hidden=true;
+      renderAll();showEquipment('iron dagger');
+    }""")
+    check("equipment:dialog-opens", page.locator("#equipment-dialog").evaluate("d=>d.open"))
+    check("equipment:all-seven-slots-render", page.locator("[data-loadout-slot]").count() == 7, str(page.locator("[data-loadout-slot]").count()))
+    check("equipment:hero-character-rendered", page.locator(".loadout-hero-art img").count() == 1 and "rowan-equipment-v1742.webp" in (page.locator(".loadout-hero-art img").get_attribute("src") or ""))
+    equip_preview=page.evaluate("({base:combatStatBundle().base,current:combatStatBundle().current,preview:combatStatBundle(projectedLoadout('iron dagger')).current})")
+    check("equipment:base-current-preview", equip_preview["base"]["attack"] == 4 and equip_preview["current"]["attack"] == 4 and equip_preview["preview"]["attack"] == 6 and equip_preview["preview"]["damageMin"] == 3 and equip_preview["preview"]["damageMax"] == 6, str(equip_preview))
+    page.evaluate("equipItem('iron dagger');equipItem('wooden shield');equipItem('ancient chapel charm');renderEquipment()")
+    equipped_stats=page.evaluate("combatStatBundle().current")
+    check("equipment:weapon-shield-charm-stats", equipped_stats["attack"] == 6 and equipped_stats["defense"] == 13 and equipped_stats["damageMin"] == 3 and equipped_stats["damageMax"] == 6, str(equipped_stats))
+    check("equipment:cards-show-equipped-items", "Iron Dagger" in page.locator("#equipment-body").inner_text() and "Wooden Shield" in page.locator("#equipment-body").inner_text() and "Ancient Chapel Charm" in page.locator("#equipment-body").inner_text())
+    equip_geom=page.locator("#equipment-body").evaluate("e=>({client:e.clientWidth,scroll:e.scrollWidth,height:e.clientHeight,scrollHeight:e.scrollHeight})")
+    check("equipment:mobile-no-horizontal-overflow", equip_geom["scroll"] <= equip_geom["client"] + 1, str(equip_geom))
+    page.locator("#equipment-dialog [data-close]").click()
+
+    # Legacy shield slot migrates to the new Off-Hand slot and survives save/reload.
+    legacy_equipment=page.evaluate("""() => {
+      state=initialState();state.player={name:'Legacy',classKey:'knight',className:'Knight',stats:heroClasses.knight.stats};
+      addItem('wooden shield');state.equipment={shield:'wooden shield',weapon:null};state.schemaVersion=1741;migrateState();
+      const first=JSON.parse(JSON.stringify(state.equipment));const saved=JSON.stringify(state);state=JSON.parse(saved);migrateState();
+      return {first,after:state.equipment,defense:adventureStats().defense};
+    }""")
+    check("equipment:legacy-shield-migrates", legacy_equipment["first"]["offhand"] == "wooden shield" and legacy_equipment["after"]["offhand"] == "wooden shield" and legacy_equipment["defense"] == 12, str(legacy_equipment))
+
+    # Removing an equipped final copy safely clears its slot.
+    removed=page.evaluate("""() => {state=initialState();state.player={name:'QA',classKey:'knight',className:'Knight',stats:heroClasses.knight.stats};addItem('iron dagger');equipItem('iron dagger');removeItem('iron dagger',1);return {weapon:state.equipment.weapon,has:has('iron dagger')};}""")
+    check("equipment:removed-item-unequips", removed["weapon"] is None and removed["has"] is False, str(removed))
+
+    # Equipped Attack, Defense and Damage modifiers appear in real battle rolls.
+    page.evaluate("""() => {
+      state=initialState();state.player={name:'QA Knight',classKey:'knight',className:'Knight',stats:heroClasses.knight.stats};state.skills.Combat=2;
+      addItem('iron dagger');addItem('wooden shield');addItem('ancient chapel charm');equipItem('iron dagger');equipItem('wooden shield');equipItem('ancient chapel charm');
+      state.room='thornHedgePass';startCombat('thornHound');Math.random=()=>0.5;
+    }""")
+    page.evaluate("combatAction('attack')")
+    geared_attack=page.evaluate("({phase:state.combat.phase,message:state.combat.message,stats:adventureStats()})")
+    check("combat:equipped-attack-used", geared_attack["phase"] == "enemy-ready" and "Combat 2" in geared_attack["message"] and "Iron Dagger 2" in geared_attack["message"] and "Damage: d4" in geared_attack["message"] and geared_attack["stats"]["attack"] == 6, str(geared_attack))
+    page.evaluate("combatAction('continue')")
+    geared_defense=page.evaluate("({message:state.combat.message,stats:adventureStats()})")
+    check("combat:equipped-defense-used", "vs Defense 13" in geared_defense["message"] and "Gear 2" in geared_defense["message"] and geared_defense["stats"]["defense"] == 13, str(geared_defense))
+    page.evaluate("state.combat.phase='player';combatAction('defend')")
+    page.evaluate("combatAction('continue')")
+    defended=page.evaluate("({message:state.combat.message,pending:state.combat.pendingDefend,phase:state.combat.phase})")
+    check("combat:defend-bonus-once", "Defend 2" in defended["message"] and "vs Defense 15" in defended["message"] and defended["pending"] is False and defended["phase"] == "player", str(defended))
+    page.evaluate("emergencyRetreatFromCombat('QA')")
     page.locator("#command-input").focus()
     page.wait_for_timeout(120)
     check("keyboard:focus-class", page.evaluate("document.body.classList.contains('keyboard-open')") is True)
