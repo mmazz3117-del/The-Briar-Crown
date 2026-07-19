@@ -1,0 +1,296 @@
+{
+  "version": "1.7.2.9",
+  "assets": {
+    "apothecary-approach-v1724.webp": {
+      "sha256": "b16a9d4792c0e32254dbaa9ee0483d4b29a0edfef1b55518a4535a8fd11ae010",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "apothecary-back-room-v1724.webp": {
+      "sha256": "68f92812ab0214627959e1afb8f4b5afaf752108358dd0df3041805a71d9d800",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "apothecary-center-v1724.webp": {
+      "sha256": "1f144cd6578a7afbe03d93082ec62e3e529953072de03b93c99922c989801ecd",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "apothecary-door-v1724.webp": {
+      "sha256": "1cfd3631f63404011342b470164e01b3a923a613eee8bd96457c0b66841f931e",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "apothecary-east-v1724.webp": {
+      "sha256": "640cdbc991ec1e1caa01510d1b272783c7ed19d4fff64f5470dbee3284796feb",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "apothecary-north-v1724.webp": {
+      "sha256": "25e0d1ddf682c3ce182bbf536244649d7651257c91bb8f0e0a22bca1ecb1c781",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "apothecary-south-v1724.webp": {
+      "sha256": "d66af57b7bd21ec616d74182f2a81d61ef65e45f49b5bd5009f39328e3c9b5ac",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "apothecary-west-v1724.webp": {
+      "sha256": "7aa8375d79dadc30da4e60c762c6362cbf39ae770ba92f40e77bf5bed42f9ccc",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "broken-watch-crossing-v1729.webp": {
+      "sha256": "25b51101d0f065eeaf23690950eada91c8586f35d326535036c8bfbcf00fe5a3",
+      "width": 1200,
+      "height": 900,
+      "bytes": 545760,
+      "visual_status": "approved original v1.7.2.9 daylight scene; no legacy composite or overlay art"
+    },
+    "chapel-approach-v1724.webp": {
+      "sha256": "1d0a71e8cc0d399d517b3a5113a9ba7cfd9a17bb8a539dd44dea1cbc76cd9a25",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "chapel-crypt-v1724.webp": {
+      "sha256": "4e0c7b369926a96f1932e223990c5d3a7e97ef32e8c5c8c7aef362ef6933f52b",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "chapel-interior-v1724.webp": {
+      "sha256": "6b31cac2a334109b6c007024041f2ad11c3013c27bddb0e095acee47727920c6",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "chapel-road-v1724.webp": {
+      "sha256": "cdf565e48430c52e89d276caa28a1a6f23e0cb5548715297f561f32399264a2e",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "chapel-yard-v1724.webp": {
+      "sha256": "43c536211f7dacca81403057fe8535fb19a5c0b32b0e311cc3a27138fb4ec74a",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "collapsed-alcove-open-v1724.webp": {
+      "sha256": "8e06fb4e711f1c6f0efb6fb3d2ea0bcdffb97057897809781e7d589311c98b0e",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "collapsed-alcove-v1724.webp": {
+      "sha256": "2c35356d537b8b74b853d2ff7a8805975fad5102fe6802aa78be24fa767606d9",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "east-road-v1724.webp": {
+      "sha256": "a262abb74da7a32856a6d7866fb357c66745cc8c144f1fdefd76448b17e94b56",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "fallen-log-v1724.webp": {
+      "sha256": "4f806335a283e0b22714a9dba2404c32408ca2709a923eaa1207e3ac136d5571",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "flower-clearing-v1724.webp": {
+      "sha256": "8e4a6271e759102ffe4a4b235c40296ebab1ea32e457f5f666e72065f4a3800d",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "forest-edge-v1724.webp": {
+      "sha256": "2da5f60637c0b87809541139bb4835e6d4829cc645e72f957e763d732261b772",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "forge-door-v1724.webp": {
+      "sha256": "51f656ab70d5758970912f6eb2a6ba0cf9d74537de9d5b0e7a0522ba6d78f7ad",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "forge-interior-v1724.webp": {
+      "sha256": "a96aee9a67d1adfee1ee01c14695f3a1c1983568380f7b5288f44799cf326912",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "forge-lane-v1724.webp": {
+      "sha256": "8e5a586f313bf8891cd09824b140f013ecd3de27a9dfa3e3fd5a4f22631adb16",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "hidden-passage-v1724.webp": {
+      "sha256": "b875b1301f65670c3f249e0ad85c0f4eefdc48042cec762b2898286e49484707",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "ironthorn-gate-v1724.webp": {
+      "sha256": "f7c3b43ff15a92292d420e48713b2a426d03d10acdfa53f2c37568b3b04b66d2",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "kings-road-v1724.webp": {
+      "sha256": "96ff1f1abf2bb20b7f31f787e03ce92a059a4525fd8018baf9a2c7a61840add1",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "moonfen-ferry-landing-v1724.webp": {
+      "sha256": "76cf31e98154f8a7e35a628585d9d5ae2de72cc96c84e157ae0a8a2e9fa7bad2",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "moonfen-hut-exterior-v1724.webp": {
+      "sha256": "4e7a1db87166508cfd3150c565c928960c4ade81f6b69fa922d0b3b8a667462f",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "moonfen-hut-interior-v1724.webp": {
+      "sha256": "7cd162c58c6e052e90ad5d2f249821c86c89afbb935880945739eaa6d1fedeee",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "moonwell-v1724.webp": {
+      "sha256": "73b39d097276b1295767473446aeece1fa6a3df9b2682e832a486774deaac779",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "old-cemetery-v1724.webp": {
+      "sha256": "892b30d9382831b989413bbf8dfd441900d967ef7928a06d506bc52f340db934",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "outer-gate-approach-v1729.webp": {
+      "sha256": "6233297a035bfd7b4b8bd804323e8bc39c648443fb85de4f90f7fa75bb582f40",
+      "width": 1200,
+      "height": 900,
+      "bytes": 438406,
+      "visual_status": "approved original v1.7.2.9 daylight scene; no legacy composite or overlay art"
+    },
+    "square-v1724.webp": {
+      "sha256": "7c773e6d8ae30b47b99ab87a4a439131a1366cc06bad0c126fd0999a5fc24011",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "tavern-approach-v1724.webp": {
+      "sha256": "ad62618f26ddf76ee54e9cf51e4db3b0b1ddbcc52e60717251662b1ea31c74a4",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "tavern-cellar-passage-v1724.webp": {
+      "sha256": "9878b3058915616aa053226b752310f4f8d1d98133477669f8d580abde79148b",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "tavern-cellar-v1724.webp": {
+      "sha256": "177825532abb5088e9b82a68e086dd974e9f0aacad46d7ecb3442e5f4a2e6bea",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "tavern-center-v1724.webp": {
+      "sha256": "dd6680f2c0412b665411250d8bb82f90cf19a7ac51f0b99b00011e5fe0819760",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "tavern-door-v1724.webp": {
+      "sha256": "bb5867aebfffc36d40332e33e2bb41f7a1a9cdda9d6bf07d015d0962181a4132",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "tavern-east-v1724.webp": {
+      "sha256": "4e0a59f924095a8433fa19bde019e390673c5f5354aed5ac951b890ca5695547",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "tavern-north-v1724.webp": {
+      "sha256": "59a5022fd834c69e1b1b21cca633919bd64a4f7b5553bc0246d55078fa915b5a",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "tavern-south-v1724.webp": {
+      "sha256": "dd6680f2c0412b665411250d8bb82f90cf19a7ac51f0b99b00011e5fe0819760",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "tavern-west-v1724.webp": {
+      "sha256": "06a7da1aef95a070c1189cacc86ea6150c9b1d127723a0fe301ea74cebe43d07",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "thorn-hedge-pass-v1729.webp": {
+      "sha256": "36a6e7be585c248deee9fcf01583c2f03ebf441b3930184c083e7c956ba303d3",
+      "width": 1200,
+      "height": 900,
+      "bytes": 572118,
+      "visual_status": "approved original v1.7.2.9 daylight scene; no legacy composite or overlay art"
+    },
+    "whispering-forest-v1724.webp": {
+      "sha256": "4687ad03ce6c4503b5637291aa4a8f731f3b4205e41962fc5e2879c53f647d7b",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "willow-trail-v1724.webp": {
+      "sha256": "63d4a0db5f86c2fc86fd04d5b61c714e679355d47edb174ebbf4ae0c97a04648",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "witch-cottage-cellar-v1724.webp": {
+      "sha256": "7304fe5fa80c26987fe5f0a49b5bac59193beef086af6fdd795c25acde3e5904",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "witch-cottage-exterior-v1724.webp": {
+      "sha256": "9bd7b205523027e86f0db260a810b58e9b594246fff524286afbc54cedc831ff",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "witch-cottage-interior-v1724.webp": {
+      "sha256": "1f666ff0986ca0e0dbb97adaf6ce4f739089096db97cba1d9b6ac9b3c76a51aa",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "optimized v1.7.2.4 production scene"
+    }
+  }
+}
