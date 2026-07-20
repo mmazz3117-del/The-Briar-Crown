@@ -1,4 +1,4 @@
-const CACHE = "briar-crown-v1.7.6.1-command-input-clear-hotfix";
+const CACHE = "briar-crown-v1.7.6.2-send-button-input-clear-hotfix";
 const CORE_ASSETS = [
   "./",
   "./index.html",

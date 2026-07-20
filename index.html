@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="briar-crown-deployment" content="1761">
+  <meta name="briar-crown-deployment" content="1762">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content" />
   <meta name="theme-color" content="#0b0912" />
@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-title" content="Briar Crown" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <title>The Briar Crown — Mobile Adventure v1.7.6.1</title>
+  <title>The Briar Crown — Mobile Adventure v1.7.6.2</title>
   <style>
 
     :root {
@@ -1850,7 +1850,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.7.6.1 • Command Input Clear Hotfix</small>
+        <small id="version-tag">Version 1.7.6.2 • Send Button Input Clear Hotfix</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -1888,9 +1888,9 @@
         <button id="command-tutorial-dismiss" type="button">Got it</button>
       </div>
       <div class="command-line">
-        <button id="backpack-btn" class="backpack-btn" aria-label="Open satchel"><span class="satchel-icon"><img src="assets/ui/satchel.png" alt=""></span><small>Satchel</small></button>
+        <button id="backpack-btn" class="backpack-btn" type="button" aria-label="Open satchel"><span class="satchel-icon"><img src="assets/ui/satchel.png" alt=""></span><small>Satchel</small></button>
         <input id="command-input" autocomplete="off" autocapitalize="sentences" spellcheck="false" placeholder="What do you do?" aria-label="Type a command" />
-        <button id="send-btn" aria-label="Send command">➤</button>
+        <button id="send-btn" type="button" aria-label="Send command">➤</button>
       </div>
     </section>
   </main>
@@ -2023,7 +2023,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.7.6.1";
+    const BUILD_VERSION = "1.7.6.2";
 
     const itemInfo = {
       "minor healing tonic": "A small crimson tonic. Restores up to 6 HP during combat.",
@@ -6298,12 +6298,24 @@
       if(tutorial)tutorial.hidden=!active;
       if(inputEl)inputEl.placeholder=active?"Try: examine well or use item on object":"What do you do?";
     }
-    function submitTypedCommand(){
+    function clearCommandInput({blur=false}={}){
+      if(!inputEl)return;
+      inputEl.value="";
+      inputEl.defaultValue="";
+      if(blur)inputEl.blur();
+      // Mobile Safari can commit a final input value as a tapped button takes focus.
+      // Clear again after the current event and after command processing settles.
+      requestAnimationFrame(()=>{inputEl.value="";inputEl.defaultValue="";});
+      setTimeout(()=>{inputEl.value="";inputEl.defaultValue="";},0);
+    }
+    async function submitTypedCommand(event){
+      if(event){event.preventDefault();event.stopPropagation();}
       const raw=inputEl.value;
       if(!normalize(raw))return;
-      inputEl.value="";
+      clearCommandInput({blur:true});
       if(state.flags.tutorialFirstActionComplete&&!state.flags.tutorialCommandComplete)completeCommandTutorial(false);
-      processCommand(raw);
+      try{await processCommand(raw);}
+      finally{clearCommandInput();}
     }
     function updateSceneTutorial(){
       const tutorial=document.getElementById("scene-tutorial");if(!tutorial)return;
@@ -6804,7 +6816,7 @@
 
     document.getElementById("send-btn").addEventListener("click", submitTypedCommand);
     inputEl.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") submitTypedCommand();
+      if (e.key === "Enter") { e.preventDefault(); submitTypedCommand(e); }
       if (e.key === "ArrowUp") { e.preventDefault(); const h=state.commandHistory||[]; if(h.length){ commandHistoryIndex=Math.max(0,commandHistoryIndex-1); inputEl.value=h[commandHistoryIndex]||""; } }
       if (e.key === "ArrowDown") { e.preventDefault(); const h=state.commandHistory||[]; if(h.length){ commandHistoryIndex=Math.min(h.length,commandHistoryIndex+1); inputEl.value=commandHistoryIndex===h.length?"":(h[commandHistoryIndex]||""); } }
     });
@@ -7022,7 +7034,7 @@
     function boot() {
       updateMusicButton();
       const vt = document.getElementById("version-tag");
-      const versionLabel=`Version ${BUILD_VERSION} • No-Flicker & Combat Portrait Fit Hotfix`;
+      const versionLabel=`Version ${BUILD_VERSION} • Send Button Input Clear Hotfix`;
       if (vt) vt.textContent = versionLabel;
       const ov=document.getElementById("opening-version");if(ov)ov.textContent=versionLabel;
       const saved = storageGet(SAVE_KEY);
@@ -7037,7 +7049,7 @@
       }
       renderAll();
       showTitleScreen();
-      if ("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js?build=1761").catch(() => {});
+      if ("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js?build=1762").catch(() => {});
     }
 
     boot();
