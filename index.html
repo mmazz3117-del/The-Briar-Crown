@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="briar-crown-deployment" content="1750">
+  <meta name="briar-crown-deployment" content="1760">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content" />
   <meta name="theme-color" content="#0b0912" />
@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-title" content="Briar Crown" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <title>The Briar Crown — Mobile Adventure v1.7.5.0</title>
+  <title>The Briar Crown — Mobile Adventure v1.7.6.0</title>
   <style>
 
     :root {
@@ -484,6 +484,32 @@
       grid-template-columns: 58px minmax(0,1fr) 54px;
       gap: 9px;
       align-items: center;
+    }
+    .command-tutorial {
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:8px;
+      align-items:center;
+      margin:0 0 8px;
+      padding:9px 10px;
+      border:1px solid #9a763c;
+      border-radius:6px;
+      background:linear-gradient(145deg,#2a203b,#17131f);
+      color:#ead59d;
+      font-size:11px;
+      line-height:1.3;
+    }
+    .command-tutorial[hidden]{display:none}
+    .command-tutorial strong{display:block;color:#fff0b7;font-size:12px;margin-bottom:2px}
+    .command-tutorial button{
+      min-height:34px;
+      border:1px solid #a57d37;
+      border-radius:5px;
+      background:#3a294f;
+      color:#f0d994;
+      padding:5px 9px;
+      font-weight:700;
+      cursor:pointer;
     }
     .move-pad-removed {
       display: grid;
@@ -1738,8 +1764,8 @@
       overflow-y:auto!important;
     }
     .combat-enemy-art{
-      display:block;width:78px;height:78px;object-fit:cover;border-radius:50%;margin:0 auto 7px;border:2px solid #a27c37;
-      box-shadow:0 0 0 3px rgba(15,10,20,.9),0 0 18px rgba(209,164,67,.28);
+      display:block;width:78px;height:78px;object-fit:cover;object-position:var(--combat-art-position,center 30%);border-radius:50%;margin:0 auto 7px;border:2px solid #a27c37;
+      box-shadow:0 0 0 3px rgba(15,10,20,.9),0 0 18px rgba(209,164,67,.28);background:#09070d;
     }
     .combat-item-note{display:block;margin-top:3px;color:#aa9972;font-size:9px}
     .loot-panel{margin:auto!important;max-height:calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 30px);overflow-y:auto}
@@ -1824,7 +1850,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.7.5.0 • Exploration, Encounters & Rewards</small>
+        <small id="version-tag">Version 1.7.6.0 • Contextual Commands & Combined Hotfix</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -1857,6 +1883,10 @@
     <section class="controls">
       <button class="actions-toggle" id="actions-toggle" type="button" aria-expanded="true">Hide Actions ▲</button>
       <div class="quick-row" id="quick-actions"></div>
+      <div class="command-tutorial" id="command-tutorial" hidden>
+        <span><strong>Try your own command</strong>Tap objects for quick actions, or type naturally—such as “examine the well,” “use rope on the gate,” or “lift the rock with a stick.” Plausible ideas receive feedback and hints.</span>
+        <button id="command-tutorial-dismiss" type="button">Got it</button>
+      </div>
       <div class="command-line">
         <button id="backpack-btn" class="backpack-btn" aria-label="Open satchel"><span class="satchel-icon"><img src="assets/ui/satchel.png" alt=""></span><small>Satchel</small></button>
         <input id="command-input" autocomplete="off" autocapitalize="sentences" spellcheck="false" placeholder="What do you do?" aria-label="Type a command" />
@@ -1993,7 +2023,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.7.5.0";
+    const BUILD_VERSION = "1.7.6.0";
 
     const itemInfo = {
       "minor healing tonic": "A small crimson tonic. Restores up to 6 HP during combat.",
@@ -2575,7 +2605,7 @@
     applyV1726NavigationGraph();
 
     const initialState = () => ({
-      schemaVersion: 1750,
+      schemaVersion: 1760,
       room: "square",
       view: "center",
       inventory: [],
@@ -2680,7 +2710,9 @@
         ending: null,
         tutorialSceneTapComplete: false,
         tutorialFirstActionComplete: false,
-        tutorialLookComplete: false
+        tutorialLookComplete: false,
+        tutorialCommandIntroShown: false,
+        tutorialCommandComplete: false
       },
       combat: null,
       log: []
@@ -2690,13 +2722,13 @@
 
     const enemyCatalog = {
       thornHound:{
-        name:"Thorn Hound", icon:"🐺", art:"assets/ui/thorn-hound-v1750.webp", type:"Briar Beast", threat:"Moderate",
+        name:"Thorn Hound", icon:"🐺", art:"assets/ui/thorn-hound-v1750.webp", combatPosition:"center 48%", type:"Briar Beast", threat:"Moderate",
         description:"A snarling hound woven from black briars tears free of the hedge and lowers its thorn-covered shoulders.",
         trait:"Thorn Hide", weakness:"Fire and clean blades", maxHp:8, defense:10, attack:1, damageSides:4, damageBonus:0,
         fleeTarget:9, escapeRoom:"castleRoad", canRetreatBeforeCombat:true
       },
       restlessSkeleton:{
-        name:"Restless Skeleton", icon:"💀", art:"assets/ui/restless-skeleton-v1750.webp", type:"Undead", threat:"Low",
+        name:"Restless Skeleton", icon:"💀", art:"assets/ui/restless-skeleton-v1750.webp", combatPosition:"center 18%", type:"Undead", threat:"Low",
         description:"An ancient guardian rises from the chapel shadows, corroded armor scraping against bone.",
         trait:"Resistant to Fear", weakness:"Heavy strikes", maxHp:10, defense:11, attack:2, damageSides:4, damageBonus:1,
         fleeTarget:11, escapeRoom:"chapel", canRetreatBeforeCombat:false
@@ -2822,7 +2854,7 @@
       if(!enemy) return;
       document.getElementById("combat-enemy-name").textContent=enemy.name;
       document.getElementById("combat-enemy-icon").textContent=enemy.icon;
-      const enemyArt=document.getElementById("combat-enemy-art");if(enemyArt){enemyArt.src=enemy.art;enemyArt.alt=enemy.name;}
+      const enemyArt=document.getElementById("combat-enemy-art");if(enemyArt){enemyArt.src=enemy.art;enemyArt.alt=enemy.name;enemyArt.style.setProperty("--combat-art-position",enemy.combatPosition||"center 30%");}
       document.getElementById("combat-player-name").textContent=(state.player&&state.player.name)||"Rowan";
       document.getElementById("combat-round").textContent=`Round ${state.combat.round||1}`;
       document.getElementById("combat-player-hp").textContent=`${state.health} / ${state.maxHealth} HP`;
@@ -3628,6 +3660,8 @@
     const sceneMarkersEl = document.getElementById("scene-markers");
     const sceneLoaderEl = document.getElementById("scene-loader");
     let sceneRenderToken = 0;
+    let renderedSceneKey = "";
+    let pendingSceneKey = "";
     let transitionLocked = false;
     const sceneAssetCache = new Map();
     function versionedSceneUrl(path) { return path; }
@@ -4771,10 +4805,158 @@
     function helpfulFailure(command) {
       const objects = visibleObjects();
       const suggestions = locationSuggestions();
-      let message = `I could not carry out <strong>${escapeHtml(command.toUpperCase())}</strong>.`;
-      if (objects.length) message += `<br>You can identify: ${objects.join(", ")}.`;
-      if (suggestions.length) message += `<br>Try: <strong>${suggestions.join("</strong>, <strong>")}</strong>.`;
+      let message = `Rowan considers <strong>${escapeHtml(command.toUpperCase())}</strong>, but needs a clearer action, target, or tool.`;
+      if (objects.length) message += `<br>Nearby: ${objects.join(", ")}.`;
+      if (suggestions.length) message += `<br>Try one of these, or phrase your own idea: <strong>${suggestions.join("</strong>, <strong>")}</strong>.`;
       addLog(message, "warning");
+    }
+
+    const flexibleToolAliases = {
+      "stick":"sturdy branch","branch":"sturdy branch","wooden stick":"sturdy branch","wooden branch":"sturdy branch","pole":"sturdy branch",
+      "knife":"hunting knife","blade":"hunting knife","dagger":"iron dagger","sword":"short sword","bar":"iron bar","crowbar":"iron bar",
+      "pick":"lockpicks","lockpick":"lockpicks","hook":"iron hook","crank":"ferry crank","key":"silver key"
+    };
+    function resolveFlexibleTool(phrase){
+      const raw=normalizeObjectName(phrase||"");
+      const aliases=[raw,flexibleToolAliases[raw]].filter(Boolean);
+      const inventory=[...(state.inventory||[])];
+      for(const candidate of aliases){
+        const exact=inventory.find(i=>normalize(i)===normalize(candidate));if(exact)return {name:exact,owned:true,requested:raw};
+        const fuzzy=inventory.find(i=>normalize(i).includes(normalize(candidate))||normalize(candidate).includes(normalize(i)));if(fuzzy)return {name:fuzzy,owned:true,requested:raw};
+      }
+      if(/knife|blade|dagger|sword/.test(raw)){
+        const blade=inventory.find(i=>/hunting knife|iron dagger|short sword/.test(i));if(blade)return {name:blade,owned:true,requested:raw};
+      }
+      return {name:flexibleToolAliases[raw]||raw,owned:false,requested:raw};
+    }
+    function resolveFlexibleTarget(phrase){
+      let raw=normalizeObjectName(phrase||"").replace(/^(?:at|on|under|beneath)\s+/,"");
+      const spots=currentHotspots();
+      if(!spots.length)return raw;
+      const direct=spots.find(h=>normalizeObjectName(h.label)===raw);if(direct)return normalizeObjectName(direct.label);
+      const roomAliases={
+        tavernCellar:{"rock":"loose flagstone","stone":"loose flagstone","floor stone":"loose flagstone","rack":"wine rack","wall":"stone seam"},
+        secretTunnel:{"rock":"loose stone","stone":"loose stone","wall":"wall niche"},
+        secretAlcove:{"rock":"collapsed rubble","stone":"loose stone","wall":"cracked wall","arch":"blocked arch"},
+        brokenWatchCrossing:{"rock":"scattered rubble","stones":"scattered rubble","rubble":"scattered rubble"},
+        moonwell:{"well":"well","water":"well","crystal":"crown shard","shard":"crown shard"},
+        chapel:{"hand":"statue","palm":"statue"},crypt:{"box":"reliquary","lock":"reliquary"}
+      };
+      if(roomAliases[state.room]&&roomAliases[state.room][raw])return roomAliases[state.room][raw];
+      const tokens=raw.split(/\s+/).filter(w=>w.length>2);
+      let best=null,bestScore=0;
+      for(const h of spots){
+        const label=normalizeObjectName(h.label),hay=`${label} ${normalize(h.command||"")}`;
+        let score=tokens.reduce((n,t)=>n+(hay.includes(t)?1:0),0);
+        if(/rock|stone/.test(raw)&&/flagstone|loose stone|rubble|rockfall|sigil stone/.test(label))score+=2;
+        if(score>bestScore){bestScore=score;best=label;}
+      }
+      return bestScore?best:raw;
+    }
+    function flexibleHintKey(target){return `${state.room}:${normalizeObjectName(target)}`;}
+    function nextFlexibleHint(target, hints){
+      state.commandHintCounts=state.commandHintCounts&&typeof state.commandHintCounts==="object"?state.commandHintCounts:{};
+      const key=flexibleHintKey(target),count=state.commandHintCounts[key]||0;
+      state.commandHintCounts[key]=count+1;
+      return hints[Math.min(count,hints.length-1)];
+    }
+    function flexibleToolAdvice(target){
+      target=normalize(normalizeObjectName(target));
+      if(/flagstone|loose stone|cracked wall/.test(target))return "A rigid blade or narrow metal tool could provide leverage.";
+      if(/rubble|rockfall|blocked arch/.test(target))return "Brute force may not be the only answer; inspect the edges and consider leverage or another route.";
+      if(/well|shard/.test(target))return "The depth is the problem. Something hooked or securely tied might reach it.";
+      if(/lock|trapdoor|reliquary|chest/.test(target))return "Look closely at the lock or depression; it may match a particular key, token, or lockpick.";
+      if(/thorn|hedge|briar/.test(target))return "The thorns punish bare hands. A blade, fire, or a safer opening may help.";
+      return "Examine it first, then try a specific tool from your satchel.";
+    }
+    function directFlexibleUse(item,target){
+      item=normalize(normalizeObjectName(item));target=normalize(normalizeObjectName(target));
+      const pair=`${item}:${target}`;
+      return (
+        (state.room==="apothecary"&&item==="moonfen reed"&&/elowen|apothecary|shopkeeper/.test(target))||
+        (state.room==="cottage"&&item==="silver key"&&/trapdoor/.test(target))||
+        (state.room==="chapel"&&item==="fairy coin"&&/statue|hand|slot|palm/.test(target))||
+        (state.room==="crypt"&&item==="silver token"&&/reliquary|lid|lock|depression/.test(target))||
+        (state.room==="moonfen"&&item==="ferry crank"&&/ferry|winch|mechanism/.test(target))||
+        (state.room==="moonwell"&&item==="iron hook"&&/well|water|shard/.test(target))||
+        (state.room==="moonwell"&&item==="sun sigil"&&/cage|thorns|fairy/.test(target))||
+        (state.room==="castleGate"&&item==="crown shard"&&/gate|socket|crown/.test(target))||
+        (item==="flint"&&/lantern/.test(target))
+      );
+    }
+    function solveFlexibleToolPuzzle(action,target,tool){
+      target=normalize(normalizeObjectName(target));tool=normalize(normalizeObjectName(tool));
+      const rigid=/hunting knife|iron dagger|short sword|lockpicks|iron bar/.test(tool);
+      if(state.room==="tavernCellar"&&/flagstone/.test(target)&&/pry|lever|lift|raise|move|use|wedge/.test(action)){
+        if(state.flags.cellarFlagstoneLooted){addLog("The hollow beneath the flagstone is already empty.");return true;}
+        if(!rigid)return false;
+        state.flags.cellarFlagstoneAttempted=true;state.flags.cellarFlagstoneLooted=true;addGold(3);
+        addLog(`You work the ${escapeHtml(tool)} into the raised edge and use it as a lever. The flagstone lifts, revealing a purse with three gold.`,"success");return true;
+      }
+      if(state.room==="secretTunnel"&&/loose stone/.test(target)&&/pry|lever|lift|raise|move|use|wedge/.test(action)){
+        if(state.flags.tunnelLooseStoneLooted){addLog("The hollow behind the loose stone is empty.");return true;}
+        if(!rigid)return false;
+        state.flags.tunnelLooseStoneAttempted=true;state.flags.tunnelLooseStoneLooted=true;addGold(4);
+        addLog(`The ${escapeHtml(tool)} scrapes through the cold grit. The loose stone comes free, revealing four old gold pieces.`,"success");return true;
+      }
+      if(state.room==="secretAlcove"&&/cracked wall/.test(target)&&/pry|probe|pick|use|wedge|open/.test(action)){
+        if(state.flags.alcoveWallLooted){addLog("The concealed pocket in the wall is empty.");return true;}
+        if(!rigid)return false;
+        state.flags.alcoveWallAttempted=true;state.flags.alcoveWallLooted=true;addItem("chapel sigil token");
+        addLog(`You probe the narrow crack with the ${escapeHtml(tool)} and release a concealed stone catch. A tarnished chapel sigil token drops into your hand.`,"success");return true;
+      }
+      return false;
+    }
+    async function handleFlexibleCommand(command){
+      const toolActionWords="lift|raise|pry|lever|move|shift|push|pull|break|cut|tie|wrap|pour|wedge|jam|insert|hook|strike|hit|smash|dig|loosen|open|probe";
+      const creativeActionWords="lift|raise|pry|lever|shift|break|cut|tie|wrap|pour|wedge|jam|insert|hook|strike|hit|smash|dig|loosen|probe";
+      let action="",targetPhrase="",toolPhrase="",match;
+      if((match=command.match(new RegExp(`^(${toolActionWords}) (.+?) (?:with|using|by using) (.+)$`)))){
+        action=match[1];targetPhrase=match[2];toolPhrase=match[3];
+      }else if((match=command.match(/^use (.+?) (?:on|against|under|beneath|into|in|around|with) (.+)$/))){
+        const first=resolveFlexibleTool(match[1]),second=resolveFlexibleTool(match[2]);
+        action="use";
+        if(first.owned||(!second.owned&&/knife|blade|dagger|sword|rope|hook|key|token|coin|sigil|crank|flint|stick|branch|bar|pick/.test(match[1]))){toolPhrase=match[1];targetPhrase=match[2];}
+        else {toolPhrase=match[2];targetPhrase=match[1];}
+      }else if((match=command.match(new RegExp(`^(${creativeActionWords}) (.+)$`)))){
+        action=match[1];targetPhrase=match[2];
+      }else{
+        if(/^(?:look|examine|inspect|search|check|read|open|unlock|pull|push|take|get|grab|pick up|collect|move|light|ignite|give|offer|talk|speak|ask|go|walk|enter|leave|approach|cross)\b/.test(command))return false;
+        const target=resolveFlexibleTarget(command);
+        const visible=visibleObjects().some(o=>normalizeObjectName(o)===normalizeObjectName(target));
+        if(!visible)return false;
+        const hotspot=currentHotspots().find(h=>normalizeObjectName(h.label)===normalizeObjectName(target));
+        const options=hotspot?contextualActionsForHotspot(hotspot):[];
+        const hint=nextFlexibleHint(target,[
+          `That idea may need a more specific action. Try examining ${escapeHtml(target)} first.`,
+          options.length?`You sense another approach. Possible directions include <strong>${options.slice(0,2).map(escapeHtml).join("</strong> or <strong>")}</strong>.`:`Try naming both the action and the object or tool.`,
+          options.length?`Try: <strong>${escapeHtml(options[0])}</strong>.`:`Use a form such as <strong>USE ITEM ON ${escapeHtml(target).toUpperCase()}</strong>.`
+        ]);
+        addLog(hint,"warning");return true;
+      }
+      const target=resolveFlexibleTarget(targetPhrase),tool=toolPhrase?resolveFlexibleTool(toolPhrase):null;
+      if(tool){
+        if(!tool.owned){
+          const idea=/stick|branch|bar|crowbar/.test(tool.requested)?"The idea is sound: you are trying to create leverage. ":"";
+          addLog(`${idea}You do not have ${/^(?:a|an|the)\s/.test(tool.name||"")?"":"a "}${escapeHtml(tool.name||tool.requested||"suitable tool")}. ${flexibleToolAdvice(target)}`,"warning");return true;
+        }
+        if(solveFlexibleToolPuzzle(action,target,tool.name))return true;
+        if(directFlexibleUse(tool.name,target)){useItem(tool.name,target);return true;}
+        const hint=nextFlexibleHint(target,[
+          `You try the ${escapeHtml(tool.name)} on ${escapeHtml(target)}, but it does not catch or fit. ${flexibleToolAdvice(target)}`,
+          `The attempt confirms that ${escapeHtml(target)} needs a different kind of leverage, key, or sequence. Examine it and note its shape or weakest edge.`,
+          `Try a listed contextual action for ${escapeHtml(target)}, or use HELP for examples of natural commands.`
+        ]);
+        addLog(hint,"warning");return true;
+      }
+      const hotspot=currentHotspots().find(h=>normalizeObjectName(h.label)===normalizeObjectName(target));
+      const options=hotspot?contextualActionsForHotspot(hotspot):[];
+      const hints=[
+        `${titleCase(action)}ing ${escapeHtml(target)} directly does not work, but the attempt reveals where it resists. ${flexibleToolAdvice(target)}`,
+        options.length?`There may be another way. Try <strong>${escapeHtml(options[0])}</strong>, or combine a tool with the object.`:`Try examining it first, then name a tool and target together.`,
+        options.length?`A likely command is <strong>${escapeHtml(options[0])}</strong>.`:`Try: <strong>USE ITEM ON ${escapeHtml(target).toUpperCase()}</strong>.`
+      ];
+      addLog(nextFlexibleHint(target,hints),"warning");return true;
     }
 
     const apothecaryShop = {
@@ -5159,6 +5341,8 @@
         state.flags.cryptCoffinLooted=true; addItem("chapel sigil token"); addLog("Beneath the burial cloth you find a tarnished chapel sigil token.","success"); return finishTurn();
       }
 
+      if (await handleFlexibleCommand(command)) { state.turns++; return finishTurn(); }
+
       if ((match = command.match(/^(?:look at|look in|look inside|look across|examine|inspect|search|check|read) (.+)$/))) { state.turns++; lookAt(rememberObject(match[1])); return finishTurn(); }
       if ((match = command.match(/^(?:open|unlock|pull|push|try handle|turn handle) (.+)$/))) { state.turns++; openTarget(rememberObject(match[1])); return finishTurn(); }
       if ((match = command.match(/^(?:take|get|grab|pick up|collect) (.+)$/))) { state.turns++; takeTarget(rememberObject(match[1])); return finishTurn(); }
@@ -5201,7 +5385,7 @@
     }
 
     function showHelp() {
-      addLog("Tap visible people and objects in the artwork to discover their actions. Use the compact direction pad and switch between <strong>LOOK</strong> and <strong>MOVE</strong>. The center button looks around. The parser still accepts natural phrases such as <strong>EXAMINE WELL</strong>, <strong>TALK TO INNKEEPER</strong>, <strong>OPEN THE DOOR</strong>, <strong>USE KEY ON TRAPDOOR</strong>, <strong>SATCHEL</strong>, <strong>MAP</strong>, <strong>JOURNAL</strong>, <strong>SAVE</strong>, and <strong>LOAD</strong>. Type <strong>AGAIN</strong> to repeat your previous command.", "system");
+      addLog("Tap visible people and objects in the artwork to discover quick actions, or type your own idea in the command box. The contextual parser accepts variations such as <strong>EXAMINE WELL</strong>, <strong>LOOK INTO THE WELL</strong>, <strong>PRY THE STONE WITH A DAGGER</strong>, <strong>USE DAGGER ON STONE</strong>, <strong>TALK TO INNKEEPER</strong>, and <strong>OPEN THE DOOR</strong>. Plausible attempts receive feedback or graduated hints rather than a dead end. Utility commands include <strong>SATCHEL</strong>, <strong>MAP</strong>, <strong>JOURNAL</strong>, <strong>SAVE</strong>, <strong>LOAD</strong>, and <strong>AGAIN</strong>.", "system");
     }
 
     function saveGame() {
@@ -5513,6 +5697,10 @@
       if (previousContext && !movementCommand && state.room === previousRoom && currentView() === previousView) {
         if(!state.flags.tutorialFirstActionComplete&&state.flags.tutorialSceneTapComplete&&state.room==="square"&&/well/i.test(previousContext.hotspot.label||"")){
           state.flags.tutorialFirstActionComplete=true;
+          if(!state.flags.tutorialCommandIntroShown){
+            state.flags.tutorialCommandIntroShown=true;
+            addLog("<strong>Two ways to explore:</strong> Tap objects for quick actions, or type your own idea in the command box. Try natural phrases such as <strong>EXAMINE WELL</strong>, <strong>USE ROPE ON GATE</strong>, or <strong>LIFT ROCK WITH STICK</strong>. The game will respond, suggest a better tool, or hint that another approach may work.","system");
+          }
           addLog("<strong>Exploration tip:</strong> Open Navigation and tap Look to reveal nearby interactive areas for a few seconds.","system");
           autosave();
         }
@@ -6096,6 +6284,26 @@
       lookRevealTimer=setTimeout(()=>buttons.forEach(btn=>btn.classList.remove("look-reveal","revealed")),duration);
       if(navigator.vibrate)navigator.vibrate(10);
     }
+    function completeCommandTutorial(showMessage=false){
+      if(!state.flags.tutorialCommandComplete){
+        state.flags.tutorialCommandComplete=true;
+        if(showMessage)addLog("<strong>Command play enabled.</strong> You can keep using buttons, type natural commands, or mix both styles whenever you like.","system");
+        autosave();
+      }
+      updateCommandTutorial();
+    }
+    function updateCommandTutorial(){
+      const tutorial=document.getElementById("command-tutorial");
+      const active=!!(state.flags.tutorialFirstActionComplete&&!state.flags.tutorialCommandComplete);
+      if(tutorial)tutorial.hidden=!active;
+      if(inputEl)inputEl.placeholder=active?"Try: examine well or use item on object":"What do you do?";
+    }
+    function submitTypedCommand(){
+      const raw=inputEl.value;
+      if(!normalize(raw))return;
+      if(state.flags.tutorialFirstActionComplete&&!state.flags.tutorialCommandComplete)completeCommandTutorial(false);
+      processCommand(raw);
+    }
     function updateSceneTutorial(){
       const tutorial=document.getElementById("scene-tutorial");if(!tutorial)return;
       const active=state.room==="square"&&!state.flags.tutorialSceneTapComplete;
@@ -6159,6 +6367,7 @@
       renderSceneNavigation();
       renderQuests();
       renderMap();
+      updateCommandTutorial();
     }
 
     const sceneObjectPositions = {
@@ -6180,12 +6389,26 @@
           ? "assets/scenes/collapsed-alcove-open-v1724.webp"
           : "assets/scenes/collapsed-alcove-v1724.webp";
       }
-      const token = ++sceneRenderToken;
-      if (!imagePath) {
-        sceneArtEl.innerHTML = sceneSvg(state.room);
-        shell.classList.remove("is-loading");
+      const objectPosition = sceneObjectPositions[`${state.room}:${currentView()}`] || "center";
+      const sceneKey = imagePath ? `image:${imagePath}|${objectPosition}` : `svg:${state.room}:${currentView()}`;
+
+      // Information-only actions call renderAll(), but should never reload or dim unchanged artwork.
+      if (sceneKey === renderedSceneKey || sceneKey === pendingSceneKey) {
+        renderSceneNavigation();
         return;
       }
+
+      const token = ++sceneRenderToken;
+      if (!imagePath) {
+        pendingSceneKey = "";
+        renderedSceneKey = sceneKey;
+        sceneArtEl.innerHTML = sceneSvg(state.room);
+        shell.classList.remove("is-loading");
+        renderSceneNavigation();
+        return;
+      }
+
+      pendingSceneKey = sceneKey;
       shell.classList.add("is-loading");
       if (sceneLoaderEl) sceneLoaderEl.textContent = "Loading scene…";
       try {
@@ -6196,8 +6419,10 @@
         img.src = url;
         img.alt = `${currentSceneName()}, an illustrated retro fantasy adventure scene`;
         img.decoding = "async";
-        img.style.objectPosition = sceneObjectPositions[`${state.room}:${currentView()}`] || "center";
+        img.style.objectPosition = objectPosition;
         sceneArtEl.replaceChildren(img);
+        renderedSceneKey = sceneKey;
+        pendingSceneKey = "";
         renderSceneNavigation();
         requestAnimationFrame(()=>shell.classList.remove("is-loading"));
       } catch (error) {
@@ -6208,9 +6433,14 @@
           if (token !== sceneRenderToken) return;
           const img = document.createElement("img");
           img.className = "scene-image"; img.src = retryUrl; img.alt = `${currentSceneName()}, an illustrated fantasy adventure scene`; img.decoding = "async";
-          img.style.objectPosition = sceneObjectPositions[`${state.room}:${currentView()}`] || "center";
-          sceneArtEl.replaceChildren(img); renderSceneNavigation(); shell.classList.remove("is-loading");
+          img.style.objectPosition = objectPosition;
+          sceneArtEl.replaceChildren(img);
+          renderedSceneKey = sceneKey;
+          pendingSceneKey = "";
+          renderSceneNavigation(); shell.classList.remove("is-loading");
         } catch (retryError) {
+          pendingSceneKey = "";
+          renderedSceneKey = "";
           sceneArtEl.innerHTML = `<div class="scene-error"><div><strong>Scene artwork could not load.</strong><span>Tap the scene title or move away and return to retry.</span></div></div>`;
           renderSceneNavigation(); shell.classList.remove("is-loading");
         }
@@ -6571,9 +6801,9 @@
       if(!audioContext||audioContext.state!=="running"||!musicTimer)recoverMusicAfterInterruption();
     },5000);
 
-    document.getElementById("send-btn").addEventListener("click", () => processCommand(inputEl.value));
+    document.getElementById("send-btn").addEventListener("click", submitTypedCommand);
     inputEl.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") processCommand(inputEl.value);
+      if (e.key === "Enter") submitTypedCommand();
       if (e.key === "ArrowUp") { e.preventDefault(); const h=state.commandHistory||[]; if(h.length){ commandHistoryIndex=Math.max(0,commandHistoryIndex-1); inputEl.value=h[commandHistoryIndex]||""; } }
       if (e.key === "ArrowDown") { e.preventDefault(); const h=state.commandHistory||[]; if(h.length){ commandHistoryIndex=Math.min(h.length,commandHistoryIndex+1); inputEl.value=commandHistoryIndex===h.length?"":(h[commandHistoryIndex]||""); } }
     });
@@ -6602,6 +6832,7 @@
     document.getElementById("save-btn").addEventListener("click", saveGame);
     document.getElementById("load-btn").addEventListener("click", loadGame);
     document.getElementById("help-btn").addEventListener("click", () => { document.getElementById("menu-dialog").close(); showHelp(); });
+    document.getElementById("command-tutorial-dismiss")?.addEventListener("click",()=>completeCommandTutorial(true));
     document.getElementById("music-toggle-btn").addEventListener("click", toggleMusic);
     document.getElementById("effects-toggle-btn").addEventListener("click", toggleEffects);
     updateEffectsButton();
@@ -6652,7 +6883,7 @@
           tavernCellarOpen:false
         });
       }
-      state.schemaVersion = 1750;
+      state.schemaVersion = 1760;
       const herbQty=(state.itemCounts["healing herb"]||0)+(state.itemCounts["healing herbs"]||0)+(state.inventory.includes("healing herb")?1:0);
       delete state.itemCounts["healing herb"];state.inventory=state.inventory.filter(i=>i!=="healing herb");
       if(herbQty>0){state.itemCounts["healing herbs"]=Math.max(state.itemCounts["healing herbs"]||0,herbQty);if(!state.inventory.includes("healing herbs"))state.inventory.push("healing herbs");}
@@ -6790,7 +7021,7 @@
     function boot() {
       updateMusicButton();
       const vt = document.getElementById("version-tag");
-      const versionLabel=`Version ${BUILD_VERSION} • Equipment & Combat Stat Integration`;
+      const versionLabel=`Version ${BUILD_VERSION} • No-Flicker & Combat Portrait Fit Hotfix`;
       if (vt) vt.textContent = versionLabel;
       const ov=document.getElementById("opening-version");if(ov)ov.textContent=versionLabel;
       const saved = storageGet(SAVE_KEY);
@@ -6805,7 +7036,7 @@
       }
       renderAll();
       showTitleScreen();
-      if ("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js?build=1750").catch(() => {});
+      if ("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js?build=1760").catch(() => {});
     }
 
     boot();

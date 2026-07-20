@@ -1,4 +1,4 @@
-const CACHE = "briar-crown-v1.7.5.0-exploration-encounters-rewards";
+const CACHE = "briar-crown-v1.7.6.0-contextual-commands-combined-hotfix";
 const CORE_ASSETS = [
   "./",
   "./index.html",
