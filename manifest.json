@@ -2,7 +2,7 @@
   "name": "The Briar Crown",
   "short_name": "Briar Crown",
   "description": "A mobile-first illustrated fantasy adventure with a functional equipment loadout, visible base and equipped stats, and combat rolls that use weapon, armor, shield, charm, class, and skill bonuses.",
-  "start_url": "./index.html?build=1742",
+  "start_url": "./index.html?build=1743",
   "display": "standalone",
   "background_color": "#07070b",
   "theme_color": "#0b0912",
@@ -19,5 +19,5 @@
       "type": "image/png"
     }
   ],
-  "version": "1.7.4.2"
+  "version": "1.7.4.3"
 }

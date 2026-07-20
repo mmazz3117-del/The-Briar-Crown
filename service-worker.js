@@ -1,4 +1,4 @@
-const CACHE = "briar-crown-v1.7.4.2-equipment-combat-stat-integration";
+const CACHE = "briar-crown-v1.7.4.3-mobile-safe-area-panel-spacing";
 const CORE_ASSETS = [
   "./",
   "./index.html",

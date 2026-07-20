@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="briar-crown-deployment" content="1742">
+  <meta name="briar-crown-deployment" content="1743">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content" />
   <meta name="theme-color" content="#0b0912" />
@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-title" content="Briar Crown" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <title>The Briar Crown — Mobile Adventure v1.7.4.2</title>
+  <title>The Briar Crown — Mobile Adventure v1.7.4.3</title>
   <style>
 
     :root {
@@ -1625,6 +1625,27 @@
     .loadout-actions{position:sticky;bottom:-10px;display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:9px -1px -1px;padding:8px 1px max(8px,env(safe-area-inset-bottom));background:linear-gradient(transparent,#0b0910 18%)}.loadout-actions button{min-height:44px;border:1px solid #a27b35;border-radius:8px;background:#261833;color:#efd798;font:700 13px Georgia,serif}.loadout-actions button:first-child{background:#9b6f22;color:#fff2c1}.loadout-actions button:disabled{opacity:.4}
     @media(max-width:410px){.loadout-paperdoll{grid-template-columns:82px minmax(112px,1fr) 82px;gap:5px}.loadout-slot{min-height:88px;padding:5px 3px}.loadout-slot .slot-icon{font-size:23px}.loadout-slot strong{font-size:10px}.loadout-hero-art{min-height:340px}.loadout-stat-head,.loadout-stat-row{grid-template-columns:1.15fr repeat(3,.72fr);padding-inline:5px;font-size:10px}.loadout-selected-card{grid-template-columns:42px 1fr}.loadout-selected-card>.equipped-badge{grid-column:1/-1;justify-self:start}}
 
+    /* v1.7.4.3 shared iPhone safe-area buffer for tall scrolling panels */
+    :root{
+      --panel-safe-top:env(safe-area-inset-top,0px);
+      --panel-safe-bottom:env(safe-area-inset-bottom,0px);
+      --panel-edge-buffer:10px;
+    }
+    dialog.safe-area-dialog{
+      inset-block-start:calc(var(--panel-safe-top) + var(--panel-edge-buffer));
+      inset-block-end:calc(var(--panel-safe-bottom) + var(--panel-edge-buffer));
+      max-height:calc(100dvh - var(--panel-safe-top) - var(--panel-safe-bottom) - var(--panel-edge-buffer) - var(--panel-edge-buffer));
+      margin:auto;
+      box-sizing:border-box;
+      overflow:hidden;
+    }
+    dialog.safe-area-dialog[open]{display:flex;flex-direction:column}
+    dialog.safe-area-dialog .modal-head{flex:0 0 auto;position:sticky;top:0;z-index:8;background:#17111f}
+    dialog.safe-area-dialog .modal-body{flex:1 1 auto;min-height:0;max-height:none;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+    .equipment-dialog{max-height:calc(100dvh - var(--panel-safe-top) - var(--panel-safe-bottom) - var(--panel-edge-buffer) - var(--panel-edge-buffer))}
+    .equipment-modal-body{max-height:none}
+    @media(max-width:470px){:root{--panel-edge-buffer:12px}}
+
   </style>
 </head>
 <body>
@@ -1680,7 +1701,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.7.4.2 • Equipment & Combat Stat Integration</small>
+        <small id="version-tag">Version 1.7.4.3 • Mobile Safe-Area & Panel Spacing Hotfix</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -1724,12 +1745,12 @@
     <div class="focus-panel"><h2 id="focus-title">Focused View</h2><p id="focus-text"></p><div id="focus-actions" class="focus-actions"></div></div>
   </dialog>
 
-  <dialog id="inventory-dialog">
+  <dialog id="inventory-dialog" class="safe-area-dialog">
     <div class="modal-head"><h2>Satchel</h2><button class="close-btn" data-close="inventory-dialog">×</button></div>
     <div class="modal-body" id="inventory-body"></div>
   </dialog>
 
-  <dialog id="equipment-dialog" class="equipment-dialog">
+  <dialog id="equipment-dialog" class="equipment-dialog safe-area-dialog">
     <div class="modal-head"><h2>Equipment &amp; Loadout</h2><button class="close-btn" data-close="equipment-dialog">×</button></div>
     <div class="modal-body equipment-modal-body" id="equipment-body"></div>
   </dialog>
@@ -1739,17 +1760,17 @@
     <div class="modal-body" id="map-body"></div>
   </dialog>
 
-  <dialog id="skills-dialog">
+  <dialog id="skills-dialog" class="safe-area-dialog">
     <div class="modal-head"><h2>Hero Skills</h2><button class="close-btn" data-close="skills-dialog">×</button></div>
     <div class="modal-body skills-modal-body" id="skills-body"></div>
   </dialog>
 
-  <dialog id="shop-dialog">
+  <dialog id="shop-dialog" class="safe-area-dialog">
     <div class="modal-head"><h2 id="shop-title">Merchant Wares</h2><button class="close-btn" data-close="shop-dialog">×</button></div>
     <div class="modal-body" id="shop-body"></div>
   </dialog>
 
-  <dialog id="menu-dialog">
+  <dialog id="menu-dialog" class="safe-area-dialog">
     <div class="modal-head"><h2>Adventure Menu</h2><button class="close-btn" data-close="menu-dialog">×</button></div>
     <div class="modal-body">
       <div id="quest-body"></div>
@@ -1767,7 +1788,7 @@
     </div>
   </dialog>
 
-  <dialog id="scene-dialog">
+  <dialog id="scene-dialog" class="safe-area-dialog">
     <div class="modal-head"><h2>Illustrated Scene Test</h2><button class="close-btn" data-close="scene-dialog">×</button></div>
     <div class="modal-body">
       <p class="scene-note">Jump directly to any newly illustrated location. This is a test-build convenience and changes your current location.</p>
@@ -1818,7 +1839,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.7.4.2";
+    const BUILD_VERSION = "1.7.4.3";
 
     const itemInfo = {
       "tarnished locket": "A traveler's locket found behind the tavern hearth. The portrait inside shows a young woman before a crooked woodland cottage.",
@@ -6484,7 +6505,7 @@
       }
       renderAll();
       showTitleScreen();
-      if ("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js?build=1742").catch(() => {});
+      if ("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js?build=1743").catch(() => {});
     }
 
     boot();
