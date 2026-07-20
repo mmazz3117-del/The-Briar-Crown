@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="briar-crown-deployment" content="1743">
+  <meta name="briar-crown-deployment" content="1750">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content" />
   <meta name="theme-color" content="#0b0912" />
@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-title" content="Briar Crown" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <title>The Briar Crown — Mobile Adventure v1.7.4.3</title>
+  <title>The Briar Crown — Mobile Adventure v1.7.5.0</title>
   <style>
 
     :root {
@@ -1646,6 +1646,129 @@
     .equipment-modal-body{max-height:none}
     @media(max-width:470px){:root{--panel-edge-buffer:12px}}
 
+
+    /* v1.7.5.0 exploration-first navigation, encounter cards, onboarding, and rewards */
+    .status-strip{
+      grid-template-columns:minmax(118px,1fr) minmax(112px,128px) auto auto!important;
+    }
+    .nav-launch{
+      min-width:0;min-height:42px;display:flex;align-items:center;gap:7px;padding:4px 8px 4px 5px;
+      border:2px solid #8e6b34;border-radius:9px;background:linear-gradient(145deg,#2b203b,#15111d);
+      color:#ecd38e;box-shadow:inset 0 0 0 1px #100c16,0 2px 6px rgba(0,0,0,.28);cursor:pointer;
+    }
+    .nav-launch.is-open{border-color:#e1bd62;background:linear-gradient(145deg,#4b335d,#25192f)}
+    .nav-launch .nav-icon{
+      flex:0 0 31px;width:31px;height:31px;display:grid;place-items:center;border-radius:50%;
+      border:1px solid #b88c3c;background:radial-gradient(circle,#493653,#17121e 72%);font-size:19px;line-height:1;
+    }
+    .nav-launch .nav-copy{display:grid;min-width:0;line-height:1;text-align:left}
+    .nav-launch .nav-copy strong{font-size:10.5px!important;color:#f4d990!important;text-transform:uppercase;letter-spacing:.05em}
+    .nav-launch .nav-copy small{font-size:9px;color:#c6ad70;margin-top:4px;white-space:nowrap}
+    .scene-nav-overlay.is-hidden{display:none!important}
+    .scene-nav-tools .scene-nav-toggle{font-size:16px!important}
+    .hotspot.look-reveal{
+      border:2px solid rgba(244,205,98,.95)!important;
+      background:rgba(200,151,54,.12)!important;
+      box-shadow:0 0 0 4px rgba(244,205,98,.12),0 0 22px rgba(255,211,98,.72)!important;
+      animation:hotspotLookPulse .9s ease-in-out infinite alternate;
+    }
+    .hotspot.tutorial-target{
+      border:3px solid #f3ce6d!important;background:rgba(218,166,57,.16)!important;
+      box-shadow:0 0 0 7px rgba(244,205,98,.15),0 0 28px rgba(255,216,105,.92)!important;
+      animation:tutorialTargetPulse 1s ease-in-out infinite alternate;
+    }
+    @keyframes hotspotLookPulse{from{transform:translate(-50%,-50%) scale(.96)}to{transform:translate(-50%,-50%) scale(1.04)}}
+    @keyframes tutorialTargetPulse{from{transform:translate(-50%,-50%) scale(.95)}to{transform:translate(-50%,-50%) scale(1.07)}}
+    body.effects-off .hotspot.look-reveal,body.effects-off .hotspot.tutorial-target{animation:none}
+    .scene-tutorial{
+      position:absolute;left:12px;right:118px;bottom:12px;z-index:12;padding:9px 11px;
+      border:1px solid rgba(240,205,111,.9);border-radius:8px;background:rgba(14,10,20,.93);
+      color:#f3dea3;box-shadow:0 8px 24px rgba(0,0,0,.62);font-size:11px;line-height:1.35;backdrop-filter:blur(5px);
+    }
+    .scene-tutorial strong{display:block;color:#fff0b7;font-size:12px;margin-bottom:2px}
+    .scene-tutorial[hidden]{display:none}
+    .quick-row{
+      max-height:min(250px,27dvh)!important;overflow-y:auto!important;overscroll-behavior:contain;
+    }
+    .nearby-heading{
+      grid-column:1/-1;padding:6px 8px;border-left:3px solid #c8a356;background:rgba(30,21,39,.82);
+      color:#d9c07f;font-size:11px;font-weight:700;
+    }
+    .nearby-object-btn{justify-content:flex-start}
+    .nearby-empty{grid-column:1/-1;padding:12px;text-align:center;color:#b9a981;border:1px dashed #765d35;border-radius:7px}
+    .story-panel{min-height:clamp(190px,27dvh,330px)!important}
+    #log{min-height:clamp(135px,20dvh,275px)!important}
+    .encounter-dialog,.combat-dialog,.loot-dialog{
+      width:100%!important;max-width:none!important;height:100%!important;max-height:none!important;
+      inset:0!important;margin:0!important;padding:calc(env(safe-area-inset-top) + 12px) 12px calc(env(safe-area-inset-bottom) + 12px)!important;
+      border:0!important;background:transparent!important;overflow:auto!important;
+    }
+    .encounter-dialog[open],.combat-dialog[open],.loot-dialog[open]{display:grid!important;place-items:center!important}
+    .encounter-dialog::backdrop,.combat-dialog::backdrop,.loot-dialog::backdrop{background:rgba(3,2,7,.86);backdrop-filter:blur(4px)}
+    .encounter-panel{
+      width:min(94vw,620px);max-height:calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 30px);
+      overflow-y:auto;border:2px solid #9c7837;border-radius:17px;background:linear-gradient(180deg,#251833,#0c0911);
+      box-shadow:0 18px 58px rgba(0,0,0,.82);padding:14px;color:#f0d995;text-align:left;
+    }
+    .encounter-card{
+      width:100%;border:0;background:transparent;color:inherit;padding:0;cursor:pointer;text-align:left;
+    }
+    .encounter-kicker{display:block;color:#c7a452;text-transform:uppercase;letter-spacing:.14em;font-size:11px;margin-bottom:4px}
+    .encounter-card h2{margin:0;color:#f4dda0;font-size:clamp(27px,7vw,40px);line-height:1.05}
+    .encounter-card-grid{display:grid;grid-template-columns:minmax(145px,42%) minmax(0,1fr);gap:14px;margin-top:12px;align-items:start}
+    .encounter-art-wrap{position:relative;overflow:hidden;border:1px solid #8d6a31;border-radius:12px;background:#0b0910}
+    .encounter-art-wrap::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 30px rgba(0,0,0,.55);pointer-events:none}
+    .encounter-art{display:block;width:100%;aspect-ratio:3/4;object-fit:cover}
+    .encounter-description{margin:0 0 10px;color:#ddc98e;font-size:14px;line-height:1.4}
+    .encounter-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:9px}
+    .encounter-tag{padding:4px 8px;border:1px solid #72562c;border-radius:999px;background:#17101f;color:#e5cd89;font-size:11px}
+    .encounter-stats{display:grid;gap:5px}
+    .encounter-stat{display:grid;grid-template-columns:minmax(84px,auto) 1fr;gap:8px;padding:5px 0;border-bottom:1px solid rgba(115,85,42,.42);font-size:12px}
+    .encounter-stat span:first-child{color:#bba875}.encounter-stat strong{color:#f0d995}
+    .encounter-tap{
+      margin-top:13px;padding:11px;border:1px solid #9b7637;border-radius:9px;text-align:center;
+      color:#f6dda0;background:linear-gradient(145deg,#342343,#17101f);font-weight:700;animation:encounterTapPulse 1.15s ease-in-out infinite alternate;
+    }
+    @keyframes encounterTapPulse{from{box-shadow:0 0 0 rgba(222,177,76,0)}to{box-shadow:0 0 16px rgba(222,177,76,.35)}}
+    .encounter-retreat{
+      width:100%;min-height:42px;margin-top:8px;border:1px solid #70582f;border-radius:8px;background:#16111d;color:#c9b57e;font-weight:700;
+    }
+    .combat-panel{
+      margin:auto!important;width:min(94vw,690px)!important;max-height:calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 30px)!important;
+      overflow-y:auto!important;
+    }
+    .combat-enemy-art{
+      display:block;width:78px;height:78px;object-fit:cover;border-radius:50%;margin:0 auto 7px;border:2px solid #a27c37;
+      box-shadow:0 0 0 3px rgba(15,10,20,.9),0 0 18px rgba(209,164,67,.28);
+    }
+    .combat-item-note{display:block;margin-top:3px;color:#aa9972;font-size:9px}
+    .loot-panel{margin:auto!important;max-height:calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 30px);overflow-y:auto}
+    .loot-item{display:grid;grid-template-columns:42px minmax(0,1fr);gap:10px;align-items:center}
+    .loot-icon{width:38px;height:38px;display:grid;place-items:center;border-radius:50%;border:1px solid #775a2e;background:#100c16;font-size:22px}
+    .loot-item strong{display:block;color:#f0d995}.loot-item small{display:block;color:#b9a980;margin-top:2px}
+    .loot-gold-icon{
+      position:relative;width:38px;height:31px;display:block;
+      background:
+        radial-gradient(circle at 38% 28%,#fff3af 0 10%,#f6c73e 11% 39%,#b87d12 40% 67%,#6d4308 68% 100%);
+      border:2px solid #f0bd38;border-radius:50%;box-shadow:8px 5px 0 -1px #d99a19,12px 8px 0 -2px #8f5b0d,inset 0 0 0 3px rgba(255,235,133,.38);
+    }
+    .loot-healing .loot-icon{background:radial-gradient(circle,#8c2726,#2a1015 70%);color:#ffe4ae}
+    @media(max-width:470px){
+      .status-strip{grid-template-columns:minmax(105px,1fr) minmax(106px,120px) auto auto!important;gap:4px!important}
+      .nav-launch{padding-inline:4px;gap:4px}.nav-launch .nav-icon{flex-basis:27px;width:27px;height:27px;font-size:16px}
+      .nav-launch .nav-copy strong{font-size:9.5px!important}.nav-launch .nav-copy small{font-size:8px}
+      .scene-tutorial{right:105px;font-size:10px}
+      .encounter-card-grid{grid-template-columns:minmax(118px,40%) minmax(0,1fr);gap:10px}
+      .encounter-description{font-size:12px}.encounter-stat{font-size:10.5px;grid-template-columns:minmax(72px,auto) 1fr}
+      .encounter-card h2{font-size:29px}
+      .combat-enemy-art{width:62px;height:62px}
+    }
+    @media(max-height:720px){
+      .story-panel{min-height:165px!important}
+      #log{min-height:112px!important}
+      .encounter-panel{padding:10px}.encounter-card-grid{margin-top:8px}.encounter-art{aspect-ratio:4/5}
+    }
+
   </style>
 </head>
 <body>
@@ -1701,7 +1824,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.7.4.3 • Mobile Safe-Area & Panel Spacing Hotfix</small>
+        <small id="version-tag">Version 1.7.5.0 • Exploration, Encounters & Rewards</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -1712,12 +1835,16 @@
       <div id="scene-art"></div>
       <div class="scene-nav-overlay" id="scene-nav-overlay" aria-label="Directional controls"></div>
       <div class="scene-label" id="scene-label"></div>
-      <div class="scene-markers" id="scene-markers" aria-hidden="true"></div><div class="hotspots" id="hotspots"></div><div class="scene-loader" id="scene-loader">Loading scene…</div><div class="scene-transition-note" id="scene-transition-note" hidden></div>
+      <div class="scene-markers" id="scene-markers" aria-hidden="true"></div><div class="hotspots" id="hotspots"></div><div class="scene-loader" id="scene-loader">Loading scene…</div><div class="scene-transition-note" id="scene-transition-note" hidden></div><div class="scene-tutorial" id="scene-tutorial" hidden><strong>Explore the world</strong><span>Objects and characters in the scene can be tapped. Try tapping the highlighted well.</span></div>
     </section>
 
     <section class="story-panel">
       <div class="status-strip">
-        <span class="location-block"><strong id="location-name">Willowmere Square</strong><small id="world-time">Dusk • 6:30 PM</small></span>
+        <button class="nav-launch" id="nav-toggle-btn" type="button" aria-label="Show travel controls" aria-pressed="false">
+          <span class="nav-icon" aria-hidden="true">✦</span>
+          <span class="nav-copy"><strong>Navigation</strong><small id="nav-toggle-label">Show Travel</small></span>
+        </button>
+        <span class="sr-only" id="location-name">Willowmere Square</span><span class="sr-only" id="world-time">Dusk • 6:30 PM</span>
         <button class="skills-launch" id="skills-btn" type="button" aria-label="Open skills and character stats">
           <span class="skills-icon">▥</span><span class="skills-copy"><strong>Skills</strong><small id="skills-summary">Lv 1 • 0/10 XP</small></span>
         </button>
@@ -1805,6 +1932,32 @@
     </div>
   </dialog>
 
+
+  <dialog id="encounter-dialog" class="encounter-dialog">
+    <div class="encounter-panel">
+      <button id="encounter-card" class="encounter-card" type="button" aria-label="Begin battle">
+        <span class="encounter-kicker">Encounter</span>
+        <h2 id="encounter-name">Enemy</h2>
+        <div class="encounter-card-grid">
+          <div class="encounter-art-wrap"><img id="encounter-art" class="encounter-art" src="" alt=""></div>
+          <div>
+            <p id="encounter-description" class="encounter-description"></p>
+            <div class="encounter-tags"><span id="encounter-type" class="encounter-tag"></span><span id="encounter-threat" class="encounter-tag"></span></div>
+            <div class="encounter-stats">
+              <div class="encounter-stat"><span>♥ HP</span><strong id="encounter-hp"></strong></div>
+              <div class="encounter-stat"><span>⚔ Attack</span><strong id="encounter-attack"></strong></div>
+              <div class="encounter-stat"><span>🛡 Defense</span><strong id="encounter-defense"></strong></div>
+              <div class="encounter-stat"><span>♜ Trait</span><strong id="encounter-trait"></strong></div>
+              <div class="encounter-stat"><span>✣ Weakness</span><strong id="encounter-weakness"></strong></div>
+            </div>
+          </div>
+        </div>
+        <div class="encounter-tap" id="encounter-tap">Tap the creature to begin battle</div>
+      </button>
+      <button id="encounter-retreat-btn" class="encounter-retreat" type="button" hidden>Retreat before battle</button>
+    </div>
+  </dialog>
+
   <dialog id="combat-dialog" class="combat-dialog">
     <div class="combat-panel">
       <button id="combat-close-btn" class="combat-close-btn" type="button" aria-label="Emergency retreat from combat">×</button>
@@ -1820,7 +1973,8 @@
         </section>
         <div class="combat-die-wrap"><div class="d20 combat-die" id="combat-die">20</div><div id="combat-roll-text">Choose an action.</div></div>
         <section class="combatant-card enemy-card">
-          <div class="enemy-icon" id="combat-enemy-icon">💀</div>
+          <img id="combat-enemy-art" class="combat-enemy-art" src="" alt="">
+          <div class="enemy-icon sr-only" id="combat-enemy-icon">💀</div>
           <div class="hp-track"><span id="combat-enemy-hp-bar"></span></div>
           <small id="combat-enemy-hp">10 / 10 HP</small>
         </section>
@@ -1829,7 +1983,7 @@
       <div class="combat-actions">
         <button type="button" data-combat-action="attack">⚔ Attack</button>
         <button type="button" data-combat-action="defend">🛡 Defend</button>
-        <button type="button" data-combat-action="item">🧪 Use Herbs</button>
+        <button type="button" data-combat-action="item"><span id="combat-item-label">🧪 Use Healing Item</span><small id="combat-item-note" class="combat-item-note">No healing item available</small></button>
         <button type="button" data-combat-action="flee">➜ Flee</button>
         <button type="button" data-combat-action="continue" hidden>Continue — Enemy Turn ➜</button>
       </div>
@@ -1839,9 +1993,12 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.7.4.3";
+    const BUILD_VERSION = "1.7.5.0";
 
     const itemInfo = {
+      "minor healing tonic": "A small crimson tonic. Restores up to 6 HP during combat.",
+      "field bandage": "A clean travel bandage. Restores up to 4 HP during combat.",
+      "traveler's poultice": "A strong herbal poultice. Restores up to 8 HP during combat.",
       "tarnished locket": "A traveler's locket found behind the tavern hearth. The portrait inside shows a young woman before a crooked woodland cottage.",
       "iron hook": "A blacksmith's hook with a long, slightly bent handle.",
       "flint": "A sharp piece of flint for making sparks.",
@@ -2418,7 +2575,7 @@
     applyV1726NavigationGraph();
 
     const initialState = () => ({
-      schemaVersion: 1742,
+      schemaVersion: 1750,
       room: "square",
       view: "center",
       inventory: [],
@@ -2440,6 +2597,7 @@
       skillUses: { Lockpicking:0, Combat:0, Survival:0, Magic:0, Persuasion:0 },
       skillPracticeFlags: {},
       pendingLoot: null,
+      pendingEncounter: null,
       combat: null,
       visited: ["square"],
       lastObject: "",
@@ -2519,7 +2677,10 @@
         cryptCoffinOpened: false,
         cryptSkeletonDefeated: false,
         cryptCoffinLooted: false,
-        ending: null
+        ending: null,
+        tutorialSceneTapComplete: false,
+        tutorialFirstActionComplete: false,
+        tutorialLookComplete: false
       },
       combat: null,
       log: []
@@ -2528,8 +2689,18 @@
     let state = initialState();
 
     const enemyCatalog = {
-      thornHound:{ name:"Thorn Hound", icon:"🐺", maxHp:8, defense:10, attack:1, damageSides:4, damageBonus:0, fleeTarget:9, escapeRoom:"castleRoad" },
-      restlessSkeleton:{ name:"Restless Skeleton", icon:"💀", maxHp:10, defense:11, attack:2, damageSides:4, damageBonus:1, fleeTarget:11, escapeRoom:"chapel" }
+      thornHound:{
+        name:"Thorn Hound", icon:"🐺", art:"assets/ui/thorn-hound-v1750.webp", type:"Briar Beast", threat:"Moderate",
+        description:"A snarling hound woven from black briars tears free of the hedge and lowers its thorn-covered shoulders.",
+        trait:"Thorn Hide", weakness:"Fire and clean blades", maxHp:8, defense:10, attack:1, damageSides:4, damageBonus:0,
+        fleeTarget:9, escapeRoom:"castleRoad", canRetreatBeforeCombat:true
+      },
+      restlessSkeleton:{
+        name:"Restless Skeleton", icon:"💀", art:"assets/ui/restless-skeleton-v1750.webp", type:"Undead", threat:"Low",
+        description:"An ancient guardian rises from the chapel shadows, corroded armor scraping against bone.",
+        trait:"Resistant to Fear", weakness:"Heavy strikes", maxHp:10, defense:11, attack:2, damageSides:4, damageBonus:1,
+        fleeTarget:11, escapeRoom:"chapel", canRetreatBeforeCombat:false
+      }
     };
 
     function baseAdventureStats() {
@@ -2596,6 +2767,18 @@
       return runExplorationCheck(label,statName,target,successText,failureText,onSuccess);
     }
 
+    const healingItemCatalog = {
+      "minor healing tonic": {label:"Minor Healing Tonic", heal:6, icon:"🧪"},
+      "field bandage": {label:"Field Bandage", heal:4, icon:"🩹"},
+      "traveler's poultice": {label:"Traveler's Poultice", heal:8, icon:"🌿"},
+      "healing herbs": {label:"Healing Herbs", heal:5, icon:"🌿"}
+    };
+    function availableHealingItem(){
+      return Object.entries(healingItemCatalog)
+        .filter(([id])=>has(id))
+        .sort((a,b)=>b[1].heal-a[1].heal)[0]||null;
+    }
+
     let combatUiBusy=false;
     let combatActionToken=0;
 
@@ -2609,7 +2792,7 @@
         const action=btn.dataset.combatAction;
         const isContinue=action==="continue";
         btn.hidden=isContinue && phase!=="enemy-ready";
-        const itemUnavailable=action==="item" && (!has("healing herbs")||state.health>=state.maxHealth);
+        const itemUnavailable=action==="item" && (!availableHealingItem()||state.health>=state.maxHealth);
         const wrongPhase=isContinue ? phase!=="enemy-ready" : phase!=="player";
         btn.disabled=!!disabled || wrongPhase || itemUnavailable;
         btn.setAttribute("aria-disabled",String(btn.disabled));
@@ -2639,6 +2822,7 @@
       if(!enemy) return;
       document.getElementById("combat-enemy-name").textContent=enemy.name;
       document.getElementById("combat-enemy-icon").textContent=enemy.icon;
+      const enemyArt=document.getElementById("combat-enemy-art");if(enemyArt){enemyArt.src=enemy.art;enemyArt.alt=enemy.name;}
       document.getElementById("combat-player-name").textContent=(state.player&&state.player.name)||"Rowan";
       document.getElementById("combat-round").textContent=`Round ${state.combat.round||1}`;
       document.getElementById("combat-player-hp").textContent=`${state.health} / ${state.maxHealth} HP`;
@@ -2649,6 +2833,9 @@
       document.getElementById("combat-message").textContent=state.combat.message||`${enemy.name} blocks your path. Your defense is ${stats.defense}.`;
       document.getElementById("combat-roll-text").textContent=state.combat.rollText||"Choose an action.";
       const history=document.getElementById("combat-history");if(history)history.innerHTML=(state.combat.history&&state.combat.history.length)?state.combat.history.map(escapeHtml).join("<br>"):"No rolls yet.";
+      const healing=availableHealingItem(),itemLabel=document.getElementById("combat-item-label"),itemNote=document.getElementById("combat-item-note");
+      if(itemLabel)itemLabel.textContent=healing?`${healing[1].icon} Use ${healing[1].label}`:"🧪 Use Healing Item";
+      if(itemNote)itemNote.textContent=state.health>=state.maxHealth?"Health already full":(healing?`Restores up to ${healing[1].heal} HP`:"No healing item available");
       setCombatButtons(combatUiBusy);
     }
 
@@ -2665,17 +2852,49 @@
       } finally { die.classList.remove("rolling"); }
     }
 
+    function renderEncounterIntro(){
+      const enemyId=state.pendingEncounter;
+      const enemy=enemyCatalog[enemyId];if(!enemy)return false;
+      document.getElementById("encounter-name").textContent=enemy.name;
+      const art=document.getElementById("encounter-art");art.src=enemy.art;art.alt=`${enemy.name} creature portrait`;
+      document.getElementById("encounter-description").textContent=enemy.description;
+      document.getElementById("encounter-type").textContent=enemy.type;
+      document.getElementById("encounter-threat").textContent=`Threat: ${enemy.threat}`;
+      document.getElementById("encounter-hp").textContent=String(enemy.maxHp);
+      document.getElementById("encounter-attack").textContent=String(enemy.attack);
+      document.getElementById("encounter-defense").textContent=String(enemy.defense);
+      document.getElementById("encounter-trait").textContent=enemy.trait;
+      document.getElementById("encounter-weakness").textContent=enemy.weakness||"?";
+      document.getElementById("encounter-tap").textContent=`Tap the ${enemy.name} to begin battle`;
+      const retreat=document.getElementById("encounter-retreat-btn");retreat.hidden=!enemy.canRetreatBeforeCombat;
+      return true;
+    }
+
     function startCombat(enemyId) {
       const enemy=enemyCatalog[enemyId];
       if(!enemy) return false;
       const loot=document.getElementById("loot-dialog");if(loot&&loot.open)loot.close();
-      const dlg=document.getElementById("combat-dialog");if(dlg.open)dlg.close();
-      state.pendingLoot=null;
-      state.combat={enemyId,enemyHp:enemy.maxHp,round:1,phase:"player",rollText:"Choose an action.",message:`${enemy.name} emerges! Choose your action.`,history:[],pendingDefend:false,busy:false};
-      resetCombatPresentation();
-      state.combat.phase="player";state.combat.rollText="Choose an action.";
-      renderCombat();dlg.showModal();setCombatButtons(false);autosave();
+      closeCombatDialogOnly();
+      const encounter=document.getElementById("encounter-dialog");if(encounter.open)encounter.close();
+      state.pendingLoot=null;state.combat=null;state.pendingEncounter=enemyId;
+      renderEncounterIntro();encounter.showModal();autosave();
       return true;
+    }
+
+    function beginCombatFromEncounter(){
+      const enemyId=state.pendingEncounter,enemy=enemyCatalog[enemyId];if(!enemy)return false;
+      const encounter=document.getElementById("encounter-dialog");if(encounter.open)encounter.close();
+      state.pendingEncounter=null;
+      state.combat={enemyId,enemyHp:enemy.maxHp,round:1,phase:"player",rollText:"Choose an action.",message:`${enemy.name} emerges! Choose your action.`,history:[],pendingDefend:false,busy:false};
+      resetCombatPresentation();renderCombat();
+      const dlg=document.getElementById("combat-dialog");dlg.showModal();setCombatButtons(false);autosave();return true;
+    }
+
+    function retreatBeforeCombat(){
+      const enemy=enemyCatalog[state.pendingEncounter];if(!enemy||!enemy.canRetreatBeforeCombat)return false;
+      const encounter=document.getElementById("encounter-dialog");if(encounter.open)encounter.close();
+      state.pendingEncounter=null;if(enemy.escapeRoom)state.room=enemy.escapeRoom;state.view="center";
+      addLog(`You back away before ${enemy.name} can close the distance.`,"system");renderAll();autosave();return true;
     }
 
     function closeCombatDialogOnly(){
@@ -2687,7 +2906,7 @@
       if(state.combat){
         const enemy=enemyCatalog[state.combat.enemyId];
         if(enemy&&enemy.escapeRoom) state.room=enemy.escapeRoom;
-        state.view="center";state.combat=null;addLog(reason,"warning");
+        state.view="center";state.combat=null;state.pendingEncounter=null;addLog(reason,"warning");
       }
       closeCombatDialogOnly();renderAll();autosave();
     }
@@ -2719,22 +2938,34 @@
       renderCombat();
     }
 
+    function rewardItems(reward){
+      const items=[];if(reward.item)items.push({name:reward.item,icon:"🎒",description:"Encounter item"});
+      if(reward.healingItem){
+        const meta=healingItemCatalog[reward.healingItem]||{label:titleCase(reward.healingItem),heal:0,icon:"🧪"};
+        items.push({name:reward.healingItem,icon:meta.icon,description:`Restores ${meta.heal} HP`,healing:true});
+      }
+      return items;
+    }
     function showLootReward(reward){
       if(!reward) return;
       state.pendingLoot=reward;
       document.getElementById("loot-title").textContent=`Victory — ${reward.enemy} defeated`;
-      const practice=reward.skill?`<div class="loot-item">⚔ +1 ${reward.skill} Practice</div>`:"";
-      document.getElementById("loot-body").innerHTML=`<div class="loot-item">🪙 ${reward.gold} gold</div><div class="loot-item">🎒 ${reward.item}</div><div class="loot-item">✨ ${reward.xp} XP</div>${practice}`;
+      const items=rewardItems(reward).map(item=>`<div class="loot-item ${item.healing?"loot-healing":""}"><span class="loot-icon">${item.icon}</span><span><strong>${titleCase(item.name)}</strong><small>${item.description}</small></span></div>`).join("");
+      const practice=reward.skill?`<div class="loot-item"><span class="loot-icon">⚔</span><span><strong>+1 ${reward.skill} Practice</strong><small>Improves future combat checks</small></span></div>`:"";
+      document.getElementById("loot-body").innerHTML=`<div class="loot-item"><span class="loot-gold-icon" aria-hidden="true"></span><span><strong>${reward.gold} gold</strong><small>Added when collected</small></span></div>${items}<div class="loot-item"><span class="loot-icon">✨</span><span><strong>${reward.xp} XP</strong><small>Adventure experience</small></span></div>${practice}`;
       const dlg=document.getElementById("loot-dialog");if(!dlg.open)dlg.showModal();autosave();
     }
 
     function collectPendingLoot(){
       const reward=state.pendingLoot;if(!reward)return;
-      addGold(reward.gold,`${reward.enemy} victory reward`);addItem(reward.item);award(reward.awardKey,reward.xp);
+      addGold(reward.gold,`${reward.enemy} victory reward`);
+      rewardItems(reward).forEach(item=>addItem(item.name));
+      award(reward.awardKey,reward.xp);
       if(reward.skill) grantSkillPractice(reward.skill,reward.practiceKey||`victory-${reward.enemyId}`,1,false);
       if(reward.enemyId==="thornHound")state.flags.thornHoundLootCollected=true;
       if(reward.enemyId==="restlessSkeleton")state.flags.cryptSkeletonLootCollected=true;
-      addLog(`Collected: ${reward.gold} gold and ${reward.item}.`,"success");state.pendingLoot=null;
+      const names=rewardItems(reward).map(item=>item.name).join(", ");
+      addLog(`Collected: ${reward.gold} gold${names?` and ${names}`:""}.`,"success");state.pendingLoot=null;
       const dlg=document.getElementById("loot-dialog");if(dlg.open)dlg.close();renderAll();autosave();
     }
 
@@ -2744,13 +2975,13 @@
       if(enemyId==="thornHound"){
         state.flags.thornHoundDefeated=true;
         addLog("The Thorn Hound dissolves into black leaves. Its collar falls to the road.","success");
-        reward={enemyId,enemy:enemy.name,gold:3,item:"briar fang",xp:4,awardKey:"defeat-thorn-hound",skill:"Combat",practiceKey:"victory-thornHound"};
+        reward={enemyId,enemy:enemy.name,gold:3,item:"briar fang",healingItem:"field bandage",xp:4,awardKey:"defeat-thorn-hound",skill:"Combat",practiceKey:"victory-thornHound"};
       } else if(enemyId==="restlessSkeleton"){
         state.flags.cryptSkeletonDefeated=true;
         addLog("The Restless Skeleton collapses into quiet bones. The coffin chamber falls still.","success");
-        reward={enemyId,enemy:enemy.name,gold:8,item:"ancient chapel charm",xp:6,awardKey:"defeat-restless-skeleton",skill:"Combat",practiceKey:"victory-restlessSkeleton"};
+        reward={enemyId,enemy:enemy.name,gold:8,item:"ancient chapel charm",healingItem:"minor healing tonic",xp:6,awardKey:"defeat-restless-skeleton",skill:"Combat",practiceKey:"victory-restlessSkeleton"};
       }
-      state.combat=null;closeCombatDialogOnly();renderAll();if(reward)showLootReward(reward);else autosave();
+      state.combat=null;state.pendingEncounter=null;closeCombatDialogOnly();renderAll();if(reward)showLootReward(reward);else autosave();
     }
 
     function prepareEnemyTurn(message,rollText,defending=false){
@@ -2789,10 +3020,14 @@
         } else if(action==="defend"){
           const text=`You brace for the next attack. Defense ${stats.defense} + Defend 2 = ${stats.defense+2}.`;appendCombatHistory(text);prepareEnemyTurn(text,"Tap Continue for the enemy turn.",true);
         } else if(action==="item"){
-          let text;
-          if(!has("healing herbs")) text="You have no healing herbs.";
+          let text;const healing=availableHealingItem();
+          if(!healing) text="You have no healing items.";
           else if(state.health>=state.maxHealth) text="You are already at full health.";
-          else {removeItem("healing herbs",1);const healed=Math.min(5,state.maxHealth-state.health);state.health+=healed;text=`You use healing herbs and recover ${healed} health.`;}
+          else {
+            const [itemId,meta]=healing;removeItem(itemId,1);
+            const healed=Math.min(meta.heal,state.maxHealth-state.health);state.health+=healed;
+            text=`You use ${meta.label.toLowerCase()} and recover ${healed} health.`;
+          }
           appendCombatHistory(text);prepareEnemyTurn(text,"Tap Continue for the enemy turn.",false);
         } else if(action==="flee"){
           const roll=await animateCombatRoll(token);if(!state.combat||token!==combatActionToken)return;
@@ -2819,6 +3054,7 @@
       closeCombatDialogOnly();
       const loot=document.getElementById("loot-dialog");if(loot&&loot.open)loot.close();
       if(state.pendingLoot){showLootReward(state.pendingLoot);return "loot";}
+      if(state.pendingEncounter&&enemyCatalog[state.pendingEncounter]){renderEncounterIntro();const intro=document.getElementById("encounter-dialog");if(!intro.open)intro.showModal();return "encounter";}
       if(state.combat&&enemyCatalog[state.combat.enemyId]&&state.combat.enemyHp>0){
         state.combat.busy=false;state.combat.phase=state.combat.phase==="enemy-ready"?"enemy-ready":"player";
         state.combat.history=Array.isArray(state.combat.history)?state.combat.history:[];
@@ -3599,7 +3835,7 @@
     }
 
     function updateStatus() {
-      locationNameEl.textContent = currentSceneName();
+      if(locationNameEl)locationNameEl.textContent = currentSceneName();
       if(worldTimeEl) worldTimeEl.textContent=worldTimeLabel();
       sceneLabelEl.textContent = currentSceneName();
       document.getElementById("skills-summary").textContent = `Lv ${state.level || 1} • ${(state.score || 0) % 10}/10 XP`;
@@ -5152,12 +5388,12 @@
 
     let selectedHotspotContext = null;
     let expandedActionCategory = null;
-    const ACTION_PANEL_PREF_KEY="briar-crown-actions-expanded";
+    const ACTION_PANEL_PREF_KEY="briar-crown-actions-expanded-v1750";
     const NAV_MODE_PREF_KEY="briar-crown-nav-mode";
-    const NAV_VISIBLE_PREF_KEY="briar-crown-nav-visible";
-    let actionsPanelExpanded = storageGet(ACTION_PANEL_PREF_KEY) !== "false";
-    let navigationMode = storageGet(NAV_MODE_PREF_KEY) === "move" ? "move" : "look";
-    let sceneNavigationVisible = storageGet(NAV_VISIBLE_PREF_KEY) !== "false";
+    const NAV_VISIBLE_PREF_KEY="briar-crown-nav-visible-v1750";
+    let actionsPanelExpanded = storageGet(ACTION_PANEL_PREF_KEY) === "true";
+    let navigationMode = storageGet(NAV_MODE_PREF_KEY) === "look" ? "look" : "move";
+    let sceneNavigationVisible = storageGet(NAV_VISIBLE_PREF_KEY) === "true";
 
     function actionIcon(action) {
       if (action === "inventory") return "▣";
@@ -5275,6 +5511,11 @@
       }
 
       if (previousContext && !movementCommand && state.room === previousRoom && currentView() === previousView) {
+        if(!state.flags.tutorialFirstActionComplete&&state.flags.tutorialSceneTapComplete&&state.room==="square"&&/well/i.test(previousContext.hotspot.label||"")){
+          state.flags.tutorialFirstActionComplete=true;
+          addLog("<strong>Exploration tip:</strong> Open Navigation and tap Look to reveal nearby interactive areas for a few seconds.","system");
+          autosave();
+        }
         const refreshed = currentHotspots().find(h => normalize(h.label) === normalize(previousContext.hotspot.label));
         selectedHotspotContext = refreshed ? { hotspot: refreshed, room: state.room, view: currentView() } : null;
         renderQuickActions();
@@ -5532,10 +5773,20 @@
         const key=canonicalActionKey(action); if(seen.has(key)) return false; seen.add(key); return true;
       }).sort((a,b)=>quickPriority(a)-quickPriority(b));
     }
+    function updateNavigationToggle(){
+      const btn=document.getElementById("nav-toggle-btn"),label=document.getElementById("nav-toggle-label");
+      if(!btn||!label)return;
+      btn.classList.toggle("is-open",sceneNavigationVisible);
+      btn.setAttribute("aria-pressed",String(sceneNavigationVisible));
+      btn.setAttribute("aria-label",sceneNavigationVisible?"Hide travel controls":"Show travel controls");
+      label.textContent=sceneNavigationVisible?"Hide Travel":"Show Travel";
+    }
     function renderSceneNavigation() {
       if (!sceneNavOverlayEl) return;
       sceneNavOverlayEl.replaceChildren();
-      sceneNavOverlayEl.classList.toggle("is-collapsed", !sceneNavigationVisible);
+      sceneNavOverlayEl.classList.toggle("is-hidden", !sceneNavigationVisible);
+      updateNavigationToggle();
+      if(!sceneNavigationVisible)return;
 
       const toggle=document.createElement("button");
       toggle.type="button";
@@ -5549,11 +5800,6 @@
         storageSet(NAV_VISIBLE_PREF_KEY,String(sceneNavigationVisible));
         renderSceneNavigation();
       });
-
-      if(!sceneNavigationVisible){
-        sceneNavOverlayEl.appendChild(toggle);
-        return;
-      }
 
       const pad=document.createElement("div");
       pad.className="scene-nav-pad";
@@ -5586,6 +5832,7 @@
         btn.addEventListener("click",()=>{
           navigationMode=mode;
           storageSet(NAV_MODE_PREF_KEY,navigationMode);
+          if(mode==="look")revealSceneHotspots();
           renderSceneNavigation();
         });
         tools.appendChild(btn);
@@ -5675,16 +5922,25 @@
       );
     }
 
+    function selectNearbyHotspot(h){
+      selectedHotspotContext={hotspot:h,room:state.room,view:currentView()};
+      state.lastObject=normalizeObjectName(h.label);
+      expandedActionCategory=null;actionsPanelExpanded=true;
+      renderQuickActions();
+      const matching=[...hotspotsEl.querySelectorAll(".hotspot")].find(btn=>normalize(btn.dataset.label||"")===normalize(h.label));
+      if(matching){matching.classList.add("revealed","look-reveal");setTimeout(()=>matching.classList.remove("revealed","look-reveal"),1800);}
+    }
+
     function renderQuickActions() {
       quickActionsEl.innerHTML="";
       if(selectedHotspotContext&&(selectedHotspotContext.room!==state.room||selectedHotspotContext.view!==currentView())) selectedHotspotContext=null;
-
-      const selectedActions=selectedHotspotContext
-        ? dedupeActionList([...persistentNavigationActions(), ...contextualActionsForHotspot(selectedHotspotContext.hotspot)])
-        : [];
-      const defaultActions=selectedHotspotContext?[]:defaultSceneActions();
-      const displayCount=selectedHotspotContext?selectedActions.length:defaultActions.length;
-      actionsToggleEl.textContent=actionsPanelExpanded?"Hide Actions ▲":(displayCount?`Show Actions (${displayCount}) ▼`:"Show Actions ▼");
+      const nearby=currentHotspots();
+      const selectedActions=selectedHotspotContext?dedupeActionList(contextualActionsForHotspot(selectedHotspotContext.hotspot)):[];
+      const displayCount=selectedHotspotContext?selectedActions.length:nearby.length;
+      const selectedLabel=selectedHotspotContext&&selectedHotspotContext.hotspot.label;
+      actionsToggleEl.textContent=actionsPanelExpanded
+        ? (selectedLabel?`Hide ${selectedLabel} Actions ▲`:"Hide Nearby ▲")
+        : (selectedLabel?`Show ${selectedLabel} Actions (${displayCount}) ▼`:(displayCount?`Show Nearby (${displayCount}) ▼`:"Show Nearby ▼"));
       actionsToggleEl.setAttribute("aria-expanded",String(actionsPanelExpanded));
       quickActionsEl.classList.toggle("is-hidden",!actionsPanelExpanded);
       if(!actionsPanelExpanded)return;
@@ -5695,12 +5951,18 @@
         }
         const context=document.createElement("div"); context.className="quick-context-label";
         const title=document.createElement("span"); title.textContent=`Selected: ${selectedHotspotContext.hotspot.label}`;
-        const clear=document.createElement("button"); clear.type="button"; clear.textContent="Clear";
+        const clear=document.createElement("button"); clear.type="button"; clear.textContent="Nearby";
         clear.addEventListener("click",()=>{selectedHotspotContext=null;expandedActionCategory=null;renderQuickActions();});
         context.append(title,clear); quickActionsEl.appendChild(context);
         selectedActions.forEach(a=>appendActionButton(a,isCriticalAction(a)?"critical-action":""));
       } else {
-        defaultActions.forEach(a=>appendActionButton(a,isCriticalAction(a)?"critical-action":""));
+        const heading=document.createElement("div");heading.className="nearby-heading";heading.textContent="Nearby objects and characters";quickActionsEl.appendChild(heading);
+        if(!nearby.length){const empty=document.createElement("div");empty.className="nearby-empty";empty.textContent="Nothing nearby appears interactive.";quickActionsEl.appendChild(empty);}
+        nearby.forEach(h=>{
+          const btn=document.createElement("button");btn.type="button";btn.className="quick-btn nearby-object-btn";
+          btn.innerHTML=`<span class="action-icon">◉</span><span>${escapeHtml(h.label)}</span>`;
+          btn.addEventListener("click",()=>selectNearbyHotspot(h));quickActionsEl.appendChild(btn);
+        });
       }
     }
 
@@ -5821,6 +6083,25 @@
       return null;
     }
 
+    let lookRevealTimer=null;
+    function revealSceneHotspots(duration=2800){
+      clearTimeout(lookRevealTimer);
+      const buttons=[...hotspotsEl.querySelectorAll(".hotspot")];
+      buttons.forEach(btn=>btn.classList.add("look-reveal","revealed"));
+      if(!state.flags.tutorialLookComplete){
+        state.flags.tutorialLookComplete=true;
+        addLog("<strong>Tutorial complete.</strong> Look briefly reveals objects and characters you can tap.","system");
+        autosave();
+      }
+      lookRevealTimer=setTimeout(()=>buttons.forEach(btn=>btn.classList.remove("look-reveal","revealed")),duration);
+      if(navigator.vibrate)navigator.vibrate(10);
+    }
+    function updateSceneTutorial(){
+      const tutorial=document.getElementById("scene-tutorial");if(!tutorial)return;
+      const active=state.room==="square"&&!state.flags.tutorialSceneTapComplete;
+      tutorial.hidden=!active;
+    }
+
     function renderHotspots() {
       hotspotsEl.innerHTML = "";
       if (sceneMarkersEl) sceneMarkersEl.innerHTML = "";
@@ -5831,6 +6112,8 @@
         btn.textContent = shownLabel;
         btn.dataset.label = shownLabel;
         btn.setAttribute("aria-label", `Explore ${h.label}`);
+        const tutorialTarget=state.room==="square"&&!state.flags.tutorialSceneTapComplete&&/well/i.test(h.label||"");
+        if(tutorialTarget)btn.classList.add("tutorial-target","revealed");
         btn.style.left = `${h.x}%`;
         btn.style.top = `${h.y}%`;
         const personHotspot = /elowen|merrin|blacksmith|innkeeper|traveler|fairy|deer|owl|rabbit/i.test(h.label || "");
@@ -5842,6 +6125,11 @@
           hotspotsEl.querySelectorAll(".hotspot.revealed").forEach(other => other.classList.remove("revealed"));
           state.lastObject = normalizeObjectName(h.label);
           selectedHotspotContext = { hotspot: h, room: state.room, view: currentView() };
+          if(tutorialTarget){
+            state.flags.tutorialSceneTapComplete=true;
+            addLog("<strong>You found the well.</strong> Choose one of its actions below. Use Look whenever you need help finding other interactive areas.","system");
+            autosave();updateSceneTutorial();
+          }
           expandedActionCategory = null;
           actionsPanelExpanded = true;
           inputEl.value = "";
@@ -5859,6 +6147,7 @@
         hotspotsEl.appendChild(btn);
         // v1.7.2.3: visible emoji/orb badges removed; the artwork itself and invisible hotspots provide interaction.
       });
+      updateSceneTutorial();
     }
 
     function renderAll() {
@@ -6193,9 +6482,12 @@
       state.flags.classSkillStartApplied=true;
       addItem(hero.item);
       state.log = [];
+      actionsPanelExpanded=false;sceneNavigationVisible=false;navigationMode="move";
+      storageSet(ACTION_PANEL_PREF_KEY,"false");storageSet(NAV_VISIBLE_PREF_KEY,"false");storageSet(NAV_MODE_PREF_KEY,"move");
       addLog(`Welcome, <strong>${escapeHtml(name)}</strong> the ${hero.name}.`, "system");
       addLog(`Your ${hero.gift.toLowerCase()} has been placed in your backpack. Open Satchel → Equipment & Loadout to equip usable gear.`, "system");
       addLog("Seven days have passed since the Briar Crown vanished from Ironthorn Castle.", "system");
+      addLog("<strong>Explore the world:</strong> objects and characters in the artwork can be tapped. Begin with the highlighted well.","system");
       describeRoom(true);
       autosave();
       document.getElementById("start-overlay").hidden = true;
@@ -6290,6 +6582,12 @@
     document.getElementById("skills-btn").addEventListener("click", () => { renderSkills(); document.getElementById("skills-dialog").showModal(); });
     document.getElementById("equipment-menu-btn")?.addEventListener("click",()=>{document.getElementById("menu-dialog").close();showEquipment();});
     actionsToggleEl.addEventListener("click",()=>{actionsPanelExpanded=!actionsPanelExpanded;storageSet(ACTION_PANEL_PREF_KEY,String(actionsPanelExpanded));renderQuickActions();});
+    document.getElementById("nav-toggle-btn")?.addEventListener("click",()=>{
+      sceneNavigationVisible=!sceneNavigationVisible;storageSet(NAV_VISIBLE_PREF_KEY,String(sceneNavigationVisible));renderSceneNavigation();
+    });
+    document.getElementById("encounter-card")?.addEventListener("click",beginCombatFromEncounter);
+    document.getElementById("encounter-retreat-btn")?.addEventListener("click",retreatBeforeCombat);
+    document.getElementById("encounter-dialog")?.addEventListener("cancel",event=>event.preventDefault());
     document.getElementById("map-btn").addEventListener("click", () => { renderMap(); document.getElementById("map-dialog").showModal(); });
     document.addEventListener("click", (event) => {
       const closeMap = event.target.closest && event.target.closest("[data-map-close]");
@@ -6354,7 +6652,7 @@
           tavernCellarOpen:false
         });
       }
-      state.schemaVersion = 1742;
+      state.schemaVersion = 1750;
       const herbQty=(state.itemCounts["healing herb"]||0)+(state.itemCounts["healing herbs"]||0)+(state.inventory.includes("healing herb")?1:0);
       delete state.itemCounts["healing herb"];state.inventory=state.inventory.filter(i=>i!=="healing herb");
       if(herbQty>0){state.itemCounts["healing herbs"]=Math.max(state.itemCounts["healing herbs"]||0,herbQty);if(!state.inventory.includes("healing herbs"))state.inventory.push("healing herbs");}
@@ -6362,6 +6660,7 @@
       state.inventory.forEach(i => { if (!state.itemCounts[i]) state.itemCounts[i]=1; });
       state.travelMinutes=Number.isFinite(state.travelMinutes)?state.travelMinutes:0;
       state.pendingLoot=state.pendingLoot&&typeof state.pendingLoot==="object"?state.pendingLoot:null;
+      state.pendingEncounter=typeof state.pendingEncounter==="string"&&enemyCatalog[state.pendingEncounter]?state.pendingEncounter:null;
       state.gold = Number.isFinite(state.gold) ? state.gold : 20;
       state.health = Number.isFinite(state.health) ? state.health : 20;
       state.maxHealth = Number.isFinite(state.maxHealth) ? state.maxHealth : 20;
@@ -6403,7 +6702,8 @@
       state.lastPerson = typeof state.lastPerson === "string" ? state.lastPerson : "";
       state.lastCommand = typeof state.lastCommand === "string" ? state.lastCommand : "";
       state.commandHistory = Array.isArray(state.commandHistory) ? state.commandHistory : [];
-      if(state.pendingLoot) state.combat=null;
+      if(state.pendingLoot){state.combat=null;state.pendingEncounter=null;}
+      else if(state.pendingEncounter){state.combat=null;}
       else if(state.combat&&enemyCatalog[state.combat.enemyId]&&Number.isFinite(state.combat.enemyHp)&&state.combat.enemyHp>0){
         state.combat.round=Math.max(1,Number(state.combat.round)||1);state.combat.busy=false;
         state.combat.phase=state.combat.phase==="enemy-ready"?"enemy-ready":"player";
@@ -6505,7 +6805,7 @@
       }
       renderAll();
       showTitleScreen();
-      if ("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js?build=1743").catch(() => {});
+      if ("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js?build=1750").catch(() => {});
     }
 
     boot();

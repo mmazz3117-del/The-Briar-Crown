@@ -1,4 +1,4 @@
-const CACHE = "briar-crown-v1.7.4.3-mobile-safe-area-panel-spacing";
+const CACHE = "briar-crown-v1.7.5.0-exploration-encounters-rewards";
 const CORE_ASSETS = [
   "./",
   "./index.html",
@@ -9,6 +9,8 @@ const CORE_ASSETS = [
   "./assets/ui/opening-v1730.webp",
   "./assets/ui/world-map-v1726.png",
   "./assets/ui/rowan-equipment-v1742.webp",
+  "./assets/ui/restless-skeleton-v1750.webp",
+  "./assets/ui/thorn-hound-v1750.webp",
   "./assets/scenes/square-v1724.webp",
   "./assets/scenes/production-manifest-v1729.json",
   "./assets/scenes/thorn-hedge-pass-v1729.webp",
