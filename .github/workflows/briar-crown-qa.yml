@@ -26,5 +26,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: briar-crown-qa
-          path: QA_REPORT_v1.7.4.2.txt
+          path: QA_REPORT_v1.7.4.3.txt
           if-no-files-found: warn
