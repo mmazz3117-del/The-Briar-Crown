@@ -5,7 +5,7 @@ from PIL import Image, ImageStat
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else Path(__file__).resolve().parents[1]
-VERSION = "1.7.5.0"
+VERSION = "1.7.6.0"
 ART_VERSION = "1.7.2.9"
 CONTRACT = json.loads((Path(__file__).parent / "contracts.json").read_text())
 results = []
@@ -111,7 +111,7 @@ with sync_playwright() as pw:
     check("map:full-screen-viewer", "height:100dvh!important" in index and "world-map-v1726.png" in index)
     check("map:no-crossing-overlay-lines", ".wm-route { display:none!important; }" in index and 'const edgesSvg = "";' in index)
     check("opening:art-present", (ROOT / "assets/ui/opening-v1730.webp").exists() and "opening-v1730.webp" in index)
-    check("opening:version-visible", 'const BUILD_VERSION = "1.7.5.0"' in index and 'id="opening-enter-btn"' in index)
+    check("opening:version-visible", 'const BUILD_VERSION = "1.7.6.0"' in index and 'id="opening-enter-btn"' in index)
     check("opening:animated-scroll-structure", all(token in index for token in ["ancient-scroll","scroll-roll-top","scroll-roll-bottom","parchment-unfurl","showLoreScreen"]))
     check("opening:hidden-step-isolation-css", '.lore-step[hidden], .class-step[hidden], .opening-title-step[hidden]' in index)
     page.evaluate("showTitleScreen()")
@@ -147,6 +147,11 @@ with sync_playwright() as pw:
     check("v1750:creature-art-assets", all((ROOT/p).exists() for p in ["assets/ui/thorn-hound-v1750.webp","assets/ui/restless-skeleton-v1750.webp"]))
     check("v1750:healing-rewards", "field bandage" in index and "minor healing tonic" in index and "healingItemCatalog" in index)
     check("v1750:gold-reward-visual", "loot-gold-icon" in index)
+    check("v1751:no-flicker-scene-key", "renderedSceneKey" in index and "pendingSceneKey" in index and "sceneKey === renderedSceneKey" in index)
+    check("v1751:combat-portrait-crop", "combatPosition" in index and "--combat-art-position" in index)
+    check("v1760:contextual-command-parser", "handleFlexibleCommand" in index and "solveFlexibleToolPuzzle" in index and "nextFlexibleHint" in index)
+    check("v1760:command-tutorial", 'id="command-tutorial"' in index and "tutorialCommandComplete" in index and "submitTypedCommand" in index)
+    check("v1760:combined-hotfix-preserved", "sceneKey === renderedSceneKey" in index and "combatPosition" in index)
     check("combat:required-actions", all(f'data-combat-action="{a}"' in index for a in ["attack","defend","item","flee","continue"]))
     check("combat:emergency-retreat-control", 'id="combat-close-btn"' in index and "emergencyRetreatFromCombat" in index)
     check("combat:finally-cleanup", "finally {" in index and "combatUiBusy=false" in index and "resetCombatPresentation" in index)
