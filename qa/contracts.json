@@ -1,5 +1,5 @@
 {
-  "version": "1.7.4.3",
+  "version": "1.7.5.0",
   "scenes": {
     "tavern": {
       "fresh_required": [
@@ -282,7 +282,23 @@
       "min_x_percent": 70,
       "max_x_percent": 100,
       "min_y_percent": 50
-    }
+    },
+    "encounter_intro": true,
+    "tap_card_to_begin": true,
+    "centered_mobile_dialog": true,
+    "creature_art": [
+      "assets/ui/thorn-hound-v1750.webp",
+      "assets/ui/restless-skeleton-v1750.webp"
+    ],
+    "attribute_card_fields": [
+      "type",
+      "threat",
+      "hp",
+      "attack",
+      "defense",
+      "trait",
+      "weakness"
+    ]
   },
   "treasure": {
     "tavernCellar": [
@@ -322,5 +338,28 @@
     "post_combat_state_transform": true,
     "abandoned_pack_interactive": true,
     "watch_post_interactive": true
+  },
+  "exploration_update": {
+    "actions_collapsed_by_default": true,
+    "navigation_hidden_by_default": true,
+    "status_navigation_toggle": true,
+    "nearby_object_fallback": true,
+    "tap_scene_objects": true,
+    "look_reveals_hotspots": true,
+    "first_time_well_tutorial": true,
+    "narrative_box_preserved": true
+  },
+  "rewards_update": {
+    "gold_visual": "css-gold-stack",
+    "healing_rewards": {
+      "thornHound": "field bandage",
+      "restlessSkeleton": "minor healing tonic"
+    },
+    "healing_values": {
+      "field bandage": 4,
+      "minor healing tonic": 6,
+      "healing herbs": 5,
+      "traveler's poultice": 8
+    }
   }
 }
