@@ -5,7 +5,7 @@ from PIL import Image, ImageStat
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else Path(__file__).resolve().parents[1]
-VERSION = "1.7.4.2"
+VERSION = "1.7.4.3"
 ART_VERSION = "1.7.2.9"
 CONTRACT = json.loads((Path(__file__).parent / "contracts.json").read_text())
 results = []
@@ -111,7 +111,7 @@ with sync_playwright() as pw:
     check("map:full-screen-viewer", "height:100dvh!important" in index and "world-map-v1726.png" in index)
     check("map:no-crossing-overlay-lines", ".wm-route { display:none!important; }" in index and 'const edgesSvg = "";' in index)
     check("opening:art-present", (ROOT / "assets/ui/opening-v1730.webp").exists() and "opening-v1730.webp" in index)
-    check("opening:version-visible", 'const BUILD_VERSION = "1.7.4.2"' in index and 'id="opening-enter-btn"' in index)
+    check("opening:version-visible", 'const BUILD_VERSION = "1.7.4.3"' in index and 'id="opening-enter-btn"' in index)
     check("opening:animated-scroll-structure", all(token in index for token in ["ancient-scroll","scroll-roll-top","scroll-roll-bottom","parchment-unfurl","showLoreScreen"]))
     check("opening:hidden-step-isolation-css", '.lore-step[hidden], .class-step[hidden], .opening-title-step[hidden]' in index)
     page.evaluate("showTitleScreen()")
@@ -144,6 +144,8 @@ with sync_playwright() as pw:
     check("skills:unique-combat-practice", "grantSkillPractice" in index and "victory-restlessSkeleton" in index and "victory-thornHound" in index)
     check("combat:player-acknowledged-phases", "enemy-ready" in index and "Continue — Enemy Turn" in index and "combat-history" in index)
     check("equipment:dialog-present", 'id="equipment-dialog"' in index and "Equipment &amp; Loadout" in index)
+    check("ui:safe-area-dialog-css", all(token in index for token in ["--panel-safe-top:env(safe-area-inset-top,0px)","dialog.safe-area-dialog[open]","inset-block-start:calc(var(--panel-safe-top)","overscroll-behavior:contain"]))
+    check("ui:tall-panels-use-safe-area", all(f'id="{panel}" class="safe-area-dialog"' in index or (panel=="equipment-dialog" and 'id="equipment-dialog" class="equipment-dialog safe-area-dialog"' in index) for panel in ["inventory-dialog","equipment-dialog","skills-dialog","shop-dialog","menu-dialog","scene-dialog"]))
     check("equipment:hero-art-present", (ROOT / "assets/ui/rowan-equipment-v1742.webp").exists() and "rowan-equipment-v1742.webp" in index)
     check("equipment:slots-present", all(f'{slot}:{{label:' in index for slot in ["weapon","offhand","armor","boots","charm","ring","belt"]))
     check("equipment:combat-formulas-present", "stats.attack" in index and "stats.defense" in index and "equipmentTotals" in index and "Damage:" in index)
@@ -462,6 +464,11 @@ with sync_playwright() as pw:
       renderAll();showEquipment('iron dagger');
     }""")
     check("equipment:dialog-opens", page.locator("#equipment-dialog").evaluate("d=>d.open"))
+    page.evaluate("""() => {document.documentElement.style.setProperty('--panel-safe-top','52px');document.documentElement.style.setProperty('--panel-safe-bottom','20px');document.documentElement.style.setProperty('--panel-edge-buffer','12px');}""")
+    page.evaluate("document.getElementById('equipment-dialog').close();showEquipment('iron dagger')")
+    safe_geom=page.evaluate("""() => {const d=document.getElementById('equipment-dialog'),h=d.querySelector('.modal-head'),b=d.querySelector('.modal-body'),r=d.getBoundingClientRect(),hr=h.getBoundingClientRect();return {top:r.top,bottom:r.bottom,height:r.height,inner:window.innerHeight,headTop:hr.top,bodyClient:b.clientHeight,bodyScroll:b.scrollHeight,display:getComputedStyle(d).display};}""")
+    check("equipment:safe-top-buffer", safe_geom["top"] >= 63 and safe_geom["headTop"] >= safe_geom["top"]-1, str(safe_geom))
+    check("equipment:safe-bottom-and-internal-scroll", safe_geom["bottom"] <= safe_geom["inner"]-31 and safe_geom["bodyClient"] > 0 and safe_geom["bodyScroll"] >= safe_geom["bodyClient"] and safe_geom["display"] == "flex", str(safe_geom))
     check("equipment:all-seven-slots-render", page.locator("[data-loadout-slot]").count() == 7, str(page.locator("[data-loadout-slot]").count()))
     check("equipment:hero-character-rendered", page.locator(".loadout-hero-art img").count() == 1 and "rowan-equipment-v1742.webp" in (page.locator(".loadout-hero-art img").get_attribute("src") or ""))
     equip_preview=page.evaluate("({base:combatStatBundle().base,current:combatStatBundle().current,preview:combatStatBundle(projectedLoadout('iron dagger')).current})")
@@ -473,6 +480,7 @@ with sync_playwright() as pw:
     equip_geom=page.locator("#equipment-body").evaluate("e=>({client:e.clientWidth,scroll:e.scrollWidth,height:e.clientHeight,scrollHeight:e.scrollHeight})")
     check("equipment:mobile-no-horizontal-overflow", equip_geom["scroll"] <= equip_geom["client"] + 1, str(equip_geom))
     page.locator("#equipment-dialog [data-close]").click()
+    page.evaluate("""() => {document.documentElement.style.removeProperty('--panel-safe-top');document.documentElement.style.removeProperty('--panel-safe-bottom');document.documentElement.style.removeProperty('--panel-edge-buffer');}""")
 
     # Legacy shield slot migrates to the new Off-Hand slot and survives save/reload.
     legacy_equipment=page.evaluate("""() => {
