@@ -201,11 +201,12 @@
       "height": 900,
       "visual_status": "optimized v1.7.2.4 production scene"
     },
-    "tavern-approach-v1724.webp": {
-      "sha256": "ad62618f26ddf76ee54e9cf51e4db3b0b1ddbcc52e60717251662b1ea31c74a4",
+    "tavern-approach-v1771.webp": {
+      "sha256": "adfc2968df493cbf739567da70a015da9e538f40e8ab98006df352749271c15c",
       "width": 1200,
       "height": 900,
-      "visual_status": "optimized v1.7.2.4 production scene"
+      "bytes": 523932,
+      "visual_status": "approved bright daytime v1.7.7.1 scene; Rowan continuity and direction corrected"
     },
     "tavern-cellar-passage-v1724.webp": {
       "sha256": "9878b3058915616aa053226b752310f4f8d1d98133477669f8d580abde79148b",
@@ -225,11 +226,12 @@
       "height": 900,
       "visual_status": "optimized v1.7.2.4 production scene"
     },
-    "tavern-door-v1724.webp": {
-      "sha256": "bb5867aebfffc36d40332e33e2bb41f7a1a9cdda9d6bf07d015d0962181a4132",
+    "tavern-door-v1771.webp": {
+      "sha256": "936532001be35318333401b1f276f1991c339e0b8afab69a5e590c4fce7794a8",
       "width": 1200,
       "height": 900,
-      "visual_status": "optimized v1.7.2.4 production scene"
+      "bytes": 518948,
+      "visual_status": "approved bright daytime v1.7.7.1 scene; Rowan continuity and direction corrected"
     },
     "tavern-east-v1724.webp": {
       "sha256": "4e0a59f924095a8433fa19bde019e390673c5f5354aed5ac951b890ca5695547",
