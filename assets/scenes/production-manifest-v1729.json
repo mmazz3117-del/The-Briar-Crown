@@ -1,5 +1,5 @@
 {
-  "version": "1.7.2.9",
+  "version": "1.7.7.3",
   "assets": {
     "apothecary-approach-v1724.webp": {
       "sha256": "b16a9d4792c0e32254dbaa9ee0483d4b29a0edfef1b55518a4535a8fd11ae010",
@@ -293,6 +293,24 @@
       "width": 1200,
       "height": 900,
       "visual_status": "optimized v1.7.2.4 production scene"
+    },
+    "tavern-center-v1772.webp": {
+      "sha256": "7d630c593fe76ccae589c64b407d0b75fe971f27ed3ef700be8b83ad1cb76918",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "refreshed v1.7.7.2 Rowan continuity scene"
+    },
+    "tavern-cellar-v1772.webp": {
+      "sha256": "749dd5375395b8f8eb5f83bf9d9b918accbcc273df7446a51edd3f21e9e33fc8",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "refreshed v1.7.7.2 Rowan continuity scene"
+    },
+    "ironthorn-gate-v1773.webp": {
+      "sha256": "c3e69899b56cbca5202d4b202dc6db293d4f9b45930f268267db8772eafbd71f",
+      "width": 1200,
+      "height": 900,
+      "visual_status": "refreshed v1.7.7.3 Rowan-locked Ironthorn Gate scene"
     }
   }
 }
