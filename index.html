@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="briar-crown-deployment" content="1762">
+  <meta name="briar-crown-deployment" content="1770">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content" />
   <meta name="theme-color" content="#0b0912" />
@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-title" content="Briar Crown" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <title>The Briar Crown — Mobile Adventure v1.7.6.2</title>
+  <title>The Briar Crown — Mobile Adventure v1.7.7.0</title>
   <style>
 
     :root {
@@ -1795,6 +1795,27 @@
       .encounter-panel{padding:10px}.encounter-card-grid{margin-top:8px}.encounter-art{aspect-ratio:4/5}
     }
 
+  
+    /* v1.7.7.0 item inspection, gold currency, and mobile send polish */
+    .item-inspection-dialog{width:min(92vw,560px);max-height:88dvh}
+    .item-inspection-body{padding:16px;display:grid;gap:14px;background:radial-gradient(circle at 50% 5%,rgba(102,66,128,.22),transparent 38%),#0d0912}
+    .inspection-hero{display:grid;grid-template-columns:minmax(120px,38%) 1fr;gap:14px;align-items:stretch}
+    .inspection-art{min-height:210px;border:2px solid #8f6f31;border-radius:15px;background:radial-gradient(circle at 50% 38%,rgba(220,181,94,.22),transparent 42%),linear-gradient(145deg,#24172d,#0b0910);display:flex;align-items:center;justify-content:center;font-size:88px;box-shadow:inset 0 0 28px rgba(0,0,0,.55)}
+    .inspection-copy{border:1px solid #765b2e;border-radius:14px;padding:14px;background:rgba(39,25,49,.76)}
+    .inspection-copy h3{margin:0 0 7px;color:#f0dca0;font-size:24px}
+    .inspection-type{display:inline-flex;border:1px solid #9b78c0;border-radius:999px;padding:4px 10px;color:#d8b8ef;font-size:13px;margin-bottom:10px}
+    .inspection-copy p{margin:6px 0;color:#e5d3a4;line-height:1.45}
+    .inspection-effect{border-left:3px solid #d0aa59;padding-left:10px;color:#f2dfaa!important}
+    .inspection-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+    .inspection-actions button{min-height:48px;border:1px solid #9b7934;border-radius:11px;background:#251832;color:#ecd79b;font:700 17px Georgia,serif}
+    .inspection-actions button:disabled{opacity:.4}
+    .gold-piece{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+    .gold-coin-icon{width:1.05em;height:1.05em;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff0a8 0 8%,#efc54f 22%,#b56e12 72%,#76420d 100%);border:1px solid #70410e;box-shadow:inset 0 0 0 2px rgba(255,229,116,.35);color:#7e4b0c;font-size:.82em;font-weight:900}
+    .shop-gold{display:flex!important;align-items:center;gap:8px}
+    .shop-buy .gold-piece{justify-content:center}
+    #send-btn{touch-action:manipulation;-webkit-tap-highlight-color:transparent;cursor:pointer;position:relative;z-index:3}
+    @media(max-width:520px){.inspection-hero{grid-template-columns:1fr}.inspection-art{min-height:170px;font-size:74px}.inspection-actions{grid-template-columns:1fr 1fr}.inspection-actions button:last-child{grid-column:1/-1}}
+
   </style>
 </head>
 <body>
@@ -1850,7 +1871,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.7.6.2 • Send Button Input Clear Hotfix</small>
+        <small id="version-tag">Version 1.7.7.0 • Send Button Input Clear Hotfix</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -1910,6 +1931,11 @@
   <dialog id="equipment-dialog" class="equipment-dialog safe-area-dialog">
     <div class="modal-head"><h2>Equipment &amp; Loadout</h2><button class="close-btn" data-close="equipment-dialog">×</button></div>
     <div class="modal-body equipment-modal-body" id="equipment-body"></div>
+  </dialog>
+
+  <dialog id="item-inspection-dialog" class="safe-area-dialog item-inspection-dialog">
+    <div class="modal-head"><h2 id="inspection-title">Item Inspection</h2><button class="close-btn" data-close="item-inspection-dialog">×</button></div>
+    <div class="modal-body item-inspection-body" id="item-inspection-body"></div>
   </dialog>
 
   <dialog id="map-dialog">
@@ -2023,7 +2049,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.7.6.2";
+    const BUILD_VERSION = "1.7.7.0";
 
     const itemInfo = {
       "minor healing tonic": "A small crimson tonic. Restores up to 6 HP during combat.",
@@ -2060,6 +2086,36 @@
       "briar fang": "A black thorn-hard fang taken from a defeated Thorn Hound.",
       "ancient chapel charm": "A warm silver charm recovered from the restless dead beneath Saint Orla's chapel. Charm: +1 Defense."
     };
+
+    const itemInspectionMeta = {
+      "tarnished locket": {type:"Quest Item",icon:"📿",use:"May matter when speaking to someone connected to the woodland cottage."},
+      "chapel sigil token": {type:"Key / Quest Item",icon:"☀️",use:"Its sun-wheel may identify or operate a chapel mechanism."},
+      "spell crystal": {type:"Charm",icon:"🔮",use:"Grows warm near concealed magic."},
+      "hunting knife": {type:"Weapon",icon:"🗡️"}, "iron dagger":{type:"Weapon",icon:"🗡️"}, "short sword":{type:"Weapon",icon:"⚔️"},
+      "wooden shield":{type:"Off-Hand",icon:"🛡️"}, "lockpicks":{type:"Belt Tool",icon:"🗝️"}, "small lute":{type:"Charm",icon:"🎵"},
+      "pilgrim charm":{type:"Charm",icon:"☀️"}, "river charm":{type:"Charm",icon:"🔵"}, "bone charm":{type:"Charm",icon:"🦴"}, "ancient chapel charm":{type:"Charm",icon:"✦"},
+      "minor healing tonic":{type:"Healing Item",icon:"🧪"}, "field bandage":{type:"Healing Item",icon:"🩹"}, "traveler's poultice":{type:"Healing Item",icon:"🌿"},
+      "healing herbs":{type:"Healing Item",icon:"🌿"}, "lantern":{type:"Tool",icon:"🏮"}, "rope":{type:"Tool",icon:"🪢"}, "flint":{type:"Tool",icon:"🪨"},
+      "silver key":{type:"Key Item",icon:"🗝️"}, "sun sigil":{type:"Quest Item",icon:"☀️"}, "crown shard":{type:"Quest Item",icon:"💎"},
+      "fairy coin":{type:"Curiosity",icon:"🪙"}, "silver token":{type:"Quest Item",icon:"◉"}, "ferry crank":{type:"Tool",icon:"⚙️"},
+      "briar fang":{type:"Trophy",icon:"🦷"}, "courier seal":{type:"Quest Item",icon:"🔰"}, "guard key fragment":{type:"Quest Item",icon:"🗝️"}
+    };
+    function itemTypeLabel(item){ const info=equipmentInfo&&equipmentInfo[item]; return (itemInspectionMeta[item]&&itemInspectionMeta[item].type)||(info?equipmentSlots[info.slot]?.label:"Adventure Item")||"Adventure Item"; }
+    function itemInspectionIcon(item){ return (itemInspectionMeta[item]&&itemInspectionMeta[item].icon)||(equipmentInfo[item]&&equipmentInfo[item].icon)||(apothecaryShop&&apothecaryShop[item]&&apothecaryShop[item].icon)||(forgeShop&&forgeShop[item]&&forgeShop[item].icon)||"✦"; }
+    function itemEffectText(item){ if(equipmentInfo[item])return equipmentBonusSummary(item); if(healingItemCatalog[item])return `Restores up to ${healingItemCatalog[item].heal} HP.`; return (apothecaryShop&&apothecaryShop[item]&&apothecaryShop[item].info)||(forgeShop&&forgeShop[item]&&forgeShop[item].info)||"No immediate stat effect."; }
+    let inspectedItem=null;
+    function showItemInspection(rawItem){
+      const item=canonicalItemId(rawItem); inspectedItem=item;
+      const info=equipmentInfo[item], equipped=!!equippedSlotForItem(item), usable=!!healingItemCatalog[item]||["healing salve","healing potion","antidote","stamina draught","torch","lockpick"].includes(item);
+      document.getElementById("inspection-title").textContent=titleCase(item);
+      const body=document.getElementById("item-inspection-body");
+      body.innerHTML=`<section class="inspection-hero"><div class="inspection-art" role="img" aria-label="${escapeHtml(titleCase(item))}">${itemInspectionIcon(item)}</div><div class="inspection-copy"><span class="inspection-type">${escapeHtml(itemTypeLabel(item))}</span><h3>${escapeHtml(titleCase(item))}</h3><p>${escapeHtml(itemInfo[item]||(apothecaryShop[item]&&apothecaryShop[item].info)||(forgeShop[item]&&forgeShop[item].info)||"An adventure item.")}</p><p class="inspection-effect"><strong>Effect:</strong> ${escapeHtml(itemEffectText(item))}</p>${itemInspectionMeta[item]?.use?`<p><strong>Possible use:</strong> ${escapeHtml(itemInspectionMeta[item].use)}</p>`:""}</div></section><div class="inspection-actions"><button type="button" data-inspection-use ${usable?"":"disabled"}>Use</button><button type="button" data-inspection-equip ${info?"":"disabled"}>${equipped?"Unequip":"Equip"}</button><button type="button" data-close="item-inspection-dialog">Close</button></div>`;
+      body.querySelector("[data-inspection-use]")?.addEventListener("click",()=>{document.getElementById("item-inspection-dialog").close();processCommand(`use ${item}`);});
+      body.querySelector("[data-inspection-equip]")?.addEventListener("click",()=>{equipped?unequipItem(item):equipItem(item);renderAll();showItemInspection(item);});
+      body.querySelectorAll('[data-close="item-inspection-dialog"]').forEach(btn=>btn.addEventListener("click",()=>document.getElementById("item-inspection-dialog").close()));
+      const dlg=document.getElementById("item-inspection-dialog");if(!dlg.open)dlg.showModal();
+    }
+
 
     const rooms = {
       square: {
@@ -3120,8 +3176,8 @@
 
     const sceneImageMap = {
       square: "assets/scenes/square-v1724.webp",
-      tavernApproach: "assets/scenes/tavern-approach-v1724.webp",
-      tavernDoor: "assets/scenes/tavern-door-v1724.webp",
+      tavernApproach: "assets/scenes/tavern-approach-v1770.webp",
+      tavernDoor: "assets/scenes/tavern-door-v1770.webp",
       apothecaryApproach: "assets/scenes/apothecary-approach-v1724.webp",
       apothecaryDoor: "assets/scenes/apothecary-door-v1724.webp",
       apothecary: "assets/scenes/apothecary-center-v1724.webp",
@@ -4599,7 +4655,7 @@
       body.querySelectorAll("[data-loadout-item]").forEach(btn=>btn.addEventListener("click",()=>{selectedEquipmentItem=btn.dataset.loadoutItem;selectedEquipmentSlot=equipmentInfo[selectedEquipmentItem].slot;renderEquipment();}));
       body.querySelector("[data-loadout-equip]")?.addEventListener("click",()=>{if(selectedEquipmentItem)equipItem(selectedEquipmentItem);renderEquipment();renderAll();});
       body.querySelector("[data-loadout-unequip]")?.addEventListener("click",()=>{unequipSlot(selectedEquipmentSlot);selectedEquipmentItem=null;renderEquipment();renderAll();});
-      body.querySelector("[data-loadout-inspect]")?.addEventListener("click",()=>{if(selectedItem)addLog(`<strong>${titleCase(selectedItem)}:</strong> ${itemInfo[selectedItem]||equipmentBonusSummary(selectedItem)}`,"system");renderLog();});
+      body.querySelector("[data-loadout-inspect]")?.addEventListener("click",()=>{if(selectedItem)showItemInspection(selectedItem);});
     }
     function showEquipment(preselectItem=null){
       if(preselectItem&&equipmentInfo[canonicalItemId(preselectItem)]){selectedEquipmentItem=canonicalItemId(preselectItem);selectedEquipmentSlot=equipmentInfo[selectedEquipmentItem].slot;}
@@ -4997,11 +5053,11 @@
       let content="";
       if(activeShopTab==="sell"&&activeShopKey==="apothecary") {
         const sellable=Object.entries(sellPrices).filter(([name])=>has(name));
-        content=sellable.length?sellable.map(([name,price])=>`<article class="shop-item"><div class="shop-item-icon">${name.includes("herb")?"🌿":name.includes("reed")?"🌾":"🍃"}</div><div><h3>${titleCase(name)}</h3><p>Elowen will pay ${price} gold.</p><span class="shop-owned">Owned: ${itemQty(name)}</span></div><button class="shop-buy" data-sell-shop-item="${name}">Sell<br>${price} ◆</button></article>`).join(""):`<p class="empty-state">You have no herbs or ingredients Elowen is buying right now.</p>`;
+        content=sellable.length?sellable.map(([name,price])=>`<article class="shop-item"><div class="shop-item-icon">${name.includes("herb")?"🌿":name.includes("reed")?"🌾":"🍃"}</div><div><h3>${titleCase(name)}</h3><p>Elowen will pay ${price} gold.</p><span class="shop-owned">Owned: ${itemQty(name)}</span></div><button class="shop-buy" data-sell-shop-item="${name}">Sell<br><span class="gold-piece">${price} <span class="gold-coin-icon">G</span></span></button></article>`).join(""):`<p class="empty-state">You have no herbs or ingredients Elowen is buying right now.</p>`;
       } else {
-        content=Object.entries(shop.items).map(([name,item])=>{ const price=shopPrice(activeShopKey,name), affordable=(state.gold||0)>=price; return `<article class="shop-item"><div class="shop-item-icon" aria-hidden="true">${item.icon||"✦"}</div><div><h3>${titleCase(name)}</h3><p>${item.info}</p><span class="shop-owned">Owned: ${itemQty(name)}</span></div><button class="shop-buy" data-buy-shop-item="${name}" ${affordable?"":"disabled"}>Buy<br>${price} ◆</button></article>`; }).join("");
+        content=Object.entries(shop.items).map(([name,item])=>{ const price=shopPrice(activeShopKey,name), affordable=(state.gold||0)>=price; return `<article class="shop-item"><div class="shop-item-icon" aria-hidden="true">${item.icon||"✦"}</div><div><h3>${titleCase(name)}</h3><p>${item.info}</p><span class="shop-owned">Owned: ${itemQty(name)}</span></div><button class="shop-buy" data-buy-shop-item="${name}" ${affordable?"":"disabled"}>Buy<br><span class="gold-piece">${price} <span class="gold-coin-icon">G</span></span></button></article>`; }).join("");
       }
-      body.innerHTML=`<div class="shop-toolbar"><div class="shop-gold">◆ ${state.gold||0} gold</div>${tabs}</div><div class="shop-list">${content}</div>`;
+      body.innerHTML=`<div class="shop-toolbar"><div class="shop-gold"><span class="gold-coin-icon">G</span> ${state.gold||0} gold</div>${tabs}</div><div class="shop-list">${content}</div>`;
       body.querySelectorAll("[data-shop-tab]").forEach(btn=>btn.addEventListener("click",()=>{activeShopTab=btn.dataset.shopTab;renderShop();}));
       body.querySelectorAll("[data-buy-shop-item]").forEach(btn=>btn.addEventListener("click",()=>{buyItem(btn.dataset.buyShopItem,activeShopKey);autosave();updateStatus();renderShop();}));
       body.querySelectorAll("[data-sell-shop-item]").forEach(btn=>btn.addEventListener("click",()=>{sellItem(btn.dataset.sellShopItem);autosave();updateStatus();renderShop();}));
@@ -6814,7 +6870,16 @@
       if(!audioContext||audioContext.state!=="running"||!musicTimer)recoverMusicAfterInterruption();
     },5000);
 
-    document.getElementById("send-btn").addEventListener("click", submitTypedCommand);
+    const sendButtonEl=document.getElementById("send-btn");
+    let lastSendPointerAt=0;
+    const activateSendButton=(event)=>{
+      if(event){event.preventDefault();event.stopPropagation();}
+      const now=Date.now(); if(now-lastSendPointerAt<250)return; lastSendPointerAt=now;
+      submitTypedCommand(event);
+    };
+    sendButtonEl.addEventListener("pointerup",activateSendButton);
+    sendButtonEl.addEventListener("touchend",activateSendButton,{passive:false});
+    sendButtonEl.addEventListener("click",event=>{if(Date.now()-lastSendPointerAt>350)activateSendButton(event);});
     inputEl.addEventListener("keydown", (e) => {
       if (e.key === "Enter") { e.preventDefault(); submitTypedCommand(e); }
       if (e.key === "ArrowUp") { e.preventDefault(); const h=state.commandHistory||[]; if(h.length){ commandHistoryIndex=Math.max(0,commandHistoryIndex-1); inputEl.value=h[commandHistoryIndex]||""; } }
@@ -7049,7 +7114,7 @@
       }
       renderAll();
       showTitleScreen();
-      if ("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js?build=1762").catch(() => {});
+      if ("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js?build=1770").catch(() => {});
     }
 
     boot();

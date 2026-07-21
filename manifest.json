@@ -2,7 +2,7 @@
   "name": "The Briar Crown",
   "short_name": "Briar Crown",
   "description": "A mobile-first illustrated fantasy adventure with tap-to-explore scenes, natural contextual commands, graduated puzzle hints, stable no-flicker information interactions, optional navigation, creature encounter cards, fitted combat portraits, equipment stats, and varied rewards, with command fields that clear reliably after keyboard or on-screen button submission, including mobile Safari.",
-  "start_url": "./index.html?build=1762",
+  "start_url": "./index.html?build=1770",
   "display": "standalone",
   "background_color": "#07070b",
   "theme_color": "#0b0912",
@@ -19,5 +19,5 @@
       "type": "image/png"
     }
   ],
-  "version": "1.7.6.2"
+  "version": "1.7.7.0"
 }
