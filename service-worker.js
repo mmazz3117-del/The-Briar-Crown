@@ -1,4 +1,4 @@
-const CACHE = "briar-crown-v1.7.7.1-tavern-scene-clarity-hotfix";
+const CACHE = "briar-crown-v1.7.7.3-ironthorn-gate-item-inspect-hotfix";
 const CORE_ASSETS = [
   "./",
   "./index.html",

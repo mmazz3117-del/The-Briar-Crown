@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-title" content="Briar Crown" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <title>The Briar Crown — Mobile Adventure v1.7.7.1</title>
+  <title>The Briar Crown — Mobile Adventure v1.7.7.3</title>
   <style>
 
     :root {
@@ -1796,7 +1796,7 @@
     }
 
   
-    /* v1.7.7.1 tavern scene clarity and character continuity hotfix */
+    /* v1.7.7.3 tavern scene clarity and character continuity hotfix */
     .item-inspection-dialog{width:min(92vw,560px);max-height:88dvh}
     .item-inspection-body{padding:16px;display:grid;gap:14px;background:radial-gradient(circle at 50% 5%,rgba(102,66,128,.22),transparent 38%),#0d0912}
     .inspection-hero{display:grid;grid-template-columns:minmax(120px,38%) 1fr;gap:14px;align-items:stretch}
@@ -1871,7 +1871,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.7.7.1 • Tavern Scene Clarity Hotfix</small>
+        <small id="version-tag">Version 1.7.7.2 • Ironthorn Gate & Item Inspect Combined Hotfix</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -2049,7 +2049,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.7.7.1";
+    const BUILD_VERSION = "1.7.7.3";
 
     const itemInfo = {
       "minor healing tonic": "A small crimson tonic. Restores up to 6 HP during combat.",
@@ -3195,7 +3195,7 @@
       thornHedgePass: "assets/scenes/thorn-hedge-pass-v1729.webp",
       brokenWatchCrossing: "assets/scenes/broken-watch-crossing-v1729.webp",
       outerGateApproach: "assets/scenes/outer-gate-approach-v1729.webp",
-      tavern: "assets/scenes/tavern-center-v1724.webp",
+      tavern: "assets/scenes/tavern-center-v1772.webp",
       forestEdge: "assets/scenes/forest-edge-v1724.webp",
       willowTrail: "assets/scenes/willow-trail-v1724.webp",
       flowerClearing: "assets/scenes/flower-clearing-v1724.webp",
@@ -3208,11 +3208,11 @@
       hutExterior: "assets/scenes/moonfen-hut-exterior-v1724.webp",
       hutInterior: "assets/scenes/moonfen-hut-interior-v1724.webp",
       moonwell: "assets/scenes/moonwell-v1724.webp",
-      tavernCellar: "assets/scenes/tavern-cellar-v1724.webp",
+      tavernCellar: "assets/scenes/tavern-cellar-v1772.webp",
       secretTunnel: "assets/scenes/hidden-passage-v1724.webp",
       secretAlcove: "assets/scenes/collapsed-alcove-v1724.webp",
       crypt: "assets/scenes/chapel-crypt-v1724.webp",
-      castleGate: "assets/scenes/ironthorn-gate-v1724.webp"
+      castleGate: "assets/scenes/ironthorn-gate-v1773.webp"
     };
 
     const sceneTourRooms = ["square", "forgeLane", "eastRoad", "forgeDoor", "blacksmith", "chapelRoad", "chapelYard", "chapelApproach", "oldCemeteryPath", "chapel", "castleRoad", "thornHedgePass", "brokenWatchCrossing", "outerGateApproach", "tavernApproach", "tavernDoor", "tavern", "apothecaryApproach", "apothecaryDoor", "apothecary", "apothecaryBackRoom", "forestEdge", "willowTrail", "flowerClearing", "fallenLog", "whisperingForest", "cottageApproach", "cottage", "cellar", "moonfen", "hutExterior", "hutInterior", "moonwell", "tavernCellar", "secretTunnel", "secretAlcove", "crypt", "castleGate"];
@@ -3284,7 +3284,7 @@
     };
 
     const tavernViewImages = {
-      center: "assets/scenes/tavern-center-v1724.webp",
+      center: "assets/scenes/tavern-center-v1772.webp",
       north: "assets/scenes/tavern-north-v1724.webp",
       east: "assets/scenes/tavern-east-v1724.webp",
       west: "assets/scenes/tavern-west-v1724.webp",
@@ -4674,7 +4674,7 @@
         return `<div class="item-card"><strong>${titleCase(item)}${itemQty(item)>1?` ×${itemQty(item)}`:""}${equipped?`<span class="equipped-badge">Equipped</span>`:""}</strong><p>${itemInfo[item]||(apothecaryShop[item]&&apothecaryShop[item].info)||"An adventure item."}</p>${info?`<p><small>${equipmentBonusSummary(item)}</small></p>`:""}<div class="item-actions"><button data-examine-item="${item}">Examine</button>${action}${info?`<button data-loadout-from-inventory="${item}">Loadout</button>`:""}</div></div>`;
       }).join("");
       body.querySelector("[data-open-equipment]")?.addEventListener("click",()=>{document.getElementById("inventory-dialog").close();showEquipment();});
-      body.querySelectorAll("[data-examine-item]").forEach(btn=>btn.addEventListener("click",()=>{addLog(`<strong>${titleCase(btn.dataset.examineItem)}:</strong> ${itemInfo[btn.dataset.examineItem]||"An adventure item."}`,"system");document.getElementById("inventory-dialog").close();renderAll();}));
+      body.querySelectorAll("[data-examine-item]").forEach(btn=>btn.addEventListener("click",()=>{const item=btn.dataset.examineItem;document.getElementById("inventory-dialog").close();renderAll();requestAnimationFrame(()=>showItemInspection(item));}));
       body.querySelectorAll("[data-equip-item]").forEach(btn=>btn.addEventListener("click",()=>{equipItem(btn.dataset.equipItem);showInventory();renderAll();}));
       body.querySelectorAll("[data-unequip-item]").forEach(btn=>btn.addEventListener("click",()=>{unequipItem(btn.dataset.unequipItem);showInventory();renderAll();}));
       body.querySelectorAll("[data-use-item]").forEach(btn=>btn.addEventListener("click",()=>{inputEl.value=`use ${btn.dataset.useItem} on `;document.getElementById("inventory-dialog").close();}));
@@ -7099,7 +7099,7 @@
     function boot() {
       updateMusicButton();
       const vt = document.getElementById("version-tag");
-      const versionLabel=`Version ${BUILD_VERSION} • Send Button Input Clear Hotfix`;
+      const versionLabel=`Version ${BUILD_VERSION} • Ironthorn Gate & Item Inspect Combined Hotfix`;
       if (vt) vt.textContent = versionLabel;
       const ov=document.getElementById("opening-version");if(ov)ov.textContent=versionLabel;
       const saved = storageGet(SAVE_KEY);
