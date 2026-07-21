@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="briar-crown-deployment" content="1770">
+  <meta name="briar-crown-deployment" content="1771">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content" />
   <meta name="theme-color" content="#0b0912" />
@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-title" content="Briar Crown" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <title>The Briar Crown — Mobile Adventure v1.7.7.0</title>
+  <title>The Briar Crown — Mobile Adventure v1.7.7.1</title>
   <style>
 
     :root {
@@ -1796,7 +1796,7 @@
     }
 
   
-    /* v1.7.7.0 item inspection, gold currency, and mobile send polish */
+    /* v1.7.7.1 tavern scene clarity and character continuity hotfix */
     .item-inspection-dialog{width:min(92vw,560px);max-height:88dvh}
     .item-inspection-body{padding:16px;display:grid;gap:14px;background:radial-gradient(circle at 50% 5%,rgba(102,66,128,.22),transparent 38%),#0d0912}
     .inspection-hero{display:grid;grid-template-columns:minmax(120px,38%) 1fr;gap:14px;align-items:stretch}
@@ -1871,7 +1871,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.7.7.0 • Send Button Input Clear Hotfix</small>
+        <small id="version-tag">Version 1.7.7.1 • Tavern Scene Clarity Hotfix</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -2049,7 +2049,7 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.7.7.0";
+    const BUILD_VERSION = "1.7.7.1";
 
     const itemInfo = {
       "minor healing tonic": "A small crimson tonic. Restores up to 6 HP during combat.",
@@ -3176,8 +3176,8 @@
 
     const sceneImageMap = {
       square: "assets/scenes/square-v1724.webp",
-      tavernApproach: "assets/scenes/tavern-approach-v1770.webp",
-      tavernDoor: "assets/scenes/tavern-door-v1770.webp",
+      tavernApproach: "assets/scenes/tavern-approach-v1771.webp",
+      tavernDoor: "assets/scenes/tavern-door-v1771.webp",
       apothecaryApproach: "assets/scenes/apothecary-approach-v1724.webp",
       apothecaryDoor: "assets/scenes/apothecary-door-v1724.webp",
       apothecary: "assets/scenes/apothecary-center-v1724.webp",
@@ -7114,7 +7114,7 @@
       }
       renderAll();
       showTitleScreen();
-      if ("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js?build=1770").catch(() => {});
+      if ("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js?build=1771").catch(() => {});
     }
 
     boot();
