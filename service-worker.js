@@ -1,4 +1,4 @@
-const CACHE = "briar-crown-v1.7.9.1-stabilization";
+const CACHE = "briar-crown-v1.7.9.2-stabilization";
 const CORE_ASSETS = [
   "./",
   "./index.html",
@@ -8,6 +8,12 @@ const CORE_ASSETS = [
   "./icon-192.png",
   "./icon-512.png",
   "./assets/ui/satchel.png",
+  "./assets/characters/knight-portrait.webp",
+  "./assets/characters/ranger-portrait.webp",
+  "./assets/characters/wizard-portrait.webp",
+  "./assets/characters/rogue-portrait.webp",
+  "./assets/characters/druid-portrait.webp",
+  "./assets/characters/bard-portrait.webp",
   "./assets/ui/opening-v1730.webp",
   "./assets/ui/world-map-v1726.png",
   "./assets/ui/rowan-equipment-v1742.webp",

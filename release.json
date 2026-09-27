@@ -1,11 +1,11 @@
 {
-  "version": "1.7.9.1",
-  "build": "1791",
-  "name": "Chapter One Cinematic Visual Polish",
-  "saveSchema": 1780,
+  "version": "1.7.9.2",
+  "build": "1792",
+  "name": "Playable Heroes & Daylight Foundations",
+  "saveSchema": 1792,
   "artManifest": "assets/scenes/production-manifest-v1791.json",
   "artVersion": "1.7.9.1",
   "itemArtManifest": "assets/items/manifest.json",
   "sceneReview": "qa/scene-review.json",
-  "visualStatus": "chapter-one-visual-polish-complete-real-device-validation-pending"
+  "visualStatus": "playable-hero-identity-and-daylight-foundations"
 }

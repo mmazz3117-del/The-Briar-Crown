@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="briar-crown-deployment" content="1791">
+  <meta name="briar-crown-deployment" content="1792">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content" />
   <meta name="theme-color" content="#0b0912" />
@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-title" content="Briar Crown" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <title>The Briar Crown — Mobile Adventure v1.7.9.1</title>
+  <title>The Briar Crown — Mobile Adventure v1.7.9.2</title>
   <style>
 
     :root {
@@ -712,6 +712,9 @@
     .class-card { text-align:left; min-height:145px; border:2px solid #72592f; border-radius:8px; padding:12px; color:#e8d9b1; background:linear-gradient(150deg,#241b32,#12101a); cursor:pointer; }
     .class-card.selected { border-color:#f0d68c; box-shadow:0 0 0 2px rgba(240,214,140,.22),0 0 24px rgba(200,163,86,.16); }
     .class-card .class-icon { font-size:30px; float:right; margin-left:8px; }
+    .class-portrait { width:100%; aspect-ratio:4/3; object-fit:cover; object-position:center 28%; border-radius:6px; border:1px solid rgba(240,214,140,.35); margin-bottom:9px; display:block; background:#16121d; }
+    .skills-avatar { width:30px; height:30px; object-fit:cover; border-radius:50%; border:1px solid rgba(240,214,140,.55); background:#17121f; }
+    .hero-summary-card .hero-portrait { width:58px; height:68px; object-fit:cover; object-position:center 25%; border-radius:8px; border:1px solid rgba(240,214,140,.4); flex:0 0 auto; }
     .class-card strong { display:block; color:#f0d68c; font-size:18px; }
     .class-card small { display:block; margin-top:5px; color:#a99774; line-height:1.3; }
     .class-stats { margin-top:8px; font-size:11px; line-height:1.45; color:#d3c49d; }
@@ -1931,7 +1934,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.7.9.1 • Chapter One Cinematic Visual Polish</small>
+        <small id="version-tag">Version 1.7.9.2 • Playable Heroes & Daylight Foundations</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -1953,7 +1956,7 @@
         </button>
         <span class="sr-only" id="location-name">Willowmere Square</span><span class="sr-only" id="world-time">Dusk • 6:30 PM</span>
         <button class="skills-launch" id="skills-btn" type="button" aria-label="Open skills and character stats">
-          <span class="skills-icon">▥</span><span class="skills-copy"><strong>Skills</strong><small id="skills-summary">Lv 1 • 0/10 XP</small></span>
+          <img class="skills-avatar" id="player-avatar" src="assets/characters/ranger-portrait.webp" alt="Selected hero portrait"><span class="skills-copy"><strong>Skills</strong><small id="skills-summary">Lv 1 • 0/10 XP</small></span>
         </button>
         <span class="status-pill health-pill" id="health-count" aria-label="Health">♥ 20/20</span>
         <span class="status-pill gold-pill" id="gold-count" aria-label="Gold"><span class="gold-coin-icon" aria-hidden="true"></span><span id="gold-value">20</span></span>
@@ -2113,8 +2116,8 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.7.9.1";
-    const BUILD_NAME = "Chapter One Cinematic Visual Polish";
+    const BUILD_VERSION = "1.7.9.2";
+    const BUILD_NAME = "Playable Heroes & Daylight Foundations";
 
     const itemInfo = {
       "minor healing tonic": "A small crimson tonic. Restores up to 6 HP during combat.",
@@ -2794,7 +2797,7 @@
       ([id,definition])=>[id,Object.freeze({...definition.exits})])));
 
     const initialState = () => ({
-      schemaVersion: 1780,
+      schemaVersion: 1792,
       room: "square",
       view: "center",
       inventory: [],
@@ -3322,13 +3325,20 @@
     }
 
     const heroClasses = {
-      knight: { name:"Knight", icon:"⚔️", tagline:"A steadfast protector", stats:{Strength:9,Agility:5,Wisdom:4,Charisma:5}, item:"wooden shield", gift:"Shield" },
-      ranger: { name:"Ranger", icon:"🏹", tagline:"A watchful pathfinder", stats:{Strength:6,Agility:8,Wisdom:7,Charisma:4}, item:"hunting knife", gift:"Hunting Knife" },
-      wizard: { name:"Wizard", icon:"🔮", tagline:"A student of hidden magic", stats:{Strength:3,Agility:5,Wisdom:10,Charisma:6}, item:"spell crystal", gift:"Spell Crystal" },
-      rogue: { name:"Rogue", icon:"🗡️", tagline:"A clever expert in locks and secrets", stats:{Strength:5,Agility:10,Wisdom:6,Charisma:5}, item:"lockpicks", gift:"Lockpicks" },
-      druid: { name:"Druid", icon:"🌿", tagline:"A keeper of wild places", stats:{Strength:5,Agility:6,Wisdom:9,Charisma:6}, item:"healing herbs", gift:"Healing Herbs" },
-      bard: { name:"Bard", icon:"🎵", tagline:"A persuasive teller of tales", stats:{Strength:4,Agility:6,Wisdom:7,Charisma:10}, item:"small lute", gift:"Small Lute" }
+      knight: { name:"Knight", icon:"⚔️", visualKey:"knight", portrait:"assets/characters/knight-portrait.webp", tagline:"A steadfast protector", stats:{Strength:9,Agility:5,Wisdom:4,Charisma:5}, item:"wooden shield", gift:"Shield" },
+      ranger: { name:"Ranger", icon:"🏹", visualKey:"ranger", portrait:"assets/characters/ranger-portrait.webp", tagline:"A watchful pathfinder", stats:{Strength:6,Agility:8,Wisdom:7,Charisma:4}, item:"hunting knife", gift:"Hunting Knife" },
+      wizard: { name:"Wizard", icon:"🔮", visualKey:"wizard", portrait:"assets/characters/wizard-portrait.webp", tagline:"A student of hidden magic", stats:{Strength:3,Agility:5,Wisdom:10,Charisma:6}, item:"spell crystal", gift:"Spell Crystal" },
+      rogue: { name:"Rogue", icon:"🗡️", visualKey:"rogue", portrait:"assets/characters/rogue-portrait.webp", tagline:"A clever expert in locks and secrets", stats:{Strength:5,Agility:10,Wisdom:6,Charisma:5}, item:"lockpicks", gift:"Lockpicks" },
+      druid: { name:"Druid", icon:"🌿", visualKey:"druid", portrait:"assets/characters/druid-portrait.webp", tagline:"A keeper of wild places", stats:{Strength:5,Agility:6,Wisdom:9,Charisma:6}, item:"healing herbs", gift:"Healing Herbs" },
+      bard: { name:"Bard", icon:"🎵", visualKey:"bard", portrait:"assets/characters/bard-portrait.webp", tagline:"A persuasive teller of tales", stats:{Strength:4,Agility:6,Wisdom:7,Charisma:10}, item:"small lute", gift:"Small Lute" }
     };
+    const sceneLightingMap = Object.freeze({
+      square:"daylight", tavernApproach:"daylight", tavernDoor:"daylight", apothecaryApproach:"daylight", apothecaryDoor:"daylight", forgeLane:"daylight", eastRoad:"daylight", forgeDoor:"daylight", chapelRoad:"daylight", chapelYard:"daylight", chapelApproach:"daylight", oldCemeteryPath:"daylight", castleRoad:"daylight", thornHedgePass:"daylight", brokenWatchCrossing:"daylight", outerGateApproach:"daylight", forestEdge:"filtered-daylight", willowTrail:"filtered-daylight", flowerClearing:"daylight", fallenLog:"filtered-daylight", whisperingForest:"filtered-daylight", cottageApproach:"daylight", moonfen:"misty-daylight", hutExterior:"misty-daylight", moonwell:"magical-daylight", castleGate:"daylight",
+      tavern:"warm-day-interior", apothecary:"warm-day-interior", apothecaryBackRoom:"warm-day-interior", blacksmith:"warm-day-interior", cottage:"warm-day-interior", hutInterior:"warm-day-interior", chapel:"stained-daylight",
+      cellar:"underground", tavernCellar:"underground", secretTunnel:"underground", secretAlcove:"underground", crypt:"underground"
+    });
+    function currentSceneLighting(){ return sceneLightingMap[state.room] || "daylight"; }
+
     const classSkillStarts = {
       knight:{Combat:2,Survival:1}, ranger:{Survival:2,Combat:1}, wizard:{Magic:2,Persuasion:1},
       rogue:{Lockpicking:2,Combat:1}, druid:{Survival:2,Magic:1}, bard:{Persuasion:2,Magic:1}
@@ -4105,11 +4115,14 @@
       if(worldTimeEl) worldTimeEl.textContent=worldTimeLabel();
       sceneLabelEl.textContent = currentSceneName();
       document.getElementById("skills-summary").textContent = `Lv ${state.level || 1} • ${(state.score || 0) % 10}/10 XP`;
+      const avatar=document.getElementById("player-avatar"), selectedVisual=heroClasses[state.player?.classKey]||heroClasses.ranger;
+      if(avatar){avatar.src=selectedVisual.portrait;avatar.alt=`${state.player?.className||selectedVisual.name} portrait`;}
       healthCountEl.textContent = `♥ ${state.health || 0}/${state.maxHealth || 20}`;
       goldValueEl.textContent = String(state.gold || 0);
       const ratio=(state.health||0)/Math.max(1,state.maxHealth||20);
       healthCountEl.dataset.condition = ratio<=.25?"critical":ratio<=.55?"injured":"healthy";
       document.body.dataset.time = worldTimePhase().toLowerCase().replace(/\s+/g,"");
+      document.body.dataset.lighting = currentSceneLighting();
       document.body.classList.toggle("effects-off", !effectsEnabled);
     }
 
@@ -5314,6 +5327,12 @@
       if(state.room==="thornHedgePass"&&/^(?:strange )?tracks$/.test(target)){
         state.flags.thornTracksInspected=true;addLog("The prints are canine, but each claw mark ends in a thorn point. Whatever made them is circling through the hedge.","system");return true;
       }
+      if(state.room==="chapelRoad"&&/^(?:tracks|trail|footprints)$/.test(target)){
+        if(state.flags.rangerChapelTracks){addLog("The trail still tells the same story: hurried boots came from the chapel road, then turned toward the eastern woods.");return true;}
+        if(state.player?.classKey!=="ranger"){addLog("There are too many overlapping prints to make sense of them. A practiced tracker might separate the story from the mud.","warning");return true;}
+        state.flags.rangerChapelTracks=true;useSkill("Survival");award("ranger-chapel-tracks",1);
+        addLog("You separate fresh prints from the village traffic. One hurried traveler came from Saint Orla's grounds, paused beside the road marker, then cut east toward the forest instead of returning to the square. The stride was uneven—as though carrying something heavy.","success");return true;
+      }
       if(state.room==="brokenWatchCrossing"&&/^(?:ruined )?watch post$/.test(target)){
         if(!state.flags.watchPostExamined){state.flags.watchPostExamined=true;useSkill("Survival");award("inspect-ruined-watch-post",1);}
         addLog("A carved warning beneath the torn banner reads: THE CROWN ROAD IS COMPROMISED. Fresh boot marks continue south toward Ironthorn.","system");return true;
@@ -5436,6 +5455,31 @@
       if (/^(?:cross ferry|ride ferry|take ferry|go east)$/.test(command) && state.room === "moonfen") {
         if (!state.flags.ferryRepaired) { state.turns++; addLog("The ferry cannot move until the missing crank is replaced.","warning"); return finishTurn(); }
         await transitionToRoom("hutExterior",{note:"The rope ferry creaks across the black water toward the distant hut."}); return finishTurn();
+      }
+      if (/^(?:force|break|shoulder) (?:the )?(?:cellar hatch|cellar door|hatch)$/.test(command) && state.room === "tavern") {
+        state.turns++; state.lastObject="cellar door";
+        if (!state.flags.hatchDiscoveryConfirmed) { addLog("You cannot force a hatch you have not found. The scuffed floor beneath the stairs deserves a closer look.", "warning"); return finishTurn(); }
+        if (state.flags.cellarUnlocked) { addLog("The cellar hatch is already unlocked. OPEN CELLAR HATCH when you are ready."); return finishTurn(); }
+        if (state.player?.classKey !== "knight") { addLog("The iron-bound hatch barely shifts. A trained fighter might force it, but another approach would be wiser.", "warning"); return finishTurn(); }
+        useSkill("Combat");
+        const roll=Math.floor(Math.random()*20)+1, parts=skillCheckModifiers("Combat","knight",4), total=roll+parts.total;
+        addLog(`<strong style="color:${skillMeta.Combat.color}">${skillMeta.Combat.icon} Force check:</strong> d20 ${roll} + ${parts.total} = ${total}. Need 12. (${skillModifierExplanation(parts)})`,"system");
+        if(total<12){addLog("The old hinges groan but hold. You can try again, ask the innkeeper, or use proper lockpicks.","warning");return finishTurn();}
+        state.flags.cellarUnlocked=true; award("knight-force-cellar",2); addLog("You drive a shoulder beneath the iron rim. Wood cracks, the lock plate twists, and the cellar hatch gives. It is now unlocked.","success"); return finishTurn();
+      }
+      if (/^(?:read|study|inspect|follow) (?:the )?(?:tracks|trail|footprints)$/.test(command) && state.room === "chapelRoad") {
+        state.turns++;
+        if(state.flags.rangerChapelTracks){addLog("The trail still tells the same story: hurried boots came from the chapel road, then turned toward the eastern woods.");return finishTurn();}
+        if(state.player?.classKey!=="ranger"){addLog("There are too many overlapping prints to make sense of them. A practiced tracker might separate the story from the mud.","warning");return finishTurn();}
+        state.flags.rangerChapelTracks=true; useSkill("Survival"); award("ranger-chapel-tracks",1);
+        addLog("You separate fresh prints from the village traffic. One hurried traveler came from Saint Orla's grounds, paused beside the road marker, then cut east toward the forest instead of returning to the square. The stride was uneven—as though carrying something heavy.","success"); return finishTurn();
+      }
+      if (/^(?:listen to|commune with|touch|study) (?:the )?(?:old yew|yew|roots|tree roots)$/.test(command) && state.room === "chapelYard") {
+        state.turns++;
+        if(state.flags.druidYewMemory){addLog("The old yew's roots still carry the same uneasy memory: stone below, old magic waking, and something recently disturbed.");return finishTurn();}
+        if(state.player?.classKey!=="druid"){addLog("The old yew is silent beneath your hand. Someone deeply attuned to living things might hear more than wind in its branches.","warning");return finishTurn();}
+        state.flags.druidYewMemory=true; useSkill("Survival"); award("druid-yew-memory",1);
+        addLog("You rest your palm against the ancient yew. Its roots remember vibration more clearly than words: a sealed chamber below, stone moving after generations of stillness, and a pulse of frightened magic beneath the chapel.","success"); return finishTurn();
       }
       if (/^play (?:along|music|tune|a tune|along with (?:the )?flutist|with (?:the )?flutist)$/.test(command) && state.room === "tavern") {
         state.turns++;
@@ -5704,7 +5748,7 @@
       if(typeof text!=="string"||text.length>2_000_000)throw new Error("The save is empty or too large.");
       const parsed=JSON.parse(text),candidate=parsed?.format==="briar-crown-save"?parsed.state:parsed;
       if(!candidate||typeof candidate!=="object"||Array.isArray(candidate)||typeof candidate.room!=="string")throw new Error("This is not a Briar Crown save.");
-      if(candidate.schemaVersion>1780)throw new Error("This save belongs to a newer game version.");
+      if(candidate.schemaVersion>1792)throw new Error("This save belongs to a newer game version.");
       for(const key of ["flags","itemCounts","skills","equipment","shopFlags"]){if(candidate[key]!==undefined&&(!candidate[key]||typeof candidate[key]!=="object"||Array.isArray(candidate[key])))throw new Error(`Invalid ${key} data.`);}
       if(candidate.inventory!==undefined&&(!Array.isArray(candidate.inventory)||candidate.inventory.some(i=>typeof i!=="string")))throw new Error("Invalid inventory data.");
       return candidate;
@@ -5816,6 +5860,10 @@
       if (state.room === "tavern" && state.flags.brickCompartmentOpened && !state.flags.brickCompartmentLooted) actions.unshift("take treasure");
       if (state.room === "tavern" && state.flags.flutistMet && !state.flags.duetDone) actions.unshift("play along with flutist");
       if (state.room === "secretAlcove" && !state.flags.archBroken) actions.unshift("try to move rubble");
+      if (state.room === "tavern" && state.flags.hatchDiscoveryConfirmed && !state.flags.cellarUnlocked && state.player?.classKey === "knight") actions.unshift("force cellar hatch");
+      if (state.room === "tavern" && state.flags.hatchDiscoveryConfirmed && !state.flags.cellarUnlocked && state.player?.classKey === "rogue" && has("lockpicks")) actions.unshift("pick cellar lock");
+      if (state.room === "chapelRoad" && !state.flags.rangerChapelTracks && state.player?.classKey === "ranger") actions.unshift("read tracks");
+      if (state.room === "chapelYard" && !state.flags.druidYewMemory && state.player?.classKey === "druid") actions.unshift("listen to old yew");
       if (state.room === "moonwell" && !state.flags.stonesAttuned && (((state.player&&state.player.classKey)==="wizard")||(state.skills.Magic||0)>=2)) actions.unshift("attune to stones");
       if (state.room === "castleGate" && state.flags.gateShardReady && !state.flags.ending) actions.unshift("confirm ending");
       if (state.room === "tavern" && state.flags.hatchDiscoveryConfirmed && !state.flags.cellarUnlocked) actions.unshift("ask innkeeper about cellar");
@@ -7071,7 +7119,8 @@
         return `<section class="skill-card" style="--skill:${meta.color}"><div class="skill-card-head"><div class="skill-icon">${meta.icon}</div><div><div class="skill-name">${name}</div><div class="skill-rank">${skillRank(value)}</div></div><div class="skill-level">Level ${value}</div></div><p class="skill-description">${meta.description}</p><div class="skill-progress-meta"><span>Practice ${uses}/${needed}</span><span>${Math.round(pct)}%</span></div><div class="skill-progress"><span style="width:${pct}%"></span></div></section>`;
       }).join("");
       const a=adventureStats();
-      body.innerHTML=`<section class="hero-summary-card"><div class="hero-summary-top"><div><h3>${escapeHtml(player.name)} — ${escapeHtml(player.className)}</h3><p>Class strengths: ${specialty}<br>Total XP ${state.score||0} • Next hero level at ${nextLevel} XP</p><p><strong>D20 abilities:</strong> Might +${a.might} • Wits +${a.wits} • Resolve +${a.resolve} • Luck +${a.luck} • Defense ${a.defense}</p></div><div class="hero-level-badge">Level ${state.level||1}</div></div></section>${cards}<p class="empty-state">Skills improve separately through successful use. Each unique victory grants Combat practice once. D20 abilities are derived from your hero's class attributes and equipment.</p>`;
+      const heroVisual=heroClasses[player.classKey]||heroClasses.ranger;
+      body.innerHTML=`<section class="hero-summary-card"><div class="hero-summary-top"><img class="hero-portrait" src="${heroVisual.portrait}" alt="${escapeHtml(player.className)} portrait"><div><h3>${escapeHtml(player.name)} — ${escapeHtml(player.className)}</h3><p>Class strengths: ${specialty}<br>Total XP ${state.score||0} • Next hero level at ${nextLevel} XP</p><p><strong>D20 abilities:</strong> Might +${a.might} • Wits +${a.wits} • Resolve +${a.resolve} • Luck +${a.luck} • Defense ${a.defense}</p></div><div class="hero-level-badge">Level ${state.level||1}</div></div></section>${cards}<p class="empty-state">Skills improve separately through successful use. Each unique victory grants Combat practice once. D20 abilities are derived from your hero's class attributes and equipment.</p>`;
     }
 
     function renderHeroClasses() {
@@ -7082,7 +7131,7 @@
         btn.type = "button";
         btn.className = "class-card" + (selectedHeroClass === key ? " selected" : "");
         const startingSkills=Object.entries(classSkillStarts[key]||{}).map(([name,level])=>`${name} ${level}`).join(" • ");
-        btn.innerHTML = `<span class="class-icon">${hero.icon}</span><strong>${hero.name}</strong><small>${hero.tagline}</small><div class="class-stats">${Object.entries(hero.stats).map(([k,v])=>`${k}: ${v}`).join(" • ")}<br><strong style="font-size:11px;margin-top:5px">Skills: ${startingSkills}</strong>Starts with: ${hero.gift}</div>`;
+        btn.innerHTML = `<img class="class-portrait" src="${hero.portrait}" alt="${hero.name} visual"><span class="class-icon">${hero.icon}</span><strong>${hero.name}</strong><small>${hero.tagline}</small><div class="class-stats">${Object.entries(hero.stats).map(([k,v])=>`${k}: ${v}`).join(" • ")}<br><strong style="font-size:11px;margin-top:5px">Skills: ${startingSkills}</strong>Starts with: ${hero.gift}</div>`;
         btn.addEventListener("click", () => { selectedHeroClass = key; renderHeroClasses(); updateHeroSummary(); });
         grid.appendChild(btn);
       });
@@ -7132,7 +7181,7 @@
       resetAdventurePresentation();
       state = initialState();
       restoreDynamicExits();
-      state.player = { name, classKey:selectedHeroClass, className:hero.name, stats:{...hero.stats} };
+      state.player = { name, classKey:selectedHeroClass, className:hero.name, visualKey:hero.visualKey, stats:{...hero.stats} };
       Object.assign(state.skills, classSkillStarts[selectedHeroClass] || {});
       state.flags.classSkillStartApplied=true;
       addItem(hero.item);
@@ -7319,7 +7368,7 @@
           tavernCellarOpen:false
         });
       }
-      state.schemaVersion = 1780;
+      state.schemaVersion = 1792;
       const sourceInventory=state.inventory.filter(i=>typeof i==="string"&&i.trim());
       const rawCounts=state.itemCounts,counts=Object.create(null);
       for(const raw of new Set([...sourceInventory,...Object.keys(rawCounts)])){
@@ -7342,7 +7391,8 @@
       state.shopFlags = Object.assign({elowenDiscount:false,backRoomAccess:false,cratesSearched:false,reedDelivered:false}, state.shopFlags||{});
       state.score = Number.isFinite(state.score) ? state.score : 0;
       state.scoreFlags = state.scoreFlags && typeof state.scoreFlags === "object" ? state.scoreFlags : {};
-      state.player = state.player && typeof state.player === "object" ? state.player : { name:"Rowan", classKey:"ranger", className:"Ranger", stats:heroClasses.ranger.stats };
+      state.player = state.player && typeof state.player === "object" ? state.player : { name:"Rowan", classKey:"ranger", className:"Ranger", visualKey:"ranger", stats:heroClasses.ranger.stats };
+      if (state.player) { const migratedHero=heroClasses[state.player.classKey]||heroClasses.ranger; state.player.visualKey = migratedHero.visualKey; state.player.className = migratedHero.name; }
       state.level = Number.isFinite(state.level) ? state.level : Math.floor((state.score||0)/10)+1;
       state.skills = Object.assign({}, defaults.skills, state.skills || {});
       state.skillUses = Object.assign({}, defaults.skillUses, state.skillUses || {});
@@ -7477,7 +7527,7 @@
       }
       renderAll();
       showTitleScreen();
-      if ("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js?build=1791").catch(() => {});
+      if ("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js?build=1792").catch(() => {});
     }
 
     document.getElementById("export-save-btn").addEventListener("click",exportGame);
