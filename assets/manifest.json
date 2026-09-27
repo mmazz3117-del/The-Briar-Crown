@@ -1,0 +1,211 @@
+{
+  "schema": 1,
+  "note": "Explicit registry. Null art intentionally uses the labeled icon fallback. No bespoke item images are supplied in this release.",
+  "items": {
+    "ancient chapel charm": {
+      "art": "assets/items/art/ancient-chapel-charm.webp",
+      "alt": "Ancient Chapel Charm",
+      "status": "dedicated-art-v1790"
+    },
+    "antidote": {
+      "art": "assets/items/art/antidote.webp",
+      "alt": "Antidote",
+      "status": "dedicated-art-v1790"
+    },
+    "bluebell sprig": {
+      "art": "assets/items/art/bluebell-sprig.webp",
+      "alt": "Bluebell Sprig",
+      "status": "dedicated-art-v1790"
+    },
+    "bone charm": {
+      "art": "assets/items/art/bone-charm.webp",
+      "alt": "Bone Charm",
+      "status": "dedicated-art-v1790"
+    },
+    "briar fang": {
+      "art": "assets/items/art/briar-fang.webp",
+      "alt": "Briar Fang",
+      "status": "dedicated-art-v1790"
+    },
+    "chapel sigil token": {
+      "art": "assets/items/art/chapel-sigil-token.webp",
+      "alt": "Chapel Sigil Token",
+      "status": "dedicated-art-v1790"
+    },
+    "courier seal": {
+      "art": "assets/items/art/courier-seal.webp",
+      "alt": "Courier Seal",
+      "status": "dedicated-art-v1790"
+    },
+    "crown shard": {
+      "art": "assets/items/art/crown-shard.webp",
+      "alt": "Crown Shard",
+      "status": "dedicated-art-v1790"
+    },
+    "fairy coin": {
+      "art": "assets/items/art/fairy-coin.webp",
+      "alt": "Fairy Coin",
+      "status": "dedicated-art-v1790"
+    },
+    "ferry crank": {
+      "art": "assets/items/art/ferry-crank.webp",
+      "alt": "Ferry Crank",
+      "status": "dedicated-art-v1790"
+    },
+    "field bandage": {
+      "art": "assets/items/art/field-bandage.webp",
+      "alt": "Field Bandage",
+      "status": "dedicated-art-v1790"
+    },
+    "flint": {
+      "art": "assets/items/art/flint.webp",
+      "alt": "Flint",
+      "status": "dedicated-art-v1790"
+    },
+    "guard key fragment": {
+      "art": "assets/items/art/guard-key-fragment.webp",
+      "alt": "Guard Key Fragment",
+      "status": "dedicated-art-v1790"
+    },
+    "healing herbs": {
+      "art": "assets/items/art/healing-herbs.webp",
+      "alt": "Healing Herbs",
+      "status": "dedicated-art-v1790"
+    },
+    "healing potion": {
+      "art": "assets/items/art/healing-potion.webp",
+      "alt": "Healing Potion",
+      "status": "dedicated-art-v1790"
+    },
+    "healing salve": {
+      "art": "assets/items/art/healing-salve.webp",
+      "alt": "Healing Salve",
+      "status": "dedicated-art-v1790"
+    },
+    "hunting knife": {
+      "art": "assets/items/art/hunting-knife.webp",
+      "alt": "Hunting Knife",
+      "status": "dedicated-art-v1790"
+    },
+    "iron dagger": {
+      "art": "assets/items/art/iron-dagger.webp",
+      "alt": "Iron Dagger",
+      "status": "dedicated-art-v1790"
+    },
+    "iron hook": {
+      "art": "assets/items/art/iron-hook.webp",
+      "alt": "Iron Hook",
+      "status": "dedicated-art-v1790"
+    },
+    "lantern": {
+      "art": "assets/items/art/lantern.webp",
+      "alt": "Lantern",
+      "status": "dedicated-art-v1790"
+    },
+    "lantern oil": {
+      "art": "assets/items/art/lantern-oil.webp",
+      "alt": "Lantern Oil",
+      "status": "dedicated-art-v1790"
+    },
+    "lockpicks": {
+      "art": "assets/items/art/lockpicks.webp",
+      "alt": "Lockpicks",
+      "status": "dedicated-art-v1790"
+    },
+    "minor healing tonic": {
+      "art": "assets/items/art/minor-healing-tonic.webp",
+      "alt": "Minor Healing Tonic",
+      "status": "dedicated-art-v1790"
+    },
+    "moonwort": {
+      "art": "assets/items/art/moonwort.webp",
+      "alt": "Moonwort",
+      "status": "dedicated-art-v1790"
+    },
+    "pilgrim charm": {
+      "art": "assets/items/art/pilgrim-charm.webp",
+      "alt": "Pilgrim Charm",
+      "status": "dedicated-art-v1790"
+    },
+    "river charm": {
+      "art": "assets/items/art/river-charm.webp",
+      "alt": "River Charm",
+      "status": "dedicated-art-v1790"
+    },
+    "rope": {
+      "art": "assets/items/art/rope.webp",
+      "alt": "Rope",
+      "status": "dedicated-art-v1790"
+    },
+    "short sword": {
+      "art": "assets/items/art/short-sword.webp",
+      "alt": "Short Sword",
+      "status": "dedicated-art-v1790"
+    },
+    "silver key": {
+      "art": "assets/items/art/silver-key.webp",
+      "alt": "Silver Key",
+      "status": "dedicated-art-v1790"
+    },
+    "silver token": {
+      "art": "assets/items/art/silver-token.webp",
+      "alt": "Silver Token",
+      "status": "dedicated-art-v1790"
+    },
+    "small lute": {
+      "art": "assets/items/art/small-lute.webp",
+      "alt": "Small Lute",
+      "status": "dedicated-art-v1790"
+    },
+    "spell crystal": {
+      "art": "assets/items/art/spell-crystal.webp",
+      "alt": "Spell Crystal",
+      "status": "dedicated-art-v1790"
+    },
+    "stamina draught": {
+      "art": "assets/items/art/stamina-draught.webp",
+      "alt": "Stamina Draught",
+      "status": "dedicated-art-v1790"
+    },
+    "sun sigil": {
+      "art": "assets/items/art/sun-sigil.webp",
+      "alt": "Sun Sigil",
+      "status": "dedicated-art-v1790"
+    },
+    "tarnished locket": {
+      "art": "assets/items/art/tarnished-locket.webp",
+      "alt": "Tarnished Locket",
+      "status": "dedicated-art-v1790"
+    },
+    "torch": {
+      "art": "assets/items/art/torch.webp",
+      "alt": "Torch",
+      "status": "dedicated-art-v1790"
+    },
+    "traveler's poultice": {
+      "art": "assets/items/art/travelers-poultice.webp",
+      "alt": "Traveler'S Poultice",
+      "status": "dedicated-art-v1790"
+    },
+    "wooden shield": {
+      "art": "assets/items/art/wooden-shield.webp",
+      "alt": "Wooden Shield",
+      "status": "dedicated-art-v1790"
+    },
+    "moonfen reed": {
+      "art": "assets/items/art/moonfen-reed.webp",
+      "alt": "Moonfen Reed",
+      "status": "dedicated-art-v1790"
+    },
+    "clover": {
+      "art": "assets/items/art/clover.webp",
+      "alt": "Clover",
+      "status": "dedicated-art-v1790"
+    },
+    "dried moss": {
+      "art": "assets/items/art/dried-moss.webp",
+      "alt": "Dried Moss",
+      "status": "dedicated-art-v1790"
+    }
+  }
+}
