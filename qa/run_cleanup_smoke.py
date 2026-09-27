@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""v1.7.9.1 visual-polish smoke tests.
+"""v1.7.9.2.4 visual-polish smoke tests.
 Uses real packaged assets and DOM click delivery in Chromium. This validates scene
 bindings, state artwork, hotspot delivery, item-art loading, and responsive layout;
 it does not certify Safari/Home-Screen persistence or live service-worker install.
@@ -37,15 +37,19 @@ with sync_playwright() as p:
     try:
         # Distinct coordinated tavern views: asset, description and one hand-reviewed landmark each.
         tavern={
-          'center':('tavern-center-v1772.webp',51,78,['Scuffed Floor','Cellar Hatch']),
-          'north':('tavern-north-v1790.webp',67,48,['Innkeeper']),
-          'east':('tavern-east-v1790.webp',51,39,['Stairs']),
-          'west':('tavern-west-v1790.webp',38,48,['Fireplace']),
-          'south':('tavern-south-v1790.webp',53,43,['Tavern Door'])}
+          'center':('tavern-interior-v17922.webp',51,82,['Scuffed Floor','Cellar Hatch']),
+          'north':('tavern-north-v17923.webp',84,45,['Innkeeper']),
+          'east':('tavern-east-v17923.webp',50,40,['Stairs']),
+          'west':('tavern-west-v17923.webp',50,58,['Fireplace']),
+          'south':('tavern-south-v17923.webp',6,34,['Tavern Door'])}
         for view,(fn,x,y,labels) in tavern.items():
             reset('tavern',view);check(f'tavern:{view}:asset',ev('currentScenePresentation().imagePath').endswith(fn),ev('currentScenePresentation().imagePath'))
             tap_landmark(f'tavern:{view}:landmark',x,y,labels)
             check(f'tavern:{view}:exit-available',ev("persistentNavigationActions().includes('go outside')"))
+        # Dedicated exterior focus state at the tavern threshold uses the approved exterior art crop.
+        reset('tavernDoor');check('tavernDoor:focus-asset',ev('currentScenePresentation().imagePath').endswith('tavern-door-v17924.webp'),ev('currentScenePresentation().imagePath'))
+        tap_landmark('tavernDoor:door-landmark',48,60,['Tavern Door'])
+        check('tavernDoor:return-exit',ev("persistentNavigationActions().includes('south') || currentActions().includes('go south')"))
         # Hatch geometry is stable in the two views that expose the floor clue.
         for view in ['center','east']:
             reset('tavern',view);before=ev("currentHotspots().find(h=>/Scuffed Floor|Cellar Hatch/.test(h.label))")
