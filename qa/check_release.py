@@ -36,6 +36,15 @@ art=json.loads((root/r['itemArtManifest']).read_text());bad=[]
 for item,meta in art['items'].items():
  if meta.get('art') and not (root/meta['art']).is_file():bad.append(item)
 check('assets:item-art-references',art['schema']==1 and not bad,{'entries':len(art['items']),'custom':sum(bool(x.get('art')) for x in art['items'].values()),'missing':bad})
+heroes=['knight','ranger','wizard','rogue','druid','bard']
+missing_heroes=[]
+for h in heroes:
+    avatar=f'assets/characters/{h}-avatar-v17921.webp'
+    select=f'assets/characters/{h}-select-v17921.webp'
+    if not (root/avatar).is_file() or not (root/select).is_file() or avatar not in s or select not in s:
+        missing_heroes.append(h)
+check('assets:playable-hero-portraits',not missing_heroes,{'count':len(heroes),'missing':missing_heroes,'mode':'avatar+full-body-selection'})
+check('gameplay:authored-scene-lighting','const sceneLightingMap = Object.freeze({' in s and 'document.body.dataset.lighting = currentSceneLighting();' in s)
 parts=re.findall(r'<script(?:\s[^>]*)?>(.*?)</script>',s,re.S);tmp=out/'app-syntax-check.js';tmp.write_text('\n'.join(parts))
 res=subprocess.run(['node','--check',str(tmp)],capture_output=True,text=True);check('javascript:syntax',res.returncode==0,res.stderr);tmp.unlink()
 res=subprocess.run(['node',str(root/'qa/test_service_worker.cjs'),str(root)],capture_output=True,text=True);check('service-worker:handler-fixtures',res.returncode==0,res.stdout+res.stderr)

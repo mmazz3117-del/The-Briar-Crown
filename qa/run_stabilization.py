@@ -148,6 +148,22 @@ def run():
   ev('localStorage.setItem=window.qaSilentOldSet')
   reset();ev("state.gold=31;window.qaTooNew=JSON.stringify({...state,schemaVersion:9999});window.qaRestoreResult=restoreSavedText(qaTooNew)")
   check('save:newer-schema-is-not-destructively-loaded',ev("!qaRestoreResult.ok&&state.gold===31"))
+  # v1.7.9.2: class choice owns a persistent visual identity without changing the custom name.
+  for class_key in ['knight','ranger','wizard','rogue','druid','bard']:
+   reset();ev('(k)=>{selectedHeroClass=k;document.getElementById("hero-name").value="Test Hero"}',class_key);ev('beginAdventure()')
+   visual=ev('()=>({classKey:state.player.classKey,visualKey:state.player.visualKey,name:state.player.name,avatar:document.getElementById("player-avatar").getAttribute("src")})')
+   check('hero-visual:'+class_key,visual['classKey']==class_key and visual['visualKey']==class_key and visual['name']=='Test Hero' and f'{class_key}-avatar-v17921.webp' in visual['avatar'],visual)
+  reset();ev("state.player={name:'Legacy Mage',classKey:'wizard',className:'Wizard',stats:heroClasses.wizard.stats};delete state.player.visualKey;migrateState()")
+  check('migration:hero-visual-from-class',ev("state.player.visualKey==='wizard'&&state.player.name==='Legacy Mage'"),ev('state.player'))
+  missing_lighting=ev('Object.keys(sceneImageMap).filter(id=>!sceneLightingMap[id])')
+  check('lighting:all-active-scenes-authored',not missing_lighting,missing_lighting)
+  # Optional class routes add flavor/advantages without replacing the normal solution.
+  reset('tavern','knight');ev("state.flags.hatchDiscoveryConfirmed=true;Math.random=()=>.99");cmd('force cellar hatch')
+  check('class-route:knight-force-hatch',ev("state.flags.cellarUnlocked"),ev('state.log.slice(-3)'))
+  reset('chapelRoad','ranger');cmd('read tracks')
+  check('class-route:ranger-tracks',ev("state.flags.rangerChapelTracks"),ev('state.log.slice(-2)'))
+  reset('chapelYard','druid');cmd('listen to old yew')
+  check('class-route:druid-yew',ev("state.flags.druidYewMemory"),ev('state.log.slice(-2)'))
   reset();cmd('examine nonexistent crown potion')
   check('inspection:unknown-item-not-invented',ev("state.inventory.length===0&&!document.getElementById('item-inspection-dialog').open"))
   check('runtime:no-page-errors',not errors,errors)
