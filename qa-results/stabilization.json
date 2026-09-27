@@ -1,0 +1,2253 @@
+{
+  "suite": "stabilization",
+  "fixture": "Chromium document + Map-backed storage; no real Safari/PWA certification",
+  "passed": 191,
+  "total": 191,
+  "results": [
+    {
+      "test": "boot:no-script-errors",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "test": "puzzle:silver key:typed",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "&gt; use silver key on trapdoor",
+            "type": "command"
+          },
+          {
+            "text": "The silver key turns with a soft click. The trapdoor is unlocked.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:silver key:quick",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "&gt; use silver key on trapdoor",
+            "type": "command"
+          },
+          {
+            "text": "The silver key turns with a soft click. The trapdoor is unlocked.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:silver key:give",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "&gt; give silver key to trapdoor",
+            "type": "command"
+          },
+          {
+            "text": "The silver key turns with a soft click. The trapdoor is unlocked.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:silver key:direct-titlecase",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "The silver key turns with a soft click. The trapdoor is unlocked.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:silver key:natural",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "&gt; Please use the silver key on the trapdoor.",
+            "type": "command"
+          },
+          {
+            "text": "The silver key turns with a soft click. The trapdoor is unlocked.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:fairy coin:typed",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "<strong style=\"color:#9a68d6\">+1 Magic Practice</strong> (1/3)",
+            "type": "success"
+          },
+          {
+            "text": "The coin sinks into Saint Orla's palm. Stone grinds beneath your feet as a spiral stair opens behind the altar.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:fairy coin:quick",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "<strong style=\"color:#9a68d6\">+1 Magic Practice</strong> (1/3)",
+            "type": "success"
+          },
+          {
+            "text": "The coin sinks into Saint Orla's palm. Stone grinds beneath your feet as a spiral stair opens behind the altar.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:fairy coin:give",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "<strong style=\"color:#9a68d6\">+1 Magic Practice</strong> (1/3)",
+            "type": "success"
+          },
+          {
+            "text": "The coin sinks into Saint Orla's palm. Stone grinds beneath your feet as a spiral stair opens behind the altar.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:fairy coin:direct-titlecase",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "<strong style=\"color:#9a68d6\">+1 Magic Practice</strong> (1/3)",
+            "type": "success"
+          },
+          {
+            "text": "The coin sinks into Saint Orla's palm. Stone grinds beneath your feet as a spiral stair opens behind the altar.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:fairy coin:natural",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "<strong style=\"color:#9a68d6\">+1 Magic Practice</strong> (1/3)",
+            "type": "success"
+          },
+          {
+            "text": "The coin sinks into Saint Orla's palm. Stone grinds beneath your feet as a spiral stair opens behind the altar.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:silver token:typed",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "<strong>+5 XP</strong>",
+            "type": "success"
+          },
+          {
+            "text": "The token settles into the round depression. Hidden gears turn, and the reliquary opens to reveal a golden sun sigil.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:silver token:quick",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "<strong>+5 XP</strong>",
+            "type": "success"
+          },
+          {
+            "text": "The token settles into the round depression. Hidden gears turn, and the reliquary opens to reveal a golden sun sigil.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:silver token:give",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "<strong>+5 XP</strong>",
+            "type": "success"
+          },
+          {
+            "text": "The token settles into the round depression. Hidden gears turn, and the reliquary opens to reveal a golden sun sigil.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:silver token:direct-titlecase",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "<strong>+5 XP</strong>",
+            "type": "success"
+          },
+          {
+            "text": "The token settles into the round depression. Hidden gears turn, and the reliquary opens to reveal a golden sun sigil.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:silver token:natural",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "<strong>+5 XP</strong>",
+            "type": "success"
+          },
+          {
+            "text": "The token settles into the round depression. Hidden gears turn, and the reliquary opens to reveal a golden sun sigil.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:ferry crank:typed",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "<strong>+4 XP</strong>",
+            "type": "success"
+          },
+          {
+            "text": "The iron crank slides into the Moonfen winch. You turn it slowly; the old gears catch, the rope draws tight, and the ferry is ready to cross east.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:ferry crank:quick",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "<strong>+4 XP</strong>",
+            "type": "success"
+          },
+          {
+            "text": "The iron crank slides into the Moonfen winch. You turn it slowly; the old gears catch, the rope draws tight, and the ferry is ready to cross east.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:ferry crank:give",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "<strong>+4 XP</strong>",
+            "type": "success"
+          },
+          {
+            "text": "The iron crank slides into the Moonfen winch. You turn it slowly; the old gears catch, the rope draws tight, and the ferry is ready to cross east.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:ferry crank:direct-titlecase",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "<strong>+4 XP</strong>",
+            "type": "success"
+          },
+          {
+            "text": "The iron crank slides into the Moonfen winch. You turn it slowly; the old gears catch, the rope draws tight, and the ferry is ready to cross east.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:ferry crank:natural",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "<strong>+4 XP</strong>",
+            "type": "success"
+          },
+          {
+            "text": "The iron crank slides into the Moonfen winch. You turn it slowly; the old gears catch, the rope draws tight, and the ferry is ready to cross east.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:iron hook:typed",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "&gt; use iron hook on well",
+            "type": "command"
+          },
+          {
+            "text": "You lower the iron hook into the well. After several careful attempts, it catches the crystal shard and draws it into your hands.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:iron hook:quick",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "&gt; use iron hook on well",
+            "type": "command"
+          },
+          {
+            "text": "You lower the iron hook into the well. After several careful attempts, it catches the crystal shard and draws it into your hands.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:iron hook:give",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "&gt; give iron hook to well",
+            "type": "command"
+          },
+          {
+            "text": "You lower the iron hook into the well. After several careful attempts, it catches the crystal shard and draws it into your hands.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:iron hook:direct-titlecase",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "You lower the iron hook into the well. After several careful attempts, it catches the crystal shard and draws it into your hands.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:iron hook:natural",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "&gt; Please use the iron hook on the well.",
+            "type": "command"
+          },
+          {
+            "text": "You lower the iron hook into the well. After several careful attempts, it catches the crystal shard and draws it into your hands.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:sun sigil:typed",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "<strong style=\"color:#9a68d6\">+1 Magic Practice</strong> (1/3)",
+            "type": "success"
+          },
+          {
+            "text": "The sun sigil flares. The thorn cage opens like a flower, and the fairy rises into the air. She touches the crown shard with one bright hand. \u201cA crown is not healed by power,\u201d she whispers. \u201cIt is healed by mercy.\u201d",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:sun sigil:quick",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "<strong style=\"color:#9a68d6\">+1 Magic Practice</strong> (1/3)",
+            "type": "success"
+          },
+          {
+            "text": "The sun sigil flares. The thorn cage opens like a flower, and the fairy rises into the air. She touches the crown shard with one bright hand. \u201cA crown is not healed by power,\u201d she whispers. \u201cIt is healed by mercy.\u201d",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:sun sigil:give",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "<strong style=\"color:#9a68d6\">+1 Magic Practice</strong> (1/3)",
+            "type": "success"
+          },
+          {
+            "text": "The sun sigil flares. The thorn cage opens like a flower, and the fairy rises into the air. She touches the crown shard with one bright hand. \u201cA crown is not healed by power,\u201d she whispers. \u201cIt is healed by mercy.\u201d",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:sun sigil:direct-titlecase",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "<strong style=\"color:#9a68d6\">+1 Magic Practice</strong> (1/3)",
+            "type": "success"
+          },
+          {
+            "text": "The sun sigil flares. The thorn cage opens like a flower, and the fairy rises into the air. She touches the crown shard with one bright hand. \u201cA crown is not healed by power,\u201d she whispers. \u201cIt is healed by mercy.\u201d",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:sun sigil:natural",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "<strong style=\"color:#9a68d6\">+1 Magic Practice</strong> (1/3)",
+            "type": "success"
+          },
+          {
+            "text": "The sun sigil flares. The thorn cage opens like a flower, and the fairy rises into the air. She touches the crown shard with one bright hand. \u201cA crown is not healed by power,\u201d she whispers. \u201cIt is healed by mercy.\u201d",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:crown shard:typed",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "&gt; use crown shard on gate",
+            "type": "command"
+          },
+          {
+            "text": "You raise the crown shard toward the gate's empty socket and the thorns shiver in answer. This act cannot be undone \u2014 the kingdom's fate will be sealed, and the fairy still hangs caged above the Moonwell. Type CONFIRM ENDING or tap the button when you are ready.",
+            "type": "warning"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:crown shard:quick",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "&gt; use crown shard on gate",
+            "type": "command"
+          },
+          {
+            "text": "You raise the crown shard toward the gate's empty socket and the thorns shiver in answer. This act cannot be undone \u2014 the kingdom's fate will be sealed, and the fairy still hangs caged above the Moonwell. Type CONFIRM ENDING or tap the button when you are ready.",
+            "type": "warning"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:crown shard:give",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "&gt; give crown shard to gate",
+            "type": "command"
+          },
+          {
+            "text": "You raise the crown shard toward the gate's empty socket and the thorns shiver in answer. This act cannot be undone \u2014 the kingdom's fate will be sealed, and the fairy still hangs caged above the Moonwell. Type CONFIRM ENDING or tap the button when you are ready.",
+            "type": "warning"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:crown shard:direct-titlecase",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "You raise the crown shard toward the gate's empty socket and the thorns shiver in answer. This act cannot be undone \u2014 the kingdom's fate will be sealed, and the fairy still hangs caged above the Moonwell. Type CONFIRM ENDING or tap the button when you are ready.",
+            "type": "warning"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:crown shard:natural",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "&gt; Please use the crown shard on the gate.",
+            "type": "command"
+          },
+          {
+            "text": "You raise the crown shard toward the gate's empty socket and the thorns shiver in answer. This act cannot be undone \u2014 the kingdom's fate will be sealed, and the fairy still hangs caged above the Moonwell. Type CONFIRM ENDING or tap the button when you are ready.",
+            "type": "warning"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:flint:typed",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "&gt; use flint on lantern",
+            "type": "command"
+          },
+          {
+            "text": "You strike the flint. After two attempts, the lantern catches with a steady amber flame.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:flint:quick",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "&gt; use flint on lantern",
+            "type": "command"
+          },
+          {
+            "text": "You strike the flint. After two attempts, the lantern catches with a steady amber flame.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:flint:give",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "&gt; give flint to lantern",
+            "type": "command"
+          },
+          {
+            "text": "You strike the flint. After two attempts, the lantern catches with a steady amber flame.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:flint:direct-titlecase",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "You strike the flint. After two attempts, the lantern catches with a steady amber flame.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:flint:natural",
+      "passed": true,
+      "detail": {
+        "success": true,
+        "log": [
+          {
+            "text": "&gt; Please use the flint on the lantern.",
+            "type": "command"
+          },
+          {
+            "text": "You strike the flint. After two attempts, the lantern catches with a steady amber flame.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "puzzle:wrong-target-does-not-unlock",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "new-adventure:no-inherited-exits",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "test": "new-adventure:ferry-actually-blocked",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "new-adventure:clear-ui-selections",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "healing:healing herbs:typed:hp6",
+      "passed": true,
+      "detail": {
+        "health": 11,
+        "qty": 1,
+        "phase": null,
+        "log": [
+          {
+            "text": "&gt; use healing herbs",
+            "type": "command"
+          },
+          {
+            "text": "You use healing herbs and recover 5 health.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:healing herbs:typed:hp20",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 2,
+        "phase": null,
+        "log": [
+          {
+            "text": "&gt; use healing herbs",
+            "type": "command"
+          },
+          {
+            "text": "You are already at full health. Nothing was consumed.",
+            "type": "warning"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:healing herbs:inspection:hp6",
+      "passed": true,
+      "detail": {
+        "health": 11,
+        "qty": 1,
+        "phase": null,
+        "log": [
+          {
+            "text": "&gt; use healing herbs",
+            "type": "command"
+          },
+          {
+            "text": "You use healing herbs and recover 5 health.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:healing herbs:inspection:hp20",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 2,
+        "phase": null,
+        "log": []
+      }
+    },
+    {
+      "test": "healing:healing herbs:satchel:hp6",
+      "passed": true,
+      "detail": {
+        "health": 11,
+        "qty": 1,
+        "phase": null,
+        "log": [
+          {
+            "text": "&gt; use healing herbs",
+            "type": "command"
+          },
+          {
+            "text": "You use healing herbs and recover 5 health.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:healing herbs:satchel:hp20",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 2,
+        "phase": null,
+        "log": [
+          {
+            "text": "&gt; use healing herbs",
+            "type": "command"
+          },
+          {
+            "text": "You are already at full health. Nothing was consumed.",
+            "type": "warning"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:healing herbs:combat-button:hp6",
+      "passed": true,
+      "detail": {
+        "health": 11,
+        "qty": 1,
+        "phase": "enemy-ready",
+        "log": []
+      }
+    },
+    {
+      "test": "healing:healing herbs:combat-button:hp20",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 2,
+        "phase": "player",
+        "log": []
+      }
+    },
+    {
+      "test": "healing:healing herbs:combat-typed:hp6",
+      "passed": true,
+      "detail": {
+        "health": 11,
+        "qty": 1,
+        "phase": "enemy-ready",
+        "log": [
+          {
+            "text": "&gt; use healing herbs",
+            "type": "command"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:healing herbs:combat-typed:hp20",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 2,
+        "phase": "player",
+        "log": [
+          {
+            "text": "&gt; use healing herbs",
+            "type": "command"
+          },
+          {
+            "text": "You are already at full health. Nothing was consumed.",
+            "type": "warning"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:minor healing tonic:typed:hp6",
+      "passed": true,
+      "detail": {
+        "health": 12,
+        "qty": 1,
+        "phase": null,
+        "log": [
+          {
+            "text": "&gt; use minor healing tonic",
+            "type": "command"
+          },
+          {
+            "text": "You use minor healing tonic and recover 6 health.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:minor healing tonic:typed:hp20",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 2,
+        "phase": null,
+        "log": [
+          {
+            "text": "&gt; use minor healing tonic",
+            "type": "command"
+          },
+          {
+            "text": "You are already at full health. Nothing was consumed.",
+            "type": "warning"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:minor healing tonic:inspection:hp6",
+      "passed": true,
+      "detail": {
+        "health": 12,
+        "qty": 1,
+        "phase": null,
+        "log": [
+          {
+            "text": "&gt; use minor healing tonic",
+            "type": "command"
+          },
+          {
+            "text": "You use minor healing tonic and recover 6 health.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:minor healing tonic:inspection:hp20",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 2,
+        "phase": null,
+        "log": []
+      }
+    },
+    {
+      "test": "healing:minor healing tonic:satchel:hp6",
+      "passed": true,
+      "detail": {
+        "health": 12,
+        "qty": 1,
+        "phase": null,
+        "log": [
+          {
+            "text": "&gt; use minor healing tonic",
+            "type": "command"
+          },
+          {
+            "text": "You use minor healing tonic and recover 6 health.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:minor healing tonic:satchel:hp20",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 2,
+        "phase": null,
+        "log": [
+          {
+            "text": "&gt; use minor healing tonic",
+            "type": "command"
+          },
+          {
+            "text": "You are already at full health. Nothing was consumed.",
+            "type": "warning"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:minor healing tonic:combat-button:hp6",
+      "passed": true,
+      "detail": {
+        "health": 12,
+        "qty": 1,
+        "phase": "enemy-ready",
+        "log": []
+      }
+    },
+    {
+      "test": "healing:minor healing tonic:combat-button:hp20",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 2,
+        "phase": "player",
+        "log": []
+      }
+    },
+    {
+      "test": "healing:minor healing tonic:combat-typed:hp6",
+      "passed": true,
+      "detail": {
+        "health": 12,
+        "qty": 1,
+        "phase": "enemy-ready",
+        "log": [
+          {
+            "text": "&gt; use minor healing tonic",
+            "type": "command"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:minor healing tonic:combat-typed:hp20",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 2,
+        "phase": "player",
+        "log": [
+          {
+            "text": "&gt; use minor healing tonic",
+            "type": "command"
+          },
+          {
+            "text": "You are already at full health. Nothing was consumed.",
+            "type": "warning"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:field bandage:typed:hp6",
+      "passed": true,
+      "detail": {
+        "health": 10,
+        "qty": 1,
+        "phase": null,
+        "log": [
+          {
+            "text": "&gt; use field bandage",
+            "type": "command"
+          },
+          {
+            "text": "You use field bandage and recover 4 health.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:field bandage:typed:hp20",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 2,
+        "phase": null,
+        "log": [
+          {
+            "text": "&gt; use field bandage",
+            "type": "command"
+          },
+          {
+            "text": "You are already at full health. Nothing was consumed.",
+            "type": "warning"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:field bandage:inspection:hp6",
+      "passed": true,
+      "detail": {
+        "health": 10,
+        "qty": 1,
+        "phase": null,
+        "log": [
+          {
+            "text": "&gt; use field bandage",
+            "type": "command"
+          },
+          {
+            "text": "You use field bandage and recover 4 health.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:field bandage:inspection:hp20",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 2,
+        "phase": null,
+        "log": []
+      }
+    },
+    {
+      "test": "healing:field bandage:satchel:hp6",
+      "passed": true,
+      "detail": {
+        "health": 10,
+        "qty": 1,
+        "phase": null,
+        "log": [
+          {
+            "text": "&gt; use field bandage",
+            "type": "command"
+          },
+          {
+            "text": "You use field bandage and recover 4 health.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:field bandage:satchel:hp20",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 2,
+        "phase": null,
+        "log": [
+          {
+            "text": "&gt; use field bandage",
+            "type": "command"
+          },
+          {
+            "text": "You are already at full health. Nothing was consumed.",
+            "type": "warning"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:field bandage:combat-button:hp6",
+      "passed": true,
+      "detail": {
+        "health": 10,
+        "qty": 1,
+        "phase": "enemy-ready",
+        "log": []
+      }
+    },
+    {
+      "test": "healing:field bandage:combat-button:hp20",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 2,
+        "phase": "player",
+        "log": []
+      }
+    },
+    {
+      "test": "healing:field bandage:combat-typed:hp6",
+      "passed": true,
+      "detail": {
+        "health": 10,
+        "qty": 1,
+        "phase": "enemy-ready",
+        "log": [
+          {
+            "text": "&gt; use field bandage",
+            "type": "command"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:field bandage:combat-typed:hp20",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 2,
+        "phase": "player",
+        "log": [
+          {
+            "text": "&gt; use field bandage",
+            "type": "command"
+          },
+          {
+            "text": "You are already at full health. Nothing was consumed.",
+            "type": "warning"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:traveler's poultice:typed:hp6",
+      "passed": true,
+      "detail": {
+        "health": 14,
+        "qty": 1,
+        "phase": null,
+        "log": [
+          {
+            "text": "&gt; use traveler&#39;s poultice",
+            "type": "command"
+          },
+          {
+            "text": "You use traveler's poultice and recover 8 health.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:traveler's poultice:typed:hp20",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 2,
+        "phase": null,
+        "log": [
+          {
+            "text": "&gt; use traveler&#39;s poultice",
+            "type": "command"
+          },
+          {
+            "text": "You are already at full health. Nothing was consumed.",
+            "type": "warning"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:traveler's poultice:inspection:hp6",
+      "passed": true,
+      "detail": {
+        "health": 14,
+        "qty": 1,
+        "phase": null,
+        "log": [
+          {
+            "text": "&gt; use traveler&#39;s poultice",
+            "type": "command"
+          },
+          {
+            "text": "You use traveler's poultice and recover 8 health.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:traveler's poultice:inspection:hp20",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 2,
+        "phase": null,
+        "log": []
+      }
+    },
+    {
+      "test": "healing:traveler's poultice:satchel:hp6",
+      "passed": true,
+      "detail": {
+        "health": 14,
+        "qty": 1,
+        "phase": null,
+        "log": [
+          {
+            "text": "&gt; use traveler&#39;s poultice",
+            "type": "command"
+          },
+          {
+            "text": "You use traveler's poultice and recover 8 health.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:traveler's poultice:satchel:hp20",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 2,
+        "phase": null,
+        "log": [
+          {
+            "text": "&gt; use traveler&#39;s poultice",
+            "type": "command"
+          },
+          {
+            "text": "You are already at full health. Nothing was consumed.",
+            "type": "warning"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:traveler's poultice:combat-button:hp6",
+      "passed": true,
+      "detail": {
+        "health": 14,
+        "qty": 1,
+        "phase": "enemy-ready",
+        "log": []
+      }
+    },
+    {
+      "test": "healing:traveler's poultice:combat-button:hp20",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 2,
+        "phase": "player",
+        "log": []
+      }
+    },
+    {
+      "test": "healing:traveler's poultice:combat-typed:hp6",
+      "passed": true,
+      "detail": {
+        "health": 14,
+        "qty": 1,
+        "phase": "enemy-ready",
+        "log": [
+          {
+            "text": "&gt; use traveler&#39;s poultice",
+            "type": "command"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:traveler's poultice:combat-typed:hp20",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 2,
+        "phase": "player",
+        "log": [
+          {
+            "text": "&gt; use traveler&#39;s poultice",
+            "type": "command"
+          },
+          {
+            "text": "You are already at full health. Nothing was consumed.",
+            "type": "warning"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:healing salve:typed:hp6",
+      "passed": true,
+      "detail": {
+        "health": 14,
+        "qty": 1,
+        "phase": null,
+        "log": [
+          {
+            "text": "&gt; use healing salve",
+            "type": "command"
+          },
+          {
+            "text": "You use healing salve and recover 8 health.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:healing salve:typed:hp20",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 2,
+        "phase": null,
+        "log": [
+          {
+            "text": "&gt; use healing salve",
+            "type": "command"
+          },
+          {
+            "text": "You are already at full health. Nothing was consumed.",
+            "type": "warning"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:healing salve:inspection:hp6",
+      "passed": true,
+      "detail": {
+        "health": 14,
+        "qty": 1,
+        "phase": null,
+        "log": [
+          {
+            "text": "&gt; use healing salve",
+            "type": "command"
+          },
+          {
+            "text": "You use healing salve and recover 8 health.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:healing salve:inspection:hp20",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 2,
+        "phase": null,
+        "log": []
+      }
+    },
+    {
+      "test": "healing:healing salve:satchel:hp6",
+      "passed": true,
+      "detail": {
+        "health": 14,
+        "qty": 1,
+        "phase": null,
+        "log": [
+          {
+            "text": "&gt; use healing salve",
+            "type": "command"
+          },
+          {
+            "text": "You use healing salve and recover 8 health.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:healing salve:satchel:hp20",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 2,
+        "phase": null,
+        "log": [
+          {
+            "text": "&gt; use healing salve",
+            "type": "command"
+          },
+          {
+            "text": "You are already at full health. Nothing was consumed.",
+            "type": "warning"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:healing salve:combat-button:hp6",
+      "passed": true,
+      "detail": {
+        "health": 14,
+        "qty": 1,
+        "phase": "enemy-ready",
+        "log": []
+      }
+    },
+    {
+      "test": "healing:healing salve:combat-button:hp20",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 2,
+        "phase": "player",
+        "log": []
+      }
+    },
+    {
+      "test": "healing:healing salve:combat-typed:hp6",
+      "passed": true,
+      "detail": {
+        "health": 14,
+        "qty": 1,
+        "phase": "enemy-ready",
+        "log": [
+          {
+            "text": "&gt; use healing salve",
+            "type": "command"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:healing salve:combat-typed:hp20",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 2,
+        "phase": "player",
+        "log": [
+          {
+            "text": "&gt; use healing salve",
+            "type": "command"
+          },
+          {
+            "text": "You are already at full health. Nothing was consumed.",
+            "type": "warning"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:healing potion:typed:hp6",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 1,
+        "phase": null,
+        "log": [
+          {
+            "text": "&gt; use healing potion",
+            "type": "command"
+          },
+          {
+            "text": "You use healing potion and recover 14 health.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:healing potion:typed:hp20",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 2,
+        "phase": null,
+        "log": [
+          {
+            "text": "&gt; use healing potion",
+            "type": "command"
+          },
+          {
+            "text": "You are already at full health. Nothing was consumed.",
+            "type": "warning"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:healing potion:inspection:hp6",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 1,
+        "phase": null,
+        "log": [
+          {
+            "text": "&gt; use healing potion",
+            "type": "command"
+          },
+          {
+            "text": "You use healing potion and recover 14 health.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:healing potion:inspection:hp20",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 2,
+        "phase": null,
+        "log": []
+      }
+    },
+    {
+      "test": "healing:healing potion:satchel:hp6",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 1,
+        "phase": null,
+        "log": [
+          {
+            "text": "&gt; use healing potion",
+            "type": "command"
+          },
+          {
+            "text": "You use healing potion and recover 14 health.",
+            "type": "success"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:healing potion:satchel:hp20",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 2,
+        "phase": null,
+        "log": [
+          {
+            "text": "&gt; use healing potion",
+            "type": "command"
+          },
+          {
+            "text": "You are already at full health. Nothing was consumed.",
+            "type": "warning"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:healing potion:combat-button:hp6",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 1,
+        "phase": "enemy-ready",
+        "log": []
+      }
+    },
+    {
+      "test": "healing:healing potion:combat-button:hp20",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 2,
+        "phase": "player",
+        "log": []
+      }
+    },
+    {
+      "test": "healing:healing potion:combat-typed:hp6",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 1,
+        "phase": "enemy-ready",
+        "log": [
+          {
+            "text": "&gt; use healing potion",
+            "type": "command"
+          }
+        ]
+      }
+    },
+    {
+      "test": "healing:healing potion:combat-typed:hp20",
+      "passed": true,
+      "detail": {
+        "health": 20,
+        "qty": 2,
+        "phase": "player",
+        "log": [
+          {
+            "text": "&gt; use healing potion",
+            "type": "command"
+          },
+          {
+            "text": "You are already at full health. Nothing was consumed.",
+            "type": "warning"
+          }
+        ]
+      }
+    },
+    {
+      "test": "consumable:focus-zero",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "consumable:full-focus-keeps-item",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "consumable:no-poison-keeps-antidote",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "consumable:antidote-clears-poison",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "lock:shop-tool-works",
+      "passed": true,
+      "detail": [
+        {
+          "text": "<strong style=\"color:#d7a43d\">\ud83d\udddd\ufe0f Lockpicking check:</strong> d20 20 + 0 = 20. Need 10. (training 0 + class 0 + equipment 0)",
+          "type": "system"
+        },
+        {
+          "text": "<strong>+3 XP</strong>",
+          "type": "success"
+        },
+        {
+          "text": "You feel the final tumbler click. The cellar hatch is unlocked. OPEN CELLAR HATCH or GO DOWN.",
+          "type": "success"
+        }
+      ]
+    },
+    {
+      "test": "lock:equipped-bonus-exactly-one",
+      "passed": true,
+      "detail": [
+        "<strong style=\"color:#d7a43d\">\ud83d\udddd\ufe0f Lockpicking check:</strong> d20 5 + 6 = 11. Need 10. (training 2 + class 4 + equipment 0)",
+        "<strong style=\"color:#d7a43d\">\ud83d\udddd\ufe0f Lockpicking check:</strong> d20 5 + 7 = 12. Need 10. (training 2 + class 4 + equipment 1)"
+      ]
+    },
+    {
+      "test": "information:tavernCellar:flagstone:look at",
+      "passed": true,
+      "detail": {
+        "inventory": [],
+        "itemCounts": {},
+        "gold": 20,
+        "health": 20,
+        "changed": [],
+        "combat": false
+      }
+    },
+    {
+      "test": "information:tavernCellar:flagstone:examine",
+      "passed": true,
+      "detail": {
+        "inventory": [],
+        "itemCounts": {},
+        "gold": 20,
+        "health": 20,
+        "changed": [],
+        "combat": false
+      }
+    },
+    {
+      "test": "information:tavernCellar:flagstone:inspect",
+      "passed": true,
+      "detail": {
+        "inventory": [],
+        "itemCounts": {},
+        "gold": 20,
+        "health": 20,
+        "changed": [],
+        "combat": false
+      }
+    },
+    {
+      "test": "information:tavernCellar:flagstone:read",
+      "passed": true,
+      "detail": {
+        "inventory": [],
+        "itemCounts": {},
+        "gold": 20,
+        "health": 20,
+        "changed": [],
+        "combat": false
+      }
+    },
+    {
+      "test": "information:secretAlcove:cracked wall:look at",
+      "passed": true,
+      "detail": {
+        "inventory": [],
+        "itemCounts": {},
+        "gold": 20,
+        "health": 20,
+        "changed": [],
+        "combat": false
+      }
+    },
+    {
+      "test": "information:secretAlcove:cracked wall:examine",
+      "passed": true,
+      "detail": {
+        "inventory": [],
+        "itemCounts": {},
+        "gold": 20,
+        "health": 20,
+        "changed": [],
+        "combat": false
+      }
+    },
+    {
+      "test": "information:secretAlcove:cracked wall:inspect",
+      "passed": true,
+      "detail": {
+        "inventory": [],
+        "itemCounts": {},
+        "gold": 20,
+        "health": 20,
+        "changed": [],
+        "combat": false
+      }
+    },
+    {
+      "test": "information:secretAlcove:cracked wall:read",
+      "passed": true,
+      "detail": {
+        "inventory": [],
+        "itemCounts": {},
+        "gold": 20,
+        "health": 20,
+        "changed": [],
+        "combat": false
+      }
+    },
+    {
+      "test": "information:thornHedgePass:abandoned pack:look at",
+      "passed": true,
+      "detail": {
+        "inventory": [],
+        "itemCounts": {},
+        "gold": 20,
+        "health": 20,
+        "changed": [],
+        "combat": false
+      }
+    },
+    {
+      "test": "information:thornHedgePass:abandoned pack:examine",
+      "passed": true,
+      "detail": {
+        "inventory": [],
+        "itemCounts": {},
+        "gold": 20,
+        "health": 20,
+        "changed": [],
+        "combat": false
+      }
+    },
+    {
+      "test": "information:thornHedgePass:abandoned pack:inspect",
+      "passed": true,
+      "detail": {
+        "inventory": [],
+        "itemCounts": {},
+        "gold": 20,
+        "health": 20,
+        "changed": [],
+        "combat": false
+      }
+    },
+    {
+      "test": "information:thornHedgePass:abandoned pack:read",
+      "passed": true,
+      "detail": {
+        "inventory": [],
+        "itemCounts": {},
+        "gold": 20,
+        "health": 20,
+        "changed": [],
+        "combat": false
+      }
+    },
+    {
+      "test": "information:secretAlcove:loose stone:look at",
+      "passed": true,
+      "detail": {
+        "inventory": [],
+        "itemCounts": {},
+        "gold": 20,
+        "health": 20,
+        "changed": [],
+        "combat": false
+      }
+    },
+    {
+      "test": "information:secretAlcove:loose stone:examine",
+      "passed": true,
+      "detail": {
+        "inventory": [],
+        "itemCounts": {},
+        "gold": 20,
+        "health": 20,
+        "changed": [],
+        "combat": false
+      }
+    },
+    {
+      "test": "information:secretAlcove:loose stone:inspect",
+      "passed": true,
+      "detail": {
+        "inventory": [],
+        "itemCounts": {},
+        "gold": 20,
+        "health": 20,
+        "changed": [],
+        "combat": false
+      }
+    },
+    {
+      "test": "information:secretAlcove:loose stone:read",
+      "passed": true,
+      "detail": {
+        "inventory": [],
+        "itemCounts": {},
+        "gold": 20,
+        "health": 20,
+        "changed": [],
+        "combat": false
+      }
+    },
+    {
+      "test": "information:crypt:stone coffin:look at",
+      "passed": true,
+      "detail": {
+        "inventory": [],
+        "itemCounts": {},
+        "gold": 20,
+        "health": 20,
+        "changed": [],
+        "combat": false
+      }
+    },
+    {
+      "test": "information:crypt:stone coffin:examine",
+      "passed": true,
+      "detail": {
+        "inventory": [],
+        "itemCounts": {},
+        "gold": 20,
+        "health": 20,
+        "changed": [],
+        "combat": false
+      }
+    },
+    {
+      "test": "information:crypt:stone coffin:inspect",
+      "passed": true,
+      "detail": {
+        "inventory": [],
+        "itemCounts": {},
+        "gold": 20,
+        "health": 20,
+        "changed": [],
+        "combat": false
+      }
+    },
+    {
+      "test": "information:crypt:stone coffin:read",
+      "passed": true,
+      "detail": {
+        "inventory": [],
+        "itemCounts": {},
+        "gold": 20,
+        "health": 20,
+        "changed": [],
+        "combat": false
+      }
+    },
+    {
+      "test": "information:explicit-search-still-loots",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "information:explicit-stone-search-still-reveals",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:minor healing tonic",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:field bandage",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:traveler's poultice",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:tarnished locket",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:iron hook",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:flint",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:silver key",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:lantern",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:fairy coin",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:ferry crank",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:silver token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:sun sigil",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:crown shard",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:wooden shield",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:hunting knife",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:spell crystal",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:lockpicks",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:healing herbs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:moonfen reed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:clover",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:dried moss",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:moonwort",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:bluebell sprig",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:small lute",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:iron dagger",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:short sword",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:rope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:pilgrim charm",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:river charm",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:courier seal",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:lantern oil",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:bone charm",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:guard key fragment",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:chapel sigil token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:briar fang",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:ancient chapel charm",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:healing salve",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:healing potion",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:antidote",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:stamina draught",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:torch",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:typed:lockpick",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "migration:herbs:{\"healing herb\": 2}",
+      "passed": true,
+      "detail": {
+        "first": 2,
+        "second": 2,
+        "expected": 2
+      }
+    },
+    {
+      "test": "migration:herbs:{}",
+      "passed": true,
+      "detail": {
+        "first": 1,
+        "second": 1,
+        "expected": 1
+      }
+    },
+    {
+      "test": "migration:herbs:{\"healing herbs\": 2}",
+      "passed": true,
+      "detail": {
+        "first": 2,
+        "second": 2,
+        "expected": 2
+      }
+    },
+    {
+      "test": "migration:herbs:{\"healing herb\": 2, \"healing herbs\": 3}",
+      "passed": true,
+      "detail": {
+        "first": 5,
+        "second": 5,
+        "expected": 5
+      }
+    },
+    {
+      "test": "migration:lockpick-equipment",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "save:success-is-real",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "save:failure-is-not-success",
+      "passed": true,
+      "detail": "Progress could not be saved. Keep this page open and use Export Save to make a backup. Save failed. Your current adventure is still open; use Export Save before closing this page."
+    },
+    {
+      "test": "save:failure-retains-last-good",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "save:corrupt-json-keeps-live-state",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "save:invalid-shape-keeps-live-state",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "new-adventure:clears-rewards-combat-inventory",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "new-adventure:clears-keyboard",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "save:silent-write-failure-detected",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "save:newer-schema-is-not-destructively-loaded",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:unknown-item-not-invented",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "runtime:no-page-errors",
+      "passed": true,
+      "detail": []
+    }
+  ]
+}

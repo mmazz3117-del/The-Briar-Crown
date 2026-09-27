@@ -1,0 +1,17 @@
+PASS release:app-version
+PASS release:app-name
+PASS release:web-manifest
+PASS release:cache-version
+PASS release:worker-registration
+PASS release:deployment-tag
+PASS release:static-label
+PASS release:save-schema
+PASS assets:all-static-references
+PASS release:art-manifest-version
+PASS assets:production-hashes
+PASS assets:no-unused-or-unmanifested-scenes
+PASS assets:no-exact-scene-duplicates
+PASS assets:item-art-references
+PASS javascript:syntax
+PASS service-worker:handler-fixtures
+16/16 passed

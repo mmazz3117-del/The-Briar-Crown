@@ -1,0 +1,42 @@
+{
+  "passed": 9,
+  "total": 9,
+  "results": [
+    {
+      "test": "retirement:dry-run-keeps-file",
+      "passed": true
+    },
+    {
+      "test": "retirement:apply-removes-known-bytes",
+      "passed": true
+    },
+    {
+      "test": "retirement:repeat-is-idempotent",
+      "passed": true
+    },
+    {
+      "test": "retirement:modified-file-preserved",
+      "passed": true
+    },
+    {
+      "test": "retirement:unrelated-file-preserved",
+      "passed": true
+    },
+    {
+      "test": "retirement:path-traversal-blocked",
+      "passed": true
+    },
+    {
+      "test": "retirement:symlink-preserved",
+      "passed": true
+    },
+    {
+      "test": "retirement:wrong-root-version-blocked",
+      "passed": true
+    },
+    {
+      "test": "retirement:catalog-excludes-current-package-files",
+      "passed": true
+    }
+  ]
+}

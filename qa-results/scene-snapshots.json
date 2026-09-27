@@ -1,0 +1,4202 @@
+[
+  {
+    "id": "square:center:fresh",
+    "room": "square",
+    "name": "Willowmere Square",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/square-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/square-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Notice Board",
+        "command": "look at notice board",
+        "x": 18,
+        "y": 64,
+        "w": 24,
+        "h": 35
+      },
+      {
+        "label": "Well",
+        "command": "look at well",
+        "x": 52,
+        "y": 61,
+        "w": 25,
+        "h": 32
+      },
+      {
+        "label": "Tavern",
+        "command": "walk to tavern door",
+        "x": 33,
+        "y": 32,
+        "w": 34,
+        "h": 48
+      },
+      {
+        "label": "Apothecary",
+        "command": "walk to apothecary",
+        "x": 78,
+        "y": 36,
+        "w": 33,
+        "h": 50
+      }
+    ],
+    "description": "Willowmere gathers beneath a bright late-morning sky, but uneasy rumors travel faster than the market carts. A stone well stands beneath the village willow. The Briar Lantern Tavern lies north, Merrin's forge glows east, Saint Orla's chapel waits west, and the king's road descends south toward the sealed castle.",
+    "sha256": "7c773e6d8ae30b47b99ab87a4a439131a1366cc06bad0c126fd0999a5fc24011",
+    "descriptionSha256": "aad2c0e3515b63e74778642ec0678ed2988b32cacad7d5931ae0a4f265842891",
+    "hotspotSha256": "49d2865b9a759e3ac8596dc940c99e83c0610b3bf3b6265e7e4a59721f78db42"
+  },
+  {
+    "id": "square:center:completed",
+    "room": "square",
+    "name": "Willowmere Square",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/square-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/square-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Notice Board",
+        "command": "look at notice board",
+        "x": 18,
+        "y": 64,
+        "w": 24,
+        "h": 35
+      },
+      {
+        "label": "Well",
+        "command": "look at well",
+        "x": 52,
+        "y": 61,
+        "w": 25,
+        "h": 32
+      },
+      {
+        "label": "Tavern",
+        "command": "walk to tavern door",
+        "x": 33,
+        "y": 32,
+        "w": 34,
+        "h": 48
+      },
+      {
+        "label": "Apothecary",
+        "command": "walk to apothecary",
+        "x": 78,
+        "y": 36,
+        "w": 33,
+        "h": 50
+      }
+    ],
+    "description": "Willowmere gathers beneath a bright late-morning sky, but uneasy rumors travel faster than the market carts. A stone well stands beneath the village willow. The Briar Lantern Tavern lies north, Merrin's forge glows east, Saint Orla's chapel waits west, and the king's road descends south toward the sealed castle.",
+    "sha256": "7c773e6d8ae30b47b99ab87a4a439131a1366cc06bad0c126fd0999a5fc24011",
+    "descriptionSha256": "aad2c0e3515b63e74778642ec0678ed2988b32cacad7d5931ae0a4f265842891",
+    "hotspotSha256": "49d2865b9a759e3ac8596dc940c99e83c0610b3bf3b6265e7e4a59721f78db42"
+  },
+  {
+    "id": "tavernApproach:center:fresh",
+    "room": "tavernApproach",
+    "name": "Approaching the Briar Lantern",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/tavern-approach-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/tavern-approach-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Briar Lantern Door",
+        "command": "go north",
+        "x": 61,
+        "y": 48,
+        "w": 35,
+        "h": 55
+      },
+      {
+        "label": "Willowmere Square",
+        "command": "go south",
+        "x": 22,
+        "y": 82,
+        "w": 32,
+        "h": 20
+      }
+    ],
+    "description": "The Briar Lantern stands directly north along the cobblestone path. Willowmere Square is south. This road serves only the tavern, so there are no misleading side routes.",
+    "sha256": "473246f9623dfbeaac8709d7c5daa30dfa5b574acec2150b598d21b90f9cd9fb",
+    "descriptionSha256": "cd1e99c55c704a51feef15447d233680cec8338adcdf3e09b6dd75740f616fb4",
+    "hotspotSha256": "ae12017a37a40354639ccd477225e5655053c49f80299c936746c14c0f75a33b"
+  },
+  {
+    "id": "tavernApproach:center:completed",
+    "room": "tavernApproach",
+    "name": "Approaching the Briar Lantern",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/tavern-approach-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/tavern-approach-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Briar Lantern Door",
+        "command": "go north",
+        "x": 61,
+        "y": 48,
+        "w": 35,
+        "h": 55
+      },
+      {
+        "label": "Willowmere Square",
+        "command": "go south",
+        "x": 22,
+        "y": 82,
+        "w": 32,
+        "h": 20
+      }
+    ],
+    "description": "The Briar Lantern stands directly north along the cobblestone path. Willowmere Square is south. This road serves only the tavern, so there are no misleading side routes.",
+    "sha256": "473246f9623dfbeaac8709d7c5daa30dfa5b574acec2150b598d21b90f9cd9fb",
+    "descriptionSha256": "cd1e99c55c704a51feef15447d233680cec8338adcdf3e09b6dd75740f616fb4",
+    "hotspotSha256": "ae12017a37a40354639ccd477225e5655053c49f80299c936746c14c0f75a33b"
+  },
+  {
+    "id": "tavernDoor:center:fresh",
+    "room": "tavernDoor",
+    "name": "At the Briar Lantern Door",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/tavern-door-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/tavern-door-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Tavern Door",
+        "command": "open door",
+        "x": 43,
+        "y": 51,
+        "w": 30,
+        "h": 48
+      },
+      {
+        "label": "Square",
+        "command": "south",
+        "x": 56,
+        "y": 82,
+        "w": 30,
+        "h": 20
+      }
+    ],
+    "description": "You stand directly before the tavern's heavy oak door. Firelight glows around its frame. Open the door before entering; Willowmere Square lies behind you.",
+    "sha256": "0c76a08c76771bbefc4bd0be339bb9ad1a1a585ffa82fab1baa2ad69b7233f55",
+    "descriptionSha256": "87daf59ca4a688e729f66c23d44fd7a3cf6df1f4f3215f56f76c10f3f44d7b39",
+    "hotspotSha256": "c7d96a830f5afd3112af379cacce29d6f28aec65b07279f890b650f08bcc97db"
+  },
+  {
+    "id": "tavernDoor:center:completed",
+    "room": "tavernDoor",
+    "name": "At the Briar Lantern Door",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/tavern-door-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/tavern-door-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Tavern Door",
+        "command": "enter tavern",
+        "x": 43,
+        "y": 51,
+        "w": 30,
+        "h": 48
+      },
+      {
+        "label": "Square",
+        "command": "south",
+        "x": 56,
+        "y": 82,
+        "w": 30,
+        "h": 20
+      }
+    ],
+    "description": "You stand directly before the tavern's heavy oak door. Firelight glows around its frame. Open the door before entering; Willowmere Square lies behind you.",
+    "sha256": "0c76a08c76771bbefc4bd0be339bb9ad1a1a585ffa82fab1baa2ad69b7233f55",
+    "descriptionSha256": "87daf59ca4a688e729f66c23d44fd7a3cf6df1f4f3215f56f76c10f3f44d7b39",
+    "hotspotSha256": "015d0002dab6f9b98b28fe9be731272f7fa6a5bbd80b19bb6b37ae3693aa92ed"
+  },
+  {
+    "id": "apothecaryApproach:center:fresh",
+    "room": "apothecaryApproach",
+    "name": "Approaching Willowmere Apothecary",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/apothecary-approach-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/apothecary-approach-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Apothecary Door",
+        "command": "walk to apothecary door",
+        "x": 67,
+        "y": 47,
+        "w": 34,
+        "h": 52
+      },
+      {
+        "label": "Square",
+        "command": "go west",
+        "x": 30,
+        "y": 80,
+        "w": 34,
+        "h": 22
+      }
+    ],
+    "description": "You cross Willowmere Square toward the apothecary. Herb boxes crowd the windows, ivy climbs the stonework, and warm lamplight glows around the green entrance ahead.",
+    "sha256": "b16a9d4792c0e32254dbaa9ee0483d4b29a0edfef1b55518a4535a8fd11ae010",
+    "descriptionSha256": "0d5b2eecaa0c66e9be401f3f5203e410799d2e6224a0f0637d42ab764176c7df",
+    "hotspotSha256": "5ff0abf034bc68fd8be2a92f0518083d5b712adae51f7ee4b5bd7264f5940fd7"
+  },
+  {
+    "id": "apothecaryApproach:center:completed",
+    "room": "apothecaryApproach",
+    "name": "Approaching Willowmere Apothecary",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/apothecary-approach-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/apothecary-approach-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Apothecary Door",
+        "command": "walk to apothecary door",
+        "x": 67,
+        "y": 47,
+        "w": 34,
+        "h": 52
+      },
+      {
+        "label": "Square",
+        "command": "go west",
+        "x": 30,
+        "y": 80,
+        "w": 34,
+        "h": 22
+      }
+    ],
+    "description": "You cross Willowmere Square toward the apothecary. Herb boxes crowd the windows, ivy climbs the stonework, and warm lamplight glows around the green entrance ahead.",
+    "sha256": "b16a9d4792c0e32254dbaa9ee0483d4b29a0edfef1b55518a4535a8fd11ae010",
+    "descriptionSha256": "0d5b2eecaa0c66e9be401f3f5203e410799d2e6224a0f0637d42ab764176c7df",
+    "hotspotSha256": "5ff0abf034bc68fd8be2a92f0518083d5b712adae51f7ee4b5bd7264f5940fd7"
+  },
+  {
+    "id": "apothecaryDoor:center:fresh",
+    "room": "apothecaryDoor",
+    "name": "At Willowmere Apothecary",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/apothecary-door-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/apothecary-door-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Open Apothecary Entrance",
+        "command": "enter apothecary",
+        "x": 27,
+        "y": 47,
+        "w": 34,
+        "h": 58
+      },
+      {
+        "label": "Bell",
+        "command": "ring bell",
+        "x": 80,
+        "y": 40,
+        "w": 13,
+        "h": 20
+      },
+      {
+        "label": "Square",
+        "command": "west",
+        "x": 46,
+        "y": 82,
+        "w": 34,
+        "h": 20
+      }
+    ],
+    "description": "You stand before Willowmere Apothecary. The green entrance already stands open beneath hanging lavender, and a brass bell waits beside the frame. Enter the shop or return west to the square.",
+    "sha256": "1cfd3631f63404011342b470164e01b3a923a613eee8bd96457c0b66841f931e",
+    "descriptionSha256": "9ae756c19dc3e571793548329d2cfaf3dc6db4247226104d4900b374e6fd5fe7",
+    "hotspotSha256": "a4de69187c7b5fa1963a89476e03fa22a0502422e0865d53411c5f6daa3b0b22"
+  },
+  {
+    "id": "apothecaryDoor:center:completed",
+    "room": "apothecaryDoor",
+    "name": "At Willowmere Apothecary",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/apothecary-door-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/apothecary-door-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Open Apothecary Entrance",
+        "command": "enter apothecary",
+        "x": 27,
+        "y": 47,
+        "w": 34,
+        "h": 58
+      },
+      {
+        "label": "Bell",
+        "command": "ring bell",
+        "x": 80,
+        "y": 40,
+        "w": 13,
+        "h": 20
+      },
+      {
+        "label": "Square",
+        "command": "west",
+        "x": 46,
+        "y": 82,
+        "w": 34,
+        "h": 20
+      }
+    ],
+    "description": "You stand before Willowmere Apothecary. The green entrance already stands open beneath hanging lavender, and a brass bell waits beside the frame. Enter the shop or return west to the square.",
+    "sha256": "1cfd3631f63404011342b470164e01b3a923a613eee8bd96457c0b66841f931e",
+    "descriptionSha256": "9ae756c19dc3e571793548329d2cfaf3dc6db4247226104d4900b374e6fd5fe7",
+    "hotspotSha256": "a4de69187c7b5fa1963a89476e03fa22a0502422e0865d53411c5f6daa3b0b22"
+  },
+  {
+    "id": "apothecary:center:fresh",
+    "room": "apothecary",
+    "name": "Willowmere Apothecary",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/apothecary-center-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/apothecary-center-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Elowen",
+        "command": "talk to apothecary",
+        "x": 31,
+        "y": 38,
+        "w": 17,
+        "h": 28
+      },
+      {
+        "label": "Herb Wall",
+        "command": "look east",
+        "x": 79,
+        "y": 31,
+        "w": 30,
+        "h": 34
+      },
+      {
+        "label": "Cabinets",
+        "command": "look west",
+        "x": 12,
+        "y": 36,
+        "w": 20,
+        "h": 34
+      },
+      {
+        "label": "Entrance",
+        "command": "look south",
+        "x": 8,
+        "y": 49,
+        "w": 15,
+        "h": 40
+      },
+      {
+        "label": "Leave Shop",
+        "command": "go outside",
+        "x": 8,
+        "y": 88,
+        "w": 20,
+        "h": 12
+      }
+    ],
+    "description": "The entire apothecary opens before you: Elowen at the broad counter, herb bundles overhead, cabinets and books to the west, a curtained workroom to the east, and the front door behind you.",
+    "sha256": "1f144cd6578a7afbe03d93082ec62e3e529953072de03b93c99922c989801ecd",
+    "descriptionSha256": "6e071232473873591cb198eb993a9ee23b711278c14a0d06b7c10731942c44d9",
+    "hotspotSha256": "d85ef70a139ad4168f054572c80a1fc26d93ac8f2abe618a2ad476f3d9b49be9"
+  },
+  {
+    "id": "apothecary:center:completed",
+    "room": "apothecary",
+    "name": "Willowmere Apothecary",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/apothecary-center-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/apothecary-center-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Elowen",
+        "command": "talk to apothecary",
+        "x": 31,
+        "y": 38,
+        "w": 17,
+        "h": 28
+      },
+      {
+        "label": "Herb Wall",
+        "command": "look east",
+        "x": 79,
+        "y": 31,
+        "w": 30,
+        "h": 34
+      },
+      {
+        "label": "Cabinets",
+        "command": "look west",
+        "x": 12,
+        "y": 36,
+        "w": 20,
+        "h": 34
+      },
+      {
+        "label": "Entrance",
+        "command": "look south",
+        "x": 8,
+        "y": 49,
+        "w": 15,
+        "h": 40
+      },
+      {
+        "label": "Leave Shop",
+        "command": "go outside",
+        "x": 8,
+        "y": 88,
+        "w": 20,
+        "h": 12
+      }
+    ],
+    "description": "The entire apothecary opens before you: Elowen at the broad counter, herb bundles overhead, cabinets and books to the west, a curtained workroom to the east, and the front door behind you.",
+    "sha256": "1f144cd6578a7afbe03d93082ec62e3e529953072de03b93c99922c989801ecd",
+    "descriptionSha256": "6e071232473873591cb198eb993a9ee23b711278c14a0d06b7c10731942c44d9",
+    "hotspotSha256": "d85ef70a139ad4168f054572c80a1fc26d93ac8f2abe618a2ad476f3d9b49be9"
+  },
+  {
+    "id": "apothecary:north:fresh",
+    "room": "apothecary",
+    "name": "Willowmere Apothecary",
+    "view": "north",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/apothecary-north-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/apothecary-north-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Elowen",
+        "command": "talk to apothecary",
+        "x": 31,
+        "y": 40,
+        "w": 18,
+        "h": 30
+      },
+      {
+        "label": "Ledger",
+        "command": "look at ledger",
+        "x": 62,
+        "y": 65,
+        "w": 24,
+        "h": 14
+      },
+      {
+        "label": "Brass Scales",
+        "command": "look at scales",
+        "x": 37,
+        "y": 59,
+        "w": 20,
+        "h": 20
+      },
+      {
+        "label": "Locked Drawer",
+        "command": "look at drawer",
+        "x": 72,
+        "y": 78,
+        "w": 20,
+        "h": 16
+      }
+    ],
+    "description": "You face the counter. Elowen stands beside brass scales, an open ledger, stoppered bottles, and a small locked drawer built into the wood.",
+    "sha256": "25e0d1ddf682c3ce182bbf536244649d7651257c91bb8f0e0a22bca1ecb1c781",
+    "descriptionSha256": "636c6fae5f7cd467d0da2cb012203b5ef2d9e54d939b9faed2acf1919b891e80",
+    "hotspotSha256": "d10fa498037afe4607cf1e00748948722a6b6e8163f2b3522eb578aa6022608d"
+  },
+  {
+    "id": "apothecary:north:completed",
+    "room": "apothecary",
+    "name": "Willowmere Apothecary",
+    "view": "north",
+    "stage": "completed",
+    "imagePath": "assets/scenes/apothecary-north-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/apothecary-north-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Elowen",
+        "command": "talk to apothecary",
+        "x": 31,
+        "y": 40,
+        "w": 18,
+        "h": 30
+      },
+      {
+        "label": "Ledger",
+        "command": "look at ledger",
+        "x": 62,
+        "y": 65,
+        "w": 24,
+        "h": 14
+      },
+      {
+        "label": "Brass Scales",
+        "command": "look at scales",
+        "x": 37,
+        "y": 59,
+        "w": 20,
+        "h": 20
+      },
+      {
+        "label": "Locked Drawer",
+        "command": "look at drawer",
+        "x": 72,
+        "y": 78,
+        "w": 20,
+        "h": 16
+      }
+    ],
+    "description": "You face the counter. Elowen stands beside brass scales, an open ledger, stoppered bottles, and a small locked drawer built into the wood.",
+    "sha256": "25e0d1ddf682c3ce182bbf536244649d7651257c91bb8f0e0a22bca1ecb1c781",
+    "descriptionSha256": "636c6fae5f7cd467d0da2cb012203b5ef2d9e54d939b9faed2acf1919b891e80",
+    "hotspotSha256": "d10fa498037afe4607cf1e00748948722a6b6e8163f2b3522eb578aa6022608d"
+  },
+  {
+    "id": "apothecary:east:fresh",
+    "room": "apothecary",
+    "name": "Willowmere Apothecary",
+    "view": "east",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/apothecary-east-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/apothecary-east-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Herb Bundles",
+        "command": "look at herbs",
+        "x": 48,
+        "y": 18,
+        "w": 42,
+        "h": 25
+      },
+      {
+        "label": "Purple Flower",
+        "command": "examine purple flower",
+        "x": 60,
+        "y": 54,
+        "w": 15,
+        "h": 20
+      },
+      {
+        "label": "Back Room",
+        "command": "look at back room",
+        "x": 79,
+        "y": 43,
+        "w": 21,
+        "h": 42
+      },
+      {
+        "label": "Medicine Cabinet",
+        "command": "look at cabinet",
+        "x": 88,
+        "y": 52,
+        "w": 20,
+        "h": 42
+      }
+    ],
+    "description": "You turn toward the herb wall. Dried lavender, moonwort, feverfew, and stranger plants hang above rows of jars. A purple flower sits near the curtained doorway to the rear workroom.",
+    "sha256": "640cdbc991ec1e1caa01510d1b272783c7ed19d4fff64f5470dbee3284796feb",
+    "descriptionSha256": "14d63e4d4456925a5f5b4b7cf3c4c84de2be2fc70355a9f89f2bf064ed5389c2",
+    "hotspotSha256": "760ae4db19e9d362ea17da65c1bbbe9721815328e2d3d59367abd6c26b248163"
+  },
+  {
+    "id": "apothecary:east:completed",
+    "room": "apothecary",
+    "name": "Willowmere Apothecary",
+    "view": "east",
+    "stage": "completed",
+    "imagePath": "assets/scenes/apothecary-east-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/apothecary-east-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Herb Bundles",
+        "command": "look at herbs",
+        "x": 48,
+        "y": 18,
+        "w": 42,
+        "h": 25
+      },
+      {
+        "label": "Purple Flower",
+        "command": "examine purple flower",
+        "x": 60,
+        "y": 54,
+        "w": 15,
+        "h": 20
+      },
+      {
+        "label": "Back Room",
+        "command": "look at back room",
+        "x": 79,
+        "y": 43,
+        "w": 21,
+        "h": 42
+      },
+      {
+        "label": "Medicine Cabinet",
+        "command": "look at cabinet",
+        "x": 88,
+        "y": 52,
+        "w": 20,
+        "h": 42
+      }
+    ],
+    "description": "You turn toward the herb wall. Dried lavender, moonwort, feverfew, and stranger plants hang above rows of jars. A purple flower sits near the curtained doorway to the rear workroom.",
+    "sha256": "640cdbc991ec1e1caa01510d1b272783c7ed19d4fff64f5470dbee3284796feb",
+    "descriptionSha256": "14d63e4d4456925a5f5b4b7cf3c4c84de2be2fc70355a9f89f2bf064ed5389c2",
+    "hotspotSha256": "760ae4db19e9d362ea17da65c1bbbe9721815328e2d3d59367abd6c26b248163"
+  },
+  {
+    "id": "apothecary:west:fresh",
+    "room": "apothecary",
+    "name": "Willowmere Apothecary",
+    "view": "west",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/apothecary-west-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/apothecary-west-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Front Door",
+        "command": "look at door",
+        "x": 19,
+        "y": 47,
+        "w": 22,
+        "h": 50
+      },
+      {
+        "label": "Books",
+        "command": "read book",
+        "x": 53,
+        "y": 35,
+        "w": 31,
+        "h": 33
+      },
+      {
+        "label": "Cabinets",
+        "command": "look at cabinet",
+        "x": 64,
+        "y": 50,
+        "w": 32,
+        "h": 40
+      },
+      {
+        "label": "Window",
+        "command": "look out window",
+        "x": 18,
+        "y": 28,
+        "w": 18,
+        "h": 28
+      }
+    ],
+    "description": "You face the cabinet wall and entrance side of the shop. Shelves of books and medicines stand beside the window, while the front door lets in a narrow blade of daylight.",
+    "sha256": "7aa8375d79dadc30da4e60c762c6362cbf39ae770ba92f40e77bf5bed42f9ccc",
+    "descriptionSha256": "bd6947d70dd1b8cb38bbbbbf1b64f2fbaf3076eeddf9051e81a7afd054e5d398",
+    "hotspotSha256": "983db26c0b6864b3c996f35f51d75978154845d844881478b1d9a8cc866939e6"
+  },
+  {
+    "id": "apothecary:west:completed",
+    "room": "apothecary",
+    "name": "Willowmere Apothecary",
+    "view": "west",
+    "stage": "completed",
+    "imagePath": "assets/scenes/apothecary-west-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/apothecary-west-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Front Door",
+        "command": "look at door",
+        "x": 19,
+        "y": 47,
+        "w": 22,
+        "h": 50
+      },
+      {
+        "label": "Books",
+        "command": "read book",
+        "x": 53,
+        "y": 35,
+        "w": 31,
+        "h": 33
+      },
+      {
+        "label": "Cabinets",
+        "command": "look at cabinet",
+        "x": 64,
+        "y": 50,
+        "w": 32,
+        "h": 40
+      },
+      {
+        "label": "Window",
+        "command": "look out window",
+        "x": 18,
+        "y": 28,
+        "w": 18,
+        "h": 28
+      }
+    ],
+    "description": "You face the cabinet wall and entrance side of the shop. Shelves of books and medicines stand beside the window, while the front door lets in a narrow blade of daylight.",
+    "sha256": "7aa8375d79dadc30da4e60c762c6362cbf39ae770ba92f40e77bf5bed42f9ccc",
+    "descriptionSha256": "bd6947d70dd1b8cb38bbbbbf1b64f2fbaf3076eeddf9051e81a7afd054e5d398",
+    "hotspotSha256": "983db26c0b6864b3c996f35f51d75978154845d844881478b1d9a8cc866939e6"
+  },
+  {
+    "id": "apothecary:south:fresh",
+    "room": "apothecary",
+    "name": "Willowmere Apothecary",
+    "view": "south",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/apothecary-south-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/apothecary-south-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Front Door",
+        "command": "look at door",
+        "x": 14,
+        "y": 45,
+        "w": 22,
+        "h": 50
+      },
+      {
+        "label": "Delivery Crates",
+        "command": "search crates",
+        "x": 16,
+        "y": 78,
+        "w": 30,
+        "h": 20
+      },
+      {
+        "label": "Window",
+        "command": "look out window",
+        "x": 11,
+        "y": 25,
+        "w": 18,
+        "h": 28
+      },
+      {
+        "label": "Shop Interior",
+        "command": "look around",
+        "x": 60,
+        "y": 45,
+        "w": 50,
+        "h": 55
+      }
+    ],
+    "description": "You look back toward the entrance. The green front door, coat hooks, delivery crates, and a window overlooking Willowmere Square fill this side of the room.",
+    "sha256": "d66af57b7bd21ec616d74182f2a81d61ef65e45f49b5bd5009f39328e3c9b5ac",
+    "descriptionSha256": "64a3c9ba503b2ac975449885b3f91e4c4af40e03c693ce8853ed981d020205b1",
+    "hotspotSha256": "f173104dc4d033ea65f47b966771b5ca966ef30fdfdeb26f713f76fb877e8f63"
+  },
+  {
+    "id": "apothecary:south:completed",
+    "room": "apothecary",
+    "name": "Willowmere Apothecary",
+    "view": "south",
+    "stage": "completed",
+    "imagePath": "assets/scenes/apothecary-south-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/apothecary-south-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Front Door",
+        "command": "look at door",
+        "x": 14,
+        "y": 45,
+        "w": 22,
+        "h": 50
+      },
+      {
+        "label": "Delivery Crates",
+        "command": "search crates",
+        "x": 16,
+        "y": 78,
+        "w": 30,
+        "h": 20
+      },
+      {
+        "label": "Window",
+        "command": "look out window",
+        "x": 11,
+        "y": 25,
+        "w": 18,
+        "h": 28
+      },
+      {
+        "label": "Shop Interior",
+        "command": "look around",
+        "x": 60,
+        "y": 45,
+        "w": 50,
+        "h": 55
+      }
+    ],
+    "description": "You look back toward the entrance. The green front door, coat hooks, delivery crates, and a window overlooking Willowmere Square fill this side of the room.",
+    "sha256": "d66af57b7bd21ec616d74182f2a81d61ef65e45f49b5bd5009f39328e3c9b5ac",
+    "descriptionSha256": "64a3c9ba503b2ac975449885b3f91e4c4af40e03c693ce8853ed981d020205b1",
+    "hotspotSha256": "f173104dc4d033ea65f47b966771b5ca966ef30fdfdeb26f713f76fb877e8f63"
+  },
+  {
+    "id": "tavern:center:fresh",
+    "room": "tavern",
+    "name": "The Briar Lantern",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/tavern-center-v1772.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/tavern-center-v1772.webp|center",
+    "hotspots": [
+      {
+        "label": "Innkeeper",
+        "command": "talk to innkeeper",
+        "x": 78,
+        "y": 48,
+        "w": 22,
+        "h": 34
+      },
+      {
+        "label": "Scuffed Floor",
+        "command": "look at cellar door",
+        "x": 51,
+        "y": 78,
+        "w": 38,
+        "h": 22
+      },
+      {
+        "label": "Fireplace",
+        "command": "look west",
+        "x": 17,
+        "y": 47,
+        "w": 27,
+        "h": 36
+      },
+      {
+        "label": "Entrance",
+        "command": "look south",
+        "x": 46,
+        "y": 27,
+        "w": 18,
+        "h": 38
+      },
+      {
+        "label": "Leave Tavern",
+        "command": "go outside",
+        "x": 46,
+        "y": 9,
+        "w": 24,
+        "h": 14
+      }
+    ],
+    "description": "The full common room surrounds you: the innkeeper at the bar, travelers near the hearth, stairs climbing along the east wall, and the entrance behind you.",
+    "sha256": "7d630c593fe76ccae589c64b407d0b75fe971f27ed3ef700be8b83ad1cb76918",
+    "descriptionSha256": "559146b963cf469871c9c29c9373e76fd93abe19d38b31eae076a372a29c2d55",
+    "hotspotSha256": "d178ac25ebd5f601b0683586df9a3997724ffd755cdc55465dfc7b023f71f044"
+  },
+  {
+    "id": "tavern:center:completed",
+    "room": "tavern",
+    "name": "The Briar Lantern",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/tavern-center-v1772.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/tavern-center-v1772.webp|center",
+    "hotspots": [
+      {
+        "label": "Innkeeper",
+        "command": "talk to innkeeper",
+        "x": 78,
+        "y": 48,
+        "w": 22,
+        "h": 34
+      },
+      {
+        "label": "Cellar Hatch",
+        "command": "go down",
+        "x": 51,
+        "y": 78,
+        "w": 38,
+        "h": 22
+      },
+      {
+        "label": "Fireplace",
+        "command": "look west",
+        "x": 17,
+        "y": 47,
+        "w": 27,
+        "h": 36
+      },
+      {
+        "label": "Entrance",
+        "command": "look south",
+        "x": 46,
+        "y": 27,
+        "w": 18,
+        "h": 38
+      },
+      {
+        "label": "Leave Tavern",
+        "command": "go outside",
+        "x": 46,
+        "y": 9,
+        "w": 24,
+        "h": 14
+      }
+    ],
+    "description": "The full common room surrounds you: the innkeeper at the bar, travelers near the hearth, stairs climbing along the east wall, and the entrance behind you.",
+    "sha256": "7d630c593fe76ccae589c64b407d0b75fe971f27ed3ef700be8b83ad1cb76918",
+    "descriptionSha256": "559146b963cf469871c9c29c9373e76fd93abe19d38b31eae076a372a29c2d55",
+    "hotspotSha256": "f35b89aef736a63cad35e3269c9e1feb0c1eb7013318031da75b710b8d85b025"
+  },
+  {
+    "id": "tavern:north:fresh",
+    "room": "tavern",
+    "name": "The Briar Lantern",
+    "view": "north",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/tavern-north-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/tavern-north-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Innkeeper",
+        "command": "talk to innkeeper",
+        "x": 67,
+        "y": 48,
+        "w": 24,
+        "h": 36
+      },
+      {
+        "label": "Bar",
+        "command": "look at bar",
+        "x": 64,
+        "y": 67,
+        "w": 52,
+        "h": 24
+      },
+      {
+        "label": "Bottles",
+        "command": "look at bottles",
+        "x": 69,
+        "y": 26,
+        "w": 42,
+        "h": 24
+      },
+      {
+        "label": "Stairs",
+        "command": "look at stairs",
+        "x": 34,
+        "y": 35,
+        "w": 25,
+        "h": 45
+      }
+    ],
+    "description": "You turn toward the bar. The innkeeper stands behind the polished counter beneath rows of bottles; Rowan and the lower stairs remain in view.",
+    "sha256": "b25cd97b8f2dc0369a71d7c0ac523a2af8e543eb70c2db7cb8aad3a7891d2878",
+    "descriptionSha256": "8b85990eaad29316ae5467e17d14ffa175f926383706f81d4a83a4d71ae0a1c7",
+    "hotspotSha256": "5d58f1c5433f98c71f2cb288eb4affd908b5d02fde25a847fe7dae216aa8e2a8"
+  },
+  {
+    "id": "tavern:north:completed",
+    "room": "tavern",
+    "name": "The Briar Lantern",
+    "view": "north",
+    "stage": "completed",
+    "imagePath": "assets/scenes/tavern-north-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/tavern-north-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Innkeeper",
+        "command": "talk to innkeeper",
+        "x": 67,
+        "y": 48,
+        "w": 24,
+        "h": 36
+      },
+      {
+        "label": "Bar",
+        "command": "look at bar",
+        "x": 64,
+        "y": 67,
+        "w": 52,
+        "h": 24
+      },
+      {
+        "label": "Bottles",
+        "command": "look at bottles",
+        "x": 69,
+        "y": 26,
+        "w": 42,
+        "h": 24
+      },
+      {
+        "label": "Stairs",
+        "command": "look at stairs",
+        "x": 34,
+        "y": 35,
+        "w": 25,
+        "h": 45
+      }
+    ],
+    "description": "You turn toward the bar. The innkeeper stands behind the polished counter beneath rows of bottles; Rowan and the lower stairs remain in view.",
+    "sha256": "b25cd97b8f2dc0369a71d7c0ac523a2af8e543eb70c2db7cb8aad3a7891d2878",
+    "descriptionSha256": "8b85990eaad29316ae5467e17d14ffa175f926383706f81d4a83a4d71ae0a1c7",
+    "hotspotSha256": "5d58f1c5433f98c71f2cb288eb4affd908b5d02fde25a847fe7dae216aa8e2a8"
+  },
+  {
+    "id": "tavern:east:fresh",
+    "room": "tavern",
+    "name": "The Briar Lantern",
+    "view": "east",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/tavern-east-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/tavern-east-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Scuffed Floor",
+        "command": "look at cellar door",
+        "x": 51,
+        "y": 82,
+        "w": 38,
+        "h": 20
+      },
+      {
+        "label": "Stairs",
+        "command": "look at stairs",
+        "x": 51,
+        "y": 39,
+        "w": 34,
+        "h": 54
+      },
+      {
+        "label": "Fireplace",
+        "command": "look at fireplace",
+        "x": 86,
+        "y": 59,
+        "w": 24,
+        "h": 30
+      }
+    ],
+    "description": "You turn toward the main staircase and the worn floor beneath it. The hearth and a few travelers sit off to the right.",
+    "sha256": "3b8140212723e3771aacae03e769145588c73a30d8bd2417d1479a5a20d1d5dd",
+    "descriptionSha256": "24e932377f524c5e9768dfce157bb07bd0dd515b96a5b0b4af888b4e03ba4d0a",
+    "hotspotSha256": "ab0f000408e4ce2a0616e9642d4fdd42b0c0aa12edecd1c7b2b12ada2d676db9"
+  },
+  {
+    "id": "tavern:east:completed",
+    "room": "tavern",
+    "name": "The Briar Lantern",
+    "view": "east",
+    "stage": "completed",
+    "imagePath": "assets/scenes/tavern-east-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/tavern-east-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Cellar Hatch",
+        "command": "go down",
+        "x": 51,
+        "y": 82,
+        "w": 38,
+        "h": 20
+      },
+      {
+        "label": "Stairs",
+        "command": "look at stairs",
+        "x": 51,
+        "y": 39,
+        "w": 34,
+        "h": 54
+      },
+      {
+        "label": "Fireplace",
+        "command": "look at fireplace",
+        "x": 86,
+        "y": 59,
+        "w": 24,
+        "h": 30
+      }
+    ],
+    "description": "You turn toward the main staircase and the worn floor beneath it. The hearth and a few travelers sit off to the right.",
+    "sha256": "3b8140212723e3771aacae03e769145588c73a30d8bd2417d1479a5a20d1d5dd",
+    "descriptionSha256": "24e932377f524c5e9768dfce157bb07bd0dd515b96a5b0b4af888b4e03ba4d0a",
+    "hotspotSha256": "d64868fe81fee58052684a9be46ce64ced4b53303d4c126aa6559197540696eb"
+  },
+  {
+    "id": "tavern:west:fresh",
+    "room": "tavern",
+    "name": "The Briar Lantern",
+    "view": "west",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/tavern-west-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/tavern-west-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Fireplace",
+        "command": "look at fireplace",
+        "x": 38,
+        "y": 48,
+        "w": 36,
+        "h": 42
+      },
+      {
+        "label": "Travelers",
+        "command": "talk to travelers",
+        "x": 56,
+        "y": 72,
+        "w": 55,
+        "h": 28
+      },
+      {
+        "label": "Crest",
+        "command": "look at crest",
+        "x": 53,
+        "y": 19,
+        "w": 24,
+        "h": 22
+      }
+    ],
+    "description": "You face the broad stone hearth. Travelers warm themselves around nearby tables beneath the old hunting crest.",
+    "sha256": "80fe7617a2bc4dae48a2a9688e83b5e58b1f16c9436067babc579b5391725750",
+    "descriptionSha256": "21c21e2e2832dd39a3fb8158252ee26be0e8c3f6d65c0e4f92017bfa9dacc51c",
+    "hotspotSha256": "2e3d6598bbf7766ef4fead5d2386463a98c4191fcebcbbb9511c006d92f6cb87"
+  },
+  {
+    "id": "tavern:west:completed",
+    "room": "tavern",
+    "name": "The Briar Lantern",
+    "view": "west",
+    "stage": "completed",
+    "imagePath": "assets/scenes/tavern-west-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/tavern-west-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Fireplace",
+        "command": "look at fireplace",
+        "x": 38,
+        "y": 48,
+        "w": 36,
+        "h": 42
+      },
+      {
+        "label": "Travelers",
+        "command": "talk to travelers",
+        "x": 56,
+        "y": 72,
+        "w": 55,
+        "h": 28
+      },
+      {
+        "label": "Crest",
+        "command": "look at crest",
+        "x": 53,
+        "y": 19,
+        "w": 24,
+        "h": 22
+      }
+    ],
+    "description": "You face the broad stone hearth. Travelers warm themselves around nearby tables beneath the old hunting crest.",
+    "sha256": "80fe7617a2bc4dae48a2a9688e83b5e58b1f16c9436067babc579b5391725750",
+    "descriptionSha256": "21c21e2e2832dd39a3fb8158252ee26be0e8c3f6d65c0e4f92017bfa9dacc51c",
+    "hotspotSha256": "2e3d6598bbf7766ef4fead5d2386463a98c4191fcebcbbb9511c006d92f6cb87"
+  },
+  {
+    "id": "tavern:south:fresh",
+    "room": "tavern",
+    "name": "The Briar Lantern",
+    "view": "south",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/tavern-south-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/tavern-south-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Tavern Door",
+        "command": "go outside",
+        "x": 53,
+        "y": 43,
+        "w": 26,
+        "h": 48
+      },
+      {
+        "label": "Common Room",
+        "command": "look around",
+        "x": 50,
+        "y": 66,
+        "w": 62,
+        "h": 44
+      }
+    ],
+    "description": "You face the tavern entrance. Daylight from Willowmere spills through the open doorway while the common room continues behind you.",
+    "sha256": "824e730ed6e0b011528c0b2b217300c38c9b1ddc008ffd763e2afce74f1e8bfe",
+    "descriptionSha256": "b3611b684c8ba5e6fe84ceed2004c92f5d694c57f3fd86dd645a4cb70f486521",
+    "hotspotSha256": "70cf47efdfca5b786d61e439d6aad0695301491e76f1fa2911507eb3f5159f1e"
+  },
+  {
+    "id": "tavern:south:completed",
+    "room": "tavern",
+    "name": "The Briar Lantern",
+    "view": "south",
+    "stage": "completed",
+    "imagePath": "assets/scenes/tavern-south-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/tavern-south-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Tavern Door",
+        "command": "go outside",
+        "x": 53,
+        "y": 43,
+        "w": 26,
+        "h": 48
+      },
+      {
+        "label": "Common Room",
+        "command": "look around",
+        "x": 50,
+        "y": 66,
+        "w": 62,
+        "h": 44
+      }
+    ],
+    "description": "You face the tavern entrance. Daylight from Willowmere spills through the open doorway while the common room continues behind you.",
+    "sha256": "824e730ed6e0b011528c0b2b217300c38c9b1ddc008ffd763e2afce74f1e8bfe",
+    "descriptionSha256": "b3611b684c8ba5e6fe84ceed2004c92f5d694c57f3fd86dd645a4cb70f486521",
+    "hotspotSha256": "70cf47efdfca5b786d61e439d6aad0695301491e76f1fa2911507eb3f5159f1e"
+  },
+  {
+    "id": "tavernCellar:center:fresh",
+    "room": "tavernCellar",
+    "name": "Briar Lantern Cellar",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/tavern-cellar-v1772.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/tavern-cellar-v1772.webp|center",
+    "hotspots": [
+      {
+        "label": "Wine Rack",
+        "command": "look at wine rack",
+        "x": 20,
+        "y": 51,
+        "w": 26,
+        "h": 52
+      },
+      {
+        "label": "Old Barrel",
+        "command": "search old barrel",
+        "x": 82,
+        "y": 73,
+        "w": 23,
+        "h": 29
+      },
+      {
+        "label": "Loose Flagstone",
+        "command": "pry up loose flagstone",
+        "x": 57,
+        "y": 86,
+        "w": 17,
+        "h": 13
+      }
+    ],
+    "description": "Cool stone walls surround rows of dusty bottles, old barrels, and a heavy wine rack. A faint draft slips through the stones behind the rack. The hatch back to the tavern is above.",
+    "sha256": "749dd5375395b8f8eb5f83bf9d9b918accbcc273df7446a51edd3f21e9e33fc8",
+    "descriptionSha256": "f5588c50c0c8a8d27ffe764114f68c1aa2745fa505b6bb67064ca6caa4d9cbe2",
+    "hotspotSha256": "b382c82324039c1dea3f26620db9c5784715a523b1b2f82fb274a4ec0b9a2488"
+  },
+  {
+    "id": "tavernCellar:center:completed",
+    "room": "tavernCellar",
+    "name": "Briar Lantern Cellar",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/tavern-cellar-v1772.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/tavern-cellar-v1772.webp|center",
+    "hotspots": [
+      {
+        "label": "Hidden Passage",
+        "command": "look at hidden passage",
+        "x": 20,
+        "y": 51,
+        "w": 26,
+        "h": 52
+      },
+      {
+        "label": "Empty Barrel",
+        "command": "look at old barrel",
+        "x": 82,
+        "y": 73,
+        "w": 23,
+        "h": 29
+      },
+      {
+        "label": "Empty Flagstone Cache",
+        "command": "look at loose flagstone",
+        "x": 57,
+        "y": 86,
+        "w": 17,
+        "h": 13
+      }
+    ],
+    "description": "Cool stone walls surround rows of dusty bottles, old barrels, and a heavy wine rack. A faint draft slips through the stones behind the rack. The hatch back to the tavern is above.",
+    "sha256": "749dd5375395b8f8eb5f83bf9d9b918accbcc273df7446a51edd3f21e9e33fc8",
+    "descriptionSha256": "f5588c50c0c8a8d27ffe764114f68c1aa2745fa505b6bb67064ca6caa4d9cbe2",
+    "hotspotSha256": "5bc0124471f63632adc5a52875766fbf5d7f1b4cb49a01c6c26816ecc7002389"
+  },
+  {
+    "id": "secretTunnel:center:fresh",
+    "room": "secretTunnel",
+    "name": "Hidden Passage",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/hidden-passage-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/hidden-passage-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Passage Ahead",
+        "command": "go east",
+        "x": 62,
+        "y": 46,
+        "w": 22,
+        "h": 35
+      },
+      {
+        "label": "Loose Stone",
+        "command": "search loose stone",
+        "x": 54,
+        "y": 83,
+        "w": 15,
+        "h": 12
+      },
+      {
+        "label": "Wall Niche",
+        "command": "search wall niche",
+        "x": 40,
+        "y": 46,
+        "w": 12,
+        "h": 24
+      },
+      {
+        "label": "Wall Lantern",
+        "command": "look at lantern",
+        "x": 23,
+        "y": 21,
+        "w": 13,
+        "h": 28
+      }
+    ],
+    "description": "A narrow stone passage continues beneath the tavern. The cellar opening is behind you to the west, while a weak lantern glow and cooler air draw you east toward a collapsed alcove. You will need to walk farther before there is anywhere useful to search.",
+    "sha256": "b875b1301f65670c3f249e0ad85c0f4eefdc48042cec762b2898286e49484707",
+    "descriptionSha256": "79bae2fec90db0bab4eb43b3145362e8b4a48a64c809739546333b76b5df2fd9",
+    "hotspotSha256": "eb5176b665b713389d368bb7a1edbaa8d442963d9575578c27d2f99740875f1b"
+  },
+  {
+    "id": "secretTunnel:center:completed",
+    "room": "secretTunnel",
+    "name": "Hidden Passage",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/hidden-passage-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/hidden-passage-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Passage Ahead",
+        "command": "go east",
+        "x": 62,
+        "y": 46,
+        "w": 22,
+        "h": 35
+      },
+      {
+        "label": "Empty Stone Niche",
+        "command": "look at loose stone",
+        "x": 54,
+        "y": 83,
+        "w": 15,
+        "h": 12
+      },
+      {
+        "label": "Empty Wall Niche",
+        "command": "look at wall niche",
+        "x": 40,
+        "y": 46,
+        "w": 12,
+        "h": 24
+      },
+      {
+        "label": "Wall Lantern",
+        "command": "look at lantern",
+        "x": 23,
+        "y": 21,
+        "w": 13,
+        "h": 28
+      }
+    ],
+    "description": "A narrow stone passage continues beneath the tavern. The cellar opening is behind you to the west, while a weak lantern glow and cooler air draw you east toward a collapsed alcove. You will need to walk farther before there is anywhere useful to search.",
+    "sha256": "b875b1301f65670c3f249e0ad85c0f4eefdc48042cec762b2898286e49484707",
+    "descriptionSha256": "79bae2fec90db0bab4eb43b3145362e8b4a48a64c809739546333b76b5df2fd9",
+    "hotspotSha256": "ae0ad7cc61f1d7c0be2cb5cfaa9ff670bab0eb6fe60bd8cca63c93e082234ecd"
+  },
+  {
+    "id": "secretAlcove:center:fresh",
+    "room": "secretAlcove",
+    "name": "Collapsed Passage Alcove",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/collapsed-alcove-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/collapsed-alcove-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Collapsed Rubble",
+        "command": "try to move rubble",
+        "x": 25,
+        "y": 43,
+        "w": 46,
+        "h": 58
+      },
+      {
+        "label": "Loose Stone",
+        "command": "search loose stone",
+        "x": 45,
+        "y": 73,
+        "w": 38,
+        "h": 25
+      },
+      {
+        "label": "Cracked Wall",
+        "command": "inspect cracked wall",
+        "x": 78,
+        "y": 58,
+        "w": 20,
+        "h": 30
+      },
+      {
+        "label": "Wall Lantern",
+        "command": "look at lantern",
+        "x": 74,
+        "y": 40,
+        "w": 22,
+        "h": 20
+      }
+    ],
+    "description": "After a short walk, the passage opens into a cramped alcove. A rockfall seals the far arch, an iron lantern burns on the wall, and several floor stones sit unevenly beneath the rubble. The hidden passage returns west.",
+    "sha256": "2c35356d537b8b74b853d2ff7a8805975fad5102fe6802aa78be24fa767606d9",
+    "descriptionSha256": "c4f439ac3daef303c95ee0af396052bc84b9cdee667f506c70cc8b3c8253cf23",
+    "hotspotSha256": "d703ca21f8a6a57cfdb6c79d972c703bb82f91b62ab25dd5360d543213cdfc58"
+  },
+  {
+    "id": "secretAlcove:center:completed",
+    "room": "secretAlcove",
+    "name": "Collapsed Passage Alcove",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/collapsed-alcove-empty-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/collapsed-alcove-empty-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Broken Arch",
+        "command": "look at blocked arch",
+        "x": 25,
+        "y": 43,
+        "w": 46,
+        "h": 58
+      },
+      {
+        "label": "Loose Stone",
+        "command": "look at loose stone",
+        "x": 45,
+        "y": 73,
+        "w": 38,
+        "h": 25
+      },
+      {
+        "label": "Empty Wall Pocket",
+        "command": "look at cracked wall",
+        "x": 78,
+        "y": 58,
+        "w": 20,
+        "h": 30
+      },
+      {
+        "label": "Wall Lantern",
+        "command": "look at lantern",
+        "x": 74,
+        "y": 40,
+        "w": 22,
+        "h": 20
+      }
+    ],
+    "description": "After a short walk, the passage opens into a cramped alcove. A rockfall seals the far arch, an iron lantern burns on the wall, and several floor stones sit unevenly beneath the rubble. The hidden passage returns west.",
+    "sha256": "c0a4f24b20f50e18dfb7957aaa2eeb1b8aef8fc13ab123f8459d846db888bfad",
+    "descriptionSha256": "c4f439ac3daef303c95ee0af396052bc84b9cdee667f506c70cc8b3c8253cf23",
+    "hotspotSha256": "5b7d0fc051285136b66a299dfc5d0ab1a845ef76bd1f20eab7bb28ee2fba15dc"
+  },
+  {
+    "id": "apothecaryBackRoom:center:fresh",
+    "room": "apothecaryBackRoom",
+    "name": "Elowen's Back Room",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/apothecary-back-room-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/apothecary-back-room-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Brewing Table",
+        "command": "look at brewing table",
+        "x": 46,
+        "y": 53,
+        "w": 30,
+        "h": 30
+      },
+      {
+        "label": "Recipe Chest",
+        "command": "look at recipe chest",
+        "x": 76,
+        "y": 63,
+        "w": 18,
+        "h": 20
+      },
+      {
+        "label": "Curtain",
+        "command": "go south",
+        "x": 17,
+        "y": 39,
+        "w": 18,
+        "h": 43
+      }
+    ],
+    "description": "Beyond the green curtain is Elowen's private workroom. Copper coils, drying racks, rare roots, and half-finished remedies crowd the benches. A locked recipe chest rests beneath a narrow window. The shop lies south.",
+    "sha256": "68f92812ab0214627959e1afb8f4b5afaf752108358dd0df3041805a71d9d800",
+    "descriptionSha256": "f94ec03bf23323955bfa45f048a40c775e0427cf1168066d4ec677bcbe1787ad",
+    "hotspotSha256": "e8f2fdcca35d47917bb927d93d56ba778ec7dcf704d846d377c8df72ba0d0002"
+  },
+  {
+    "id": "apothecaryBackRoom:center:completed",
+    "room": "apothecaryBackRoom",
+    "name": "Elowen's Back Room",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/apothecary-back-room-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/apothecary-back-room-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Brewing Table",
+        "command": "look at brewing table",
+        "x": 46,
+        "y": 53,
+        "w": 30,
+        "h": 30
+      },
+      {
+        "label": "Recipe Chest",
+        "command": "look at recipe chest",
+        "x": 76,
+        "y": 63,
+        "w": 18,
+        "h": 20
+      },
+      {
+        "label": "Curtain",
+        "command": "go south",
+        "x": 17,
+        "y": 39,
+        "w": 18,
+        "h": 43
+      }
+    ],
+    "description": "Beyond the green curtain is Elowen's private workroom. Copper coils, drying racks, rare roots, and half-finished remedies crowd the benches. A locked recipe chest rests beneath a narrow window. The shop lies south.",
+    "sha256": "68f92812ab0214627959e1afb8f4b5afaf752108358dd0df3041805a71d9d800",
+    "descriptionSha256": "f94ec03bf23323955bfa45f048a40c775e0427cf1168066d4ec677bcbe1787ad",
+    "hotspotSha256": "e8f2fdcca35d47917bb927d93d56ba778ec7dcf704d846d377c8df72ba0d0002"
+  },
+  {
+    "id": "forgeLane:center:fresh",
+    "room": "forgeLane",
+    "name": "Forge Lane",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/forge-lane-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/forge-lane-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Forge",
+        "command": "approach forge",
+        "x": 76,
+        "y": 48,
+        "w": 32,
+        "h": 47
+      },
+      {
+        "label": "Dropped Coins",
+        "command": "take dropped coins",
+        "x": 48,
+        "y": 76,
+        "w": 18,
+        "h": 15
+      },
+      {
+        "label": "Willowmere Square",
+        "command": "go west",
+        "x": 18,
+        "y": 80,
+        "w": 31,
+        "h": 20
+      }
+    ],
+    "description": "Forge Lane runs east from Willowmere Square. Merrin's open forge entrance is north beside the road, East Road continues east, and the square lies west.",
+    "sha256": "8e5a586f313bf8891cd09824b140f013ecd3de27a9dfa3e3fd5a4f22631adb16",
+    "descriptionSha256": "332c71da375cc77eb2cc5e4e407d91298f4b381356240da6133cbc6117084991",
+    "hotspotSha256": "c6a17d09125facaf83ce254865ad783c5c0b00b13c923357e82d56928d0d1561"
+  },
+  {
+    "id": "forgeLane:center:completed",
+    "room": "forgeLane",
+    "name": "Forge Lane",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/forge-lane-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/forge-lane-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Forge",
+        "command": "approach forge",
+        "x": 76,
+        "y": 48,
+        "w": 32,
+        "h": 47
+      },
+      {
+        "label": "Willowmere Square",
+        "command": "go west",
+        "x": 18,
+        "y": 80,
+        "w": 31,
+        "h": 20
+      }
+    ],
+    "description": "Forge Lane runs east from Willowmere Square. Merrin's open forge entrance is north beside the road, East Road continues east, and the square lies west.",
+    "sha256": "8e5a586f313bf8891cd09824b140f013ecd3de27a9dfa3e3fd5a4f22631adb16",
+    "descriptionSha256": "332c71da375cc77eb2cc5e4e407d91298f4b381356240da6133cbc6117084991",
+    "hotspotSha256": "f49cc8e6c1491eb16dd1bfb2cf255fde5805aeb118ad5d5652dad61115c4e19f"
+  },
+  {
+    "id": "eastRoad:center:fresh",
+    "room": "eastRoad",
+    "name": "East Road",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/east-road-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/east-road-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Eastern Gate Ruins",
+        "command": "look at eastern gate",
+        "x": 67,
+        "y": 35,
+        "w": 28,
+        "h": 28
+      },
+      {
+        "label": "Road Rune",
+        "command": "look at road rune",
+        "x": 49,
+        "y": 73,
+        "w": 20,
+        "h": 16
+      },
+      {
+        "label": "Forest Path",
+        "command": "go east",
+        "x": 84,
+        "y": 62,
+        "w": 25,
+        "h": 28
+      }
+    ],
+    "description": "Beyond Merrin's forge, the road follows the old town wall toward the forest. Thorn-choked gate stones stand beside the track, but a newer footpath continues east beneath leaning pines. Forge Lane lies west; the Whispering Path begins east.",
+    "sha256": "a262abb74da7a32856a6d7866fb357c66745cc8c144f1fdefd76448b17e94b56",
+    "descriptionSha256": "a354d44041943e37be9d46eb544df50f8b28a61099175766104f55b9fbf69807",
+    "hotspotSha256": "956e9d54795a467b4255358834897aec7d5bc19ca9988ea515fa497a296aba0e"
+  },
+  {
+    "id": "eastRoad:center:completed",
+    "room": "eastRoad",
+    "name": "East Road",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/east-road-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/east-road-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Eastern Gate Ruins",
+        "command": "look at eastern gate",
+        "x": 67,
+        "y": 35,
+        "w": 28,
+        "h": 28
+      },
+      {
+        "label": "Road Rune",
+        "command": "look at road rune",
+        "x": 49,
+        "y": 73,
+        "w": 20,
+        "h": 16
+      },
+      {
+        "label": "Forest Path",
+        "command": "go east",
+        "x": 84,
+        "y": 62,
+        "w": 25,
+        "h": 28
+      }
+    ],
+    "description": "Beyond Merrin's forge, the road follows the old town wall toward the forest. Thorn-choked gate stones stand beside the track, but a newer footpath continues east beneath leaning pines. Forge Lane lies west; the Whispering Path begins east.",
+    "sha256": "a262abb74da7a32856a6d7866fb357c66745cc8c144f1fdefd76448b17e94b56",
+    "descriptionSha256": "a354d44041943e37be9d46eb544df50f8b28a61099175766104f55b9fbf69807",
+    "hotspotSha256": "956e9d54795a467b4255358834897aec7d5bc19ca9988ea515fa497a296aba0e"
+  },
+  {
+    "id": "forgeDoor:center:fresh",
+    "room": "forgeDoor",
+    "name": "At Merrin's Forge Door",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/forge-door-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/forge-door-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Open Forge Entrance",
+        "command": "enter forge",
+        "x": 48,
+        "y": 42,
+        "w": 38,
+        "h": 55
+      },
+      {
+        "label": "Window",
+        "command": "look inside window",
+        "x": 75,
+        "y": 39,
+        "w": 18,
+        "h": 25
+      },
+      {
+        "label": "Forge Lane",
+        "command": "go south",
+        "x": 20,
+        "y": 81,
+        "w": 30,
+        "h": 18
+      }
+    ],
+    "description": "Merrin's forge entrance stands open before you. Enter the forge, or go south to return to Forge Lane.",
+    "sha256": "51f656ab70d5758970912f6eb2a6ba0cf9d74537de9d5b0e7a0522ba6d78f7ad",
+    "descriptionSha256": "1ba6c115d8955b63bebf530d6c3db5642f34de6d2bffe95bcc45dcdc6f33dc37",
+    "hotspotSha256": "fc0680986abf00aba9010728b7544409fe44499791b1446b0f229cc8d982bb6f"
+  },
+  {
+    "id": "forgeDoor:center:completed",
+    "room": "forgeDoor",
+    "name": "At Merrin's Forge Door",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/forge-door-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/forge-door-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Open Forge Entrance",
+        "command": "enter forge",
+        "x": 48,
+        "y": 42,
+        "w": 38,
+        "h": 55
+      },
+      {
+        "label": "Window",
+        "command": "look inside window",
+        "x": 75,
+        "y": 39,
+        "w": 18,
+        "h": 25
+      },
+      {
+        "label": "Forge Lane",
+        "command": "go south",
+        "x": 20,
+        "y": 81,
+        "w": 30,
+        "h": 18
+      }
+    ],
+    "description": "Merrin's forge entrance stands open before you. Enter the forge, or go south to return to Forge Lane.",
+    "sha256": "51f656ab70d5758970912f6eb2a6ba0cf9d74537de9d5b0e7a0522ba6d78f7ad",
+    "descriptionSha256": "1ba6c115d8955b63bebf530d6c3db5642f34de6d2bffe95bcc45dcdc6f33dc37",
+    "hotspotSha256": "fc0680986abf00aba9010728b7544409fe44499791b1446b0f229cc8d982bb6f"
+  },
+  {
+    "id": "blacksmith:center:fresh",
+    "room": "blacksmith",
+    "name": "Merrin's Forge",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/forge-interior-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/forge-interior-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Merrin",
+        "command": "talk to blacksmith",
+        "x": 68,
+        "y": 55,
+        "w": 20,
+        "h": 34
+      },
+      {
+        "label": "Tools",
+        "command": "look at tools",
+        "x": 24,
+        "y": 43,
+        "w": 26,
+        "h": 26
+      }
+    ],
+    "description": "Heat and hammer-song fill the small forge. Merrin the blacksmith stands beside an anvil, watching sparks climb into the rafters. Tools hang from every wall.",
+    "sha256": "a96aee9a67d1adfee1ee01c14695f3a1c1983568380f7b5288f44799cf326912",
+    "descriptionSha256": "7766528a4b44011c4294819ccad8345f36ae72be25755388ae9389e52beb7c52",
+    "hotspotSha256": "003e56f3fb3a24099ff846cea88913c20ae6edbaaf29b5ac38f77209a9068154"
+  },
+  {
+    "id": "blacksmith:center:completed",
+    "room": "blacksmith",
+    "name": "Merrin's Forge",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/forge-interior-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/forge-interior-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Merrin",
+        "command": "talk to blacksmith",
+        "x": 68,
+        "y": 55,
+        "w": 20,
+        "h": 34
+      },
+      {
+        "label": "Tools",
+        "command": "look at tools",
+        "x": 24,
+        "y": 43,
+        "w": 26,
+        "h": 26
+      }
+    ],
+    "description": "Heat and hammer-song fill the small forge. Merrin the blacksmith stands beside an anvil, watching sparks climb into the rafters. Tools hang from every wall.",
+    "sha256": "a96aee9a67d1adfee1ee01c14695f3a1c1983568380f7b5288f44799cf326912",
+    "descriptionSha256": "7766528a4b44011c4294819ccad8345f36ae72be25755388ae9389e52beb7c52",
+    "hotspotSha256": "003e56f3fb3a24099ff846cea88913c20ae6edbaaf29b5ac38f77209a9068154"
+  },
+  {
+    "id": "chapelRoad:center:fresh",
+    "room": "chapelRoad",
+    "name": "West Chapel Road",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/chapel-road-day-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/chapel-road-day-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Chapel",
+        "command": "look at chapel",
+        "x": 67,
+        "y": 37,
+        "w": 42,
+        "h": 45
+      },
+      {
+        "label": "Chapel Road",
+        "command": "go west",
+        "x": 56,
+        "y": 62,
+        "w": 40,
+        "h": 48
+      },
+      {
+        "label": "Roadside Graves",
+        "command": "look at roadside graves",
+        "x": 24,
+        "y": 69,
+        "w": 30,
+        "h": 28
+      },
+      {
+        "label": "Pilgrim Charm",
+        "command": "take pilgrim charm",
+        "x": 43,
+        "y": 74,
+        "w": 18,
+        "h": 15
+      },
+      {
+        "label": "Willowmere",
+        "command": "go east",
+        "x": 18,
+        "y": 84,
+        "w": 30,
+        "h": 18
+      }
+    ],
+    "description": "You follow a lantern-lit road west from Willowmere. The cottages thin, yew branches meet overhead, and old headstones begin to appear beside the stones. Saint Orla's chapel yard lies farther west; Willowmere Square is east.",
+    "sha256": "6c3fc973a79a6cdd6c89fbbaf223e501ce12b02a91c57dd0eeec1df03051905b",
+    "descriptionSha256": "f15df5c9bdd4ca86614582f4e548c9ecad97aafa34b3091f6a9be1c0ee316b23",
+    "hotspotSha256": "eed5fd69d9cbb9b283b2f6d905c11c8bdc09dee74ede20982d56bb6d1b50501f"
+  },
+  {
+    "id": "chapelRoad:center:completed",
+    "room": "chapelRoad",
+    "name": "West Chapel Road",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/chapel-road-day-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/chapel-road-day-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Chapel",
+        "command": "look at chapel",
+        "x": 67,
+        "y": 37,
+        "w": 42,
+        "h": 45
+      },
+      {
+        "label": "Chapel Road",
+        "command": "go west",
+        "x": 56,
+        "y": 62,
+        "w": 40,
+        "h": 48
+      },
+      {
+        "label": "Roadside Graves",
+        "command": "look at roadside graves",
+        "x": 24,
+        "y": 69,
+        "w": 30,
+        "h": 28
+      },
+      {
+        "label": "Willowmere",
+        "command": "go east",
+        "x": 18,
+        "y": 84,
+        "w": 30,
+        "h": 18
+      }
+    ],
+    "description": "You follow a lantern-lit road west from Willowmere. The cottages thin, yew branches meet overhead, and old headstones begin to appear beside the stones. Saint Orla's chapel yard lies farther west; Willowmere Square is east.",
+    "sha256": "6c3fc973a79a6cdd6c89fbbaf223e501ce12b02a91c57dd0eeec1df03051905b",
+    "descriptionSha256": "f15df5c9bdd4ca86614582f4e548c9ecad97aafa34b3091f6a9be1c0ee316b23",
+    "hotspotSha256": "daa0570d0c4ede417ab12f59cb3d198a5795446e5e2b63e90217688f1b26e11a"
+  },
+  {
+    "id": "chapelYard:center:fresh",
+    "room": "chapelYard",
+    "name": "Chapel Yard",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/chapel-yard-day-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/chapel-yard-day-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Chapel",
+        "command": "approach chapel",
+        "x": 70,
+        "y": 35,
+        "w": 43,
+        "h": 52
+      },
+      {
+        "label": "Graves",
+        "command": "look at graves",
+        "x": 6,
+        "y": 68,
+        "w": 42,
+        "h": 29
+      }
+    ],
+    "description": "Crooked headstones crowd the path to Saint Orla's chapel. The chapel stands north beyond an iron gate, Willowmere Square lies east, and an older cemetery path continues west beneath the yew trees.",
+    "sha256": "30dacfdf5f825e711b546dc664469e33959121c30270855b6added5cf89d2144",
+    "descriptionSha256": "237688eb794ca9eab5e666cacb03eef2c398acac41287cc7f772118e4628971b",
+    "hotspotSha256": "9904f5a2ba113ef81c2ce1ca8fba387951c38038e0a23b05dc987001e0bc6a98"
+  },
+  {
+    "id": "chapelYard:center:completed",
+    "room": "chapelYard",
+    "name": "Chapel Yard",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/chapel-yard-day-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/chapel-yard-day-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Chapel",
+        "command": "approach chapel",
+        "x": 70,
+        "y": 35,
+        "w": 43,
+        "h": 52
+      },
+      {
+        "label": "Graves",
+        "command": "look at graves",
+        "x": 6,
+        "y": 68,
+        "w": 42,
+        "h": 29
+      }
+    ],
+    "description": "Crooked headstones crowd the path to Saint Orla's chapel. The chapel stands north beyond an iron gate, Willowmere Square lies east, and an older cemetery path continues west beneath the yew trees.",
+    "sha256": "30dacfdf5f825e711b546dc664469e33959121c30270855b6added5cf89d2144",
+    "descriptionSha256": "237688eb794ca9eab5e666cacb03eef2c398acac41287cc7f772118e4628971b",
+    "hotspotSha256": "9904f5a2ba113ef81c2ce1ca8fba387951c38038e0a23b05dc987001e0bc6a98"
+  },
+  {
+    "id": "chapelApproach:center:fresh",
+    "room": "chapelApproach",
+    "name": "At Saint Orla's Chapel",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/chapel-approach-day-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/chapel-approach-day-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Open Chapel Door",
+        "command": "enter chapel",
+        "x": 53,
+        "y": 38,
+        "w": 38,
+        "h": 48
+      },
+      {
+        "label": "Chapel Yard",
+        "command": "go south",
+        "x": 22,
+        "y": 88,
+        "w": 30,
+        "h": 16
+      }
+    ],
+    "description": "You stand beneath the weathered stone arch of Saint Orla's chapel. The old door hangs open, and moonlight spills across the threshold. The chapel yard lies south. Enter the chapel when you are ready.",
+    "sha256": "5db784b166c7efb1ea82b49eea4f99ab85ff8cc85340fb82a55261cfb66d15a1",
+    "descriptionSha256": "4a0e0b3a983c5bf0a50677ecefdfbe9d1ded66540e5220723e15ed615168ecd9",
+    "hotspotSha256": "638c7f25ac84c44e57581d5fd0fa7de0bf3efef78c40ce43b96a52cce7802cac"
+  },
+  {
+    "id": "chapelApproach:center:completed",
+    "room": "chapelApproach",
+    "name": "At Saint Orla's Chapel",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/chapel-approach-day-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/chapel-approach-day-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Open Chapel Door",
+        "command": "enter chapel",
+        "x": 53,
+        "y": 38,
+        "w": 38,
+        "h": 48
+      },
+      {
+        "label": "Chapel Yard",
+        "command": "go south",
+        "x": 22,
+        "y": 88,
+        "w": 30,
+        "h": 16
+      }
+    ],
+    "description": "You stand beneath the weathered stone arch of Saint Orla's chapel. The old door hangs open, and moonlight spills across the threshold. The chapel yard lies south. Enter the chapel when you are ready.",
+    "sha256": "5db784b166c7efb1ea82b49eea4f99ab85ff8cc85340fb82a55261cfb66d15a1",
+    "descriptionSha256": "4a0e0b3a983c5bf0a50677ecefdfbe9d1ded66540e5220723e15ed615168ecd9",
+    "hotspotSha256": "638c7f25ac84c44e57581d5fd0fa7de0bf3efef78c40ce43b96a52cce7802cac"
+  },
+  {
+    "id": "oldCemeteryPath:center:fresh",
+    "room": "oldCemeteryPath",
+    "name": "Old Cemetery Path",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/old-cemetery-day-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/old-cemetery-day-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Old Graves",
+        "command": "look at old graves",
+        "x": 55,
+        "y": 60,
+        "w": 55,
+        "h": 50
+      },
+      {
+        "label": "Collapsed Wall",
+        "command": "look at collapsed wall",
+        "x": 20,
+        "y": 74,
+        "w": 30,
+        "h": 22
+      },
+      {
+        "label": "Chapel Yard",
+        "command": "go east",
+        "x": 78,
+        "y": 30,
+        "w": 36,
+        "h": 45
+      },
+      {
+        "label": "Chapel Road",
+        "command": "go south",
+        "x": 56,
+        "y": 91,
+        "w": 44,
+        "h": 15
+      }
+    ],
+    "description": "The path winds among the oldest graves. Saint Orla's chapel yard lies east, while a lower path returns south toward Chapel Road. A collapsed boundary wall blocks the abandoned western road.",
+    "sha256": "64d01477e9edd0edcc2ea5777e23de7a8dfa4428d4c942b40c411a801650dd38",
+    "descriptionSha256": "ba99cc01b7a1304e3dce52d5ca19e42d5dc5cb2640da45689f128bf9cd23e647",
+    "hotspotSha256": "8d3bf8a7d0bbaefcacbc1777af2db54b179b3a0890fb3a4955455990eedccf2e"
+  },
+  {
+    "id": "oldCemeteryPath:center:completed",
+    "room": "oldCemeteryPath",
+    "name": "Old Cemetery Path",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/old-cemetery-day-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/old-cemetery-day-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Old Graves",
+        "command": "look at old graves",
+        "x": 55,
+        "y": 60,
+        "w": 55,
+        "h": 50
+      },
+      {
+        "label": "Collapsed Wall",
+        "command": "look at collapsed wall",
+        "x": 20,
+        "y": 74,
+        "w": 30,
+        "h": 22
+      },
+      {
+        "label": "Chapel Yard",
+        "command": "go east",
+        "x": 78,
+        "y": 30,
+        "w": 36,
+        "h": 45
+      },
+      {
+        "label": "Chapel Road",
+        "command": "go south",
+        "x": 56,
+        "y": 91,
+        "w": 44,
+        "h": 15
+      }
+    ],
+    "description": "The path winds among the oldest graves. Saint Orla's chapel yard lies east, while a lower path returns south toward Chapel Road. A collapsed boundary wall blocks the abandoned western road.",
+    "sha256": "64d01477e9edd0edcc2ea5777e23de7a8dfa4428d4c942b40c411a801650dd38",
+    "descriptionSha256": "ba99cc01b7a1304e3dce52d5ca19e42d5dc5cb2640da45689f128bf9cd23e647",
+    "hotspotSha256": "8d3bf8a7d0bbaefcacbc1777af2db54b179b3a0890fb3a4955455990eedccf2e"
+  },
+  {
+    "id": "chapel:center:fresh",
+    "room": "chapel",
+    "name": "Saint Orla's Chapel",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/chapel-interior-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/chapel-interior-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Statue",
+        "command": "look at statue",
+        "x": 66,
+        "y": 40,
+        "w": 34,
+        "h": 60
+      },
+      {
+        "label": "Altar",
+        "command": "look at altar",
+        "x": 57,
+        "y": 73,
+        "w": 36,
+        "h": 18
+      },
+      {
+        "label": "Candles",
+        "command": "look at candles",
+        "x": 28,
+        "y": 58,
+        "w": 22,
+        "h": 26
+      },
+      {
+        "label": "Stained Glass",
+        "command": "look at stained glass",
+        "x": 5,
+        "y": 30,
+        "w": 14,
+        "h": 48
+      },
+      {
+        "label": "Stone Chest",
+        "command": "look at stone chest",
+        "x": 88,
+        "y": 67,
+        "w": 24,
+        "h": 27
+      },
+      {
+        "label": "Chapel Door",
+        "command": "go south",
+        "x": 20,
+        "y": 91,
+        "w": 28,
+        "h": 14
+      }
+    ],
+    "description": "Daylight filters through a cracked stained-glass window. A stone statue of Saint Orla holds out one empty hand. A coin-shaped hollow marks her palm.",
+    "sha256": "d878ba736ecbc1f0b080127dcdca4fac2b7d64c093bbd28d717366bab08cbb12",
+    "descriptionSha256": "aebf0571a8f34ae07ff18797f6a9ead280551d831038b5ad1b2cf898c4d88fb4",
+    "hotspotSha256": "33f87c9338083749422660933aa786bf2537487deb855c3e1afb572192ba5840"
+  },
+  {
+    "id": "chapel:center:completed",
+    "room": "chapel",
+    "name": "Saint Orla's Chapel",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/chapel-interior-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/chapel-interior-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Statue",
+        "command": "look at statue",
+        "x": 66,
+        "y": 40,
+        "w": 34,
+        "h": 60
+      },
+      {
+        "label": "Altar",
+        "command": "look at altar",
+        "x": 57,
+        "y": 73,
+        "w": 36,
+        "h": 18
+      },
+      {
+        "label": "Candles",
+        "command": "look at candles",
+        "x": 28,
+        "y": 58,
+        "w": 22,
+        "h": 26
+      },
+      {
+        "label": "Stained Glass",
+        "command": "look at stained glass",
+        "x": 5,
+        "y": 30,
+        "w": 14,
+        "h": 48
+      },
+      {
+        "label": "Stone Chest",
+        "command": "look at stone chest",
+        "x": 88,
+        "y": 67,
+        "w": 24,
+        "h": 27
+      },
+      {
+        "label": "Chapel Door",
+        "command": "go south",
+        "x": 20,
+        "y": 91,
+        "w": 28,
+        "h": 14
+      },
+      {
+        "label": "Stairs",
+        "command": "down",
+        "x": 34,
+        "y": 76,
+        "w": 20,
+        "h": 20
+      }
+    ],
+    "description": "Daylight filters through a cracked stained-glass window. A stone statue of Saint Orla holds out one empty hand. A coin-shaped hollow marks her palm.",
+    "sha256": "d878ba736ecbc1f0b080127dcdca4fac2b7d64c093bbd28d717366bab08cbb12",
+    "descriptionSha256": "aebf0571a8f34ae07ff18797f6a9ead280551d831038b5ad1b2cf898c4d88fb4",
+    "hotspotSha256": "2b61658b8ae03c3b34cb0c16edfa46283d11de5c51c8b461caceb90387fd2665"
+  },
+  {
+    "id": "crypt:center:fresh",
+    "room": "crypt",
+    "name": "The Chapel Crypt",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/chapel-crypt-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/chapel-crypt-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Stone Coffin",
+        "command": "open stone coffin",
+        "x": 76,
+        "y": 58,
+        "w": 23,
+        "h": 34
+      },
+      {
+        "label": "Burial Shelf",
+        "command": "search burial shelf",
+        "x": 23,
+        "y": 51,
+        "w": 25,
+        "h": 28
+      },
+      {
+        "label": "Reliquary",
+        "command": "inspect reliquary",
+        "x": 57,
+        "y": 40,
+        "w": 17,
+        "h": 17
+      },
+      {
+        "label": "Altar",
+        "command": "look at altar",
+        "x": 50,
+        "y": 35,
+        "w": 26,
+        "h": 22
+      },
+      {
+        "label": "Stairs",
+        "command": "up",
+        "x": 18,
+        "y": 27,
+        "w": 18,
+        "h": 26
+      }
+    ],
+    "description": "Candle stubs flicker among old stone tombs. A heavy stone coffin rests at the front-right of the chamber, burial shelves line the walls, and a locked reliquary waits beneath a faded banner. The dead air feels watchful.",
+    "sha256": "4e0c7b369926a96f1932e223990c5d3a7e97ef32e8c5c8c7aef362ef6933f52b",
+    "descriptionSha256": "4d42a19b65d73dcbbfa11750f255a1b7ce792286fbb3997666604d5b4b948dfa",
+    "hotspotSha256": "4256aa7738e852a1f69d0e86c67c61aeb0e0df3c7aba6695606291c4b799741c"
+  },
+  {
+    "id": "crypt:center:completed",
+    "room": "crypt",
+    "name": "The Chapel Crypt",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/chapel-crypt-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/chapel-crypt-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Empty Coffin",
+        "command": "look at empty coffin",
+        "x": 76,
+        "y": 58,
+        "w": 23,
+        "h": 34
+      },
+      {
+        "label": "Empty Burial Shelf",
+        "command": "look at burial shelf",
+        "x": 23,
+        "y": 51,
+        "w": 25,
+        "h": 28
+      },
+      {
+        "label": "Open Reliquary",
+        "command": "look at open reliquary",
+        "x": 57,
+        "y": 40,
+        "w": 17,
+        "h": 17
+      },
+      {
+        "label": "Altar",
+        "command": "look at altar",
+        "x": 50,
+        "y": 35,
+        "w": 26,
+        "h": 22
+      },
+      {
+        "label": "Stairs",
+        "command": "up",
+        "x": 18,
+        "y": 27,
+        "w": 18,
+        "h": 26
+      }
+    ],
+    "description": "Candle stubs flicker among old stone tombs. A heavy stone coffin rests at the front-right of the chamber, burial shelves line the walls, and a locked reliquary waits beneath a faded banner. The dead air feels watchful.",
+    "sha256": "4e0c7b369926a96f1932e223990c5d3a7e97ef32e8c5c8c7aef362ef6933f52b",
+    "descriptionSha256": "4d42a19b65d73dcbbfa11750f255a1b7ce792286fbb3997666604d5b4b948dfa",
+    "hotspotSha256": "4749c6375a4c5473ce8bad8562f23539526e6f7a8318f37e8f4b0cf85ca9b990"
+  },
+  {
+    "id": "forestEdge:center:fresh",
+    "room": "forestEdge",
+    "name": "The Whispering Path",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/forest-edge-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/forest-edge-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Tree Hollow",
+        "command": "look at tree",
+        "x": 76,
+        "y": 42,
+        "w": 20,
+        "h": 24
+      },
+      {
+        "label": "East Road",
+        "command": "go west",
+        "x": 20,
+        "y": 72,
+        "w": 25,
+        "h": 20
+      },
+      {
+        "label": "Willow Trail",
+        "command": "go east",
+        "x": 50,
+        "y": 30,
+        "w": 26,
+        "h": 22
+      }
+    ],
+    "description": "The road reaches the forest edge. East leads deeper beneath the ancient trees along Willow Trail; west returns to East Road and Willowmere.",
+    "sha256": "2da5f60637c0b87809541139bb4835e6d4829cc645e72f957e763d732261b772",
+    "descriptionSha256": "c74735d25ee21b07f3e57f792e240346c0489dc4d840c818b27edfee1e1eea65",
+    "hotspotSha256": "84a948a414db813b11823595fedd3b77d5e7c1de2f62a1eecfaa9241194a1ce4"
+  },
+  {
+    "id": "forestEdge:center:completed",
+    "room": "forestEdge",
+    "name": "The Whispering Path",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/forest-edge-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/forest-edge-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "East Road",
+        "command": "go west",
+        "x": 20,
+        "y": 72,
+        "w": 25,
+        "h": 20
+      },
+      {
+        "label": "Willow Trail",
+        "command": "go east",
+        "x": 50,
+        "y": 30,
+        "w": 26,
+        "h": 22
+      }
+    ],
+    "description": "The road reaches the forest edge. East leads deeper beneath the ancient trees along Willow Trail; west returns to East Road and Willowmere.",
+    "sha256": "2da5f60637c0b87809541139bb4835e6d4829cc645e72f957e763d732261b772",
+    "descriptionSha256": "c74735d25ee21b07f3e57f792e240346c0489dc4d840c818b27edfee1e1eea65",
+    "hotspotSha256": "aab7e493dfb5790b2521550fac7d4ef10c55fb5acfdb81be7bbc673a37e40c1c"
+  },
+  {
+    "id": "cottageApproach:center:fresh",
+    "room": "cottageApproach",
+    "name": "Outside the Witch's Cottage",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/witch-cottage-exterior-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/witch-cottage-exterior-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Cottage Door",
+        "command": "open cottage door",
+        "x": 51,
+        "y": 54,
+        "w": 20,
+        "h": 34
+      },
+      {
+        "label": "Whispering Forest",
+        "command": "go south",
+        "x": 23,
+        "y": 79,
+        "w": 30,
+        "h": 20
+      }
+    ],
+    "description": "The witch's cottage stands at the north end of the forest route. The Whispering Forest crossroads lies south.",
+    "sha256": "9bd7b205523027e86f0db260a810b58e9b594246fff524286afbc54cedc831ff",
+    "descriptionSha256": "91f3827f8fa34b0ebb8cbb5cb2f29024691923670c4d11f4d0f9817b21f44fb9",
+    "hotspotSha256": "0a157adfa1e380b64acd046b62e15d23e7b755590d6cee1bd962868aaa4c1423"
+  },
+  {
+    "id": "cottageApproach:center:completed",
+    "room": "cottageApproach",
+    "name": "Outside the Witch's Cottage",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/witch-cottage-exterior-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/witch-cottage-exterior-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Cottage Door",
+        "command": "enter cottage",
+        "x": 51,
+        "y": 54,
+        "w": 20,
+        "h": 34
+      },
+      {
+        "label": "Whispering Forest",
+        "command": "go south",
+        "x": 23,
+        "y": 79,
+        "w": 30,
+        "h": 20
+      }
+    ],
+    "description": "The witch's cottage stands at the north end of the forest route. The Whispering Forest crossroads lies south.",
+    "sha256": "9bd7b205523027e86f0db260a810b58e9b594246fff524286afbc54cedc831ff",
+    "descriptionSha256": "91f3827f8fa34b0ebb8cbb5cb2f29024691923670c4d11f4d0f9817b21f44fb9",
+    "hotspotSha256": "3eed89d33e06d43e60279e90c2df848befc54d749246e6ef9d298afbc121b624"
+  },
+  {
+    "id": "cottage:center:fresh",
+    "room": "cottage",
+    "name": "Inside the Witch's Cottage",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/witch-cottage-interior-day-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/witch-cottage-interior-day-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Cabinet",
+        "command": "open cabinet",
+        "x": 80,
+        "y": 50,
+        "w": 24,
+        "h": 38
+      },
+      {
+        "label": "Rug",
+        "command": "move rug",
+        "x": 50,
+        "y": 82,
+        "w": 45,
+        "h": 18
+      },
+      {
+        "label": "Hearth",
+        "command": "look at hearth",
+        "x": 50,
+        "y": 52,
+        "w": 30,
+        "h": 40
+      },
+      {
+        "label": "Herbs",
+        "command": "look at herbs",
+        "x": 20,
+        "y": 16,
+        "w": 26,
+        "h": 20
+      },
+      {
+        "label": "Desk",
+        "command": "search desk",
+        "x": 20,
+        "y": 67,
+        "w": 28,
+        "h": 24
+      },
+      {
+        "label": "Front Door",
+        "command": "go south",
+        "x": 5,
+        "y": 55,
+        "w": 12,
+        "h": 36
+      }
+    ],
+    "description": "Inside, the abandoned cottage smells of dust, herbs, and rain. A wooden cabinet stands near the window, herb bundles hang from the beams, and a faded rug lies before the cold hearth. The front door leads west.",
+    "sha256": "205a8c032d41e935315e70886daf4cf608b6c528f1f6b93b25307ca08901aef6",
+    "descriptionSha256": "aa21cf8412c0c54ce220c1a7a814c7215f28d6bc1ee6b9b4434118fa89ea05d3",
+    "hotspotSha256": "f9ba9b8554e4d242fd1923424da0ba832b67c9111307c97918bc7265b73bd71d"
+  },
+  {
+    "id": "cottage:center:completed",
+    "room": "cottage",
+    "name": "Inside the Witch's Cottage",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/witch-cottage-interior-day-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/witch-cottage-interior-day-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Cabinet",
+        "command": "open cabinet",
+        "x": 80,
+        "y": 50,
+        "w": 24,
+        "h": 38
+      },
+      {
+        "label": "Trapdoor",
+        "command": "down",
+        "x": 49,
+        "y": 78,
+        "w": 28,
+        "h": 16
+      },
+      {
+        "label": "Hearth",
+        "command": "look at hearth",
+        "x": 50,
+        "y": 52,
+        "w": 30,
+        "h": 40
+      },
+      {
+        "label": "Herbs",
+        "command": "look at herbs",
+        "x": 20,
+        "y": 16,
+        "w": 26,
+        "h": 20
+      },
+      {
+        "label": "Desk",
+        "command": "search desk",
+        "x": 20,
+        "y": 67,
+        "w": 28,
+        "h": 24
+      },
+      {
+        "label": "Front Door",
+        "command": "go south",
+        "x": 5,
+        "y": 55,
+        "w": 12,
+        "h": 36
+      }
+    ],
+    "description": "Inside, the abandoned cottage smells of dust, herbs, and rain. A wooden cabinet stands near the window, herb bundles hang from the beams, and a faded rug lies before the cold hearth. The front door leads west.",
+    "sha256": "205a8c032d41e935315e70886daf4cf608b6c528f1f6b93b25307ca08901aef6",
+    "descriptionSha256": "aa21cf8412c0c54ce220c1a7a814c7215f28d6bc1ee6b9b4434118fa89ea05d3",
+    "hotspotSha256": "1f0bdd20e1ea45e22e1c683f4b8a5c375d134ba0c1f93bfad5403a149929cc1d"
+  },
+  {
+    "id": "cellar:center:fresh",
+    "room": "cellar",
+    "name": "Cottage Cellar",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/witch-cottage-cellar-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/witch-cottage-cellar-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Lantern",
+        "command": "take lantern",
+        "x": 44,
+        "y": 36,
+        "w": 16,
+        "h": 23
+      },
+      {
+        "label": "Ferry Crank",
+        "command": "take ferry crank",
+        "x": 79,
+        "y": 56,
+        "w": 24,
+        "h": 25
+      },
+      {
+        "label": "Water-Stained Note",
+        "command": "read water stained note",
+        "x": 26,
+        "y": 62,
+        "w": 25,
+        "h": 20
+      },
+      {
+        "label": "Shelves",
+        "command": "search shelves",
+        "x": 23,
+        "y": 38,
+        "w": 31,
+        "h": 43
+      },
+      {
+        "label": "Ladder Up",
+        "command": "go up",
+        "x": 88,
+        "y": 38,
+        "w": 15,
+        "h": 46
+      }
+    ],
+    "description": "A ladder descends into a root-walled cellar. An old brass lantern hangs from a peg, dusty shelves crowd the wall, and a heavy iron ferry crank rests beside a water-stained note.",
+    "sha256": "7304fe5fa80c26987fe5f0a49b5bac59193beef086af6fdd795c25acde3e5904",
+    "descriptionSha256": "a3830014e107db4d85e92922dadd9586dd140114916be4ef5a77c1bffa4442e5",
+    "hotspotSha256": "c4658cf619815ec5b84c718ae019bd8ac7fc4cae630ad3ba8d3634c7313b7a05"
+  },
+  {
+    "id": "cellar:center:completed",
+    "room": "cellar",
+    "name": "Cottage Cellar",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/witch-cottage-cellar-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/witch-cottage-cellar-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Water-Stained Note",
+        "command": "read water stained note",
+        "x": 26,
+        "y": 62,
+        "w": 25,
+        "h": 20
+      },
+      {
+        "label": "Shelves",
+        "command": "search shelves",
+        "x": 23,
+        "y": 38,
+        "w": 31,
+        "h": 43
+      },
+      {
+        "label": "Ladder Up",
+        "command": "go up",
+        "x": 88,
+        "y": 38,
+        "w": 15,
+        "h": 46
+      }
+    ],
+    "description": "A ladder descends into a root-walled cellar. An old brass lantern hangs from a peg, dusty shelves crowd the wall, and a heavy iron ferry crank rests beside a water-stained note.",
+    "sha256": "7304fe5fa80c26987fe5f0a49b5bac59193beef086af6fdd795c25acde3e5904",
+    "descriptionSha256": "a3830014e107db4d85e92922dadd9586dd140114916be4ef5a77c1bffa4442e5",
+    "hotspotSha256": "7b943dd9ef74aa26d9df3260a640407e4f4a8bb88994a4cdc02bd74befe216ce"
+  },
+  {
+    "id": "willowTrail:center:fresh",
+    "room": "willowTrail",
+    "name": "Willow Trail",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/willow-trail-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/willow-trail-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Young Deer",
+        "command": "look at deer",
+        "x": 84,
+        "y": 58,
+        "w": 26,
+        "h": 40
+      },
+      {
+        "label": "Bluebells",
+        "command": "take bluebell sprig",
+        "x": 24,
+        "y": 72,
+        "w": 34,
+        "h": 28
+      },
+      {
+        "label": "Owl",
+        "command": "look at owl",
+        "x": 82,
+        "y": 20,
+        "w": 20,
+        "h": 24
+      },
+      {
+        "label": "Flower Clearing",
+        "command": "go east",
+        "x": 78,
+        "y": 37,
+        "w": 24,
+        "h": 28
+      },
+      {
+        "label": "Forest Edge",
+        "command": "go west",
+        "x": 14,
+        "y": 72,
+        "w": 24,
+        "h": 22
+      }
+    ],
+    "description": "Willow Trail continues east beneath silver-barked trees toward the flower clearing. The forest edge and road back to Willowmere lie west.",
+    "sha256": "63d4a0db5f86c2fc86fd04d5b61c714e679355d47edb174ebbf4ae0c97a04648",
+    "descriptionSha256": "7df4e77644a79498e534b42f36167a4693d3ba7e241111b9f8610c542b39d308",
+    "hotspotSha256": "7f1a03134d837e037502603fe931885321f6218e74025a907e654f4126ceaaa4"
+  },
+  {
+    "id": "willowTrail:center:completed",
+    "room": "willowTrail",
+    "name": "Willow Trail",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/willow-trail-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/willow-trail-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Young Deer",
+        "command": "look at deer",
+        "x": 84,
+        "y": 58,
+        "w": 26,
+        "h": 40
+      },
+      {
+        "label": "Bluebells",
+        "command": "take bluebell sprig",
+        "x": 24,
+        "y": 72,
+        "w": 34,
+        "h": 28
+      },
+      {
+        "label": "Owl",
+        "command": "look at owl",
+        "x": 82,
+        "y": 20,
+        "w": 20,
+        "h": 24
+      },
+      {
+        "label": "Flower Clearing",
+        "command": "go east",
+        "x": 78,
+        "y": 37,
+        "w": 24,
+        "h": 28
+      },
+      {
+        "label": "Forest Edge",
+        "command": "go west",
+        "x": 14,
+        "y": 72,
+        "w": 24,
+        "h": 22
+      }
+    ],
+    "description": "Willow Trail continues east beneath silver-barked trees toward the flower clearing. The forest edge and road back to Willowmere lie west.",
+    "sha256": "63d4a0db5f86c2fc86fd04d5b61c714e679355d47edb174ebbf4ae0c97a04648",
+    "descriptionSha256": "7df4e77644a79498e534b42f36167a4693d3ba7e241111b9f8610c542b39d308",
+    "hotspotSha256": "7f1a03134d837e037502603fe931885321f6218e74025a907e654f4126ceaaa4"
+  },
+  {
+    "id": "flowerClearing:center:fresh",
+    "room": "flowerClearing",
+    "name": "Flower Clearing",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/flower-clearing-day-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/flower-clearing-day-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "White Rabbit",
+        "command": "look at rabbit",
+        "x": 58,
+        "y": 58,
+        "w": 26,
+        "h": 32
+      },
+      {
+        "label": "Moonwort",
+        "command": "take moonwort",
+        "x": 25,
+        "y": 72,
+        "w": 36,
+        "h": 28
+      },
+      {
+        "label": "Wildflowers",
+        "command": "look at flowers",
+        "x": 72,
+        "y": 72,
+        "w": 42,
+        "h": 30
+      },
+      {
+        "label": "Fallen Log Crossing",
+        "command": "go east",
+        "x": 78,
+        "y": 30,
+        "w": 25,
+        "h": 28
+      },
+      {
+        "label": "Willow Trail",
+        "command": "go west",
+        "x": 14,
+        "y": 72,
+        "w": 25,
+        "h": 22
+      }
+    ],
+    "description": "A flower-filled clearing opens along the eastward forest route. The fallen log crossing lies east; Willow Trail returns west.",
+    "sha256": "d87e118f54c6c148f50b69abe2b2131fbe566bbd3ecd5819993c40160114eab6",
+    "descriptionSha256": "aa663eb93e33c2551bd70f0a59f46161f07890762ce9a647c4bb935f23161e58",
+    "hotspotSha256": "5d4f8124334c45562871b25d7d8866e914106fba1c65673139e8d78d6094bb18"
+  },
+  {
+    "id": "flowerClearing:center:completed",
+    "room": "flowerClearing",
+    "name": "Flower Clearing",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/flower-clearing-day-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/flower-clearing-day-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "White Rabbit",
+        "command": "look at rabbit",
+        "x": 58,
+        "y": 58,
+        "w": 26,
+        "h": 32
+      },
+      {
+        "label": "Moonwort",
+        "command": "take moonwort",
+        "x": 25,
+        "y": 72,
+        "w": 36,
+        "h": 28
+      },
+      {
+        "label": "Wildflowers",
+        "command": "look at flowers",
+        "x": 72,
+        "y": 72,
+        "w": 42,
+        "h": 30
+      },
+      {
+        "label": "Fallen Log Crossing",
+        "command": "go east",
+        "x": 78,
+        "y": 30,
+        "w": 25,
+        "h": 28
+      },
+      {
+        "label": "Willow Trail",
+        "command": "go west",
+        "x": 14,
+        "y": 72,
+        "w": 25,
+        "h": 22
+      }
+    ],
+    "description": "A flower-filled clearing opens along the eastward forest route. The fallen log crossing lies east; Willow Trail returns west.",
+    "sha256": "d87e118f54c6c148f50b69abe2b2131fbe566bbd3ecd5819993c40160114eab6",
+    "descriptionSha256": "aa663eb93e33c2551bd70f0a59f46161f07890762ce9a647c4bb935f23161e58",
+    "hotspotSha256": "5d4f8124334c45562871b25d7d8866e914106fba1c65673139e8d78d6094bb18"
+  },
+  {
+    "id": "fallenLog:center:fresh",
+    "room": "fallenLog",
+    "name": "Fallen Log Crossing",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/fallen-log-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/fallen-log-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Fallen Log",
+        "command": "look at fallen log",
+        "x": 45,
+        "y": 45,
+        "w": 52,
+        "h": 45
+      },
+      {
+        "label": "Animal Tracks",
+        "command": "look at tracks",
+        "x": 72,
+        "y": 70,
+        "w": 28,
+        "h": 22
+      },
+      {
+        "label": "Stream",
+        "command": "listen to stream",
+        "x": 50,
+        "y": 78,
+        "w": 65,
+        "h": 26
+      },
+      {
+        "label": "River Charm",
+        "command": "take river charm",
+        "x": 72,
+        "y": 67,
+        "w": 18,
+        "h": 14
+      }
+    ],
+    "description": "A moss-covered log crosses the stream. The deeper Whispering Forest lies east; the flower clearing is west.",
+    "sha256": "4f806335a283e0b22714a9dba2404c32408ca2709a923eaa1207e3ac136d5571",
+    "descriptionSha256": "58e02add19f710f6253bfe6fd1d6213c66f303cfe4c1a62f212f352dcc2b9be1",
+    "hotspotSha256": "7564f09b4912765812b8dbb6774d793e9230c87e97402a482d64cd1920aa0a47"
+  },
+  {
+    "id": "fallenLog:center:completed",
+    "room": "fallenLog",
+    "name": "Fallen Log Crossing",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/fallen-log-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/fallen-log-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Fallen Log",
+        "command": "look at fallen log",
+        "x": 45,
+        "y": 45,
+        "w": 52,
+        "h": 45
+      },
+      {
+        "label": "Animal Tracks",
+        "command": "look at tracks",
+        "x": 72,
+        "y": 70,
+        "w": 28,
+        "h": 22
+      },
+      {
+        "label": "Stream",
+        "command": "listen to stream",
+        "x": 50,
+        "y": 78,
+        "w": 65,
+        "h": 26
+      }
+    ],
+    "description": "A moss-covered log crosses the stream. The deeper Whispering Forest lies east; the flower clearing is west.",
+    "sha256": "4f806335a283e0b22714a9dba2404c32408ca2709a923eaa1207e3ac136d5571",
+    "descriptionSha256": "58e02add19f710f6253bfe6fd1d6213c66f303cfe4c1a62f212f352dcc2b9be1",
+    "hotspotSha256": "5a7a7e7deadaf94d8adf4b44f5f4bbe5901c223522c826c98a5c54474a86dd83"
+  },
+  {
+    "id": "whisperingForest:center:fresh",
+    "room": "whisperingForest",
+    "name": "The Whispering Forest",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/whispering-forest-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/whispering-forest-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Witch's Cottage Path",
+        "command": "go north",
+        "x": 50,
+        "y": 34,
+        "w": 24,
+        "h": 22
+      },
+      {
+        "label": "Moonwell Glow",
+        "command": "go east",
+        "x": 78,
+        "y": 52,
+        "w": 20,
+        "h": 24
+      },
+      {
+        "label": "Moonfen Lights",
+        "command": "go south",
+        "x": 52,
+        "y": 78,
+        "w": 22,
+        "h": 18
+      },
+      {
+        "label": "Courier Seal",
+        "command": "take courier seal",
+        "x": 48,
+        "y": 76,
+        "w": 18,
+        "h": 14
+      },
+      {
+        "label": "Log Crossing",
+        "command": "go west",
+        "x": 16,
+        "y": 63,
+        "w": 22,
+        "h": 24
+      }
+    ],
+    "description": "The Whispering Forest is the region's clear crossroads: the cottage path goes north, Moonwell lies east, Moonfen lies south, and the log crossing returns west.",
+    "sha256": "4687ad03ce6c4503b5637291aa4a8f731f3b4205e41962fc5e2879c53f647d7b",
+    "descriptionSha256": "40288205c2d48e6f0a6d5d387bba47062ba8b666fa4fb58b41367768580c8250",
+    "hotspotSha256": "0cae86113a2eb38577202d9ac8a872b172a8158af79ef9ee0ef08ac5121eb09f"
+  },
+  {
+    "id": "whisperingForest:center:completed",
+    "room": "whisperingForest",
+    "name": "The Whispering Forest",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/whispering-forest-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/whispering-forest-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Witch's Cottage Path",
+        "command": "go north",
+        "x": 50,
+        "y": 34,
+        "w": 24,
+        "h": 22
+      },
+      {
+        "label": "Moonwell Glow",
+        "command": "go east",
+        "x": 78,
+        "y": 52,
+        "w": 20,
+        "h": 24
+      },
+      {
+        "label": "Moonfen Lights",
+        "command": "go south",
+        "x": 52,
+        "y": 78,
+        "w": 22,
+        "h": 18
+      },
+      {
+        "label": "Log Crossing",
+        "command": "go west",
+        "x": 16,
+        "y": 63,
+        "w": 22,
+        "h": 24
+      }
+    ],
+    "description": "The Whispering Forest is the region's clear crossroads: the cottage path goes north, Moonwell lies east, Moonfen lies south, and the log crossing returns west.",
+    "sha256": "4687ad03ce6c4503b5637291aa4a8f731f3b4205e41962fc5e2879c53f647d7b",
+    "descriptionSha256": "40288205c2d48e6f0a6d5d387bba47062ba8b666fa4fb58b41367768580c8250",
+    "hotspotSha256": "49a4d0d8f1df8ce2f59a8f6a9a5a133b4c3ab7f6bbc09d678f4f58fae7c2949a"
+  },
+  {
+    "id": "moonfen:center:fresh",
+    "room": "moonfen",
+    "name": "Moonfen Ferry Landing",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/moonfen-ferry-landing-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/moonfen-ferry-landing-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Hut Across Water",
+        "command": "look at hut",
+        "x": 68,
+        "y": 35,
+        "w": 30,
+        "h": 58
+      },
+      {
+        "label": "Rope Ferry",
+        "command": "look at ferry",
+        "x": 66,
+        "y": 70,
+        "w": 35,
+        "h": 22
+      },
+      {
+        "label": "Ferry Winch",
+        "command": "look at winch",
+        "x": 46,
+        "y": 61,
+        "w": 20,
+        "h": 25
+      },
+      {
+        "label": "Moonfen Reeds",
+        "command": "take moonfen reed",
+        "x": 20,
+        "y": 73,
+        "w": 26,
+        "h": 24
+      },
+      {
+        "label": "Moonwell Path",
+        "command": "north",
+        "x": 40,
+        "y": 26,
+        "w": 26,
+        "h": 18
+      }
+    ],
+    "description": "Cool mist curls above dark water while reeds whisper in the late afternoon. A rope ferry rests at the landing, but its winch is missing a crank. Across the water, a crooked hut stands among the marsh trees. The forest lies west and the pilgrim path runs north toward the Moonwell.",
+    "sha256": "76cf31e98154f8a7e35a628585d9d5ae2de72cc96c84e157ae0a8a2e9fa7bad2",
+    "descriptionSha256": "623b9605fc60198f92a47b79b1a54e34c0949d425f992d892839fc47cf59a216",
+    "hotspotSha256": "ed5e83b37d7b4015b07b562008fb7203268fa6da439b132fecf5eb50d9cfb3ee"
+  },
+  {
+    "id": "moonfen:center:completed",
+    "room": "moonfen",
+    "name": "Moonfen Ferry Landing",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/moonfen-ferry-landing-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/moonfen-ferry-landing-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Hut Across Water",
+        "command": "look at hut",
+        "x": 68,
+        "y": 35,
+        "w": 30,
+        "h": 58
+      },
+      {
+        "label": "Rope Ferry",
+        "command": "look at ferry",
+        "x": 66,
+        "y": 70,
+        "w": 35,
+        "h": 22
+      },
+      {
+        "label": "Ferry Winch",
+        "command": "look at winch",
+        "x": 46,
+        "y": 61,
+        "w": 20,
+        "h": 25
+      },
+      {
+        "label": "Moonfen Reeds",
+        "command": "take moonfen reed",
+        "x": 20,
+        "y": 73,
+        "w": 26,
+        "h": 24
+      },
+      {
+        "label": "Moonwell Path",
+        "command": "north",
+        "x": 40,
+        "y": 26,
+        "w": 26,
+        "h": 18
+      }
+    ],
+    "description": "Cool mist curls above dark water while reeds whisper in the late afternoon. A rope ferry rests at the landing, but its winch is missing a crank. Across the water, a crooked hut stands among the marsh trees. The forest lies west and the pilgrim path runs north toward the Moonwell.",
+    "sha256": "76cf31e98154f8a7e35a628585d9d5ae2de72cc96c84e157ae0a8a2e9fa7bad2",
+    "descriptionSha256": "623b9605fc60198f92a47b79b1a54e34c0949d425f992d892839fc47cf59a216",
+    "hotspotSha256": "ed5e83b37d7b4015b07b562008fb7203268fa6da439b132fecf5eb50d9cfb3ee"
+  },
+  {
+    "id": "hutExterior:center:fresh",
+    "room": "hutExterior",
+    "name": "Across the Moonfen",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/moonfen-hut-exterior-day-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/moonfen-hut-exterior-day-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Hut Door",
+        "command": "enter hut",
+        "x": 51,
+        "y": 57,
+        "w": 24,
+        "h": 36
+      },
+      {
+        "label": "Dock",
+        "command": "look at dock",
+        "x": 50,
+        "y": 82,
+        "w": 50,
+        "h": 18
+      }
+    ],
+    "description": "The ferry bumps against a narrow dock. A crooked hut stands ahead on timber stilts, its windows warm against the cold marsh. The ferry can carry you back west.",
+    "sha256": "40a279c6992b4f7c276bba662fcabd036e08ba9bdea6690c6c10ed130e7e9e81",
+    "descriptionSha256": "0c3c5786fc8be6d7661cdd493f70a6ee29bf42ba5af23c91876221e0feab9ad5",
+    "hotspotSha256": "c539e0917bf9d4261701a06273c727b8d8a9caab617bcee25d4f31401d326e06"
+  },
+  {
+    "id": "hutExterior:center:completed",
+    "room": "hutExterior",
+    "name": "Across the Moonfen",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/moonfen-hut-exterior-day-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/moonfen-hut-exterior-day-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Hut Door",
+        "command": "enter hut",
+        "x": 51,
+        "y": 57,
+        "w": 24,
+        "h": 36
+      },
+      {
+        "label": "Dock",
+        "command": "look at dock",
+        "x": 50,
+        "y": 82,
+        "w": 50,
+        "h": 18
+      }
+    ],
+    "description": "The ferry bumps against a narrow dock. A crooked hut stands ahead on timber stilts, its windows warm against the cold marsh. The ferry can carry you back west.",
+    "sha256": "40a279c6992b4f7c276bba662fcabd036e08ba9bdea6690c6c10ed130e7e9e81",
+    "descriptionSha256": "0c3c5786fc8be6d7661cdd493f70a6ee29bf42ba5af23c91876221e0feab9ad5",
+    "hotspotSha256": "c539e0917bf9d4261701a06273c727b8d8a9caab617bcee25d4f31401d326e06"
+  },
+  {
+    "id": "hutInterior:center:fresh",
+    "room": "hutInterior",
+    "name": "Moonfen Hut",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/moonfen-hut-interior-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/moonfen-hut-interior-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Fairy Coin",
+        "command": "take fairy coin",
+        "x": 45,
+        "y": 22,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "label": "Diary",
+        "command": "read diary",
+        "x": 45,
+        "y": 57,
+        "w": 22,
+        "h": 18
+      },
+      {
+        "label": "Map",
+        "command": "look at map",
+        "x": 58,
+        "y": 57,
+        "w": 22,
+        "h": 18
+      },
+      {
+        "label": "Locked Chest",
+        "command": "look at locked chest",
+        "x": 82,
+        "y": 34,
+        "w": 24,
+        "h": 25
+      },
+      {
+        "label": "Fireplace",
+        "command": "look at fireplace",
+        "x": 18,
+        "y": 56,
+        "w": 24,
+        "h": 34
+      },
+      {
+        "label": "Hut Door",
+        "command": "go west",
+        "x": 5,
+        "y": 58,
+        "w": 12,
+        "h": 34
+      }
+    ],
+    "description": "The hut is cramped but carefully kept. A dead fire rests in the hearth, an old diary and hand-drawn map lie on a round table, and a tiny silver fairy coin gleams on the shelf beside a locked chest.",
+    "sha256": "7cd162c58c6e052e90ad5d2f249821c86c89afbb935880945739eaa6d1fedeee",
+    "descriptionSha256": "d2df58c6e4f9f24f04c0c6def5554c84b878bd02beb263a12723a715aa3b2ee1",
+    "hotspotSha256": "de9e60cb1e3ae137906ea412f4b6a543eb292d94021cb0ac2aee2548d7a425cc"
+  },
+  {
+    "id": "hutInterior:center:completed",
+    "room": "hutInterior",
+    "name": "Moonfen Hut",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/moonfen-hut-interior-collected-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/moonfen-hut-interior-collected-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Diary",
+        "command": "read diary",
+        "x": 45,
+        "y": 57,
+        "w": 22,
+        "h": 18
+      },
+      {
+        "label": "Map",
+        "command": "look at map",
+        "x": 58,
+        "y": 57,
+        "w": 22,
+        "h": 18
+      },
+      {
+        "label": "Locked Chest",
+        "command": "look at locked chest",
+        "x": 82,
+        "y": 34,
+        "w": 24,
+        "h": 25
+      },
+      {
+        "label": "Fireplace",
+        "command": "look at fireplace",
+        "x": 18,
+        "y": 56,
+        "w": 24,
+        "h": 34
+      },
+      {
+        "label": "Hut Door",
+        "command": "go west",
+        "x": 5,
+        "y": 58,
+        "w": 12,
+        "h": 34
+      }
+    ],
+    "description": "The hut is cramped but carefully kept. A dead fire rests in the hearth, an old diary and hand-drawn map lie on a round table, and a tiny silver fairy coin gleams on the shelf beside a locked chest.",
+    "sha256": "7a6a1104ca44a5969440e7d13b318fa4f168fa388428a0853c9962c3af5ece3f",
+    "descriptionSha256": "d2df58c6e4f9f24f04c0c6def5554c84b878bd02beb263a12723a715aa3b2ee1",
+    "hotspotSha256": "594f29a2432f15d7bfd4cb1c8663f55cd30f611ef2c8262bf76c6671e2dd1ff7"
+  },
+  {
+    "id": "moonwell:center:fresh",
+    "room": "moonwell",
+    "name": "The Moonwell",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/moonwell-day-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/moonwell-day-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Well",
+        "command": "look in well",
+        "x": 48,
+        "y": 62,
+        "w": 34,
+        "h": 28
+      },
+      {
+        "label": "Fairy Cage",
+        "command": "look at fairy cage",
+        "x": 83,
+        "y": 49,
+        "w": 24,
+        "h": 34
+      },
+      {
+        "label": "White Flowers",
+        "command": "look at white flowers",
+        "x": 48,
+        "y": 86,
+        "w": 60,
+        "h": 18
+      },
+      {
+        "label": "Carved Stones",
+        "command": "look at carved stones",
+        "x": 20,
+        "y": 56,
+        "w": 22,
+        "h": 30
+      },
+      {
+        "label": "Whispering Forest",
+        "command": "go west",
+        "x": 50,
+        "y": 92,
+        "w": 30,
+        "h": 12
+      }
+    ],
+    "description": "Moonwell lies east of the Whispering Forest. The forest crossroads is west, and a pilgrim path descends south to Moonfen.",
+    "sha256": "f9e8953ee61d81266636b07812dbbbf4acfc73608ac00e378f0743a00c1f4fb1",
+    "descriptionSha256": "68246102f980751d384890f255fa7531f2b7fc846d8384d5687c26decb65c916",
+    "hotspotSha256": "0a7797c437a2deb5c3aa038cdee44083116c2511322bf1fe5189bfba97df5ac9"
+  },
+  {
+    "id": "moonwell:center:completed",
+    "room": "moonwell",
+    "name": "The Moonwell",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/moonwell-free-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/moonwell-free-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Well",
+        "command": "look in well",
+        "x": 50,
+        "y": 74,
+        "w": 54,
+        "h": 28
+      },
+      {
+        "label": "Freed Fairy",
+        "command": "look at fairy",
+        "x": 66,
+        "y": 39,
+        "w": 31,
+        "h": 55
+      },
+      {
+        "label": "White Flowers",
+        "command": "look at white flowers",
+        "x": 62,
+        "y": 82,
+        "w": 65,
+        "h": 20
+      },
+      {
+        "label": "Carved Stones",
+        "command": "look at carved stones",
+        "x": 25,
+        "y": 50,
+        "w": 28,
+        "h": 32
+      },
+      {
+        "label": "Whispering Forest",
+        "command": "go west",
+        "x": 50,
+        "y": 92,
+        "w": 30,
+        "h": 12
+      }
+    ],
+    "description": "Moonwell lies east of the Whispering Forest. The forest crossroads is west, and a pilgrim path descends south to Moonfen.",
+    "sha256": "9b9fd62f1fa9f78dc009d6669407d1b73762f07e8623efbdb596b1c4b50e120d",
+    "descriptionSha256": "68246102f980751d384890f255fa7531f2b7fc846d8384d5687c26decb65c916",
+    "hotspotSha256": "b42929cfd0a500a21a2d8fc7088de41ac51d198c79a033fce0bbc71a31221ee9"
+  },
+  {
+    "id": "castleRoad:center:fresh",
+    "room": "castleRoad",
+    "name": "The King's Road",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/kings-road-day-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/kings-road-day-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Castle",
+        "command": "south",
+        "x": 51,
+        "y": 29,
+        "w": 30,
+        "h": 26
+      },
+      {
+        "label": "Thorns",
+        "command": "look at thorns",
+        "x": 69,
+        "y": 69,
+        "w": 24,
+        "h": 20
+      }
+    ],
+    "description": "The road descends between dead hedges toward the mountain castle. Thorn vines crawl across the stones like sleeping serpents. Thorn Hedge Pass lies south; Willowmere is north. The road ahead grows narrower and more dangerous with every step.",
+    "sha256": "4f7b594d4876d8ce52bb62c3664ae91eee580437a0b29382528adcff4cdc90e1",
+    "descriptionSha256": "bdb039f05fed54d2745e246a31f271054af32b05ed0d1a09b5241433fcf12a65",
+    "hotspotSha256": "ddca188aec4cda731a9033c7bfe39f47c9111e40c9819a8e42839601dc61db4f"
+  },
+  {
+    "id": "castleRoad:center:completed",
+    "room": "castleRoad",
+    "name": "The King's Road",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/kings-road-day-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/kings-road-day-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Castle",
+        "command": "south",
+        "x": 51,
+        "y": 29,
+        "w": 30,
+        "h": 26
+      },
+      {
+        "label": "Thorns",
+        "command": "look at thorns",
+        "x": 69,
+        "y": 69,
+        "w": 24,
+        "h": 20
+      }
+    ],
+    "description": "The road descends between dead hedges toward the mountain castle. Thorn vines crawl across the stones like sleeping serpents. Thorn Hedge Pass lies south; Willowmere is north. The road ahead grows narrower and more dangerous with every step.",
+    "sha256": "4f7b594d4876d8ce52bb62c3664ae91eee580437a0b29382528adcff4cdc90e1",
+    "descriptionSha256": "bdb039f05fed54d2745e246a31f271054af32b05ed0d1a09b5241433fcf12a65",
+    "hotspotSha256": "ddca188aec4cda731a9033c7bfe39f47c9111e40c9819a8e42839601dc61db4f"
+  },
+  {
+    "id": "thornHedgePass:center:fresh",
+    "room": "thornHedgePass",
+    "name": "Thorn Hedge Pass",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/thorn-hedge-pass-day-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/thorn-hedge-pass-day-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Strange Tracks",
+        "command": "inspect strange tracks",
+        "x": 55,
+        "y": 72,
+        "w": 30,
+        "h": 20
+      },
+      {
+        "label": "Thorn Hedge",
+        "command": "search thorn hedge",
+        "x": 18,
+        "y": 54,
+        "w": 28,
+        "h": 38
+      },
+      {
+        "label": "Abandoned Pack",
+        "command": "search abandoned pack",
+        "x": 72,
+        "y": 79,
+        "w": 22,
+        "h": 25
+      },
+      {
+        "label": "Yellow Eyes",
+        "command": "investigate growl",
+        "x": 84,
+        "y": 53,
+        "w": 24,
+        "h": 28
+      },
+      {
+        "label": "Road South",
+        "command": "go south",
+        "x": 54,
+        "y": 32,
+        "w": 26,
+        "h": 22
+      }
+    ],
+    "description": "The King's Road narrows between walls of living thorn. Yellow eyes watch from the right-hand hedge, clawed tracks cross the mud, and red briar berries cling to the branches. King's Road lies north; a ruined watch crossing waits south.",
+    "sha256": "3590584d0837528d767d09825d6f57da91252e958cbcff0c424d0075913f98b8",
+    "descriptionSha256": "2a34e428be456a39420faff01b389fd3117aa5fb1983c0ab673c6fd8d1eab499",
+    "hotspotSha256": "ee1c4529d8fd6ef8d1595559985d59b0b68dd90c6d233526f44160227d770f57"
+  },
+  {
+    "id": "thornHedgePass:center:completed",
+    "room": "thornHedgePass",
+    "name": "Thorn Hedge Pass",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/thorn-hedge-pass-day-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/thorn-hedge-pass-day-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Strange Tracks",
+        "command": "inspect strange tracks",
+        "x": 55,
+        "y": 72,
+        "w": 30,
+        "h": 20
+      },
+      {
+        "label": "Searched Hedge",
+        "command": "look at thorn hedge",
+        "x": 18,
+        "y": 54,
+        "w": 28,
+        "h": 38
+      },
+      {
+        "label": "Empty Pack",
+        "command": "look at abandoned pack",
+        "x": 72,
+        "y": 79,
+        "w": 22,
+        "h": 25
+      },
+      {
+        "label": "Fading Tracks",
+        "command": "look at fading tracks",
+        "x": 84,
+        "y": 53,
+        "w": 24,
+        "h": 28
+      },
+      {
+        "label": "Road South",
+        "command": "go south",
+        "x": 54,
+        "y": 32,
+        "w": 26,
+        "h": 22
+      }
+    ],
+    "description": "The King's Road narrows between walls of living thorn. Yellow eyes watch from the right-hand hedge, clawed tracks cross the mud, and red briar berries cling to the branches. King's Road lies north; a ruined watch crossing waits south.",
+    "sha256": "3590584d0837528d767d09825d6f57da91252e958cbcff0c424d0075913f98b8",
+    "descriptionSha256": "2a34e428be456a39420faff01b389fd3117aa5fb1983c0ab673c6fd8d1eab499",
+    "hotspotSha256": "466f6c0e84aad7557edb0a4270109f3bd4eb887fcbff106b238c06db037d533e"
+  },
+  {
+    "id": "brokenWatchCrossing:center:fresh",
+    "room": "brokenWatchCrossing",
+    "name": "Broken Watch Crossing",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/broken-watch-crossing-v1729.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/broken-watch-crossing-v1729.webp|center",
+    "hotspots": [
+      {
+        "label": "Overturned Wagon",
+        "command": "search overturned wagon",
+        "x": 24,
+        "y": 72,
+        "w": 35,
+        "h": 25
+      },
+      {
+        "label": "Ruined Watch Post",
+        "command": "examine ruined watch post",
+        "x": 78,
+        "y": 35,
+        "w": 30,
+        "h": 42
+      },
+      {
+        "label": "Scattered Rubble",
+        "command": "move scattered rubble",
+        "x": 55,
+        "y": 75,
+        "w": 30,
+        "h": 20
+      },
+      {
+        "label": "Road South",
+        "command": "go south",
+        "x": 69,
+        "y": 55,
+        "w": 24,
+        "h": 30
+      }
+    ],
+    "description": "A ruined watch post overlooks the road. An overturned guard wagon lies beside scattered stones, and carrion crows argue from the broken tower. Thorn Hedge Pass is north; the outer gate approach continues south.",
+    "sha256": "25b51101d0f065eeaf23690950eada91c8586f35d326535036c8bfbcf00fe5a3",
+    "descriptionSha256": "973882d0c610ec3cb1b7b69ba72fafe55eea08711bbce1c6f640369c9a31f8a9",
+    "hotspotSha256": "50887911a03d5737554f86a0a02c854c2ec5b97ee02ccdb2761028676449c53d"
+  },
+  {
+    "id": "brokenWatchCrossing:center:completed",
+    "room": "brokenWatchCrossing",
+    "name": "Broken Watch Crossing",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/broken-watch-crossing-v1729.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/broken-watch-crossing-v1729.webp|center",
+    "hotspots": [
+      {
+        "label": "Searched Wagon",
+        "command": "look at searched wagon",
+        "x": 24,
+        "y": 72,
+        "w": 35,
+        "h": 25
+      },
+      {
+        "label": "Searched Watch Post",
+        "command": "look at ruined watch post",
+        "x": 78,
+        "y": 35,
+        "w": 30,
+        "h": 42
+      },
+      {
+        "label": "Cleared Rubble",
+        "command": "look at rubble",
+        "x": 55,
+        "y": 75,
+        "w": 30,
+        "h": 20
+      },
+      {
+        "label": "Road South",
+        "command": "go south",
+        "x": 69,
+        "y": 55,
+        "w": 24,
+        "h": 30
+      }
+    ],
+    "description": "A ruined watch post overlooks the road. An overturned guard wagon lies beside scattered stones, and carrion crows argue from the broken tower. Thorn Hedge Pass is north; the outer gate approach continues south.",
+    "sha256": "25b51101d0f065eeaf23690950eada91c8586f35d326535036c8bfbcf00fe5a3",
+    "descriptionSha256": "973882d0c610ec3cb1b7b69ba72fafe55eea08711bbce1c6f640369c9a31f8a9",
+    "hotspotSha256": "4c4ada2505c2c5f51052812ebbe6c64d10c5a266ac2b35c0b8d3e2dcdcb2c340"
+  },
+  {
+    "id": "outerGateApproach:center:fresh",
+    "room": "outerGateApproach",
+    "name": "Outer Gate Approach",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/outer-gate-approach-day-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/outer-gate-approach-day-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Broken Statues",
+        "command": "study broken statues",
+        "x": 23,
+        "y": 52,
+        "w": 28,
+        "h": 34
+      },
+      {
+        "label": "Cracked Sigil Stone",
+        "command": "inspect cracked sigil stone",
+        "x": 64,
+        "y": 72,
+        "w": 30,
+        "h": 20
+      },
+      {
+        "label": "Roadside Ditch",
+        "command": "search roadside ditch",
+        "x": 85,
+        "y": 72,
+        "w": 24,
+        "h": 22
+      },
+      {
+        "label": "Ironthorn Gate",
+        "command": "go south",
+        "x": 64,
+        "y": 30,
+        "w": 34,
+        "h": 26
+      }
+    ],
+    "description": "The castle walls loom over the final rise. Torn royal banners hang from roadside posts, broken statues stare toward the portcullis, and a cracked sigil stone rests in the ditch. Broken Watch Crossing is north; Ironthorn Gate stands south.",
+    "sha256": "8f60537cdf9b61c3815616779f26927f7f2e8a3e0865b3a25d02f87c2a724ae2",
+    "descriptionSha256": "64aa1c5de2ba239d8ba0662ad0f25c602907943fe090d2784d7936e206ed1739",
+    "hotspotSha256": "47c0ed6b6911c2e76e3431bede61054d9b3da55dbf47b4d6a974256145516968"
+  },
+  {
+    "id": "outerGateApproach:center:completed",
+    "room": "outerGateApproach",
+    "name": "Outer Gate Approach",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/outer-gate-approach-day-v1790.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/outer-gate-approach-day-v1790.webp|center",
+    "hotspots": [
+      {
+        "label": "Broken Statues",
+        "command": "study broken statues",
+        "x": 23,
+        "y": 52,
+        "w": 28,
+        "h": 34
+      },
+      {
+        "label": "Cracked Sigil Stone",
+        "command": "inspect cracked sigil stone",
+        "x": 64,
+        "y": 72,
+        "w": 30,
+        "h": 20
+      },
+      {
+        "label": "Empty Ditch",
+        "command": "look at roadside ditch",
+        "x": 85,
+        "y": 72,
+        "w": 24,
+        "h": 22
+      },
+      {
+        "label": "Ironthorn Gate",
+        "command": "go south",
+        "x": 64,
+        "y": 30,
+        "w": 34,
+        "h": 26
+      }
+    ],
+    "description": "The castle walls loom over the final rise. Torn royal banners hang from roadside posts, broken statues stare toward the portcullis, and a cracked sigil stone rests in the ditch. Broken Watch Crossing is north; Ironthorn Gate stands south.",
+    "sha256": "8f60537cdf9b61c3815616779f26927f7f2e8a3e0865b3a25d02f87c2a724ae2",
+    "descriptionSha256": "64aa1c5de2ba239d8ba0662ad0f25c602907943fe090d2784d7936e206ed1739",
+    "hotspotSha256": "b0c2db5ab1a6834e8b77bd711e006e6eda227ad3d4d53e62fefb105d029bb24e"
+  },
+  {
+    "id": "castleGate:center:fresh",
+    "room": "castleGate",
+    "name": "The Ironthorn Gate",
+    "view": "center",
+    "stage": "fresh",
+    "imagePath": "assets/scenes/ironthorn-gate-v1773.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/ironthorn-gate-v1773.webp|center",
+    "hotspots": [
+      {
+        "label": "Winch",
+        "command": "look at winch",
+        "x": 80,
+        "y": 60,
+        "w": 18,
+        "h": 24
+      },
+      {
+        "label": "Socket",
+        "command": "look at socket",
+        "x": 50,
+        "y": 51,
+        "w": 14,
+        "h": 10
+      },
+      {
+        "label": "Gate",
+        "command": "use crown shard on gate",
+        "x": 51,
+        "y": 40,
+        "w": 24,
+        "h": 12
+      }
+    ],
+    "description": "An immense portcullis blocks the castle entrance beneath royal banners. A rusted chain winch stands beside the guard post. At the center of the gate is a jagged crown-shaped socket.",
+    "sha256": "c3e69899b56cbca5202d4b202dc6db293d4f9b45930f268267db8772eafbd71f",
+    "descriptionSha256": "1e2ef54e40da241746a5bcd3dc5481c5017e79a2853ea0ebe814756a1b96b10c",
+    "hotspotSha256": "cedaf286dd2c09149be916474b9feb2aa03953d2b4c5397c14b5e90c13414ceb"
+  },
+  {
+    "id": "castleGate:center:completed",
+    "room": "castleGate",
+    "name": "The Ironthorn Gate",
+    "view": "center",
+    "stage": "completed",
+    "imagePath": "assets/scenes/ironthorn-gate-v1773.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/ironthorn-gate-v1773.webp|center",
+    "hotspots": [
+      {
+        "label": "Winch",
+        "command": "look at winch",
+        "x": 80,
+        "y": 60,
+        "w": 18,
+        "h": 24
+      },
+      {
+        "label": "Socket",
+        "command": "look at socket",
+        "x": 50,
+        "y": 51,
+        "w": 14,
+        "h": 10
+      },
+      {
+        "label": "Gate",
+        "command": "use crown shard on gate",
+        "x": 51,
+        "y": 40,
+        "w": 24,
+        "h": 12
+      }
+    ],
+    "description": "An immense portcullis blocks the castle entrance beneath royal banners. A rusted chain winch stands beside the guard post. At the center of the gate is a jagged crown-shaped socket.",
+    "sha256": "c3e69899b56cbca5202d4b202dc6db293d4f9b45930f268267db8772eafbd71f",
+    "descriptionSha256": "1e2ef54e40da241746a5bcd3dc5481c5017e79a2853ea0ebe814756a1b96b10c",
+    "hotspotSha256": "cedaf286dd2c09149be916474b9feb2aa03953d2b4c5397c14b5e90c13414ceb"
+  },
+  {
+    "id": "secretAlcove:center:coins-visible",
+    "room": "secretAlcove",
+    "name": "Collapsed Passage Alcove",
+    "view": "center",
+    "stage": "coins-visible",
+    "imagePath": "assets/scenes/collapsed-alcove-open-v1724.webp",
+    "objectPosition": "center",
+    "sceneKey": "image:assets/scenes/collapsed-alcove-open-v1724.webp|center",
+    "hotspots": [
+      {
+        "label": "Collapsed Rubble",
+        "command": "try to move rubble",
+        "x": 25,
+        "y": 43,
+        "w": 46,
+        "h": 58
+      },
+      {
+        "label": "Loose Stone",
+        "command": "take coins",
+        "x": 45,
+        "y": 73,
+        "w": 38,
+        "h": 25
+      },
+      {
+        "label": "Cracked Wall",
+        "command": "inspect cracked wall",
+        "x": 78,
+        "y": 58,
+        "w": 20,
+        "h": 30
+      },
+      {
+        "label": "Wall Lantern",
+        "command": "look at lantern",
+        "x": 74,
+        "y": 40,
+        "w": 22,
+        "h": 20
+      }
+    ],
+    "description": "After a short walk, the passage opens into a cramped alcove. A rockfall seals the far arch, an iron lantern burns on the wall, and several floor stones sit unevenly beneath the rubble. The hidden passage returns west.",
+    "sha256": "8e06fb4e711f1c6f0efb6fb3d2ea0bcdffb97057897809781e7d589311c98b0e",
+    "descriptionSha256": "c4f439ac3daef303c95ee0af396052bc84b9cdee667f506c70cc8b3c8253cf23",
+    "hotspotSha256": "89ff091ca38eef43ba5e2d6ac8e40efc750c693c3c545e44a43976de36412764"
+  }
+]

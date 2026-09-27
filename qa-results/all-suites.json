@@ -1,0 +1,37 @@
+[
+  {
+    "suite": "check_release.py",
+    "passed": true,
+    "result": "16/16"
+  },
+  {
+    "suite": "run_qa.py",
+    "passed": true,
+    "result": "572/572"
+  },
+  {
+    "suite": "run_stabilization.py",
+    "passed": true,
+    "result": "191/191"
+  },
+  {
+    "suite": "run_consistency.py",
+    "passed": true,
+    "result": "119/119"
+  },
+  {
+    "suite": "run_cleanup_smoke.py",
+    "passed": true,
+    "result": "35/35"
+  },
+  {
+    "suite": "run_cleanup_safety.py",
+    "passed": true,
+    "result": "9/9"
+  },
+  {
+    "suite": "run_story_paths.py",
+    "passed": true,
+    "result": "12/12 journeys"
+  }
+]

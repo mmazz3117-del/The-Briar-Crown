@@ -1,0 +1,609 @@
+{
+  "suite": "consistency",
+  "fixture": "Chromium, real local asset responses, Map-backed storage; not Safari/PWA certification",
+  "passed": 119,
+  "total": 119,
+  "results": [
+    {
+      "test": "assets:actual-scene-decodes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "item-art:all-known-items-have-records",
+      "passed": true,
+      "detail": {
+        "known": 41,
+        "recorded": 41
+      }
+    },
+    {
+      "test": "item-art:package-custom-art",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "item-art:custom-image-pipeline",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "item-art:broken-image-fallback",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "item-art:remote-path-rejected",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:weapon-can-target-puzzles",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "inspection:actual-satchel-examine",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "puzzle:actual-tap:silver key",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "puzzle:actual-tap:fairy coin",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "puzzle:actual-tap:silver token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "puzzle:actual-tap:ferry crank",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "puzzle:actual-tap:sun sigil",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "puzzle:actual-tap:crown shard",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "save:actual-download",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "save:actual-file-import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "save:bad-import-keeps-live-and-saved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "save:combat-resumes-in-same-phase",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "save:encounter-intro-resumes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "save:pending-loot-resumes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "save:restored-loot-is-collected-once",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:square:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:square:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:tavernApproach:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:tavernApproach:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:tavernDoor:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:tavernDoor:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:apothecaryApproach:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:apothecaryApproach:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:apothecaryDoor:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:apothecaryDoor:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:apothecary:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:apothecary:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:apothecary:north:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:apothecary:north:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:apothecary:east:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:apothecary:east:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:apothecary:west:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:apothecary:west:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:apothecary:south:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:apothecary:south:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:tavern:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:tavern:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:tavern:north:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:tavern:north:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:tavern:east:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:tavern:east:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:tavern:west:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:tavern:west:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:tavern:south:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:tavern:south:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:tavernCellar:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:tavernCellar:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:secretTunnel:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:secretTunnel:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:secretAlcove:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:secretAlcove:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:apothecaryBackRoom:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:apothecaryBackRoom:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:forgeLane:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:forgeLane:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:eastRoad:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:eastRoad:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:forgeDoor:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:forgeDoor:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:blacksmith:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:blacksmith:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:chapelRoad:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:chapelRoad:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:chapelYard:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:chapelYard:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:chapelApproach:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:chapelApproach:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:oldCemeteryPath:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:oldCemeteryPath:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:chapel:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:chapel:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:crypt:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:crypt:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:forestEdge:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:forestEdge:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:cottageApproach:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:cottageApproach:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:cottage:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:cottage:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:cellar:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:cellar:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:willowTrail:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:willowTrail:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:flowerClearing:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:flowerClearing:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:fallenLog:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:fallenLog:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:whisperingForest:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:whisperingForest:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:moonfen:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:moonfen:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:hutExterior:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:hutExterior:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:hutInterior:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:hutInterior:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:moonwell:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:moonwell:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:castleRoad:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:castleRoad:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:thornHedgePass:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:thornHedgePass:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:brokenWatchCrossing:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:brokenWatchCrossing:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:outerGateApproach:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:outerGateApproach:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:castleGate:center:fresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:castleGate:center:completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:asset-and-hotspot-integrity:secretAlcove:center:coins-visible",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "scene:all-active-images-decode",
+      "passed": true,
+      "detail": {
+        "count": 50,
+        "failures": []
+      }
+    },
+    {
+      "test": "scene:reviewed-art-hotspot-pairs-not-drifted",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "test": "layout:landscape-no-horizontal-overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "runtime:no-unexpected-missing-assets",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "test": "runtime:no-page-errors",
+      "passed": true,
+      "detail": []
+    }
+  ]
+}

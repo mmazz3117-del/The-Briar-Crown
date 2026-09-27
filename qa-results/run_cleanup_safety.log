@@ -1,0 +1,10 @@
+PASS retirement:dry-run-keeps-file
+PASS retirement:apply-removes-known-bytes
+PASS retirement:repeat-is-idempotent
+PASS retirement:modified-file-preserved
+PASS retirement:unrelated-file-preserved
+PASS retirement:path-traversal-blocked
+PASS retirement:symlink-preserved
+PASS retirement:wrong-root-version-blocked
+PASS retirement:catalog-excludes-current-package-files
+9/9 passed

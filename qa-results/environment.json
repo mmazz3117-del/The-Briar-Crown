@@ -1,0 +1,22 @@
+{
+  "version": "1.7.9.0",
+  "date": "2026-09-26",
+  "inputArchive": "The_Briar_Crown_v1.7.8.2_FULL_GITHUB_UPLOAD.zip",
+  "inputSha256": "2e5cb3cb1c52193d19345948bce40654ce40c2fa1283232421974dc77d011e7c",
+  "appSha256": "01abf557ff1fe159f31afc0a978689adc6cbe4f984ae516bb75291896c1fa3dd",
+  "python": "3.13.5",
+  "playwright": "1.57.0",
+  "pillow": "12.3.0",
+  "chromium": "Chromium test runtime",
+  "browserExecution": "set_content with real package asset responses; Map-backed storage fixture",
+  "notVerified": [
+    "real iPhone Safari",
+    "Home Screen update lifecycle",
+    "real browser-storage persistence",
+    "live deployed service-worker update"
+  ],
+  "newV1790SceneOrStateAssets": 27,
+  "dedicatedItemArtFiles": 41,
+  "sceneReviewRecords": 93,
+  "saveSchema": 1780
+}

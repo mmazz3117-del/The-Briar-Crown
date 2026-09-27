@@ -1,0 +1,192 @@
+PASS boot:no-script-errors
+PASS puzzle:silver key:typed
+PASS puzzle:silver key:quick
+PASS puzzle:silver key:give
+PASS puzzle:silver key:direct-titlecase
+PASS puzzle:silver key:natural
+PASS puzzle:fairy coin:typed
+PASS puzzle:fairy coin:quick
+PASS puzzle:fairy coin:give
+PASS puzzle:fairy coin:direct-titlecase
+PASS puzzle:fairy coin:natural
+PASS puzzle:silver token:typed
+PASS puzzle:silver token:quick
+PASS puzzle:silver token:give
+PASS puzzle:silver token:direct-titlecase
+PASS puzzle:silver token:natural
+PASS puzzle:ferry crank:typed
+PASS puzzle:ferry crank:quick
+PASS puzzle:ferry crank:give
+PASS puzzle:ferry crank:direct-titlecase
+PASS puzzle:ferry crank:natural
+PASS puzzle:iron hook:typed
+PASS puzzle:iron hook:quick
+PASS puzzle:iron hook:give
+PASS puzzle:iron hook:direct-titlecase
+PASS puzzle:iron hook:natural
+PASS puzzle:sun sigil:typed
+PASS puzzle:sun sigil:quick
+PASS puzzle:sun sigil:give
+PASS puzzle:sun sigil:direct-titlecase
+PASS puzzle:sun sigil:natural
+PASS puzzle:crown shard:typed
+PASS puzzle:crown shard:quick
+PASS puzzle:crown shard:give
+PASS puzzle:crown shard:direct-titlecase
+PASS puzzle:crown shard:natural
+PASS puzzle:flint:typed
+PASS puzzle:flint:quick
+PASS puzzle:flint:give
+PASS puzzle:flint:direct-titlecase
+PASS puzzle:flint:natural
+PASS puzzle:wrong-target-does-not-unlock
+PASS new-adventure:no-inherited-exits
+PASS new-adventure:ferry-actually-blocked
+PASS new-adventure:clear-ui-selections
+PASS healing:healing herbs:typed:hp6
+PASS healing:healing herbs:typed:hp20
+PASS healing:healing herbs:inspection:hp6
+PASS healing:healing herbs:inspection:hp20
+PASS healing:healing herbs:satchel:hp6
+PASS healing:healing herbs:satchel:hp20
+PASS healing:healing herbs:combat-button:hp6
+PASS healing:healing herbs:combat-button:hp20
+PASS healing:healing herbs:combat-typed:hp6
+PASS healing:healing herbs:combat-typed:hp20
+PASS healing:minor healing tonic:typed:hp6
+PASS healing:minor healing tonic:typed:hp20
+PASS healing:minor healing tonic:inspection:hp6
+PASS healing:minor healing tonic:inspection:hp20
+PASS healing:minor healing tonic:satchel:hp6
+PASS healing:minor healing tonic:satchel:hp20
+PASS healing:minor healing tonic:combat-button:hp6
+PASS healing:minor healing tonic:combat-button:hp20
+PASS healing:minor healing tonic:combat-typed:hp6
+PASS healing:minor healing tonic:combat-typed:hp20
+PASS healing:field bandage:typed:hp6
+PASS healing:field bandage:typed:hp20
+PASS healing:field bandage:inspection:hp6
+PASS healing:field bandage:inspection:hp20
+PASS healing:field bandage:satchel:hp6
+PASS healing:field bandage:satchel:hp20
+PASS healing:field bandage:combat-button:hp6
+PASS healing:field bandage:combat-button:hp20
+PASS healing:field bandage:combat-typed:hp6
+PASS healing:field bandage:combat-typed:hp20
+PASS healing:traveler's poultice:typed:hp6
+PASS healing:traveler's poultice:typed:hp20
+PASS healing:traveler's poultice:inspection:hp6
+PASS healing:traveler's poultice:inspection:hp20
+PASS healing:traveler's poultice:satchel:hp6
+PASS healing:traveler's poultice:satchel:hp20
+PASS healing:traveler's poultice:combat-button:hp6
+PASS healing:traveler's poultice:combat-button:hp20
+PASS healing:traveler's poultice:combat-typed:hp6
+PASS healing:traveler's poultice:combat-typed:hp20
+PASS healing:healing salve:typed:hp6
+PASS healing:healing salve:typed:hp20
+PASS healing:healing salve:inspection:hp6
+PASS healing:healing salve:inspection:hp20
+PASS healing:healing salve:satchel:hp6
+PASS healing:healing salve:satchel:hp20
+PASS healing:healing salve:combat-button:hp6
+PASS healing:healing salve:combat-button:hp20
+PASS healing:healing salve:combat-typed:hp6
+PASS healing:healing salve:combat-typed:hp20
+PASS healing:healing potion:typed:hp6
+PASS healing:healing potion:typed:hp20
+PASS healing:healing potion:inspection:hp6
+PASS healing:healing potion:inspection:hp20
+PASS healing:healing potion:satchel:hp6
+PASS healing:healing potion:satchel:hp20
+PASS healing:healing potion:combat-button:hp6
+PASS healing:healing potion:combat-button:hp20
+PASS healing:healing potion:combat-typed:hp6
+PASS healing:healing potion:combat-typed:hp20
+PASS consumable:focus-zero
+PASS consumable:full-focus-keeps-item
+PASS consumable:no-poison-keeps-antidote
+PASS consumable:antidote-clears-poison
+PASS lock:shop-tool-works
+PASS lock:equipped-bonus-exactly-one
+PASS information:tavernCellar:flagstone:look at
+PASS information:tavernCellar:flagstone:examine
+PASS information:tavernCellar:flagstone:inspect
+PASS information:tavernCellar:flagstone:read
+PASS information:secretAlcove:cracked wall:look at
+PASS information:secretAlcove:cracked wall:examine
+PASS information:secretAlcove:cracked wall:inspect
+PASS information:secretAlcove:cracked wall:read
+PASS information:thornHedgePass:abandoned pack:look at
+PASS information:thornHedgePass:abandoned pack:examine
+PASS information:thornHedgePass:abandoned pack:inspect
+PASS information:thornHedgePass:abandoned pack:read
+PASS information:secretAlcove:loose stone:look at
+PASS information:secretAlcove:loose stone:examine
+PASS information:secretAlcove:loose stone:inspect
+PASS information:secretAlcove:loose stone:read
+PASS information:crypt:stone coffin:look at
+PASS information:crypt:stone coffin:examine
+PASS information:crypt:stone coffin:inspect
+PASS information:crypt:stone coffin:read
+PASS information:explicit-search-still-loots
+PASS information:explicit-stone-search-still-reveals
+PASS inspection:typed:minor healing tonic
+PASS inspection:typed:field bandage
+PASS inspection:typed:traveler's poultice
+PASS inspection:typed:tarnished locket
+PASS inspection:typed:iron hook
+PASS inspection:typed:flint
+PASS inspection:typed:silver key
+PASS inspection:typed:lantern
+PASS inspection:typed:fairy coin
+PASS inspection:typed:ferry crank
+PASS inspection:typed:silver token
+PASS inspection:typed:sun sigil
+PASS inspection:typed:crown shard
+PASS inspection:typed:wooden shield
+PASS inspection:typed:hunting knife
+PASS inspection:typed:spell crystal
+PASS inspection:typed:lockpicks
+PASS inspection:typed:healing herbs
+PASS inspection:typed:moonfen reed
+PASS inspection:typed:clover
+PASS inspection:typed:dried moss
+PASS inspection:typed:moonwort
+PASS inspection:typed:bluebell sprig
+PASS inspection:typed:small lute
+PASS inspection:typed:iron dagger
+PASS inspection:typed:short sword
+PASS inspection:typed:rope
+PASS inspection:typed:pilgrim charm
+PASS inspection:typed:river charm
+PASS inspection:typed:courier seal
+PASS inspection:typed:lantern oil
+PASS inspection:typed:bone charm
+PASS inspection:typed:guard key fragment
+PASS inspection:typed:chapel sigil token
+PASS inspection:typed:briar fang
+PASS inspection:typed:ancient chapel charm
+PASS inspection:typed:healing salve
+PASS inspection:typed:healing potion
+PASS inspection:typed:antidote
+PASS inspection:typed:stamina draught
+PASS inspection:typed:torch
+PASS inspection:typed:lockpick
+PASS migration:herbs:{"healing herb": 2}
+PASS migration:herbs:{}
+PASS migration:herbs:{"healing herbs": 2}
+PASS migration:herbs:{"healing herb": 2, "healing herbs": 3}
+PASS migration:lockpick-equipment
+PASS save:success-is-real
+PASS save:failure-is-not-success
+PASS save:failure-retains-last-good
+PASS save:corrupt-json-keeps-live-state
+PASS save:invalid-shape-keeps-live-state
+PASS new-adventure:clears-rewards-combat-inventory
+PASS new-adventure:clears-keyboard
+PASS save:silent-write-failure-detected
+PASS save:newer-schema-is-not-destructively-loaded
+PASS inspection:unknown-item-not-invented
+PASS runtime:no-page-errors
+191/191 passed

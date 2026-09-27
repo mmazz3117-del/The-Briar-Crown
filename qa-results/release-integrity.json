@@ -1,0 +1,105 @@
+{
+  "passed": 16,
+  "total": 16,
+  "results": [
+    {
+      "test": "release:app-version",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "test": "release:app-name",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "test": "release:web-manifest",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "test": "release:cache-version",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "test": "release:worker-registration",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "test": "release:deployment-tag",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "test": "release:static-label",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "test": "release:save-schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "test": "assets:all-static-references",
+      "passed": true,
+      "detail": {
+        "count": 63,
+        "missing": []
+      }
+    },
+    {
+      "test": "release:art-manifest-version",
+      "passed": true,
+      "detail": {
+        "expected": "1.7.9.1",
+        "actual": "1.7.9.1"
+      }
+    },
+    {
+      "test": "assets:production-hashes",
+      "passed": true,
+      "detail": {
+        "count": 50,
+        "mismatch": []
+      }
+    },
+    {
+      "test": "assets:no-unused-or-unmanifested-scenes",
+      "passed": true,
+      "detail": {
+        "files": 50,
+        "active": 50,
+        "manifest": 50,
+        "unused": [],
+        "unmanifested": []
+      }
+    },
+    {
+      "test": "assets:no-exact-scene-duplicates",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "test": "assets:item-art-references",
+      "passed": true,
+      "detail": {
+        "entries": 41,
+        "custom": 41,
+        "missing": []
+      }
+    },
+    {
+      "test": "javascript:syntax",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "test": "service-worker:handler-fixtures",
+      "passed": true,
+      "detail": "PASS sw:precache-item-registry\nPASS sw:preserve-other-app-caches\nPASS sw:failed-page-not-cached\nPASS sw:successful-page-cached\n"
+    }
+  ]
+}

@@ -1,0 +1,361 @@
+{
+  "suite": "visual-completion-smoke",
+  "fixture": "Chromium + actual package files; not Safari/PWA certification",
+  "passed": 35,
+  "total": 35,
+  "results": [
+    {
+      "test": "tavern:center:asset",
+      "passed": true,
+      "detail": "assets/scenes/tavern-center-v1772.webp"
+    },
+    {
+      "test": "tavern:center:landmark",
+      "passed": true,
+      "detail": {
+        "expected": [
+          "Scuffed Floor",
+          "Cellar Hatch"
+        ],
+        "hit": "Scuffed Floor",
+        "selected": "Scuffed Floor"
+      }
+    },
+    {
+      "test": "tavern:center:exit-available",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "tavern:north:asset",
+      "passed": true,
+      "detail": "assets/scenes/tavern-north-v1790.webp"
+    },
+    {
+      "test": "tavern:north:landmark",
+      "passed": true,
+      "detail": {
+        "expected": [
+          "Innkeeper"
+        ],
+        "hit": "Innkeeper",
+        "selected": "Innkeeper"
+      }
+    },
+    {
+      "test": "tavern:north:exit-available",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "tavern:east:asset",
+      "passed": true,
+      "detail": "assets/scenes/tavern-east-v1790.webp"
+    },
+    {
+      "test": "tavern:east:landmark",
+      "passed": true,
+      "detail": {
+        "expected": [
+          "Stairs"
+        ],
+        "hit": "Stairs",
+        "selected": "Stairs"
+      }
+    },
+    {
+      "test": "tavern:east:exit-available",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "tavern:west:asset",
+      "passed": true,
+      "detail": "assets/scenes/tavern-west-v1790.webp"
+    },
+    {
+      "test": "tavern:west:landmark",
+      "passed": true,
+      "detail": {
+        "expected": [
+          "Fireplace"
+        ],
+        "hit": "Fireplace",
+        "selected": "Fireplace"
+      }
+    },
+    {
+      "test": "tavern:west:exit-available",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "tavern:south:asset",
+      "passed": true,
+      "detail": "assets/scenes/tavern-south-v1790.webp"
+    },
+    {
+      "test": "tavern:south:landmark",
+      "passed": true,
+      "detail": {
+        "expected": [
+          "Tavern Door"
+        ],
+        "hit": "Tavern Door",
+        "selected": "Tavern Door"
+      }
+    },
+    {
+      "test": "tavern:south:exit-available",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "tavern:center:hatch-does-not-jump",
+      "passed": true,
+      "detail": {
+        "before": {
+          "label": "Scuffed Floor",
+          "command": "look at cellar door",
+          "x": 51,
+          "y": 78,
+          "w": 38,
+          "h": 22
+        },
+        "after": {
+          "label": "Cellar Hatch",
+          "command": "go down",
+          "x": 51,
+          "y": 78,
+          "w": 38,
+          "h": 22
+        }
+      }
+    },
+    {
+      "test": "tavern:east:hatch-does-not-jump",
+      "passed": true,
+      "detail": {
+        "before": {
+          "label": "Scuffed Floor",
+          "command": "look at cellar door",
+          "x": 51,
+          "y": 82,
+          "w": 38,
+          "h": 20
+        },
+        "after": {
+          "label": "Cellar Hatch",
+          "command": "go down",
+          "x": 51,
+          "y": 82,
+          "w": 38,
+          "h": 20
+        }
+      }
+    },
+    {
+      "test": "cellar:passage-has-visible-state",
+      "passed": true,
+      "detail": {
+        "fresh": "assets/scenes/tavern-cellar-v1772.webp",
+        "opened": "assets/scenes/tavern-cellar-v1772.webp",
+        "badge": "Hidden passage revealed behind the wine rack"
+      }
+    },
+    {
+      "test": "cellar:one-passage-target",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "cellar:enter-tunnel",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "cellar:return-preserves-open-state",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "state-art:cottage-rug-and-trapdoor",
+      "passed": true,
+      "detail": {
+        "paths": [
+          "assets/scenes/witch-cottage-interior-day-v1790.webp",
+          "assets/scenes/witch-cottage-interior-day-v1790.webp",
+          "assets/scenes/witch-cottage-interior-day-v1790.webp"
+        ],
+        "badges": [
+          "Rug moved \u2022 trapdoor revealed",
+          "Rug moved \u2022 trapdoor open"
+        ]
+      }
+    },
+    {
+      "test": "state-art:fairy-coin-collected",
+      "passed": true,
+      "detail": [
+        "assets/scenes/moonfen-hut-interior-v1724.webp",
+        "assets/scenes/moonfen-hut-interior-collected-v1790.webp"
+      ]
+    },
+    {
+      "test": "state-art:alcove-empty-after-coins",
+      "passed": true,
+      "detail": [
+        "assets/scenes/collapsed-alcove-open-v1724.webp",
+        "assets/scenes/collapsed-alcove-empty-v1790.webp"
+      ]
+    },
+    {
+      "test": "state-art:fairy-freed",
+      "passed": true,
+      "detail": [
+        "assets/scenes/moonwell-day-v1790.webp",
+        "assets/scenes/moonwell-free-v1790.webp"
+      ]
+    },
+    {
+      "test": "state-art:crypt-progress",
+      "passed": true,
+      "detail": {
+        "paths": [
+          "assets/scenes/chapel-crypt-v1724.webp",
+          "assets/scenes/chapel-crypt-v1724.webp",
+          "assets/scenes/chapel-crypt-v1724.webp"
+        ],
+        "badges": [
+          "reliquary opened",
+          "stone coffin opened \u2022 reliquary opened"
+        ]
+      }
+    },
+    {
+      "test": "item-art:all-41-custom",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "item-art:inspection-loads-custom",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "layout:390x844:no-horizontal-overflow",
+      "passed": true,
+      "detail": {
+        "s": {
+          "left": 1,
+          "right": 389,
+          "top": 80,
+          "bottom": 371
+        },
+        "c": {
+          "left": 1,
+          "right": 389,
+          "top": 642,
+          "bottom": 844
+        },
+        "log": {
+          "width": 364,
+          "height": 207
+        },
+        "iw": 390,
+        "ih": 844,
+        "sw": 390
+      }
+    },
+    {
+      "test": "layout:390x844:scene-visible",
+      "passed": true,
+      "detail": {
+        "s": {
+          "left": 1,
+          "right": 389,
+          "top": 80,
+          "bottom": 371
+        },
+        "c": {
+          "left": 1,
+          "right": 389,
+          "top": 642,
+          "bottom": 844
+        },
+        "log": {
+          "width": 364,
+          "height": 207
+        },
+        "iw": 390,
+        "ih": 844,
+        "sw": 390
+      }
+    },
+    {
+      "test": "layout:844x390:no-horizontal-overflow",
+      "passed": true,
+      "detail": {
+        "s": {
+          "left": 43,
+          "right": 376.515625,
+          "top": 98.9375,
+          "bottom": 349.0625
+        },
+        "c": {
+          "left": 376.515625,
+          "right": 800.984375,
+          "top": 219,
+          "bottom": 390
+        },
+        "log": {
+          "width": 418.46875,
+          "height": 98
+        },
+        "iw": 844,
+        "ih": 390,
+        "sw": 844
+      }
+    },
+    {
+      "test": "layout:844x390:scene-visible",
+      "passed": true,
+      "detail": {
+        "s": {
+          "left": 43,
+          "right": 376.515625,
+          "top": 98.9375,
+          "bottom": 349.0625
+        },
+        "c": {
+          "left": 376.515625,
+          "right": 800.984375,
+          "top": 219,
+          "bottom": 390
+        },
+        "log": {
+          "width": 418.46875,
+          "height": 98
+        },
+        "iw": 844,
+        "ih": 390,
+        "sw": 844
+      }
+    },
+    {
+      "test": "new-adventure:visual-world-reset",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "runtime:no-unexpected-missing-assets",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "test": "runtime:no-page-errors",
+      "passed": true,
+      "detail": []
+    }
+  ]
+}
