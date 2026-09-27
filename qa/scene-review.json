@@ -1,0 +1,938 @@
+{
+  "schema": 1,
+  "build": "1.7.9.1",
+  "status": "chapter-one-cinematic-polish",
+  "policy": "Changing image bytes, binding, hotspot geometry, or scene description fails the drift gate. Re-review the complete room/state before updating this baseline.",
+  "scenes": {
+    "square:center:fresh": {
+      "imagePath": "assets/scenes/square-v1724.webp",
+      "sha256": "7c773e6d8ae30b47b99ab87a4a439131a1366cc06bad0c126fd0999a5fc24011",
+      "hotspotSha256": "49d2865b9a759e3ac8596dc940c99e83c0610b3bf3b6265e7e4a59721f78db42",
+      "descriptionSha256": "aad2c0e3515b63e74778642ec0678ed2988b32cacad7d5931ae0a4f265842891",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "square:center:completed": {
+      "imagePath": "assets/scenes/square-v1724.webp",
+      "sha256": "7c773e6d8ae30b47b99ab87a4a439131a1366cc06bad0c126fd0999a5fc24011",
+      "hotspotSha256": "49d2865b9a759e3ac8596dc940c99e83c0610b3bf3b6265e7e4a59721f78db42",
+      "descriptionSha256": "aad2c0e3515b63e74778642ec0678ed2988b32cacad7d5931ae0a4f265842891",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "tavernApproach:center:fresh": {
+      "imagePath": "assets/scenes/tavern-approach-v1790.webp",
+      "sha256": "473246f9623dfbeaac8709d7c5daa30dfa5b574acec2150b598d21b90f9cd9fb",
+      "hotspotSha256": "ae12017a37a40354639ccd477225e5655053c49f80299c936746c14c0f75a33b",
+      "descriptionSha256": "cd1e99c55c704a51feef15447d233680cec8338adcdf3e09b6dd75740f616fb4",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "tavernApproach:center:completed": {
+      "imagePath": "assets/scenes/tavern-approach-v1790.webp",
+      "sha256": "473246f9623dfbeaac8709d7c5daa30dfa5b574acec2150b598d21b90f9cd9fb",
+      "hotspotSha256": "ae12017a37a40354639ccd477225e5655053c49f80299c936746c14c0f75a33b",
+      "descriptionSha256": "cd1e99c55c704a51feef15447d233680cec8338adcdf3e09b6dd75740f616fb4",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "tavernDoor:center:fresh": {
+      "imagePath": "assets/scenes/tavern-door-v1790.webp",
+      "sha256": "0c76a08c76771bbefc4bd0be339bb9ad1a1a585ffa82fab1baa2ad69b7233f55",
+      "hotspotSha256": "c7d96a830f5afd3112af379cacce29d6f28aec65b07279f890b650f08bcc97db",
+      "descriptionSha256": "87daf59ca4a688e729f66c23d44fd7a3cf6df1f4f3215f56f76c10f3f44d7b39",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "tavernDoor:center:completed": {
+      "imagePath": "assets/scenes/tavern-door-v1790.webp",
+      "sha256": "0c76a08c76771bbefc4bd0be339bb9ad1a1a585ffa82fab1baa2ad69b7233f55",
+      "hotspotSha256": "015d0002dab6f9b98b28fe9be731272f7fa6a5bbd80b19bb6b37ae3693aa92ed",
+      "descriptionSha256": "87daf59ca4a688e729f66c23d44fd7a3cf6df1f4f3215f56f76c10f3f44d7b39",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "apothecaryApproach:center:fresh": {
+      "imagePath": "assets/scenes/apothecary-approach-v1724.webp",
+      "sha256": "b16a9d4792c0e32254dbaa9ee0483d4b29a0edfef1b55518a4535a8fd11ae010",
+      "hotspotSha256": "5ff0abf034bc68fd8be2a92f0518083d5b712adae51f7ee4b5bd7264f5940fd7",
+      "descriptionSha256": "0d5b2eecaa0c66e9be401f3f5203e410799d2e6224a0f0637d42ab764176c7df",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "apothecaryApproach:center:completed": {
+      "imagePath": "assets/scenes/apothecary-approach-v1724.webp",
+      "sha256": "b16a9d4792c0e32254dbaa9ee0483d4b29a0edfef1b55518a4535a8fd11ae010",
+      "hotspotSha256": "5ff0abf034bc68fd8be2a92f0518083d5b712adae51f7ee4b5bd7264f5940fd7",
+      "descriptionSha256": "0d5b2eecaa0c66e9be401f3f5203e410799d2e6224a0f0637d42ab764176c7df",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "apothecaryDoor:center:fresh": {
+      "imagePath": "assets/scenes/apothecary-door-v1724.webp",
+      "sha256": "1cfd3631f63404011342b470164e01b3a923a613eee8bd96457c0b66841f931e",
+      "hotspotSha256": "a4de69187c7b5fa1963a89476e03fa22a0502422e0865d53411c5f6daa3b0b22",
+      "descriptionSha256": "9ae756c19dc3e571793548329d2cfaf3dc6db4247226104d4900b374e6fd5fe7",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "apothecaryDoor:center:completed": {
+      "imagePath": "assets/scenes/apothecary-door-v1724.webp",
+      "sha256": "1cfd3631f63404011342b470164e01b3a923a613eee8bd96457c0b66841f931e",
+      "hotspotSha256": "a4de69187c7b5fa1963a89476e03fa22a0502422e0865d53411c5f6daa3b0b22",
+      "descriptionSha256": "9ae756c19dc3e571793548329d2cfaf3dc6db4247226104d4900b374e6fd5fe7",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "apothecary:center:fresh": {
+      "imagePath": "assets/scenes/apothecary-center-v1724.webp",
+      "sha256": "1f144cd6578a7afbe03d93082ec62e3e529953072de03b93c99922c989801ecd",
+      "hotspotSha256": "d85ef70a139ad4168f054572c80a1fc26d93ac8f2abe618a2ad476f3d9b49be9",
+      "descriptionSha256": "6e071232473873591cb198eb993a9ee23b711278c14a0d06b7c10731942c44d9",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "apothecary:center:completed": {
+      "imagePath": "assets/scenes/apothecary-center-v1724.webp",
+      "sha256": "1f144cd6578a7afbe03d93082ec62e3e529953072de03b93c99922c989801ecd",
+      "hotspotSha256": "d85ef70a139ad4168f054572c80a1fc26d93ac8f2abe618a2ad476f3d9b49be9",
+      "descriptionSha256": "6e071232473873591cb198eb993a9ee23b711278c14a0d06b7c10731942c44d9",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "apothecary:north:fresh": {
+      "imagePath": "assets/scenes/apothecary-north-v1724.webp",
+      "sha256": "25e0d1ddf682c3ce182bbf536244649d7651257c91bb8f0e0a22bca1ecb1c781",
+      "hotspotSha256": "d10fa498037afe4607cf1e00748948722a6b6e8163f2b3522eb578aa6022608d",
+      "descriptionSha256": "636c6fae5f7cd467d0da2cb012203b5ef2d9e54d939b9faed2acf1919b891e80",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "apothecary:north:completed": {
+      "imagePath": "assets/scenes/apothecary-north-v1724.webp",
+      "sha256": "25e0d1ddf682c3ce182bbf536244649d7651257c91bb8f0e0a22bca1ecb1c781",
+      "hotspotSha256": "d10fa498037afe4607cf1e00748948722a6b6e8163f2b3522eb578aa6022608d",
+      "descriptionSha256": "636c6fae5f7cd467d0da2cb012203b5ef2d9e54d939b9faed2acf1919b891e80",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "apothecary:east:fresh": {
+      "imagePath": "assets/scenes/apothecary-east-v1724.webp",
+      "sha256": "640cdbc991ec1e1caa01510d1b272783c7ed19d4fff64f5470dbee3284796feb",
+      "hotspotSha256": "760ae4db19e9d362ea17da65c1bbbe9721815328e2d3d59367abd6c26b248163",
+      "descriptionSha256": "14d63e4d4456925a5f5b4b7cf3c4c84de2be2fc70355a9f89f2bf064ed5389c2",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "apothecary:east:completed": {
+      "imagePath": "assets/scenes/apothecary-east-v1724.webp",
+      "sha256": "640cdbc991ec1e1caa01510d1b272783c7ed19d4fff64f5470dbee3284796feb",
+      "hotspotSha256": "760ae4db19e9d362ea17da65c1bbbe9721815328e2d3d59367abd6c26b248163",
+      "descriptionSha256": "14d63e4d4456925a5f5b4b7cf3c4c84de2be2fc70355a9f89f2bf064ed5389c2",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "apothecary:west:fresh": {
+      "imagePath": "assets/scenes/apothecary-west-v1724.webp",
+      "sha256": "7aa8375d79dadc30da4e60c762c6362cbf39ae770ba92f40e77bf5bed42f9ccc",
+      "hotspotSha256": "983db26c0b6864b3c996f35f51d75978154845d844881478b1d9a8cc866939e6",
+      "descriptionSha256": "bd6947d70dd1b8cb38bbbbbf1b64f2fbaf3076eeddf9051e81a7afd054e5d398",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "apothecary:west:completed": {
+      "imagePath": "assets/scenes/apothecary-west-v1724.webp",
+      "sha256": "7aa8375d79dadc30da4e60c762c6362cbf39ae770ba92f40e77bf5bed42f9ccc",
+      "hotspotSha256": "983db26c0b6864b3c996f35f51d75978154845d844881478b1d9a8cc866939e6",
+      "descriptionSha256": "bd6947d70dd1b8cb38bbbbbf1b64f2fbaf3076eeddf9051e81a7afd054e5d398",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "apothecary:south:fresh": {
+      "imagePath": "assets/scenes/apothecary-south-v1724.webp",
+      "sha256": "d66af57b7bd21ec616d74182f2a81d61ef65e45f49b5bd5009f39328e3c9b5ac",
+      "hotspotSha256": "f173104dc4d033ea65f47b966771b5ca966ef30fdfdeb26f713f76fb877e8f63",
+      "descriptionSha256": "64a3c9ba503b2ac975449885b3f91e4c4af40e03c693ce8853ed981d020205b1",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "apothecary:south:completed": {
+      "imagePath": "assets/scenes/apothecary-south-v1724.webp",
+      "sha256": "d66af57b7bd21ec616d74182f2a81d61ef65e45f49b5bd5009f39328e3c9b5ac",
+      "hotspotSha256": "f173104dc4d033ea65f47b966771b5ca966ef30fdfdeb26f713f76fb877e8f63",
+      "descriptionSha256": "64a3c9ba503b2ac975449885b3f91e4c4af40e03c693ce8853ed981d020205b1",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "tavern:center:fresh": {
+      "imagePath": "assets/scenes/tavern-center-v1772.webp",
+      "sha256": "7d630c593fe76ccae589c64b407d0b75fe971f27ed3ef700be8b83ad1cb76918",
+      "hotspotSha256": "d178ac25ebd5f601b0683586df9a3997724ffd755cdc55465dfc7b023f71f044",
+      "descriptionSha256": "559146b963cf469871c9c29c9373e76fd93abe19d38b31eae076a372a29c2d55",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "tavern:center:completed": {
+      "imagePath": "assets/scenes/tavern-center-v1772.webp",
+      "sha256": "7d630c593fe76ccae589c64b407d0b75fe971f27ed3ef700be8b83ad1cb76918",
+      "hotspotSha256": "f35b89aef736a63cad35e3269c9e1feb0c1eb7013318031da75b710b8d85b025",
+      "descriptionSha256": "559146b963cf469871c9c29c9373e76fd93abe19d38b31eae076a372a29c2d55",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "tavern:north:fresh": {
+      "imagePath": "assets/scenes/tavern-north-v1790.webp",
+      "sha256": "b25cd97b8f2dc0369a71d7c0ac523a2af8e543eb70c2db7cb8aad3a7891d2878",
+      "hotspotSha256": "5d58f1c5433f98c71f2cb288eb4affd908b5d02fde25a847fe7dae216aa8e2a8",
+      "descriptionSha256": "8b85990eaad29316ae5467e17d14ffa175f926383706f81d4a83a4d71ae0a1c7",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "tavern:north:completed": {
+      "imagePath": "assets/scenes/tavern-north-v1790.webp",
+      "sha256": "b25cd97b8f2dc0369a71d7c0ac523a2af8e543eb70c2db7cb8aad3a7891d2878",
+      "hotspotSha256": "5d58f1c5433f98c71f2cb288eb4affd908b5d02fde25a847fe7dae216aa8e2a8",
+      "descriptionSha256": "8b85990eaad29316ae5467e17d14ffa175f926383706f81d4a83a4d71ae0a1c7",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "tavern:east:fresh": {
+      "imagePath": "assets/scenes/tavern-east-v1790.webp",
+      "sha256": "3b8140212723e3771aacae03e769145588c73a30d8bd2417d1479a5a20d1d5dd",
+      "hotspotSha256": "ab0f000408e4ce2a0616e9642d4fdd42b0c0aa12edecd1c7b2b12ada2d676db9",
+      "descriptionSha256": "24e932377f524c5e9768dfce157bb07bd0dd515b96a5b0b4af888b4e03ba4d0a",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "tavern:east:completed": {
+      "imagePath": "assets/scenes/tavern-east-v1790.webp",
+      "sha256": "3b8140212723e3771aacae03e769145588c73a30d8bd2417d1479a5a20d1d5dd",
+      "hotspotSha256": "d64868fe81fee58052684a9be46ce64ced4b53303d4c126aa6559197540696eb",
+      "descriptionSha256": "24e932377f524c5e9768dfce157bb07bd0dd515b96a5b0b4af888b4e03ba4d0a",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "tavern:west:fresh": {
+      "imagePath": "assets/scenes/tavern-west-v1790.webp",
+      "sha256": "80fe7617a2bc4dae48a2a9688e83b5e58b1f16c9436067babc579b5391725750",
+      "hotspotSha256": "2e3d6598bbf7766ef4fead5d2386463a98c4191fcebcbbb9511c006d92f6cb87",
+      "descriptionSha256": "21c21e2e2832dd39a3fb8158252ee26be0e8c3f6d65c0e4f92017bfa9dacc51c",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "tavern:west:completed": {
+      "imagePath": "assets/scenes/tavern-west-v1790.webp",
+      "sha256": "80fe7617a2bc4dae48a2a9688e83b5e58b1f16c9436067babc579b5391725750",
+      "hotspotSha256": "2e3d6598bbf7766ef4fead5d2386463a98c4191fcebcbbb9511c006d92f6cb87",
+      "descriptionSha256": "21c21e2e2832dd39a3fb8158252ee26be0e8c3f6d65c0e4f92017bfa9dacc51c",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "tavern:south:fresh": {
+      "imagePath": "assets/scenes/tavern-south-v1790.webp",
+      "sha256": "824e730ed6e0b011528c0b2b217300c38c9b1ddc008ffd763e2afce74f1e8bfe",
+      "hotspotSha256": "70cf47efdfca5b786d61e439d6aad0695301491e76f1fa2911507eb3f5159f1e",
+      "descriptionSha256": "b3611b684c8ba5e6fe84ceed2004c92f5d694c57f3fd86dd645a4cb70f486521",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "tavern:south:completed": {
+      "imagePath": "assets/scenes/tavern-south-v1790.webp",
+      "sha256": "824e730ed6e0b011528c0b2b217300c38c9b1ddc008ffd763e2afce74f1e8bfe",
+      "hotspotSha256": "70cf47efdfca5b786d61e439d6aad0695301491e76f1fa2911507eb3f5159f1e",
+      "descriptionSha256": "b3611b684c8ba5e6fe84ceed2004c92f5d694c57f3fd86dd645a4cb70f486521",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "tavernCellar:center:fresh": {
+      "imagePath": "assets/scenes/tavern-cellar-v1772.webp",
+      "sha256": "749dd5375395b8f8eb5f83bf9d9b918accbcc273df7446a51edd3f21e9e33fc8",
+      "hotspotSha256": "b382c82324039c1dea3f26620db9c5784715a523b1b2f82fb274a4ec0b9a2488",
+      "descriptionSha256": "f5588c50c0c8a8d27ffe764114f68c1aa2745fa505b6bb67064ca6caa4d9cbe2",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "reviewed-v1791-clean-base-with-live-state-badge",
+      "note": "High-quality base scene retained; solved/open state is communicated by live state badge and state-specific actions/hotspots rather than a visibly composited placeholder image."
+    },
+    "tavernCellar:center:completed": {
+      "imagePath": "assets/scenes/tavern-cellar-v1772.webp",
+      "sha256": "749dd5375395b8f8eb5f83bf9d9b918accbcc273df7446a51edd3f21e9e33fc8",
+      "hotspotSha256": "5bc0124471f63632adc5a52875766fbf5d7f1b4cb49a01c6c26816ecc7002389",
+      "descriptionSha256": "f5588c50c0c8a8d27ffe764114f68c1aa2745fa505b6bb67064ca6caa4d9cbe2",
+      "objectPosition": "center",
+      "category": "state-variant",
+      "reviewStatus": "reviewed-v1791-clean-base-with-live-state-badge",
+      "note": "High-quality base scene retained; solved/open state is communicated by live state badge and state-specific actions/hotspots rather than a visibly composited placeholder image."
+    },
+    "secretTunnel:center:fresh": {
+      "imagePath": "assets/scenes/hidden-passage-v1724.webp",
+      "sha256": "b875b1301f65670c3f249e0ad85c0f4eefdc48042cec762b2898286e49484707",
+      "hotspotSha256": "eb5176b665b713389d368bb7a1edbaa8d442963d9575578c27d2f99740875f1b",
+      "descriptionSha256": "79bae2fec90db0bab4eb43b3145362e8b4a48a64c809739546333b76b5df2fd9",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "secretTunnel:center:completed": {
+      "imagePath": "assets/scenes/hidden-passage-v1724.webp",
+      "sha256": "b875b1301f65670c3f249e0ad85c0f4eefdc48042cec762b2898286e49484707",
+      "hotspotSha256": "ae0ad7cc61f1d7c0be2cb5cfaa9ff670bab0eb6fe60bd8cca63c93e082234ecd",
+      "descriptionSha256": "79bae2fec90db0bab4eb43b3145362e8b4a48a64c809739546333b76b5df2fd9",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "secretAlcove:center:fresh": {
+      "imagePath": "assets/scenes/collapsed-alcove-v1724.webp",
+      "sha256": "2c35356d537b8b74b853d2ff7a8805975fad5102fe6802aa78be24fa767606d9",
+      "hotspotSha256": "d703ca21f8a6a57cfdb6c79d972c703bb82f91b62ab25dd5360d543213cdfc58",
+      "descriptionSha256": "c4f439ac3daef303c95ee0af396052bc84b9cdee667f506c70cc8b3c8253cf23",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "secretAlcove:center:completed": {
+      "imagePath": "assets/scenes/collapsed-alcove-empty-v1790.webp",
+      "sha256": "c0a4f24b20f50e18dfb7957aaa2eeb1b8aef8fc13ab123f8459d846db888bfad",
+      "hotspotSha256": "5b7d0fc051285136b66a299dfc5d0ab1a845ef76bd1f20eab7bb28ee2fba15dc",
+      "descriptionSha256": "c4f439ac3daef303c95ee0af396052bc84b9cdee667f506c70cc8b3c8253cf23",
+      "objectPosition": "center",
+      "category": "state-variant",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "apothecaryBackRoom:center:fresh": {
+      "imagePath": "assets/scenes/apothecary-back-room-v1724.webp",
+      "sha256": "68f92812ab0214627959e1afb8f4b5afaf752108358dd0df3041805a71d9d800",
+      "hotspotSha256": "e8f2fdcca35d47917bb927d93d56ba778ec7dcf704d846d377c8df72ba0d0002",
+      "descriptionSha256": "f94ec03bf23323955bfa45f048a40c775e0427cf1168066d4ec677bcbe1787ad",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "apothecaryBackRoom:center:completed": {
+      "imagePath": "assets/scenes/apothecary-back-room-v1724.webp",
+      "sha256": "68f92812ab0214627959e1afb8f4b5afaf752108358dd0df3041805a71d9d800",
+      "hotspotSha256": "e8f2fdcca35d47917bb927d93d56ba778ec7dcf704d846d377c8df72ba0d0002",
+      "descriptionSha256": "f94ec03bf23323955bfa45f048a40c775e0427cf1168066d4ec677bcbe1787ad",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "forgeLane:center:fresh": {
+      "imagePath": "assets/scenes/forge-lane-v1724.webp",
+      "sha256": "8e5a586f313bf8891cd09824b140f013ecd3de27a9dfa3e3fd5a4f22631adb16",
+      "hotspotSha256": "c6a17d09125facaf83ce254865ad783c5c0b00b13c923357e82d56928d0d1561",
+      "descriptionSha256": "332c71da375cc77eb2cc5e4e407d91298f4b381356240da6133cbc6117084991",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "forgeLane:center:completed": {
+      "imagePath": "assets/scenes/forge-lane-v1724.webp",
+      "sha256": "8e5a586f313bf8891cd09824b140f013ecd3de27a9dfa3e3fd5a4f22631adb16",
+      "hotspotSha256": "f49cc8e6c1491eb16dd1bfb2cf255fde5805aeb118ad5d5652dad61115c4e19f",
+      "descriptionSha256": "332c71da375cc77eb2cc5e4e407d91298f4b381356240da6133cbc6117084991",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "eastRoad:center:fresh": {
+      "imagePath": "assets/scenes/east-road-v1724.webp",
+      "sha256": "a262abb74da7a32856a6d7866fb357c66745cc8c144f1fdefd76448b17e94b56",
+      "hotspotSha256": "956e9d54795a467b4255358834897aec7d5bc19ca9988ea515fa497a296aba0e",
+      "descriptionSha256": "a354d44041943e37be9d46eb544df50f8b28a61099175766104f55b9fbf69807",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "eastRoad:center:completed": {
+      "imagePath": "assets/scenes/east-road-v1724.webp",
+      "sha256": "a262abb74da7a32856a6d7866fb357c66745cc8c144f1fdefd76448b17e94b56",
+      "hotspotSha256": "956e9d54795a467b4255358834897aec7d5bc19ca9988ea515fa497a296aba0e",
+      "descriptionSha256": "a354d44041943e37be9d46eb544df50f8b28a61099175766104f55b9fbf69807",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "forgeDoor:center:fresh": {
+      "imagePath": "assets/scenes/forge-door-v1724.webp",
+      "sha256": "51f656ab70d5758970912f6eb2a6ba0cf9d74537de9d5b0e7a0522ba6d78f7ad",
+      "hotspotSha256": "fc0680986abf00aba9010728b7544409fe44499791b1446b0f229cc8d982bb6f",
+      "descriptionSha256": "1ba6c115d8955b63bebf530d6c3db5642f34de6d2bffe95bcc45dcdc6f33dc37",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "forgeDoor:center:completed": {
+      "imagePath": "assets/scenes/forge-door-v1724.webp",
+      "sha256": "51f656ab70d5758970912f6eb2a6ba0cf9d74537de9d5b0e7a0522ba6d78f7ad",
+      "hotspotSha256": "fc0680986abf00aba9010728b7544409fe44499791b1446b0f229cc8d982bb6f",
+      "descriptionSha256": "1ba6c115d8955b63bebf530d6c3db5642f34de6d2bffe95bcc45dcdc6f33dc37",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "blacksmith:center:fresh": {
+      "imagePath": "assets/scenes/forge-interior-v1724.webp",
+      "sha256": "a96aee9a67d1adfee1ee01c14695f3a1c1983568380f7b5288f44799cf326912",
+      "hotspotSha256": "003e56f3fb3a24099ff846cea88913c20ae6edbaaf29b5ac38f77209a9068154",
+      "descriptionSha256": "7766528a4b44011c4294819ccad8345f36ae72be25755388ae9389e52beb7c52",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "blacksmith:center:completed": {
+      "imagePath": "assets/scenes/forge-interior-v1724.webp",
+      "sha256": "a96aee9a67d1adfee1ee01c14695f3a1c1983568380f7b5288f44799cf326912",
+      "hotspotSha256": "003e56f3fb3a24099ff846cea88913c20ae6edbaaf29b5ac38f77209a9068154",
+      "descriptionSha256": "7766528a4b44011c4294819ccad8345f36ae72be25755388ae9389e52beb7c52",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "chapelRoad:center:fresh": {
+      "imagePath": "assets/scenes/chapel-road-day-v1790.webp",
+      "sha256": "6c3fc973a79a6cdd6c89fbbaf223e501ce12b02a91c57dd0eeec1df03051905b",
+      "hotspotSha256": "eed5fd69d9cbb9b283b2f6d905c11c8bdc09dee74ede20982d56bb6d1b50501f",
+      "descriptionSha256": "f15df5c9bdd4ca86614582f4e548c9ecad97aafa34b3091f6a9be1c0ee316b23",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "chapelRoad:center:completed": {
+      "imagePath": "assets/scenes/chapel-road-day-v1790.webp",
+      "sha256": "6c3fc973a79a6cdd6c89fbbaf223e501ce12b02a91c57dd0eeec1df03051905b",
+      "hotspotSha256": "daa0570d0c4ede417ab12f59cb3d198a5795446e5e2b63e90217688f1b26e11a",
+      "descriptionSha256": "f15df5c9bdd4ca86614582f4e548c9ecad97aafa34b3091f6a9be1c0ee316b23",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "chapelYard:center:fresh": {
+      "imagePath": "assets/scenes/chapel-yard-day-v1790.webp",
+      "sha256": "30dacfdf5f825e711b546dc664469e33959121c30270855b6added5cf89d2144",
+      "hotspotSha256": "9904f5a2ba113ef81c2ce1ca8fba387951c38038e0a23b05dc987001e0bc6a98",
+      "descriptionSha256": "237688eb794ca9eab5e666cacb03eef2c398acac41287cc7f772118e4628971b",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "chapelYard:center:completed": {
+      "imagePath": "assets/scenes/chapel-yard-day-v1790.webp",
+      "sha256": "30dacfdf5f825e711b546dc664469e33959121c30270855b6added5cf89d2144",
+      "hotspotSha256": "9904f5a2ba113ef81c2ce1ca8fba387951c38038e0a23b05dc987001e0bc6a98",
+      "descriptionSha256": "237688eb794ca9eab5e666cacb03eef2c398acac41287cc7f772118e4628971b",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "chapelApproach:center:fresh": {
+      "imagePath": "assets/scenes/chapel-approach-day-v1790.webp",
+      "sha256": "5db784b166c7efb1ea82b49eea4f99ab85ff8cc85340fb82a55261cfb66d15a1",
+      "hotspotSha256": "638c7f25ac84c44e57581d5fd0fa7de0bf3efef78c40ce43b96a52cce7802cac",
+      "descriptionSha256": "4a0e0b3a983c5bf0a50677ecefdfbe9d1ded66540e5220723e15ed615168ecd9",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "chapelApproach:center:completed": {
+      "imagePath": "assets/scenes/chapel-approach-day-v1790.webp",
+      "sha256": "5db784b166c7efb1ea82b49eea4f99ab85ff8cc85340fb82a55261cfb66d15a1",
+      "hotspotSha256": "638c7f25ac84c44e57581d5fd0fa7de0bf3efef78c40ce43b96a52cce7802cac",
+      "descriptionSha256": "4a0e0b3a983c5bf0a50677ecefdfbe9d1ded66540e5220723e15ed615168ecd9",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "oldCemeteryPath:center:fresh": {
+      "imagePath": "assets/scenes/old-cemetery-day-v1790.webp",
+      "sha256": "64d01477e9edd0edcc2ea5777e23de7a8dfa4428d4c942b40c411a801650dd38",
+      "hotspotSha256": "8d3bf8a7d0bbaefcacbc1777af2db54b179b3a0890fb3a4955455990eedccf2e",
+      "descriptionSha256": "ba99cc01b7a1304e3dce52d5ca19e42d5dc5cb2640da45689f128bf9cd23e647",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "oldCemeteryPath:center:completed": {
+      "imagePath": "assets/scenes/old-cemetery-day-v1790.webp",
+      "sha256": "64d01477e9edd0edcc2ea5777e23de7a8dfa4428d4c942b40c411a801650dd38",
+      "hotspotSha256": "8d3bf8a7d0bbaefcacbc1777af2db54b179b3a0890fb3a4955455990eedccf2e",
+      "descriptionSha256": "ba99cc01b7a1304e3dce52d5ca19e42d5dc5cb2640da45689f128bf9cd23e647",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "chapel:center:fresh": {
+      "imagePath": "assets/scenes/chapel-interior-v1790.webp",
+      "sha256": "d878ba736ecbc1f0b080127dcdca4fac2b7d64c093bbd28d717366bab08cbb12",
+      "hotspotSha256": "33f87c9338083749422660933aa786bf2537487deb855c3e1afb572192ba5840",
+      "descriptionSha256": "aebf0571a8f34ae07ff18797f6a9ead280551d831038b5ad1b2cf898c4d88fb4",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "chapel:center:completed": {
+      "imagePath": "assets/scenes/chapel-interior-v1790.webp",
+      "sha256": "d878ba736ecbc1f0b080127dcdca4fac2b7d64c093bbd28d717366bab08cbb12",
+      "hotspotSha256": "2b61658b8ae03c3b34cb0c16edfa46283d11de5c51c8b461caceb90387fd2665",
+      "descriptionSha256": "aebf0571a8f34ae07ff18797f6a9ead280551d831038b5ad1b2cf898c4d88fb4",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "crypt:center:fresh": {
+      "imagePath": "assets/scenes/chapel-crypt-v1724.webp",
+      "sha256": "4e0c7b369926a96f1932e223990c5d3a7e97ef32e8c5c8c7aef362ef6933f52b",
+      "hotspotSha256": "4256aa7738e852a1f69d0e86c67c61aeb0e0df3c7aba6695606291c4b799741c",
+      "descriptionSha256": "4d42a19b65d73dcbbfa11750f255a1b7ce792286fbb3997666604d5b4b948dfa",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "reviewed-v1791-clean-base-with-live-state-badge",
+      "note": "High-quality base scene retained; solved/open state is communicated by live state badge and state-specific actions/hotspots rather than a visibly composited placeholder image."
+    },
+    "crypt:center:completed": {
+      "imagePath": "assets/scenes/chapel-crypt-v1724.webp",
+      "sha256": "4e0c7b369926a96f1932e223990c5d3a7e97ef32e8c5c8c7aef362ef6933f52b",
+      "hotspotSha256": "4749c6375a4c5473ce8bad8562f23539526e6f7a8318f37e8f4b0cf85ca9b990",
+      "descriptionSha256": "4d42a19b65d73dcbbfa11750f255a1b7ce792286fbb3997666604d5b4b948dfa",
+      "objectPosition": "center",
+      "category": "state-variant",
+      "reviewStatus": "reviewed-v1791-clean-base-with-live-state-badge",
+      "note": "High-quality base scene retained; solved/open state is communicated by live state badge and state-specific actions/hotspots rather than a visibly composited placeholder image."
+    },
+    "forestEdge:center:fresh": {
+      "imagePath": "assets/scenes/forest-edge-v1724.webp",
+      "sha256": "2da5f60637c0b87809541139bb4835e6d4829cc645e72f957e763d732261b772",
+      "hotspotSha256": "84a948a414db813b11823595fedd3b77d5e7c1de2f62a1eecfaa9241194a1ce4",
+      "descriptionSha256": "c74735d25ee21b07f3e57f792e240346c0489dc4d840c818b27edfee1e1eea65",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "forestEdge:center:completed": {
+      "imagePath": "assets/scenes/forest-edge-v1724.webp",
+      "sha256": "2da5f60637c0b87809541139bb4835e6d4829cc645e72f957e763d732261b772",
+      "hotspotSha256": "aab7e493dfb5790b2521550fac7d4ef10c55fb5acfdb81be7bbc673a37e40c1c",
+      "descriptionSha256": "c74735d25ee21b07f3e57f792e240346c0489dc4d840c818b27edfee1e1eea65",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "cottageApproach:center:fresh": {
+      "imagePath": "assets/scenes/witch-cottage-exterior-v1724.webp",
+      "sha256": "9bd7b205523027e86f0db260a810b58e9b594246fff524286afbc54cedc831ff",
+      "hotspotSha256": "0a157adfa1e380b64acd046b62e15d23e7b755590d6cee1bd962868aaa4c1423",
+      "descriptionSha256": "91f3827f8fa34b0ebb8cbb5cb2f29024691923670c4d11f4d0f9817b21f44fb9",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "cottageApproach:center:completed": {
+      "imagePath": "assets/scenes/witch-cottage-exterior-v1724.webp",
+      "sha256": "9bd7b205523027e86f0db260a810b58e9b594246fff524286afbc54cedc831ff",
+      "hotspotSha256": "3eed89d33e06d43e60279e90c2df848befc54d749246e6ef9d298afbc121b624",
+      "descriptionSha256": "91f3827f8fa34b0ebb8cbb5cb2f29024691923670c4d11f4d0f9817b21f44fb9",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "cottage:center:fresh": {
+      "imagePath": "assets/scenes/witch-cottage-interior-day-v1790.webp",
+      "sha256": "205a8c032d41e935315e70886daf4cf608b6c528f1f6b93b25307ca08901aef6",
+      "hotspotSha256": "f9ba9b8554e4d242fd1923424da0ba832b67c9111307c97918bc7265b73bd71d",
+      "descriptionSha256": "aa21cf8412c0c54ce220c1a7a814c7215f28d6bc1ee6b9b4434118fa89ea05d3",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "reviewed-v1791-clean-base-with-live-state-badge",
+      "note": "High-quality base scene retained; solved/open state is communicated by live state badge and state-specific actions/hotspots rather than a visibly composited placeholder image."
+    },
+    "cottage:center:completed": {
+      "imagePath": "assets/scenes/witch-cottage-interior-day-v1790.webp",
+      "sha256": "205a8c032d41e935315e70886daf4cf608b6c528f1f6b93b25307ca08901aef6",
+      "hotspotSha256": "1f0bdd20e1ea45e22e1c683f4b8a5c375d134ba0c1f93bfad5403a149929cc1d",
+      "descriptionSha256": "aa21cf8412c0c54ce220c1a7a814c7215f28d6bc1ee6b9b4434118fa89ea05d3",
+      "objectPosition": "center",
+      "category": "state-variant",
+      "reviewStatus": "reviewed-v1791-clean-base-with-live-state-badge",
+      "note": "High-quality base scene retained; solved/open state is communicated by live state badge and state-specific actions/hotspots rather than a visibly composited placeholder image."
+    },
+    "cellar:center:fresh": {
+      "imagePath": "assets/scenes/witch-cottage-cellar-v1724.webp",
+      "sha256": "7304fe5fa80c26987fe5f0a49b5bac59193beef086af6fdd795c25acde3e5904",
+      "hotspotSha256": "c4658cf619815ec5b84c718ae019bd8ac7fc4cae630ad3ba8d3634c7313b7a05",
+      "descriptionSha256": "a3830014e107db4d85e92922dadd9586dd140114916be4ef5a77c1bffa4442e5",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "cellar:center:completed": {
+      "imagePath": "assets/scenes/witch-cottage-cellar-v1724.webp",
+      "sha256": "7304fe5fa80c26987fe5f0a49b5bac59193beef086af6fdd795c25acde3e5904",
+      "hotspotSha256": "7b943dd9ef74aa26d9df3260a640407e4f4a8bb88994a4cdc02bd74befe216ce",
+      "descriptionSha256": "a3830014e107db4d85e92922dadd9586dd140114916be4ef5a77c1bffa4442e5",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "willowTrail:center:fresh": {
+      "imagePath": "assets/scenes/willow-trail-v1724.webp",
+      "sha256": "63d4a0db5f86c2fc86fd04d5b61c714e679355d47edb174ebbf4ae0c97a04648",
+      "hotspotSha256": "7f1a03134d837e037502603fe931885321f6218e74025a907e654f4126ceaaa4",
+      "descriptionSha256": "7df4e77644a79498e534b42f36167a4693d3ba7e241111b9f8610c542b39d308",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "willowTrail:center:completed": {
+      "imagePath": "assets/scenes/willow-trail-v1724.webp",
+      "sha256": "63d4a0db5f86c2fc86fd04d5b61c714e679355d47edb174ebbf4ae0c97a04648",
+      "hotspotSha256": "7f1a03134d837e037502603fe931885321f6218e74025a907e654f4126ceaaa4",
+      "descriptionSha256": "7df4e77644a79498e534b42f36167a4693d3ba7e241111b9f8610c542b39d308",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "flowerClearing:center:fresh": {
+      "imagePath": "assets/scenes/flower-clearing-day-v1790.webp",
+      "sha256": "d87e118f54c6c148f50b69abe2b2131fbe566bbd3ecd5819993c40160114eab6",
+      "hotspotSha256": "5d4f8124334c45562871b25d7d8866e914106fba1c65673139e8d78d6094bb18",
+      "descriptionSha256": "aa663eb93e33c2551bd70f0a59f46161f07890762ce9a647c4bb935f23161e58",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "flowerClearing:center:completed": {
+      "imagePath": "assets/scenes/flower-clearing-day-v1790.webp",
+      "sha256": "d87e118f54c6c148f50b69abe2b2131fbe566bbd3ecd5819993c40160114eab6",
+      "hotspotSha256": "5d4f8124334c45562871b25d7d8866e914106fba1c65673139e8d78d6094bb18",
+      "descriptionSha256": "aa663eb93e33c2551bd70f0a59f46161f07890762ce9a647c4bb935f23161e58",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "fallenLog:center:fresh": {
+      "imagePath": "assets/scenes/fallen-log-v1724.webp",
+      "sha256": "4f806335a283e0b22714a9dba2404c32408ca2709a923eaa1207e3ac136d5571",
+      "hotspotSha256": "7564f09b4912765812b8dbb6774d793e9230c87e97402a482d64cd1920aa0a47",
+      "descriptionSha256": "58e02add19f710f6253bfe6fd1d6213c66f303cfe4c1a62f212f352dcc2b9be1",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "fallenLog:center:completed": {
+      "imagePath": "assets/scenes/fallen-log-v1724.webp",
+      "sha256": "4f806335a283e0b22714a9dba2404c32408ca2709a923eaa1207e3ac136d5571",
+      "hotspotSha256": "5a7a7e7deadaf94d8adf4b44f5f4bbe5901c223522c826c98a5c54474a86dd83",
+      "descriptionSha256": "58e02add19f710f6253bfe6fd1d6213c66f303cfe4c1a62f212f352dcc2b9be1",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "whisperingForest:center:fresh": {
+      "imagePath": "assets/scenes/whispering-forest-v1724.webp",
+      "sha256": "4687ad03ce6c4503b5637291aa4a8f731f3b4205e41962fc5e2879c53f647d7b",
+      "hotspotSha256": "0cae86113a2eb38577202d9ac8a872b172a8158af79ef9ee0ef08ac5121eb09f",
+      "descriptionSha256": "40288205c2d48e6f0a6d5d387bba47062ba8b666fa4fb58b41367768580c8250",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "whisperingForest:center:completed": {
+      "imagePath": "assets/scenes/whispering-forest-v1724.webp",
+      "sha256": "4687ad03ce6c4503b5637291aa4a8f731f3b4205e41962fc5e2879c53f647d7b",
+      "hotspotSha256": "49a4d0d8f1df8ce2f59a8f6a9a5a133b4c3ab7f6bbc09d678f4f58fae7c2949a",
+      "descriptionSha256": "40288205c2d48e6f0a6d5d387bba47062ba8b666fa4fb58b41367768580c8250",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "moonfen:center:fresh": {
+      "imagePath": "assets/scenes/moonfen-ferry-landing-v1724.webp",
+      "sha256": "76cf31e98154f8a7e35a628585d9d5ae2de72cc96c84e157ae0a8a2e9fa7bad2",
+      "hotspotSha256": "ed5e83b37d7b4015b07b562008fb7203268fa6da439b132fecf5eb50d9cfb3ee",
+      "descriptionSha256": "623b9605fc60198f92a47b79b1a54e34c0949d425f992d892839fc47cf59a216",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "moonfen:center:completed": {
+      "imagePath": "assets/scenes/moonfen-ferry-landing-v1724.webp",
+      "sha256": "76cf31e98154f8a7e35a628585d9d5ae2de72cc96c84e157ae0a8a2e9fa7bad2",
+      "hotspotSha256": "ed5e83b37d7b4015b07b562008fb7203268fa6da439b132fecf5eb50d9cfb3ee",
+      "descriptionSha256": "623b9605fc60198f92a47b79b1a54e34c0949d425f992d892839fc47cf59a216",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "hutExterior:center:fresh": {
+      "imagePath": "assets/scenes/moonfen-hut-exterior-day-v1790.webp",
+      "sha256": "40a279c6992b4f7c276bba662fcabd036e08ba9bdea6690c6c10ed130e7e9e81",
+      "hotspotSha256": "c539e0917bf9d4261701a06273c727b8d8a9caab617bcee25d4f31401d326e06",
+      "descriptionSha256": "0c3c5786fc8be6d7661cdd493f70a6ee29bf42ba5af23c91876221e0feab9ad5",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "hutExterior:center:completed": {
+      "imagePath": "assets/scenes/moonfen-hut-exterior-day-v1790.webp",
+      "sha256": "40a279c6992b4f7c276bba662fcabd036e08ba9bdea6690c6c10ed130e7e9e81",
+      "hotspotSha256": "c539e0917bf9d4261701a06273c727b8d8a9caab617bcee25d4f31401d326e06",
+      "descriptionSha256": "0c3c5786fc8be6d7661cdd493f70a6ee29bf42ba5af23c91876221e0feab9ad5",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "hutInterior:center:fresh": {
+      "imagePath": "assets/scenes/moonfen-hut-interior-v1724.webp",
+      "sha256": "7cd162c58c6e052e90ad5d2f249821c86c89afbb935880945739eaa6d1fedeee",
+      "hotspotSha256": "de9e60cb1e3ae137906ea412f4b6a543eb292d94021cb0ac2aee2548d7a425cc",
+      "descriptionSha256": "d2df58c6e4f9f24f04c0c6def5554c84b878bd02beb263a12723a715aa3b2ee1",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "hutInterior:center:completed": {
+      "imagePath": "assets/scenes/moonfen-hut-interior-collected-v1790.webp",
+      "sha256": "7a6a1104ca44a5969440e7d13b318fa4f168fa388428a0853c9962c3af5ece3f",
+      "hotspotSha256": "594f29a2432f15d7bfd4cb1c8663f55cd30f611ef2c8262bf76c6671e2dd1ff7",
+      "descriptionSha256": "d2df58c6e4f9f24f04c0c6def5554c84b878bd02beb263a12723a715aa3b2ee1",
+      "objectPosition": "center",
+      "category": "state-variant",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "moonwell:center:fresh": {
+      "imagePath": "assets/scenes/moonwell-day-v1790.webp",
+      "sha256": "f9e8953ee61d81266636b07812dbbbf4acfc73608ac00e378f0743a00c1f4fb1",
+      "hotspotSha256": "0a7797c437a2deb5c3aa038cdee44083116c2511322bf1fe5189bfba97df5ac9",
+      "descriptionSha256": "68246102f980751d384890f255fa7531f2b7fc846d8384d5687c26decb65c916",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "moonwell:center:completed": {
+      "imagePath": "assets/scenes/moonwell-free-v1790.webp",
+      "sha256": "9b9fd62f1fa9f78dc009d6669407d1b73762f07e8623efbdb596b1c4b50e120d",
+      "hotspotSha256": "b42929cfd0a500a21a2d8fc7088de41ac51d198c79a033fce0bbc71a31221ee9",
+      "descriptionSha256": "68246102f980751d384890f255fa7531f2b7fc846d8384d5687c26decb65c916",
+      "objectPosition": "center",
+      "category": "state-variant",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "castleRoad:center:fresh": {
+      "imagePath": "assets/scenes/kings-road-day-v1790.webp",
+      "sha256": "4f7b594d4876d8ce52bb62c3664ae91eee580437a0b29382528adcff4cdc90e1",
+      "hotspotSha256": "ddca188aec4cda731a9033c7bfe39f47c9111e40c9819a8e42839601dc61db4f",
+      "descriptionSha256": "bdb039f05fed54d2745e246a31f271054af32b05ed0d1a09b5241433fcf12a65",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "castleRoad:center:completed": {
+      "imagePath": "assets/scenes/kings-road-day-v1790.webp",
+      "sha256": "4f7b594d4876d8ce52bb62c3664ae91eee580437a0b29382528adcff4cdc90e1",
+      "hotspotSha256": "ddca188aec4cda731a9033c7bfe39f47c9111e40c9819a8e42839601dc61db4f",
+      "descriptionSha256": "bdb039f05fed54d2745e246a31f271054af32b05ed0d1a09b5241433fcf12a65",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "thornHedgePass:center:fresh": {
+      "imagePath": "assets/scenes/thorn-hedge-pass-day-v1790.webp",
+      "sha256": "3590584d0837528d767d09825d6f57da91252e958cbcff0c424d0075913f98b8",
+      "hotspotSha256": "ee1c4529d8fd6ef8d1595559985d59b0b68dd90c6d233526f44160227d770f57",
+      "descriptionSha256": "2a34e428be456a39420faff01b389fd3117aa5fb1983c0ab673c6fd8d1eab499",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "thornHedgePass:center:completed": {
+      "imagePath": "assets/scenes/thorn-hedge-pass-day-v1790.webp",
+      "sha256": "3590584d0837528d767d09825d6f57da91252e958cbcff0c424d0075913f98b8",
+      "hotspotSha256": "466f6c0e84aad7557edb0a4270109f3bd4eb887fcbff106b238c06db037d533e",
+      "descriptionSha256": "2a34e428be456a39420faff01b389fd3117aa5fb1983c0ab673c6fd8d1eab499",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "brokenWatchCrossing:center:fresh": {
+      "imagePath": "assets/scenes/broken-watch-crossing-v1729.webp",
+      "sha256": "25b51101d0f065eeaf23690950eada91c8586f35d326535036c8bfbcf00fe5a3",
+      "hotspotSha256": "50887911a03d5737554f86a0a02c854c2ec5b97ee02ccdb2761028676449c53d",
+      "descriptionSha256": "973882d0c610ec3cb1b7b69ba72fafe55eea08711bbce1c6f640369c9a31f8a9",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "brokenWatchCrossing:center:completed": {
+      "imagePath": "assets/scenes/broken-watch-crossing-v1729.webp",
+      "sha256": "25b51101d0f065eeaf23690950eada91c8586f35d326535036c8bfbcf00fe5a3",
+      "hotspotSha256": "4c4ada2505c2c5f51052812ebbe6c64d10c5a266ac2b35c0b8d3e2dcdcb2c340",
+      "descriptionSha256": "973882d0c610ec3cb1b7b69ba72fafe55eea08711bbce1c6f640369c9a31f8a9",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "outerGateApproach:center:fresh": {
+      "imagePath": "assets/scenes/outer-gate-approach-day-v1790.webp",
+      "sha256": "8f60537cdf9b61c3815616779f26927f7f2e8a3e0865b3a25d02f87c2a724ae2",
+      "hotspotSha256": "47c0ed6b6911c2e76e3431bede61054d9b3da55dbf47b4d6a974256145516968",
+      "descriptionSha256": "64aa1c5de2ba239d8ba0662ad0f25c602907943fe090d2784d7936e206ed1739",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "outerGateApproach:center:completed": {
+      "imagePath": "assets/scenes/outer-gate-approach-day-v1790.webp",
+      "sha256": "8f60537cdf9b61c3815616779f26927f7f2e8a3e0865b3a25d02f87c2a724ae2",
+      "hotspotSha256": "b0c2db5ab1a6834e8b77bd711e006e6eda227ad3d4d53e62fefb105d029bb24e",
+      "descriptionSha256": "64aa1c5de2ba239d8ba0662ad0f25c602907943fe090d2784d7936e206ed1739",
+      "objectPosition": "center",
+      "category": "completed-v1790",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "castleGate:center:fresh": {
+      "imagePath": "assets/scenes/ironthorn-gate-v1773.webp",
+      "sha256": "c3e69899b56cbca5202d4b202dc6db293d4f9b45930f268267db8772eafbd71f",
+      "hotspotSha256": "cedaf286dd2c09149be916474b9feb2aa03953d2b4c5397c14b5e90c13414ceb",
+      "descriptionSha256": "1e2ef54e40da241746a5bcd3dc5481c5017e79a2853ea0ebe814756a1b96b10c",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "castleGate:center:completed": {
+      "imagePath": "assets/scenes/ironthorn-gate-v1773.webp",
+      "sha256": "c3e69899b56cbca5202d4b202dc6db293d4f9b45930f268267db8772eafbd71f",
+      "hotspotSha256": "cedaf286dd2c09149be916474b9feb2aa03953d2b4c5397c14b5e90c13414ceb",
+      "descriptionSha256": "1e2ef54e40da241746a5bcd3dc5481c5017e79a2853ea0ebe814756a1b96b10c",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    },
+    "secretAlcove:center:coins-visible": {
+      "imagePath": "assets/scenes/collapsed-alcove-open-v1724.webp",
+      "sha256": "8e06fb4e711f1c6f0efb6fb3d2ea0bcdffb97057897809781e7d589311c98b0e",
+      "hotspotSha256": "89ff091ca38eef43ba5e2d6ac8e40efc750c693c3c545e44a43976de36412764",
+      "descriptionSha256": "c4f439ac3daef303c95ee0af396052bc84b9cdee667f506c70cc8b3c8253cf23",
+      "objectPosition": "center",
+      "category": "retained",
+      "reviewStatus": "approved-v1.7.9.0-visual-completion",
+      "note": "Reviewed as part of the Chapter One visual completion pass; image binding, description and hotspot geometry are locked to this record."
+    }
+  }
+}

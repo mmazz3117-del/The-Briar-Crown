@@ -5,8 +5,9 @@ from PIL import Image, ImageStat
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else Path(__file__).resolve().parents[1]
-VERSION = "1.7.7.1"
-ART_VERSION = "1.7.2.9"
+RELEASE = json.loads((ROOT / "release.json").read_text())
+VERSION = RELEASE["version"]
+ART_VERSION = RELEASE["artVersion"]
 CONTRACT = json.loads((Path(__file__).parent / "contracts.json").read_text())
 results = []
 
@@ -38,7 +39,7 @@ sw_missing = [r for r in sw_refs if r != "./" and not (ROOT / r[2:]).exists()]
 check("service-worker:all-precache-files-exist", not sw_missing, ", ".join(sw_missing))
 
 # Production scene manifest protects the replacement art from fallback/thumbnail regressions.
-prod_path = ROOT / "assets/scenes/production-manifest-v1729.json"
+prod_path = ROOT / RELEASE["artManifest"]
 prod = json.loads(prod_path.read_text()) if prod_path.exists() else {"assets": {}}
 check("assets:production-manifest", prod.get("version") == ART_VERSION, str(prod.get("version")))
 for name, meta in prod.get("assets", {}).items():
@@ -65,17 +66,17 @@ for name, meta in prod.get("assets", {}).items():
 priority_active = {
     "square": "square-v1724.webp",
     "forgeLane": "forge-lane-v1724.webp",
-    "chapelRoad": "chapel-road-v1724.webp",
+    "chapelRoad": "chapel-road-day-v1790.webp",
     "willowTrail": "willow-trail-v1724.webp",
-    "flowerClearing": "flower-clearing-v1724.webp",
+    "flowerClearing": "flower-clearing-day-v1790.webp",
     "fallenLog": "fallen-log-v1724.webp",
-    "cottage": "witch-cottage-interior-v1724.webp",
-    "moonwell": "moonwell-v1724.webp",
+    "cottage": "witch-cottage-interior-day-v1790.webp",
+    "moonwell": "moonwell-day-v1790.webp",
     "secretTunnel": "hidden-passage-v1724.webp",
     "secretAlcove": "collapsed-alcove-v1724.webp",
-    "thornHedgePass": "thorn-hedge-pass-v1729.webp",
+    "thornHedgePass": "thorn-hedge-pass-day-v1790.webp",
     "brokenWatchCrossing": "broken-watch-crossing-v1729.webp",
-    "outerGateApproach": "outer-gate-approach-v1729.webp",
+    "outerGateApproach": "outer-gate-approach-day-v1790.webp",
 }
 for room_id, filename in priority_active.items():
     check(f"asset-map:{room_id}", f'{room_id}: "assets/scenes/{filename}"' in index)
@@ -111,7 +112,7 @@ with sync_playwright() as pw:
     check("map:full-screen-viewer", "height:100dvh!important" in index and "world-map-v1726.png" in index)
     check("map:no-crossing-overlay-lines", ".wm-route { display:none!important; }" in index and 'const edgesSvg = "";' in index)
     check("opening:art-present", (ROOT / "assets/ui/opening-v1730.webp").exists() and "opening-v1730.webp" in index)
-    check("opening:version-visible", 'const BUILD_VERSION = "1.7.7.1"' in index and 'id="opening-enter-btn"' in index)
+    check("opening:version-visible", f'const BUILD_VERSION = "{VERSION}"' in index and 'id="opening-enter-btn"' in index)
     check("opening:animated-scroll-structure", all(token in index for token in ["ancient-scroll","scroll-roll-top","scroll-roll-bottom","parchment-unfurl","showLoreScreen"]))
     check("opening:hidden-step-isolation-css", '.lore-step[hidden], .class-step[hidden], .opening-title-step[hidden]' in index)
     page.evaluate("showTitleScreen()")
