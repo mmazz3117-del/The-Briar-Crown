@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="briar-crown-deployment" content="1792">
+  <meta name="briar-crown-deployment" content="17921">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content" />
   <meta name="theme-color" content="#0b0912" />
@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-title" content="Briar Crown" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <title>The Briar Crown — Mobile Adventure v1.7.9.2</title>
+  <title>The Briar Crown — Mobile Adventure v1.7.9.2.1</title>
   <style>
 
     :root {
@@ -712,7 +712,7 @@
     .class-card { text-align:left; min-height:145px; border:2px solid #72592f; border-radius:8px; padding:12px; color:#e8d9b1; background:linear-gradient(150deg,#241b32,#12101a); cursor:pointer; }
     .class-card.selected { border-color:#f0d68c; box-shadow:0 0 0 2px rgba(240,214,140,.22),0 0 24px rgba(200,163,86,.16); }
     .class-card .class-icon { font-size:30px; float:right; margin-left:8px; }
-    .class-portrait { width:100%; aspect-ratio:4/3; object-fit:cover; object-position:center 28%; border-radius:6px; border:1px solid rgba(240,214,140,.35); margin-bottom:9px; display:block; background:#16121d; }
+    .class-portrait { width:100%; aspect-ratio:4/3; object-fit:contain; object-position:center center; border-radius:6px; border:1px solid rgba(240,214,140,.35); margin-bottom:9px; display:block; background:#16121d; }
     .skills-avatar { width:30px; height:30px; object-fit:cover; border-radius:50%; border:1px solid rgba(240,214,140,.55); background:#17121f; }
     .hero-summary-card .hero-portrait { width:58px; height:68px; object-fit:cover; object-position:center 25%; border-radius:8px; border:1px solid rgba(240,214,140,.4); flex:0 0 auto; }
     .class-card strong { display:block; color:#f0d68c; font-size:18px; }
@@ -1934,7 +1934,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.7.9.2 • Playable Heroes & Daylight Foundations</small>
+        <small id="version-tag">Version 1.7.9.2.1 • Playable Heroes — Full-Body Character Card Hotfix</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -2116,8 +2116,8 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.7.9.2";
-    const BUILD_NAME = "Playable Heroes & Daylight Foundations";
+    const BUILD_VERSION = "1.7.9.2.1";
+    const BUILD_NAME = "Playable Heroes — Full-Body Character Card Hotfix";
 
     const itemInfo = {
       "minor healing tonic": "A small crimson tonic. Restores up to 6 HP during combat.",
@@ -3325,12 +3325,12 @@
     }
 
     const heroClasses = {
-      knight: { name:"Knight", icon:"⚔️", visualKey:"knight", portrait:"assets/characters/knight-portrait.webp", tagline:"A steadfast protector", stats:{Strength:9,Agility:5,Wisdom:4,Charisma:5}, item:"wooden shield", gift:"Shield" },
-      ranger: { name:"Ranger", icon:"🏹", visualKey:"ranger", portrait:"assets/characters/ranger-portrait.webp", tagline:"A watchful pathfinder", stats:{Strength:6,Agility:8,Wisdom:7,Charisma:4}, item:"hunting knife", gift:"Hunting Knife" },
-      wizard: { name:"Wizard", icon:"🔮", visualKey:"wizard", portrait:"assets/characters/wizard-portrait.webp", tagline:"A student of hidden magic", stats:{Strength:3,Agility:5,Wisdom:10,Charisma:6}, item:"spell crystal", gift:"Spell Crystal" },
-      rogue: { name:"Rogue", icon:"🗡️", visualKey:"rogue", portrait:"assets/characters/rogue-portrait.webp", tagline:"A clever expert in locks and secrets", stats:{Strength:5,Agility:10,Wisdom:6,Charisma:5}, item:"lockpicks", gift:"Lockpicks" },
-      druid: { name:"Druid", icon:"🌿", visualKey:"druid", portrait:"assets/characters/druid-portrait.webp", tagline:"A keeper of wild places", stats:{Strength:5,Agility:6,Wisdom:9,Charisma:6}, item:"healing herbs", gift:"Healing Herbs" },
-      bard: { name:"Bard", icon:"🎵", visualKey:"bard", portrait:"assets/characters/bard-portrait.webp", tagline:"A persuasive teller of tales", stats:{Strength:4,Agility:6,Wisdom:7,Charisma:10}, item:"small lute", gift:"Small Lute" }
+      knight: { name:"Knight", icon:"⚔️", visualKey:"knight", portrait:"assets/characters/knight-avatar-v17921.webp", selectArt:"assets/characters/knight-select-v17921.webp", tagline:"A steadfast protector", stats:{Strength:9,Agility:5,Wisdom:4,Charisma:5}, item:"wooden shield", gift:"Shield" },
+      ranger: { name:"Ranger", icon:"🏹", visualKey:"ranger", portrait:"assets/characters/ranger-avatar-v17921.webp", selectArt:"assets/characters/ranger-select-v17921.webp", tagline:"A watchful pathfinder", stats:{Strength:6,Agility:8,Wisdom:7,Charisma:4}, item:"hunting knife", gift:"Hunting Knife" },
+      wizard: { name:"Wizard", icon:"🔮", visualKey:"wizard", portrait:"assets/characters/wizard-avatar-v17921.webp", selectArt:"assets/characters/wizard-select-v17921.webp", tagline:"A student of hidden magic", stats:{Strength:3,Agility:5,Wisdom:10,Charisma:6}, item:"spell crystal", gift:"Spell Crystal" },
+      rogue: { name:"Rogue", icon:"🗡️", visualKey:"rogue", portrait:"assets/characters/rogue-avatar-v17921.webp", selectArt:"assets/characters/rogue-select-v17921.webp", tagline:"A clever expert in locks and secrets", stats:{Strength:5,Agility:10,Wisdom:6,Charisma:5}, item:"lockpicks", gift:"Lockpicks" },
+      druid: { name:"Druid", icon:"🌿", visualKey:"druid", portrait:"assets/characters/druid-avatar-v17921.webp", selectArt:"assets/characters/druid-select-v17921.webp", tagline:"A keeper of wild places", stats:{Strength:5,Agility:6,Wisdom:9,Charisma:6}, item:"healing herbs", gift:"Healing Herbs" },
+      bard: { name:"Bard", icon:"🎵", visualKey:"bard", portrait:"assets/characters/bard-avatar-v17921.webp", selectArt:"assets/characters/bard-select-v17921.webp", tagline:"A persuasive teller of tales", stats:{Strength:4,Agility:6,Wisdom:7,Charisma:10}, item:"small lute", gift:"Small Lute" }
     };
     const sceneLightingMap = Object.freeze({
       square:"daylight", tavernApproach:"daylight", tavernDoor:"daylight", apothecaryApproach:"daylight", apothecaryDoor:"daylight", forgeLane:"daylight", eastRoad:"daylight", forgeDoor:"daylight", chapelRoad:"daylight", chapelYard:"daylight", chapelApproach:"daylight", oldCemeteryPath:"daylight", castleRoad:"daylight", thornHedgePass:"daylight", brokenWatchCrossing:"daylight", outerGateApproach:"daylight", forestEdge:"filtered-daylight", willowTrail:"filtered-daylight", flowerClearing:"daylight", fallenLog:"filtered-daylight", whisperingForest:"filtered-daylight", cottageApproach:"daylight", moonfen:"misty-daylight", hutExterior:"misty-daylight", moonwell:"magical-daylight", castleGate:"daylight",
@@ -7131,7 +7131,7 @@
         btn.type = "button";
         btn.className = "class-card" + (selectedHeroClass === key ? " selected" : "");
         const startingSkills=Object.entries(classSkillStarts[key]||{}).map(([name,level])=>`${name} ${level}`).join(" • ");
-        btn.innerHTML = `<img class="class-portrait" src="${hero.portrait}" alt="${hero.name} visual"><span class="class-icon">${hero.icon}</span><strong>${hero.name}</strong><small>${hero.tagline}</small><div class="class-stats">${Object.entries(hero.stats).map(([k,v])=>`${k}: ${v}`).join(" • ")}<br><strong style="font-size:11px;margin-top:5px">Skills: ${startingSkills}</strong>Starts with: ${hero.gift}</div>`;
+        btn.innerHTML = `<img class="class-portrait" src="${hero.selectArt||hero.portrait}" alt="${hero.name} full-body character art"><span class="class-icon">${hero.icon}</span><strong>${hero.name}</strong><small>${hero.tagline}</small><div class="class-stats">${Object.entries(hero.stats).map(([k,v])=>`${k}: ${v}`).join(" • ")}<br><strong style="font-size:11px;margin-top:5px">Skills: ${startingSkills}</strong>Starts with: ${hero.gift}</div>`;
         btn.addEventListener("click", () => { selectedHeroClass = key; renderHeroClasses(); updateHeroSummary(); });
         grid.appendChild(btn);
       });
@@ -7527,7 +7527,7 @@
       }
       renderAll();
       showTitleScreen();
-      if ("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js?build=1792").catch(() => {});
+      if ("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js?build=17921").catch(() => {});
     }
 
     document.getElementById("export-save-btn").addEventListener("click",exportGame);

@@ -1,11 +1,11 @@
 {
-  "version": "1.7.9.2",
-  "build": "1792",
-  "name": "Playable Heroes & Daylight Foundations",
+  "version": "1.7.9.2.1",
+  "build": "17921",
+  "name": "Playable Heroes \u2014 Full-Body Character Card Hotfix",
   "saveSchema": 1792,
   "artManifest": "assets/scenes/production-manifest-v1791.json",
   "artVersion": "1.7.9.1",
   "itemArtManifest": "assets/items/manifest.json",
   "sceneReview": "qa/scene-review.json",
-  "visualStatus": "playable-hero-identity-and-daylight-foundations"
+  "visualStatus": "approved-full-body-class-selection-art"
 }
