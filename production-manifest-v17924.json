@@ -1,0 +1,446 @@
+{
+  "version": "1.7.9.2.4",
+  "assets": {
+    "apothecary-approach-v1724.webp": {
+      "sha256": "b16a9d4792c0e32254dbaa9ee0483d4b29a0edfef1b55518a4535a8fd11ae010",
+      "width": 1200,
+      "height": 900,
+      "bytes": 310976,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "apothecary-back-room-v1724.webp": {
+      "sha256": "68f92812ab0214627959e1afb8f4b5afaf752108358dd0df3041805a71d9d800",
+      "width": 1200,
+      "height": 900,
+      "bytes": 232446,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "apothecary-center-v1724.webp": {
+      "sha256": "1f144cd6578a7afbe03d93082ec62e3e529953072de03b93c99922c989801ecd",
+      "width": 1200,
+      "height": 900,
+      "bytes": 206432,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "apothecary-door-v1724.webp": {
+      "sha256": "1cfd3631f63404011342b470164e01b3a923a613eee8bd96457c0b66841f931e",
+      "width": 1200,
+      "height": 900,
+      "bytes": 197842,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "apothecary-east-v1724.webp": {
+      "sha256": "640cdbc991ec1e1caa01510d1b272783c7ed19d4fff64f5470dbee3284796feb",
+      "width": 1200,
+      "height": 900,
+      "bytes": 149022,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "apothecary-north-v1724.webp": {
+      "sha256": "25e0d1ddf682c3ce182bbf536244649d7651257c91bb8f0e0a22bca1ecb1c781",
+      "width": 1200,
+      "height": 900,
+      "bytes": 176544,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "apothecary-south-v1724.webp": {
+      "sha256": "d66af57b7bd21ec616d74182f2a81d61ef65e45f49b5bd5009f39328e3c9b5ac",
+      "width": 1200,
+      "height": 900,
+      "bytes": 215870,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "apothecary-west-v1724.webp": {
+      "sha256": "7aa8375d79dadc30da4e60c762c6362cbf39ae770ba92f40e77bf5bed42f9ccc",
+      "width": 1200,
+      "height": 900,
+      "bytes": 164584,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "broken-watch-crossing-v1729.webp": {
+      "sha256": "25b51101d0f065eeaf23690950eada91c8586f35d326535036c8bfbcf00fe5a3",
+      "width": 1200,
+      "height": 900,
+      "bytes": 545760,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "chapel-approach-day-v1790.webp": {
+      "sha256": "5db784b166c7efb1ea82b49eea4f99ab85ff8cc85340fb82a55261cfb66d15a1",
+      "width": 1200,
+      "height": 900,
+      "bytes": 408392,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "chapel-approach-v17923.webp": {
+      "sha256": "2714a3eb5dcbb36213bc2e51d0eaf50e03a092fb36bd4c09b8f39c267a7c5485",
+      "width": 1200,
+      "height": 900,
+      "bytes": 243864,
+      "visual_status": "cinematic v1.7.9.2.3 semantic focus/alignment pass"
+    },
+    "chapel-crypt-v1724.webp": {
+      "sha256": "4e0c7b369926a96f1932e223990c5d3a7e97ef32e8c5c8c7aef362ef6933f52b",
+      "width": 1200,
+      "height": 900,
+      "bytes": 224456,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "chapel-interior-v1790.webp": {
+      "sha256": "d878ba736ecbc1f0b080127dcdca4fac2b7d64c093bbd28d717366bab08cbb12",
+      "width": 1200,
+      "height": 900,
+      "bytes": 248920,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "chapel-interior-v17922.webp": {
+      "sha256": "212cd0ae3a11befa7da096213b865388bc15652d8bcc39f527ca0d06dfe15a3e",
+      "width": 1200,
+      "height": 900,
+      "bytes": 352676,
+      "visual_status": "cinematic v1.7.9.2.2 master retained in v1.7.9.2.3"
+    },
+    "chapel-road-day-v1790.webp": {
+      "sha256": "6c3fc973a79a6cdd6c89fbbaf223e501ce12b02a91c57dd0eeec1df03051905b",
+      "width": 1200,
+      "height": 900,
+      "bytes": 446786,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "chapel-route-v17922.webp": {
+      "sha256": "c49407826109f06590036222b4733cffd3312a58bc566d2049a3754788288cab",
+      "width": 1200,
+      "height": 900,
+      "bytes": 445928,
+      "visual_status": "cinematic v1.7.9.2.2 master retained in v1.7.9.2.3"
+    },
+    "chapel-yard-day-v1790.webp": {
+      "sha256": "30dacfdf5f825e711b546dc664469e33959121c30270855b6added5cf89d2144",
+      "width": 1200,
+      "height": 900,
+      "bytes": 458120,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "chapel-yard-v17923.webp": {
+      "sha256": "6fb59af0c2f5e91044bb413493a084aa697fd693473035036a0a983d2f4939a6",
+      "width": 1200,
+      "height": 900,
+      "bytes": 330998,
+      "visual_status": "cinematic v1.7.9.2.3 semantic focus/alignment pass"
+    },
+    "collapsed-alcove-empty-v1790.webp": {
+      "sha256": "c0a4f24b20f50e18dfb7957aaa2eeb1b8aef8fc13ab123f8459d846db888bfad",
+      "width": 1200,
+      "height": 900,
+      "bytes": 245348,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "collapsed-alcove-open-v1724.webp": {
+      "sha256": "8e06fb4e711f1c6f0efb6fb3d2ea0bcdffb97057897809781e7d589311c98b0e",
+      "width": 1200,
+      "height": 900,
+      "bytes": 172660,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "collapsed-alcove-v1724.webp": {
+      "sha256": "2c35356d537b8b74b853d2ff7a8805975fad5102fe6802aa78be24fa767606d9",
+      "width": 1200,
+      "height": 900,
+      "bytes": 172946,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "east-road-v1724.webp": {
+      "sha256": "a262abb74da7a32856a6d7866fb357c66745cc8c144f1fdefd76448b17e94b56",
+      "width": 1200,
+      "height": 900,
+      "bytes": 294256,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "fallen-log-v1724.webp": {
+      "sha256": "4f806335a283e0b22714a9dba2404c32408ca2709a923eaa1207e3ac136d5571",
+      "width": 1200,
+      "height": 900,
+      "bytes": 306092,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "flower-clearing-day-v1790.webp": {
+      "sha256": "d87e118f54c6c148f50b69abe2b2131fbe566bbd3ecd5819993c40160114eab6",
+      "width": 1200,
+      "height": 900,
+      "bytes": 556178,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "forest-edge-v1724.webp": {
+      "sha256": "2da5f60637c0b87809541139bb4835e6d4829cc645e72f957e763d732261b772",
+      "width": 1200,
+      "height": 900,
+      "bytes": 331330,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "forge-door-v1724.webp": {
+      "sha256": "51f656ab70d5758970912f6eb2a6ba0cf9d74537de9d5b0e7a0522ba6d78f7ad",
+      "width": 1200,
+      "height": 900,
+      "bytes": 235700,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "forge-interior-v1724.webp": {
+      "sha256": "a96aee9a67d1adfee1ee01c14695f3a1c1983568380f7b5288f44799cf326912",
+      "width": 1200,
+      "height": 900,
+      "bytes": 67664,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "forge-lane-v1724.webp": {
+      "sha256": "8e5a586f313bf8891cd09824b140f013ecd3de27a9dfa3e3fd5a4f22631adb16",
+      "width": 1200,
+      "height": 900,
+      "bytes": 334288,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "hidden-passage-v1724.webp": {
+      "sha256": "b875b1301f65670c3f249e0ad85c0f4eefdc48042cec762b2898286e49484707",
+      "width": 1200,
+      "height": 900,
+      "bytes": 191648,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "ironthorn-gate-v1773.webp": {
+      "sha256": "c3e69899b56cbca5202d4b202dc6db293d4f9b45930f268267db8772eafbd71f",
+      "width": 1200,
+      "height": 900,
+      "bytes": 481368,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "kings-road-day-v1790.webp": {
+      "sha256": "4f7b594d4876d8ce52bb62c3664ae91eee580437a0b29382528adcff4cdc90e1",
+      "width": 1200,
+      "height": 900,
+      "bytes": 404818,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "moonfen-ferry-landing-v1724.webp": {
+      "sha256": "76cf31e98154f8a7e35a628585d9d5ae2de72cc96c84e157ae0a8a2e9fa7bad2",
+      "width": 1200,
+      "height": 900,
+      "bytes": 319828,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "moonfen-hut-exterior-day-v1790.webp": {
+      "sha256": "40a279c6992b4f7c276bba662fcabd036e08ba9bdea6690c6c10ed130e7e9e81",
+      "width": 1200,
+      "height": 900,
+      "bytes": 355922,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "moonfen-hut-interior-collected-v1790.webp": {
+      "sha256": "7a6a1104ca44a5969440e7d13b318fa4f168fa388428a0853c9962c3af5ece3f",
+      "width": 1200,
+      "height": 900,
+      "bytes": 268628,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "moonfen-hut-interior-v1724.webp": {
+      "sha256": "7cd162c58c6e052e90ad5d2f249821c86c89afbb935880945739eaa6d1fedeee",
+      "width": 1200,
+      "height": 900,
+      "bytes": 197352,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "moonwell-day-v1790.webp": {
+      "sha256": "f9e8953ee61d81266636b07812dbbbf4acfc73608ac00e378f0743a00c1f4fb1",
+      "width": 1200,
+      "height": 900,
+      "bytes": 475600,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "moonwell-free-v1790.webp": {
+      "sha256": "9b9fd62f1fa9f78dc009d6669407d1b73762f07e8623efbdb596b1c4b50e120d",
+      "width": 1200,
+      "height": 900,
+      "bytes": 273760,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "old-cemetery-day-v1790.webp": {
+      "sha256": "64d01477e9edd0edcc2ea5777e23de7a8dfa4428d4c942b40c411a801650dd38",
+      "width": 1200,
+      "height": 900,
+      "bytes": 199396,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "old-cemetery-v17923.webp": {
+      "sha256": "2b3ecaf76c55cc9a7beefa25ba724ccbafcee1eb07d5fbf8b991cb66ca5ff64c",
+      "width": 1200,
+      "height": 900,
+      "bytes": 156278,
+      "visual_status": "cinematic v1.7.9.2.3 semantic focus/alignment pass"
+    },
+    "outer-gate-approach-day-v1790.webp": {
+      "sha256": "8f60537cdf9b61c3815616779f26927f7f2e8a3e0865b3a25d02f87c2a724ae2",
+      "width": 1200,
+      "height": 900,
+      "bytes": 529468,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "square-v1724.webp": {
+      "sha256": "7c773e6d8ae30b47b99ab87a4a439131a1366cc06bad0c126fd0999a5fc24011",
+      "width": 1200,
+      "height": 900,
+      "bytes": 296502,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "square-v17922.webp": {
+      "sha256": "861b003c3acd8c65c48892704e15f3e25a544729eb67f0a6b097f61fe3a568e0",
+      "width": 1200,
+      "height": 900,
+      "bytes": 486356,
+      "visual_status": "cinematic v1.7.9.2.2 master retained in v1.7.9.2.3"
+    },
+    "tavern-approach-v1790.webp": {
+      "sha256": "473246f9623dfbeaac8709d7c5daa30dfa5b574acec2150b598d21b90f9cd9fb",
+      "width": 1200,
+      "height": 900,
+      "bytes": 509914,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "tavern-approach-v17922.webp": {
+      "sha256": "299529ebaa8c6a3c6d41bc6c0c4fde43e1a0aaf5de46736de8bde40aeedc3a48",
+      "width": 1200,
+      "height": 900,
+      "bytes": 417084,
+      "visual_status": "cinematic v1.7.9.2.2 master retained in v1.7.9.2.3"
+    },
+    "tavern-cellar-v1772.webp": {
+      "sha256": "749dd5375395b8f8eb5f83bf9d9b918accbcc273df7446a51edd3f21e9e33fc8",
+      "width": 1200,
+      "height": 900,
+      "bytes": 437682,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "tavern-center-v1772.webp": {
+      "sha256": "7d630c593fe76ccae589c64b407d0b75fe971f27ed3ef700be8b83ad1cb76918",
+      "width": 1200,
+      "height": 900,
+      "bytes": 439808,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "tavern-door-v1790.webp": {
+      "sha256": "0c76a08c76771bbefc4bd0be339bb9ad1a1a585ffa82fab1baa2ad69b7233f55",
+      "width": 1200,
+      "height": 900,
+      "bytes": 508666,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "tavern-door-v17924.webp": {
+      "sha256": "db5a31b4e709a66bff597d4d8fbdf33b552e82252de46ac46e6c2c72d4ecc3b3",
+      "width": 1200,
+      "height": 900,
+      "bytes": 219478,
+      "visual_status": "cinematic v1.7.9.2.4 tavern door semantic focus derived from approved exterior art"
+    },
+    "tavern-east-v1790.webp": {
+      "sha256": "3b8140212723e3771aacae03e769145588c73a30d8bd2417d1479a5a20d1d5dd",
+      "width": 1200,
+      "height": 900,
+      "bytes": 192348,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "tavern-east-v17923.webp": {
+      "sha256": "1f17ee7f9394ffaf30a07e979801375262595e7dae7dd7d864af1f76ab348bda",
+      "width": 1200,
+      "height": 900,
+      "bytes": 212950,
+      "visual_status": "cinematic v1.7.9.2.3 semantic focus/alignment pass"
+    },
+    "tavern-interior-v17922.webp": {
+      "sha256": "59a1539a932a927cda3101d845ccd5d289450cf1d37be99e74c09882ebe6e350",
+      "width": 1200,
+      "height": 900,
+      "bytes": 364896,
+      "visual_status": "cinematic v1.7.9.2.2 master retained in v1.7.9.2.3"
+    },
+    "tavern-north-v1790.webp": {
+      "sha256": "b25cd97b8f2dc0369a71d7c0ac523a2af8e543eb70c2db7cb8aad3a7891d2878",
+      "width": 1200,
+      "height": 900,
+      "bytes": 229482,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "tavern-north-v17923.webp": {
+      "sha256": "94cd018241c1b4960c9fd562792a129097b03d9c08e7eaae1e2a1bf191534040",
+      "width": 1200,
+      "height": 900,
+      "bytes": 231160,
+      "visual_status": "cinematic v1.7.9.2.3 semantic focus/alignment pass"
+    },
+    "tavern-south-v1790.webp": {
+      "sha256": "824e730ed6e0b011528c0b2b217300c38c9b1ddc008ffd763e2afce74f1e8bfe",
+      "width": 1200,
+      "height": 900,
+      "bytes": 205014,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "tavern-south-v17923.webp": {
+      "sha256": "d3ed2240023f1781275cbad9cbbdcbc92bf48589119c982645eb29ba8c2f11b4",
+      "width": 1200,
+      "height": 900,
+      "bytes": 216330,
+      "visual_status": "cinematic v1.7.9.2.3 semantic focus/alignment pass"
+    },
+    "tavern-west-v1790.webp": {
+      "sha256": "80fe7617a2bc4dae48a2a9688e83b5e58b1f16c9436067babc579b5391725750",
+      "width": 1200,
+      "height": 900,
+      "bytes": 236866,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "tavern-west-v17923.webp": {
+      "sha256": "2817320140195e54de16234dbdfbf730ded9873df7f59152d8e45ef5869a5bf1",
+      "width": 1200,
+      "height": 900,
+      "bytes": 199534,
+      "visual_status": "cinematic v1.7.9.2.3 semantic focus/alignment pass"
+    },
+    "thorn-hedge-pass-day-v1790.webp": {
+      "sha256": "3590584d0837528d767d09825d6f57da91252e958cbcff0c424d0075913f98b8",
+      "width": 1200,
+      "height": 900,
+      "bytes": 677754,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "whispering-forest-v1724.webp": {
+      "sha256": "4687ad03ce6c4503b5637291aa4a8f731f3b4205e41962fc5e2879c53f647d7b",
+      "width": 1200,
+      "height": 900,
+      "bytes": 331732,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "willow-trail-v1724.webp": {
+      "sha256": "63d4a0db5f86c2fc86fd04d5b61c714e679355d47edb174ebbf4ae0c97a04648",
+      "width": 1200,
+      "height": 900,
+      "bytes": 303148,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "witch-cottage-cellar-v1724.webp": {
+      "sha256": "7304fe5fa80c26987fe5f0a49b5bac59193beef086af6fdd795c25acde3e5904",
+      "width": 1200,
+      "height": 900,
+      "bytes": 194224,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "witch-cottage-exterior-v1724.webp": {
+      "sha256": "9bd7b205523027e86f0db260a810b58e9b594246fff524286afbc54cedc831ff",
+      "width": 1200,
+      "height": 900,
+      "bytes": 341568,
+      "visual_status": "retained compatibility/active scene"
+    },
+    "witch-cottage-interior-day-v1790.webp": {
+      "sha256": "205a8c032d41e935315e70886daf4cf608b6c528f1f6b93b25307ca08901aef6",
+      "width": 1200,
+      "height": 900,
+      "bytes": 327340,
+      "visual_status": "retained compatibility/active scene"
+    }
+  }
+}
