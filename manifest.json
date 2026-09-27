@@ -1,8 +1,8 @@
 {
   "name": "The Briar Crown",
   "short_name": "Briar Crown",
-  "description": "The Briar Crown mobile illustrated fantasy adventure, including the corrected visual item inspection modal, Rowan character continuity, and refreshed Ironthorn Gate artwork.",
-  "start_url": "./index.html?build=1773",
+  "description": "The Briar Crown mobile illustrated fantasy adventure: parallel typed and tapped exploration, consistent item effects, protected new-game state, and save import/export.",
+  "start_url": "./index.html?build=1791",
   "display": "standalone",
   "background_color": "#07070b",
   "theme_color": "#0b0912",
@@ -19,5 +19,5 @@
       "type": "image/png"
     }
   ],
-  "version": "1.7.7.3"
+  "version": "1.7.9.1"
 }

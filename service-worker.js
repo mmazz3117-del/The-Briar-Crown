@@ -1,8 +1,10 @@
-const CACHE = "briar-crown-v1.7.7.3-ironthorn-gate-item-inspect-hotfix";
+const CACHE = "briar-crown-v1.7.9.1-stabilization";
 const CORE_ASSETS = [
   "./",
   "./index.html",
   "./manifest.json",
+  "./release.json",
+  "./assets/items/manifest.json",
   "./icon-192.png",
   "./icon-512.png",
   "./assets/ui/satchel.png",
@@ -12,10 +14,10 @@ const CORE_ASSETS = [
   "./assets/ui/restless-skeleton-v1750.webp",
   "./assets/ui/thorn-hound-v1750.webp",
   "./assets/scenes/square-v1724.webp",
-  "./assets/scenes/production-manifest-v1729.json",
-  "./assets/scenes/thorn-hedge-pass-v1729.webp",
+  "./assets/scenes/production-manifest-v1791.json",
+  "./assets/scenes/thorn-hedge-pass-day-v1790.webp",
   "./assets/scenes/broken-watch-crossing-v1729.webp",
-  "./assets/scenes/outer-gate-approach-v1729.webp"
+  "./assets/scenes/outer-gate-approach-day-v1790.webp"
 ];
 
 self.addEventListener("install", event => {
@@ -24,7 +26,7 @@ self.addEventListener("install", event => {
 });
 
 self.addEventListener("activate", event => {
-  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key)))));
+  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key.startsWith("briar-crown-") && key !== CACHE).map(key => caches.delete(key)))));
   self.clients.claim();
 });
 
@@ -43,11 +45,11 @@ self.addEventListener("fetch", event => {
   }
   if (isPage) {
     event.respondWith(fetch(event.request, { cache: "no-store" }).then(response => {
-      const copy=response.clone(); caches.open(CACHE).then(cache=>cache.put("./index.html",copy)); return response;
+      if(response.ok){const copy=response.clone(); caches.open(CACHE).then(cache=>cache.put("./index.html",copy));} return response;
     }).catch(()=>caches.match("./index.html")));
     return;
   }
   event.respondWith(caches.match(event.request).then(cached => cached || fetch(event.request).then(response => {
-    const copy=response.clone(); caches.open(CACHE).then(cache=>cache.put(event.request,copy)); return response;
+    if(response.ok){const copy=response.clone(); caches.open(CACHE).then(cache=>cache.put(event.request,copy));} return response;
   })));
 });

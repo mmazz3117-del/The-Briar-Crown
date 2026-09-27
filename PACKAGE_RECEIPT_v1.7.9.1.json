@@ -1,0 +1,60 @@
+{
+  "version": "1.7.9.1",
+  "build": "1791",
+  "name": "Chapter One Cinematic Visual Polish",
+  "key_files": {
+    "index.html": {
+      "sha256": "2a458de0b09608c5e6ce445bcc5ee5b772b5988041d2621cbda6d7c4c2d520e3",
+      "bytes": 511176
+    },
+    "manifest.json": {
+      "sha256": "85e56c4935f2bf12dec3caa33c4b8888f5262540842038ae3d4fa314a6436650",
+      "bytes": 634
+    },
+    "service-worker.js": {
+      "sha256": "2abf827703f8253bc67076137974089adc96c7b762eb581a961c062dac17d99d",
+      "bytes": 2431
+    },
+    "release.json": {
+      "sha256": "dac1b1d131ed76b582e8df404e5d4aee09f77e85368d2df404da698d82a76ca4",
+      "bytes": 388
+    },
+    "assets/scenes/production-manifest-v1791.json": {
+      "sha256": "efd943c79a802c06956085860fac9eebf6e516b2e0347104379be5a2c79d9ac1",
+      "bytes": 10889
+    },
+    "assets/items/manifest.json": {
+      "sha256": "87ae573b613695be792cfc0ed86e21d619cd5f5619156dee2b2d2294213259bb",
+      "bytes": 6153
+    },
+    "qa/scene-review.json": {
+      "sha256": "d668731ec98d9ac764a519b670e6fd54e9a6e48c037b161991a99b3094b6ce99",
+      "bytes": 61500
+    },
+    "qa/run_cleanup_smoke.py": {
+      "sha256": "10275c13d65453125abc9a051a24850d57d48886e900eba2b3a5557eb4a17728",
+      "bytes": 10783
+    },
+    "qa/cleanup_retired.py": {
+      "sha256": "5edc65df9605b7bfbbd5061989a8c8164ab6c07e684cfe9be52b81c5598e26b4",
+      "bytes": 2983
+    },
+    "START-HERE_v1.7.9.1.txt": {
+      "sha256": "16b18cd00f3a9153f937a49314d774b956def6fa9edfbdb8668ec3f520318248",
+      "bytes": 675
+    },
+    "RELEASE_NOTES_v1.7.9.1.md": {
+      "sha256": "f94b12173efa057836c5502ccf15e51476f1aeff625c4499a7b7c1eaee5c5467",
+      "bytes": 824
+    }
+  },
+  "test_summary": {
+    "main_regression": "536/536",
+    "stabilization": "191/191",
+    "consistency": "119/119",
+    "visual_polish_smoke": "35/35",
+    "cleanup_safety": "9/9",
+    "release_integrity": "16/16",
+    "class_ending_journeys": "12/12"
+  }
+}

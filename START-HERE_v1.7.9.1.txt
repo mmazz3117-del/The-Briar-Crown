@@ -1,0 +1,10 @@
+THE BRIAR CROWN v1.7.9.1 — FULL GITHUB UPLOAD
+
+1. Upload the COMPLETE contents of this ZIP to the existing repository, preserving folders.
+2. Do not upload index.html by itself.
+3. Do not clear browser/site data.
+4. Confirm the game reports Version 1.7.9.1.
+5. Continue an existing save, then Export Save before deliberately testing New Adventure.
+6. On iPhone/Home Screen, smoke-test portrait + landscape, command Enter + send button, save/reload, and one hotspot in each newly polished state scene.
+
+Visual baseline: cinematic illustrated fantasy, dimensional lighting/materials, consistent Rowan, daylight above ground unless story context explicitly requires darkness.
