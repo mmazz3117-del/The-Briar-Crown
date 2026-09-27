@@ -1,0 +1,617 @@
+The Briar Crown v1.7.9.2.4 QA Report
+Passed: 614/614
+
+[PASS] version:index
+[PASS] version:manifest — 1.7.9.2.4
+[PASS] version:cache
+[PASS] qa:portable-root
+[PASS] menu:scene-test-button
+[PASS] map:illustrated-asset
+[PASS] map:illustrated-renderer
+[PASS] assets:all-app-references-exist
+[PASS] service-worker:all-precache-files-exist
+[PASS] assets:production-manifest — 1.7.9.2.4
+[PASS] asset:apothecary-approach-v1724.webp:exists
+[PASS] asset:apothecary-approach-v1724.webp:checksum
+[PASS] asset:apothecary-approach-v1724.webp:dimensions — (1200, 900)
+[PASS] asset:apothecary-approach-v1724.webp:no-flat-letterbox — 6986.1/2516.6
+[PASS] asset:apothecary-approach-v1724.webp:mobile-size — 310976
+[PASS] asset:apothecary-approach-v1724.webp:decodes
+[PASS] asset:apothecary-back-room-v1724.webp:exists
+[PASS] asset:apothecary-back-room-v1724.webp:checksum
+[PASS] asset:apothecary-back-room-v1724.webp:dimensions — (1200, 900)
+[PASS] asset:apothecary-back-room-v1724.webp:no-flat-letterbox — 633.3/331.1
+[PASS] asset:apothecary-back-room-v1724.webp:mobile-size — 232446
+[PASS] asset:apothecary-back-room-v1724.webp:decodes
+[PASS] asset:apothecary-center-v1724.webp:exists
+[PASS] asset:apothecary-center-v1724.webp:checksum
+[PASS] asset:apothecary-center-v1724.webp:dimensions — (1200, 900)
+[PASS] asset:apothecary-center-v1724.webp:no-flat-letterbox — 663.2/361.9
+[PASS] asset:apothecary-center-v1724.webp:mobile-size — 206432
+[PASS] asset:apothecary-center-v1724.webp:decodes
+[PASS] asset:apothecary-door-v1724.webp:exists
+[PASS] asset:apothecary-door-v1724.webp:checksum
+[PASS] asset:apothecary-door-v1724.webp:dimensions — (1200, 900)
+[PASS] asset:apothecary-door-v1724.webp:no-flat-letterbox — 481.7/3010.0
+[PASS] asset:apothecary-door-v1724.webp:mobile-size — 197842
+[PASS] asset:apothecary-door-v1724.webp:decodes
+[PASS] asset:apothecary-east-v1724.webp:exists
+[PASS] asset:apothecary-east-v1724.webp:checksum
+[PASS] asset:apothecary-east-v1724.webp:dimensions — (1200, 900)
+[PASS] asset:apothecary-east-v1724.webp:no-flat-letterbox — 1252.4/1190.9
+[PASS] asset:apothecary-east-v1724.webp:mobile-size — 149022
+[PASS] asset:apothecary-east-v1724.webp:decodes
+[PASS] asset:apothecary-north-v1724.webp:exists
+[PASS] asset:apothecary-north-v1724.webp:checksum
+[PASS] asset:apothecary-north-v1724.webp:dimensions — (1200, 900)
+[PASS] asset:apothecary-north-v1724.webp:no-flat-letterbox — 601.2/1038.6
+[PASS] asset:apothecary-north-v1724.webp:mobile-size — 176544
+[PASS] asset:apothecary-north-v1724.webp:decodes
+[PASS] asset:apothecary-south-v1724.webp:exists
+[PASS] asset:apothecary-south-v1724.webp:checksum
+[PASS] asset:apothecary-south-v1724.webp:dimensions — (1200, 900)
+[PASS] asset:apothecary-south-v1724.webp:no-flat-letterbox — 1790.2/986.7
+[PASS] asset:apothecary-south-v1724.webp:mobile-size — 215870
+[PASS] asset:apothecary-south-v1724.webp:decodes
+[PASS] asset:apothecary-west-v1724.webp:exists
+[PASS] asset:apothecary-west-v1724.webp:checksum
+[PASS] asset:apothecary-west-v1724.webp:dimensions — (1200, 900)
+[PASS] asset:apothecary-west-v1724.webp:no-flat-letterbox — 3134.3/602.2
+[PASS] asset:apothecary-west-v1724.webp:mobile-size — 164584
+[PASS] asset:apothecary-west-v1724.webp:decodes
+[PASS] asset:broken-watch-crossing-v1729.webp:exists
+[PASS] asset:broken-watch-crossing-v1729.webp:checksum
+[PASS] asset:broken-watch-crossing-v1729.webp:dimensions — (1200, 900)
+[PASS] asset:broken-watch-crossing-v1729.webp:no-flat-letterbox — 4779.6/1111.5
+[PASS] asset:broken-watch-crossing-v1729.webp:mobile-size — 545760
+[PASS] asset:broken-watch-crossing-v1729.webp:decodes
+[PASS] asset:chapel-approach-day-v1790.webp:exists
+[PASS] asset:chapel-approach-day-v1790.webp:checksum
+[PASS] asset:chapel-approach-day-v1790.webp:dimensions — (1200, 900)
+[PASS] asset:chapel-approach-day-v1790.webp:no-flat-letterbox — 1951.8/3499.2
+[PASS] asset:chapel-approach-day-v1790.webp:mobile-size — 408392
+[PASS] asset:chapel-approach-day-v1790.webp:decodes
+[PASS] asset:chapel-approach-v17923.webp:exists
+[PASS] asset:chapel-approach-v17923.webp:checksum
+[PASS] asset:chapel-approach-v17923.webp:dimensions — (1200, 900)
+[PASS] asset:chapel-approach-v17923.webp:no-flat-letterbox — 4658.0/3364.4
+[PASS] asset:chapel-approach-v17923.webp:mobile-size — 243864
+[PASS] asset:chapel-approach-v17923.webp:decodes
+[PASS] asset:chapel-crypt-v1724.webp:exists
+[PASS] asset:chapel-crypt-v1724.webp:checksum
+[PASS] asset:chapel-crypt-v1724.webp:dimensions — (1200, 900)
+[PASS] asset:chapel-crypt-v1724.webp:no-flat-letterbox — 184.6/572.9
+[PASS] asset:chapel-crypt-v1724.webp:mobile-size — 224456
+[PASS] asset:chapel-crypt-v1724.webp:decodes
+[PASS] asset:chapel-interior-v1790.webp:exists
+[PASS] asset:chapel-interior-v1790.webp:checksum
+[PASS] asset:chapel-interior-v1790.webp:dimensions — (1200, 900)
+[PASS] asset:chapel-interior-v1790.webp:no-flat-letterbox — 3453.1/4536.7
+[PASS] asset:chapel-interior-v1790.webp:mobile-size — 248920
+[PASS] asset:chapel-interior-v1790.webp:decodes
+[PASS] asset:chapel-interior-v17922.webp:exists
+[PASS] asset:chapel-interior-v17922.webp:checksum
+[PASS] asset:chapel-interior-v17922.webp:dimensions — (1200, 900)
+[PASS] asset:chapel-interior-v17922.webp:no-flat-letterbox — 1832.4/4172.6
+[PASS] asset:chapel-interior-v17922.webp:mobile-size — 352676
+[PASS] asset:chapel-interior-v17922.webp:decodes
+[PASS] asset:chapel-road-day-v1790.webp:exists
+[PASS] asset:chapel-road-day-v1790.webp:checksum
+[PASS] asset:chapel-road-day-v1790.webp:dimensions — (1200, 900)
+[PASS] asset:chapel-road-day-v1790.webp:no-flat-letterbox — 3307.0/2054.9
+[PASS] asset:chapel-road-day-v1790.webp:mobile-size — 446786
+[PASS] asset:chapel-road-day-v1790.webp:decodes
+[PASS] asset:chapel-route-v17922.webp:exists
+[PASS] asset:chapel-route-v17922.webp:checksum
+[PASS] asset:chapel-route-v17922.webp:dimensions — (1200, 900)
+[PASS] asset:chapel-route-v17922.webp:no-flat-letterbox — 5281.3/2589.7
+[PASS] asset:chapel-route-v17922.webp:mobile-size — 445928
+[PASS] asset:chapel-route-v17922.webp:decodes
+[PASS] asset:chapel-yard-day-v1790.webp:exists
+[PASS] asset:chapel-yard-day-v1790.webp:checksum
+[PASS] asset:chapel-yard-day-v1790.webp:dimensions — (1200, 900)
+[PASS] asset:chapel-yard-day-v1790.webp:no-flat-letterbox — 3905.6/2556.5
+[PASS] asset:chapel-yard-day-v1790.webp:mobile-size — 458120
+[PASS] asset:chapel-yard-day-v1790.webp:decodes
+[PASS] asset:chapel-yard-v17923.webp:exists
+[PASS] asset:chapel-yard-v17923.webp:checksum
+[PASS] asset:chapel-yard-v17923.webp:dimensions — (1200, 900)
+[PASS] asset:chapel-yard-v17923.webp:no-flat-letterbox — 4777.1/3787.2
+[PASS] asset:chapel-yard-v17923.webp:mobile-size — 330998
+[PASS] asset:chapel-yard-v17923.webp:decodes
+[PASS] asset:collapsed-alcove-empty-v1790.webp:exists
+[PASS] asset:collapsed-alcove-empty-v1790.webp:checksum
+[PASS] asset:collapsed-alcove-empty-v1790.webp:dimensions — (1200, 900)
+[PASS] asset:collapsed-alcove-empty-v1790.webp:no-flat-letterbox — 744.9/238.0
+[PASS] asset:collapsed-alcove-empty-v1790.webp:mobile-size — 245348
+[PASS] asset:collapsed-alcove-empty-v1790.webp:decodes
+[PASS] asset:collapsed-alcove-open-v1724.webp:exists
+[PASS] asset:collapsed-alcove-open-v1724.webp:checksum
+[PASS] asset:collapsed-alcove-open-v1724.webp:dimensions — (1200, 900)
+[PASS] asset:collapsed-alcove-open-v1724.webp:no-flat-letterbox — 752.3/240.7
+[PASS] asset:collapsed-alcove-open-v1724.webp:mobile-size — 172660
+[PASS] asset:collapsed-alcove-open-v1724.webp:decodes
+[PASS] asset:collapsed-alcove-v1724.webp:exists
+[PASS] asset:collapsed-alcove-v1724.webp:checksum
+[PASS] asset:collapsed-alcove-v1724.webp:dimensions — (1200, 900)
+[PASS] asset:collapsed-alcove-v1724.webp:no-flat-letterbox — 750.7/239.1
+[PASS] asset:collapsed-alcove-v1724.webp:mobile-size — 172946
+[PASS] asset:collapsed-alcove-v1724.webp:decodes
+[PASS] asset:east-road-v1724.webp:exists
+[PASS] asset:east-road-v1724.webp:checksum
+[PASS] asset:east-road-v1724.webp:dimensions — (1200, 900)
+[PASS] asset:east-road-v1724.webp:no-flat-letterbox — 7448.9/1294.1
+[PASS] asset:east-road-v1724.webp:mobile-size — 294256
+[PASS] asset:east-road-v1724.webp:decodes
+[PASS] asset:fallen-log-v1724.webp:exists
+[PASS] asset:fallen-log-v1724.webp:checksum
+[PASS] asset:fallen-log-v1724.webp:dimensions — (1200, 900)
+[PASS] asset:fallen-log-v1724.webp:no-flat-letterbox — 5631.8/1780.0
+[PASS] asset:fallen-log-v1724.webp:mobile-size — 306092
+[PASS] asset:fallen-log-v1724.webp:decodes
+[PASS] asset:flower-clearing-day-v1790.webp:exists
+[PASS] asset:flower-clearing-day-v1790.webp:checksum
+[PASS] asset:flower-clearing-day-v1790.webp:dimensions — (1200, 900)
+[PASS] asset:flower-clearing-day-v1790.webp:no-flat-letterbox — 3833.9/2643.5
+[PASS] asset:flower-clearing-day-v1790.webp:mobile-size — 556178
+[PASS] asset:flower-clearing-day-v1790.webp:decodes
+[PASS] asset:forest-edge-v1724.webp:exists
+[PASS] asset:forest-edge-v1724.webp:checksum
+[PASS] asset:forest-edge-v1724.webp:dimensions — (1200, 900)
+[PASS] asset:forest-edge-v1724.webp:no-flat-letterbox — 3920.5/1463.4
+[PASS] asset:forest-edge-v1724.webp:mobile-size — 331330
+[PASS] asset:forest-edge-v1724.webp:decodes
+[PASS] asset:forge-door-v1724.webp:exists
+[PASS] asset:forge-door-v1724.webp:checksum
+[PASS] asset:forge-door-v1724.webp:dimensions — (1200, 900)
+[PASS] asset:forge-door-v1724.webp:no-flat-letterbox — 741.9/3435.7
+[PASS] asset:forge-door-v1724.webp:mobile-size — 235700
+[PASS] asset:forge-door-v1724.webp:decodes
+[PASS] asset:forge-interior-v1724.webp:exists
+[PASS] asset:forge-interior-v1724.webp:checksum
+[PASS] asset:forge-interior-v1724.webp:dimensions — (1200, 900)
+[PASS] asset:forge-interior-v1724.webp:no-flat-letterbox — 1688.7/186.5
+[PASS] asset:forge-interior-v1724.webp:mobile-size — 67664
+[PASS] asset:forge-interior-v1724.webp:decodes
+[PASS] asset:forge-lane-v1724.webp:exists
+[PASS] asset:forge-lane-v1724.webp:checksum
+[PASS] asset:forge-lane-v1724.webp:dimensions — (1200, 900)
+[PASS] asset:forge-lane-v1724.webp:no-flat-letterbox — 5063.2/2229.7
+[PASS] asset:forge-lane-v1724.webp:mobile-size — 334288
+[PASS] asset:forge-lane-v1724.webp:decodes
+[PASS] asset:hidden-passage-v1724.webp:exists
+[PASS] asset:hidden-passage-v1724.webp:checksum
+[PASS] asset:hidden-passage-v1724.webp:dimensions — (1200, 900)
+[PASS] asset:hidden-passage-v1724.webp:no-flat-letterbox — 247.4/630.0
+[PASS] asset:hidden-passage-v1724.webp:mobile-size — 191648
+[PASS] asset:hidden-passage-v1724.webp:decodes
+[PASS] asset:ironthorn-gate-v1773.webp:exists
+[PASS] asset:ironthorn-gate-v1773.webp:checksum
+[PASS] asset:ironthorn-gate-v1773.webp:dimensions — (1200, 900)
+[PASS] asset:ironthorn-gate-v1773.webp:no-flat-letterbox — 4337.8/2897.1
+[PASS] asset:ironthorn-gate-v1773.webp:mobile-size — 481368
+[PASS] asset:ironthorn-gate-v1773.webp:decodes
+[PASS] asset:kings-road-day-v1790.webp:exists
+[PASS] asset:kings-road-day-v1790.webp:checksum
+[PASS] asset:kings-road-day-v1790.webp:dimensions — (1200, 900)
+[PASS] asset:kings-road-day-v1790.webp:no-flat-letterbox — 4643.8/1523.2
+[PASS] asset:kings-road-day-v1790.webp:mobile-size — 404818
+[PASS] asset:kings-road-day-v1790.webp:decodes
+[PASS] asset:moonfen-ferry-landing-v1724.webp:exists
+[PASS] asset:moonfen-ferry-landing-v1724.webp:checksum
+[PASS] asset:moonfen-ferry-landing-v1724.webp:dimensions — (1200, 900)
+[PASS] asset:moonfen-ferry-landing-v1724.webp:no-flat-letterbox — 5219.5/1040.4
+[PASS] asset:moonfen-ferry-landing-v1724.webp:mobile-size — 319828
+[PASS] asset:moonfen-ferry-landing-v1724.webp:decodes
+[PASS] asset:moonfen-hut-exterior-day-v1790.webp:exists
+[PASS] asset:moonfen-hut-exterior-day-v1790.webp:checksum
+[PASS] asset:moonfen-hut-exterior-day-v1790.webp:dimensions — (1200, 900)
+[PASS] asset:moonfen-hut-exterior-day-v1790.webp:no-flat-letterbox — 603.5/1737.5
+[PASS] asset:moonfen-hut-exterior-day-v1790.webp:mobile-size — 355922
+[PASS] asset:moonfen-hut-exterior-day-v1790.webp:decodes
+[PASS] asset:moonfen-hut-interior-collected-v1790.webp:exists
+[PASS] asset:moonfen-hut-interior-collected-v1790.webp:checksum
+[PASS] asset:moonfen-hut-interior-collected-v1790.webp:dimensions — (1200, 900)
+[PASS] asset:moonfen-hut-interior-collected-v1790.webp:no-flat-letterbox — 263.5/446.2
+[PASS] asset:moonfen-hut-interior-collected-v1790.webp:mobile-size — 268628
+[PASS] asset:moonfen-hut-interior-collected-v1790.webp:decodes
+[PASS] asset:moonfen-hut-interior-v1724.webp:exists
+[PASS] asset:moonfen-hut-interior-v1724.webp:checksum
+[PASS] asset:moonfen-hut-interior-v1724.webp:dimensions — (1200, 900)
+[PASS] asset:moonfen-hut-interior-v1724.webp:no-flat-letterbox — 267.2/450.0
+[PASS] asset:moonfen-hut-interior-v1724.webp:mobile-size — 197352
+[PASS] asset:moonfen-hut-interior-v1724.webp:decodes
+[PASS] asset:moonwell-day-v1790.webp:exists
+[PASS] asset:moonwell-day-v1790.webp:checksum
+[PASS] asset:moonwell-day-v1790.webp:dimensions — (1200, 900)
+[PASS] asset:moonwell-day-v1790.webp:no-flat-letterbox — 3331.2/2518.1
+[PASS] asset:moonwell-day-v1790.webp:mobile-size — 475600
+[PASS] asset:moonwell-day-v1790.webp:decodes
+[PASS] asset:moonwell-free-v1790.webp:exists
+[PASS] asset:moonwell-free-v1790.webp:checksum
+[PASS] asset:moonwell-free-v1790.webp:dimensions — (1200, 900)
+[PASS] asset:moonwell-free-v1790.webp:no-flat-letterbox — 3004.0/3133.3
+[PASS] asset:moonwell-free-v1790.webp:mobile-size — 273760
+[PASS] asset:moonwell-free-v1790.webp:decodes
+[PASS] asset:old-cemetery-day-v1790.webp:exists
+[PASS] asset:old-cemetery-day-v1790.webp:checksum
+[PASS] asset:old-cemetery-day-v1790.webp:dimensions — (1200, 900)
+[PASS] asset:old-cemetery-day-v1790.webp:no-flat-letterbox — 5932.9/1259.5
+[PASS] asset:old-cemetery-day-v1790.webp:mobile-size — 199396
+[PASS] asset:old-cemetery-day-v1790.webp:decodes
+[PASS] asset:old-cemetery-v17923.webp:exists
+[PASS] asset:old-cemetery-v17923.webp:checksum
+[PASS] asset:old-cemetery-v17923.webp:dimensions — (1200, 900)
+[PASS] asset:old-cemetery-v17923.webp:no-flat-letterbox — 5640.9/1586.3
+[PASS] asset:old-cemetery-v17923.webp:mobile-size — 156278
+[PASS] asset:old-cemetery-v17923.webp:decodes
+[PASS] asset:outer-gate-approach-day-v1790.webp:exists
+[PASS] asset:outer-gate-approach-day-v1790.webp:checksum
+[PASS] asset:outer-gate-approach-day-v1790.webp:dimensions — (1200, 900)
+[PASS] asset:outer-gate-approach-day-v1790.webp:no-flat-letterbox — 1231.6/3290.6
+[PASS] asset:outer-gate-approach-day-v1790.webp:mobile-size — 529468
+[PASS] asset:outer-gate-approach-day-v1790.webp:decodes
+[PASS] asset:square-v1724.webp:exists
+[PASS] asset:square-v1724.webp:checksum
+[PASS] asset:square-v1724.webp:dimensions — (1200, 900)
+[PASS] asset:square-v1724.webp:no-flat-letterbox — 5452.7/2865.1
+[PASS] asset:square-v1724.webp:mobile-size — 296502
+[PASS] asset:square-v1724.webp:decodes
+[PASS] asset:square-v17922.webp:exists
+[PASS] asset:square-v17922.webp:checksum
+[PASS] asset:square-v17922.webp:dimensions — (1200, 900)
+[PASS] asset:square-v17922.webp:no-flat-letterbox — 5921.8/3753.7
+[PASS] asset:square-v17922.webp:mobile-size — 486356
+[PASS] asset:square-v17922.webp:decodes
+[PASS] asset:tavern-approach-v1790.webp:exists
+[PASS] asset:tavern-approach-v1790.webp:checksum
+[PASS] asset:tavern-approach-v1790.webp:dimensions — (1200, 900)
+[PASS] asset:tavern-approach-v1790.webp:no-flat-letterbox — 5303.7/4036.3
+[PASS] asset:tavern-approach-v1790.webp:mobile-size — 509914
+[PASS] asset:tavern-approach-v1790.webp:decodes
+[PASS] asset:tavern-approach-v17922.webp:exists
+[PASS] asset:tavern-approach-v17922.webp:checksum
+[PASS] asset:tavern-approach-v17922.webp:dimensions — (1200, 900)
+[PASS] asset:tavern-approach-v17922.webp:no-flat-letterbox — 5661.6/4081.0
+[PASS] asset:tavern-approach-v17922.webp:mobile-size — 417084
+[PASS] asset:tavern-approach-v17922.webp:decodes
+[PASS] asset:tavern-cellar-v1772.webp:exists
+[PASS] asset:tavern-cellar-v1772.webp:checksum
+[PASS] asset:tavern-cellar-v1772.webp:dimensions — (1200, 900)
+[PASS] asset:tavern-cellar-v1772.webp:no-flat-letterbox — 219.3/341.5
+[PASS] asset:tavern-cellar-v1772.webp:mobile-size — 437682
+[PASS] asset:tavern-cellar-v1772.webp:decodes
+[PASS] asset:tavern-center-v1772.webp:exists
+[PASS] asset:tavern-center-v1772.webp:checksum
+[PASS] asset:tavern-center-v1772.webp:dimensions — (1200, 900)
+[PASS] asset:tavern-center-v1772.webp:no-flat-letterbox — 303.9/381.6
+[PASS] asset:tavern-center-v1772.webp:mobile-size — 439808
+[PASS] asset:tavern-center-v1772.webp:decodes
+[PASS] asset:tavern-door-v1790.webp:exists
+[PASS] asset:tavern-door-v1790.webp:checksum
+[PASS] asset:tavern-door-v1790.webp:dimensions — (1200, 900)
+[PASS] asset:tavern-door-v1790.webp:no-flat-letterbox — 5935.7/4067.1
+[PASS] asset:tavern-door-v1790.webp:mobile-size — 508666
+[PASS] asset:tavern-door-v1790.webp:decodes
+[PASS] asset:tavern-door-v17924.webp:exists
+[PASS] asset:tavern-door-v17924.webp:checksum
+[PASS] asset:tavern-door-v17924.webp:dimensions — (1200, 900)
+[PASS] asset:tavern-door-v17924.webp:no-flat-letterbox — 2803.0/2801.5
+[PASS] asset:tavern-door-v17924.webp:mobile-size — 219478
+[PASS] asset:tavern-door-v17924.webp:decodes
+[PASS] asset:tavern-east-v1790.webp:exists
+[PASS] asset:tavern-east-v1790.webp:checksum
+[PASS] asset:tavern-east-v1790.webp:dimensions — (1200, 900)
+[PASS] asset:tavern-east-v1790.webp:no-flat-letterbox — 2005.7/2235.5
+[PASS] asset:tavern-east-v1790.webp:mobile-size — 192348
+[PASS] asset:tavern-east-v1790.webp:decodes
+[PASS] asset:tavern-east-v17923.webp:exists
+[PASS] asset:tavern-east-v17923.webp:checksum
+[PASS] asset:tavern-east-v17923.webp:dimensions — (1200, 900)
+[PASS] asset:tavern-east-v17923.webp:no-flat-letterbox — 3111.2/1527.9
+[PASS] asset:tavern-east-v17923.webp:mobile-size — 212950
+[PASS] asset:tavern-east-v17923.webp:decodes
+[PASS] asset:tavern-interior-v17922.webp:exists
+[PASS] asset:tavern-interior-v17922.webp:checksum
+[PASS] asset:tavern-interior-v17922.webp:dimensions — (1200, 900)
+[PASS] asset:tavern-interior-v17922.webp:no-flat-letterbox — 1136.0/3905.5
+[PASS] asset:tavern-interior-v17922.webp:mobile-size — 364896
+[PASS] asset:tavern-interior-v17922.webp:decodes
+[PASS] asset:tavern-north-v1790.webp:exists
+[PASS] asset:tavern-north-v1790.webp:checksum
+[PASS] asset:tavern-north-v1790.webp:dimensions — (1200, 900)
+[PASS] asset:tavern-north-v1790.webp:no-flat-letterbox — 423.6/1150.1
+[PASS] asset:tavern-north-v1790.webp:mobile-size — 229482
+[PASS] asset:tavern-north-v1790.webp:decodes
+[PASS] asset:tavern-north-v17923.webp:exists
+[PASS] asset:tavern-north-v17923.webp:checksum
+[PASS] asset:tavern-north-v17923.webp:dimensions — (1200, 900)
+[PASS] asset:tavern-north-v17923.webp:no-flat-letterbox — 2204.4/1971.4
+[PASS] asset:tavern-north-v17923.webp:mobile-size — 231160
+[PASS] asset:tavern-north-v17923.webp:decodes
+[PASS] asset:tavern-south-v1790.webp:exists
+[PASS] asset:tavern-south-v1790.webp:checksum
+[PASS] asset:tavern-south-v1790.webp:dimensions — (1200, 900)
+[PASS] asset:tavern-south-v1790.webp:no-flat-letterbox — 1969.2/1182.0
+[PASS] asset:tavern-south-v1790.webp:mobile-size — 205014
+[PASS] asset:tavern-south-v1790.webp:decodes
+[PASS] asset:tavern-south-v17923.webp:exists
+[PASS] asset:tavern-south-v17923.webp:checksum
+[PASS] asset:tavern-south-v17923.webp:dimensions — (1200, 900)
+[PASS] asset:tavern-south-v17923.webp:no-flat-letterbox — 2801.7/5757.3
+[PASS] asset:tavern-south-v17923.webp:mobile-size — 216330
+[PASS] asset:tavern-south-v17923.webp:decodes
+[PASS] asset:tavern-west-v1790.webp:exists
+[PASS] asset:tavern-west-v1790.webp:checksum
+[PASS] asset:tavern-west-v1790.webp:dimensions — (1200, 900)
+[PASS] asset:tavern-west-v1790.webp:no-flat-letterbox — 469.1/1211.5
+[PASS] asset:tavern-west-v1790.webp:mobile-size — 236866
+[PASS] asset:tavern-west-v1790.webp:decodes
+[PASS] asset:tavern-west-v17923.webp:exists
+[PASS] asset:tavern-west-v17923.webp:checksum
+[PASS] asset:tavern-west-v17923.webp:dimensions — (1200, 900)
+[PASS] asset:tavern-west-v17923.webp:no-flat-letterbox — 2582.9/1437.6
+[PASS] asset:tavern-west-v17923.webp:mobile-size — 199534
+[PASS] asset:tavern-west-v17923.webp:decodes
+[PASS] asset:thorn-hedge-pass-day-v1790.webp:exists
+[PASS] asset:thorn-hedge-pass-day-v1790.webp:checksum
+[PASS] asset:thorn-hedge-pass-day-v1790.webp:dimensions — (1200, 900)
+[PASS] asset:thorn-hedge-pass-day-v1790.webp:no-flat-letterbox — 3619.4/3269.4
+[PASS] asset:thorn-hedge-pass-day-v1790.webp:mobile-size — 677754
+[PASS] asset:thorn-hedge-pass-day-v1790.webp:decodes
+[PASS] asset:whispering-forest-v1724.webp:exists
+[PASS] asset:whispering-forest-v1724.webp:checksum
+[PASS] asset:whispering-forest-v1724.webp:dimensions — (1200, 900)
+[PASS] asset:whispering-forest-v1724.webp:no-flat-letterbox — 1574.9/1228.7
+[PASS] asset:whispering-forest-v1724.webp:mobile-size — 331732
+[PASS] asset:whispering-forest-v1724.webp:decodes
+[PASS] asset:willow-trail-v1724.webp:exists
+[PASS] asset:willow-trail-v1724.webp:checksum
+[PASS] asset:willow-trail-v1724.webp:dimensions — (1200, 900)
+[PASS] asset:willow-trail-v1724.webp:no-flat-letterbox — 3246.9/1910.1
+[PASS] asset:willow-trail-v1724.webp:mobile-size — 303148
+[PASS] asset:willow-trail-v1724.webp:decodes
+[PASS] asset:witch-cottage-cellar-v1724.webp:exists
+[PASS] asset:witch-cottage-cellar-v1724.webp:checksum
+[PASS] asset:witch-cottage-cellar-v1724.webp:dimensions — (1200, 900)
+[PASS] asset:witch-cottage-cellar-v1724.webp:no-flat-letterbox — 168.6/189.1
+[PASS] asset:witch-cottage-cellar-v1724.webp:mobile-size — 194224
+[PASS] asset:witch-cottage-cellar-v1724.webp:decodes
+[PASS] asset:witch-cottage-exterior-v1724.webp:exists
+[PASS] asset:witch-cottage-exterior-v1724.webp:checksum
+[PASS] asset:witch-cottage-exterior-v1724.webp:dimensions — (1200, 900)
+[PASS] asset:witch-cottage-exterior-v1724.webp:no-flat-letterbox — 5653.5/2504.9
+[PASS] asset:witch-cottage-exterior-v1724.webp:mobile-size — 341568
+[PASS] asset:witch-cottage-exterior-v1724.webp:decodes
+[PASS] asset:witch-cottage-interior-day-v1790.webp:exists
+[PASS] asset:witch-cottage-interior-day-v1790.webp:checksum
+[PASS] asset:witch-cottage-interior-day-v1790.webp:dimensions — (1200, 900)
+[PASS] asset:witch-cottage-interior-day-v1790.webp:no-flat-letterbox — 763.5/809.0
+[PASS] asset:witch-cottage-interior-day-v1790.webp:mobile-size — 327340
+[PASS] asset:witch-cottage-interior-day-v1790.webp:decodes
+[PASS] asset-map:square
+[PASS] asset-map:forgeLane
+[PASS] asset-map:chapelRoad
+[PASS] asset-map:willowTrail
+[PASS] asset-map:flowerClearing
+[PASS] asset-map:fallenLog
+[PASS] asset-map:cottage
+[PASS] asset-map:moonwell
+[PASS] asset-map:secretTunnel
+[PASS] asset-map:secretAlcove
+[PASS] asset-map:thornHedgePass
+[PASS] asset-map:brokenWatchCrossing
+[PASS] asset-map:outerGateApproach
+[PASS] browser:no-page-errors
+[PASS] ui:map-top-button
+[PASS] ui:satchel-label
+[PASS] zoom:page-pinch-disabled — width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content
+[PASS] ui:no-visible-scene-marker-badges
+[PASS] doors:apothecary-art-state — ['ring bell', 'enter apothecary', 'go west']
+[PASS] doors:forge-art-state — ['enter forge', 'look inside window', 'go south']
+[PASS] hotspots:chapel-aligned — {'label': 'Chapel', 'command': 'approach chapel', 'x': 62, 'y': 38, 'w': 45, 'h': 68}
+[PASS] actions:alcove-rubble-visible — ['go west', 'look at blocked arch', 'inspect cracked wall', 'search loose stone', 'try to move rubble', 'look at collapsed rubble', 'search cracked wall']
+[PASS] map:zoom-controls
+[PASS] map:current-location-marker
+[PASS] map:full-screen-viewer
+[PASS] map:no-crossing-overlay-lines
+[PASS] opening:art-present
+[PASS] opening:version-visible
+[PASS] opening:animated-scroll-structure
+[PASS] opening:hidden-step-isolation-css
+[PASS] opening:lore-only-visible
+[PASS] opening:scroll-rolls-visible
+[PASS] opening:hero-only-visible
+[PASS] opening:hero-screen-fills-mobile — {'top': 0, 'bottom': 932, 'h': 932, 'scroll': 1265, 'inner': 932}
+[PASS] opening:hero-cards-interactive
+[PASS] navigation:four-way-hub — {'north': 'tavernApproach', 'east': 'forgeLane', 'south': 'castleRoad', 'west': 'chapelRoad'}
+[PASS] navigation:named-action-labels
+[PASS] tavern:hatch-dynamic-label
+[PASS] tavern:hatch-progress-repair
+[PASS] map:close-safe-area
+[PASS] ui:command-dock-uses-visual-viewport
+[PASS] ui:viewport-height-fills-standalone
+[PASS] ui:orientation-multipass-settle
+[PASS] ui:orientation-forced-reflow
+[PASS] keyboard:visual-viewport-dock
+[PASS] d20:animated-check-dialog
+[PASS] combat:prototype-present
+[PASS] v1750:actions-collapsed-default
+[PASS] v1750:navigation-hidden-default
+[PASS] v1750:navigation-toggle
+[PASS] v1750:nearby-fallback
+[PASS] v1750:look-reveal
+[PASS] v1750:first-time-tutorial
+[PASS] v1750:encounter-card
+[PASS] v1750:creature-art-assets
+[PASS] v1750:healing-rewards
+[PASS] v1750:gold-reward-visual
+[PASS] v1751:no-flicker-scene-key
+[PASS] v1751:combat-portrait-crop
+[PASS] v1760:contextual-command-parser
+[PASS] v1760:command-tutorial
+[PASS] v1760:combined-hotfix-preserved
+[PASS] v1761:typed-command-clears-input
+[PASS] v1770:send-button-mobile-clear
+[PASS] combat:required-actions
+[PASS] combat:emergency-retreat-control
+[PASS] combat:finally-cleanup
+[PASS] combat:resume-pending-state
+[PASS] skills:unique-combat-practice
+[PASS] combat:player-acknowledged-phases
+[PASS] equipment:dialog-present
+[PASS] ui:safe-area-dialog-css
+[PASS] ui:tall-panels-use-safe-area
+[PASS] equipment:hero-art-present
+[PASS] equipment:slots-present
+[PASS] equipment:combat-formulas-present
+[PASS] audio:central-recovery-controller
+[PASS] audio:timer-clears-before-reschedule
+[PASS] searches:one-attempt-helper
+[PASS] ui:redundant-action-helpers-removed
+[PASS] performance:navigation-not-network-blocked
+[PASS] performance:scene-test-lazy
+[PASS] performance:scene-cache-first
+[PASS] ui:bounded-mobile-story-panel
+[PASS] ui:larger-mobile-status
+[PASS] hotspots:apothecary-approach-door-aligned — {'label': 'Apothecary Door', 'command': 'walk to apothecary door', 'x': 67, 'y': 47, 'w': 34, 'h': 52}
+[PASS] ui:hotspot-selection-scrolls-actions
+[PASS] tavern:legacy-progress-repairs-hatch
+[PASS] tavern:legacy-progress-label-is-cellar-hatch
+[PASS] route:map-edge:square-tavernApproach
+[PASS] route:map-edge:square-forgeLane
+[PASS] route:map-edge:square-chapelRoad
+[PASS] route:map-edge:square-castleRoad
+[PASS] route:map-edge:forgeLane-eastRoad
+[PASS] route:map-edge:eastRoad-forestEdge
+[PASS] route:map-edge:forestEdge-willowTrail
+[PASS] route:map-edge:willowTrail-flowerClearing
+[PASS] route:map-edge:flowerClearing-fallenLog
+[PASS] route:map-edge:fallenLog-whisperingForest
+[PASS] route:map-edge:whisperingForest-cottageApproach
+[PASS] route:map-edge:whisperingForest-moonfen
+[PASS] route:map-edge:whisperingForest-moonwell
+[PASS] route:map-edge:castleRoad-thornHedgePass
+[PASS] route:map-edge:thornHedgePass-brokenWatchCrossing
+[PASS] route:map-edge:brokenWatchCrossing-outerGateApproach
+[PASS] route:map-edge:outerGateApproach-castleGate
+[PASS] route:east-road-to-forest
+[PASS] route:deep-forest-return
+[PASS] route:cottage-is-deep
+[PASS] route:cottage-return
+[PASS] route:castle-road-to-thorn-pass
+[PASS] route:thorn-pass-to-watch
+[PASS] route:watch-to-outer-approach
+[PASS] route:outer-approach-to-gate
+[PASS] route:gate-return-to-approach
+[PASS] discoverable:forgeLane:available — ['take dropped coins', 'go north', 'go east', 'go west']
+[PASS] discoverable:forgeLane:consumed — ['go north', 'go east', 'go west']
+[PASS] discoverable:eastRoad:available — ['go east', 'go west', 'look at eastern gate', 'look at road rune']
+[PASS] discoverable:eastRoad:consumed — ['go east', 'go west', 'look at eastern gate']
+[PASS] discoverable:chapelRoad:available — ['take pilgrim charm', 'go west', 'go east', 'look at chapel', 'look at roadside graves']
+[PASS] discoverable:chapelRoad:consumed — ['go west', 'go east', 'look at chapel', 'look at roadside graves']
+[PASS] discoverable:fallenLog:available — ['take river charm', 'go east', 'go west', 'look at fallen log', 'look at tracks', 'listen to stream']
+[PASS] discoverable:fallenLog:consumed — ['go east', 'go west', 'look at fallen log', 'look at tracks', 'listen to stream']
+[PASS] discoverable:whisperingForest:available — ['take courier seal', 'go north', 'go east', 'go south', 'go west', 'listen', 'look at broken courier seal']
+[PASS] discoverable:whisperingForest:consumed — ['go north', 'go east', 'go south', 'go west', 'listen', 'look at broken courier seal']
+[PASS] discoverable:forge-coins-value
+[PASS] contract:tavern:fresh-forbids:go down — ['look north', 'look east', 'look west', 'look south', 'talk to innkeeper', 'go south']
+[PASS] contract:tavern:fresh-forbids:open cellar hatch — ['look north', 'look east', 'look west', 'look south', 'talk to innkeeper', 'go south']
+[PASS] contract:tavern:fresh-forbids:ask innkeeper about cellar — ['look north', 'look east', 'look west', 'look south', 'talk to innkeeper', 'go south']
+[PASS] contract:tavern:no-ask-before-discovery-context
+[PASS] contract:tavern:hatch-discovered
+[PASS] contract:tavern:ask-after-discovery — ['ask innkeeper about cellar', 'force cellar hatch', 'look north', 'look east', 'look west', 'look south', 'talk to innkeeper', 'go south']
+[PASS] contract:tavern:no-go-down-before-open — ['ask innkeeper about cellar', 'force cellar hatch', 'look north', 'look east', 'look west', 'look south', 'talk to innkeeper', 'go south']
+[PASS] contract:tavern:go-down-after-open
+[PASS] contract:cottage:no-go-down-fresh
+[PASS] contract:cottage:no-go-down-after-rug-only
+[PASS] contract:cottage:go-down-after-open
+[PASS] navigation:map-opens
+[PASS] navigation:map-background-present
+[PASS] navigation:scene-test-listed
+[PASS] navigation:scene-test-opens
+[PASS] hotspots:elowen-visible-position — {'label': 'Elowen', 'command': 'talk to apothecary', 'x': 31, 'y': 38, 'w': 17, 'h': 28}
+[PASS] hotspots:elowen-not-covered — {'label': 'Elowen', 'command': 'talk to apothecary', 'x': 31, 'y': 38, 'w': 17, 'h': 28}/{'label': 'Cabinets', 'command': 'look west', 'x': 12, 'y': 36, 'w': 20, 'h': 34}
+[PASS] npc:merrin-art-v1724
+[PASS] chapel:explore-action
+[PASS] cemetery:east-and-south-exits — {'east': 'chapelYard', 'south': 'chapelRoad'}
+[PASS] treasure:cellar-barrel-action — ['pry up loose flagstone', 'search old barrel', 'look at wine rack', 'look at barrels', 'search crates', 'go up']
+[PASS] treasure:cellar-flagstone-action — ['pry up loose flagstone', 'search old barrel', 'look at wine rack', 'look at barrels', 'search crates', 'go up']
+[PASS] treasure:tunnel-loose-stone — ['inspect old bones', 'search wall niche', 'search loose stone', 'go east', 'go west', 'look at passage', 'look at lantern']
+[PASS] treasure:tunnel-wall-niche — ['inspect old bones', 'search wall niche', 'search loose stone', 'go east', 'go west', 'look at passage', 'look at lantern']
+[PASS] treasure:tunnel-bones — ['inspect old bones', 'search wall niche', 'search loose stone', 'go east', 'go west', 'look at passage', 'look at lantern']
+[PASS] crypt:coffin-action — ['look at altar', 'inspect reliquary lock', 'open stone coffin', 'search burial shelf', 'look at stone coffin', 'go up']
+[PASS] crypt:burial-shelf-action — ['look at altar', 'inspect reliquary lock', 'open stone coffin', 'search burial shelf', 'look at stone coffin', 'go up']
+[PASS] crypt:quick-actions-show-coffin
+[PASS] encounter:thorn-hound-action — ['investigate growl', 'gather briar berries', 'search abandoned pack', 'search thorn hedge', 'inspect strange tracks', 'go north', 'go south']
+[PASS] combat:encounter-intro-opens
+[PASS] combat:encounter-intro-enemy
+[PASS] combat:encounter-intro-art
+[PASS] combat:encounter-attributes
+[PASS] combat:dialog-opens
+[PASS] combat:enemy-is-thorn-hound
+[PASS] combat:first-encounter-actions-enabled — {'attack': False, 'defend': False, 'item': True, 'flee': False, 'continue': True}
+[PASS] combat:first-die-reset
+[PASS] combat:victory-flag
+[PASS] combat:loot-dialog
+[PASS] combat:victory-item
+[PASS] combat:thorn-healing-reward
+[PASS] combat:thorn-practice-awarded — {'Lockpicking': 0, 'Combat': 1, 'Survival': 0, 'Magic': 0, 'Persuasion': 0}
+[PASS] combat:skeleton-dialog
+[PASS] combat:skeleton-reward
+[PASS] combat:skeleton-healing-reward
+[PASS] combat:skeleton-practice-awarded — {'Lockpicking': 0, 'Combat': 1, 'Survival': 0, 'Magic': 0, 'Persuasion': 0}
+[PASS] combat:second-encounter-actions-enabled — {'attack': False, 'defend': False, 'item': True, 'flee': False, 'continue': True}
+[PASS] combat:second-encounter-die-reset
+[PASS] combat:second-encounter-message-reset
+[PASS] combat:emergency-retreat-closes
+[PASS] combat:attack-opens-reward
+[PASS] combat:post-animation-next-actions-enabled — {'attack': False, 'defend': False, 'item': True, 'flee': False, 'continue': True}
+[PASS] combat:pending-intro-survives-reload
+[PASS] combat:pending-loot-survives-reload
+[PASS] combat:active-battle-resumes
+[PASS] combat:resumed-actions-enabled — {'attack': False, 'defend': False, 'item': True, 'flee': False, 'continue': True}
+[PASS] skills:retroactive-skeleton-practice — {'Lockpicking': 0, 'Combat': 1, 'Survival': 0, 'Magic': 0, 'Persuasion': 0}
+[PASS] skills:retroactive-practice-idempotent — {'Lockpicking': 0, 'Combat': 1, 'Survival': 0, 'Magic': 0, 'Persuasion': 0}
+[PASS] crypt:coffin-hotspot-visible-object — {'label': 'Stone Coffin', 'command': 'open stone coffin', 'x': 80, 'y': 55, 'w': 19, 'h': 35}
+[PASS] crypt:coffin-reliquary-do-not-overlap — {'label': 'Stone Coffin', 'command': 'open stone coffin', 'x': 80, 'y': 55, 'w': 19, 'h': 35}/{'label': 'Reliquary', 'command': 'inspect reliquary', 'x': 46, 'y': 36, 'w': 14, 'h': 16}
+[PASS] crypt:completed-actions-removed — ['look at altar', 'look at stone coffin', 'go up']
+[PASS] crypt:completed-hotspot-labels — [{'label': 'Empty Coffin', 'command': 'look at empty coffin'}, {'label': 'Empty Burial Shelf', 'command': 'look at burial shelf'}, {'label': 'Open Reliquary', 'command': 'look at open reliquary'}, {'label': 'Altar', 'command': 'look at altar'}]
+[PASS] combat:ten-consecutive-lifecycles
+[PASS] combat:player-result-persists — {'phase': 'enemy-ready', 'message': 'You: d20 11 + Might 2 + Combat 0 = 13 vs Defense 10 — HIT. Damage: d4 3 = 3.', 'rollText': 'Tap Continue when you have read your result.', 'buttons': {'attack': True, 'defend': True, 'item': True, 'flee': True, 'continue': False}, 'history': ['You: d20 11 + Might 2 + Combat 0 = 13 vs Defense 10 — HIT. Damage: d4 3 = 3.']}
+[PASS] combat:player-roll-in-history — ['You: d20 11 + Might 2 + Combat 0 = 13 vs Defense 10 — HIT. Damage: d4 3 = 3.']
+[PASS] combat:enemy-turn-requires-continue — {'phase': 'player', 'message': 'Thorn Hound: d20 11 + Attack 1 = 12 vs Defense 11 (Base 11) — HIT. Damage: d4 3 = 3.', 'buttons': {'attack': False, 'defend': False, 'item': True, 'flee': False, 'continue': True}, 'history': ['You: d20 11 + Might 2 + Combat 0 = 13 vs Defense 10 — HIT. Damage: d4 3 = 3.', 'Thorn Hound: d20 11 + Attack 1 = 12 vs Defense 11 (Base 11) — HIT. Damage: d4 3 = 3.']}
+[PASS] hotspots:abandoned-pack-present — {'label': 'Abandoned Pack', 'command': 'search abandoned pack', 'x': 72, 'y': 79, 'w': 22, 'h': 25}
+[PASS] hotspots:abandoned-pack-completes — {'flag': True, 'actions': ['investigate growl', 'gather briar berries', 'search thorn hedge', 'inspect strange tracks', 'go north', 'go south'], 'spot': {'label': 'Empty Pack', 'command': 'look at abandoned pack', 'x': 72, 'y': 79, 'w': 22, 'h': 25}}
+[PASS] hotspots:watch-post-meaningful — {'flag': True, 'last': 'A carved warning beneath the torn banner reads: THE CROWN ROAD IS COMPROMISED. Fresh boot marks continue south toward Ironthorn.', 'spot': {'label': 'Searched Watch Post', 'command': 'look at ruined watch post', 'x': 78, 'y': 35, 'w': 30, 'h': 42}}
+[PASS] searches:wagon-one-attempt — {'attempted': True, 'looted': False, 'gold': 20, 'actions': ['move scattered rubble', 'examine ruined watch post', 'go north', 'go south', 'look at carrion crows'], 'spot': {'label': 'Searched Wagon', 'command': 'look at searched wagon', 'x': 24, 'y': 72, 'w': 35, 'h': 25}}/{'gold': 20, 'attempted': True, 'actions': ['move scattered rubble', 'examine ruined watch post', 'go north', 'go south', 'look at carrion crows']}
+[PASS] searches:wagon-attempt-persists-reload
+[PASS] hotspots:defeated-eyes-transform — {'label': 'Fading Tracks', 'command': 'look at fading tracks', 'x': 84, 'y': 53, 'w': 24, 'h': 28}
+[PASS] hotspots:no-look-flicker-noops — []
+[PASS] hotspots:all-have-context-actions — []
+[PASS] audio:interruption-recovers — {'first': True, 'started': True, 'interrupted': True, 'recovered': True, 'label': '♫ Music: On'}
+[PASS] ui:short-scene-no-bottom-gap — {'appBottom': 932, 'controlsBottom': 932, 'inner': 932, 'appHeight': 932}
+[PASS] d20:derived-stats — {'might': 2, 'wits': 1, 'resolve': 1, 'luck': 1, 'combat': 0, 'attack': 2, 'defense': 11, 'baseDefense': 11, 'equipmentDefense': 0, 'damageSides': 4, 'damageBonus': 0, 'damageMin': 1, 'damageMax': 4, 'weaponLabel': 'Unarmed', 'defenseBreakdown': []}
+[PASS] equipment:dialog-opens
+[PASS] equipment:safe-top-buffer — {'top': 64, 'bottom': 900, 'height': 836, 'inner': 932, 'headTop': 66, 'bodyClient': 770, 'bodyScroll': 1070, 'display': 'flex'}
+[PASS] equipment:safe-bottom-and-internal-scroll — {'top': 64, 'bottom': 900, 'height': 836, 'inner': 932, 'headTop': 66, 'bodyClient': 770, 'bodyScroll': 1070, 'display': 'flex'}
+[PASS] equipment:all-seven-slots-render — 7
+[PASS] equipment:hero-character-rendered
+[PASS] equipment:base-current-preview — {'base': {'health': 20, 'attack': 4, 'defense': 11, 'damageMin': 1, 'damageMax': 4, 'might': 2, 'luck': 1, 'combat': 2}, 'current': {'health': 20, 'attack': 4, 'defense': 11, 'damageMin': 1, 'damageMax': 4, 'might': 2, 'luck': 1, 'combat': 2}, 'preview': {'health': 20, 'attack': 6, 'defense': 11, 'damageMin': 3, 'damageMax': 6, 'might': 2, 'luck': 1, 'combat': 2}}
+[PASS] equipment:weapon-shield-charm-stats — {'health': 20, 'attack': 6, 'defense': 13, 'damageMin': 3, 'damageMax': 6, 'might': 2, 'luck': 1, 'combat': 2}
+[PASS] equipment:cards-show-equipped-items
+[PASS] equipment:mobile-no-horizontal-overflow — {'client': 388, 'scroll': 388, 'height': 770, 'scrollHeight': 1070}
+[PASS] equipment:legacy-shield-migrates — {'first': {'weapon': None, 'offhand': 'wooden shield', 'armor': None, 'boots': None, 'charm': None, 'ring': None, 'belt': None}, 'after': {'weapon': None, 'offhand': 'wooden shield', 'armor': None, 'boots': None, 'charm': None, 'ring': None, 'belt': None}, 'defense': 12}
+[PASS] equipment:removed-item-unequips — {'weapon': None, 'has': False}
+[PASS] combat:equipped-attack-used — {'phase': 'enemy-ready', 'message': 'You: d20 11 + Might 2 + Combat 2 + Iron Dagger 2 = 17 vs Defense 10 — HIT. Damage: d4 3 + 2 = 5.', 'stats': {'might': 2, 'wits': 1, 'resolve': 1, 'luck': 1, 'combat': 2, 'attack': 6, 'defense': 13, 'baseDefense': 11, 'equipmentDefense': 2, 'damageSides': 4, 'damageBonus': 2, 'damageMin': 3, 'damageMax': 6, 'weaponLabel': 'Iron Dagger', 'defenseBreakdown': ['Wooden Shield +1', 'Ancient Chapel Charm +1']}}
+[PASS] combat:equipped-defense-used — {'message': 'Thorn Hound: d20 11 + Attack 1 = 12 vs Defense 13 (Base 11 + Gear 2) — MISS.', 'stats': {'might': 2, 'wits': 1, 'resolve': 1, 'luck': 1, 'combat': 2, 'attack': 6, 'defense': 13, 'baseDefense': 11, 'equipmentDefense': 2, 'damageSides': 4, 'damageBonus': 2, 'damageMin': 3, 'damageMax': 6, 'weaponLabel': 'Iron Dagger', 'defenseBreakdown': ['Wooden Shield +1', 'Ancient Chapel Charm +1']}}
+[PASS] combat:defend-bonus-once — {'message': 'Thorn Hound: d20 11 + Attack 1 = 12 vs Defense 15 (Base 11 + Gear 2 + Defend 2) — MISS.', 'pending': False, 'phase': 'player'}
+[PASS] keyboard:focus-class
+[PASS] graph:all-exits-target-real-rooms — []
+[PASS] graph:all-rooms-have-exit — []
+[PASS] hotspots:valid-bounds-and-actions — []
+[PASS] actions:no-duplicates — []
+[PASS] ui:orientation-app-height-recovers — {'app': {'x': 0, 'y': 0, 'width': 430, 'height': 932, 'top': 0, 'right': 430, 'bottom': 932, 'left': 0}, 'scene': {'x': 1, 'y': 80, 'width': 428, 'height': 321, 'top': 80, 'right': 429, 'bottom': 401, 'left': 1}, 'story': {'x': 10, 'y': 409, 'width': 410, 'height': 445, 'top': 409, 'right': 420, 'bottom': 854, 'left': 10}, 'controls': {'x': 1, 'y': 846, 'width': 428, 'height': 86, 'top': 846, 'right': 429, 'bottom': 932, 'left': 1}, 'innerHeight': 932, 'cssHeight': '932px'}
+[PASS] ui:orientation-no-black-middle-gap — {'app': {'x': 0, 'y': 0, 'width': 430, 'height': 932, 'top': 0, 'right': 430, 'bottom': 932, 'left': 0}, 'scene': {'x': 1, 'y': 80, 'width': 428, 'height': 321, 'top': 80, 'right': 429, 'bottom': 401, 'left': 1}, 'story': {'x': 10, 'y': 409, 'width': 410, 'height': 445, 'top': 409, 'right': 420, 'bottom': 854, 'left': 10}, 'controls': {'x': 1, 'y': 846, 'width': 428, 'height': 86, 'top': 846, 'right': 429, 'bottom': 932, 'left': 1}, 'innerHeight': 932, 'cssHeight': '932px'}
+[PASS] ui:orientation-controls-in-viewport — {'app': {'x': 0, 'y': 0, 'width': 430, 'height': 932, 'top': 0, 'right': 430, 'bottom': 932, 'left': 0}, 'scene': {'x': 1, 'y': 80, 'width': 428, 'height': 321, 'top': 80, 'right': 429, 'bottom': 401, 'left': 1}, 'story': {'x': 10, 'y': 409, 'width': 410, 'height': 445, 'top': 409, 'right': 420, 'bottom': 854, 'left': 10}, 'controls': {'x': 1, 'y': 846, 'width': 428, 'height': 86, 'top': 846, 'right': 429, 'bottom': 932, 'left': 1}, 'innerHeight': 932, 'cssHeight': '932px'}
+[PASS] ui:orientation-no-horizontal-overflow — {'app': {'x': 0, 'y': 0, 'width': 430, 'height': 932, 'top': 0, 'right': 430, 'bottom': 932, 'left': 0}, 'scene': {'x': 1, 'y': 80, 'width': 428, 'height': 321, 'top': 80, 'right': 429, 'bottom': 401, 'left': 1}, 'story': {'x': 10, 'y': 409, 'width': 410, 'height': 445, 'top': 409, 'right': 420, 'bottom': 854, 'left': 10}, 'controls': {'x': 1, 'y': 846, 'width': 428, 'height': 86, 'top': 846, 'right': 429, 'bottom': 932, 'left': 1}, 'innerHeight': 932, 'cssHeight': '932px'}

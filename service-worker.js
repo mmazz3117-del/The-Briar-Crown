@@ -1,4 +1,4 @@
-const CACHE = "briar-crown-v1.7.9.2.1-stabilization";
+const CACHE = "briar-crown-v1.7.9.2.4-tavern-door-focus";
 const CORE_ASSETS = [
   "./",
   "./index.html",
@@ -25,8 +25,20 @@ const CORE_ASSETS = [
   "./assets/ui/rowan-equipment-v1742.webp",
   "./assets/ui/restless-skeleton-v1750.webp",
   "./assets/ui/thorn-hound-v1750.webp",
-  "./assets/scenes/square-v1724.webp",
-  "./assets/scenes/production-manifest-v1791.json",
+  "./assets/scenes/square-v17922.webp",
+  "./assets/scenes/tavern-approach-v17922.webp",
+  "./assets/scenes/tavern-door-v17924.webp",
+  "./assets/scenes/tavern-interior-v17922.webp",
+  "./assets/scenes/tavern-north-v17923.webp",
+  "./assets/scenes/tavern-east-v17923.webp",
+  "./assets/scenes/tavern-west-v17923.webp",
+  "./assets/scenes/tavern-south-v17923.webp",
+  "./assets/scenes/chapel-route-v17922.webp",
+  "./assets/scenes/chapel-yard-v17923.webp",
+  "./assets/scenes/chapel-approach-v17923.webp",
+  "./assets/scenes/old-cemetery-v17923.webp",
+  "./assets/scenes/chapel-interior-v17922.webp",
+  "./assets/scenes/production-manifest-v17924.json",
   "./assets/scenes/thorn-hedge-pass-day-v1790.webp",
   "./assets/scenes/broken-watch-crossing-v1729.webp",
   "./assets/scenes/outer-gate-approach-day-v1790.webp"

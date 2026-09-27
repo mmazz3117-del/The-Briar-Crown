@@ -1,11 +1,11 @@
 {
-  "version": "1.7.9.2.1",
-  "build": "17921",
-  "name": "Playable Heroes \u2014 Full-Body Character Card Hotfix",
+  "version": "1.7.9.2.4",
+  "build": "17924",
+  "name": "Scene Family One \u2014 Tavern Door Focus",
   "saveSchema": 1792,
-  "artManifest": "assets/scenes/production-manifest-v1791.json",
-  "artVersion": "1.7.9.1",
+  "artManifest": "assets/scenes/production-manifest-v17924.json",
+  "artVersion": "1.7.9.2.4",
   "itemArtManifest": "assets/items/manifest.json",
   "sceneReview": "qa/scene-review.json",
-  "visualStatus": "approved-full-body-class-selection-art"
+  "visualStatus": "scene-family-one-tavern-door-focus"
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="briar-crown-deployment" content="17921">
+  <meta name="briar-crown-deployment" content="17924">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content" />
   <meta name="theme-color" content="#0b0912" />
@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-title" content="Briar Crown" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <title>The Briar Crown — Mobile Adventure v1.7.9.2.1</title>
+  <title>The Briar Crown — Mobile Adventure v1.7.9.2.4</title>
   <style>
 
     :root {
@@ -1934,7 +1934,7 @@
       <div class="title-wrap">
         <div class="crown">♛</div>
         <h1>The Briar Crown</h1>
-        <small id="version-tag">Version 1.7.9.2.1 • Playable Heroes — Full-Body Character Card Hotfix</small>
+        <small id="version-tag">Version 1.7.9.2.4 • Scene Family One — Tavern Door Focus</small>
       </div>
       <button class="ornate-header-btn" id="menu-btn" title="Game menu" aria-label="Game menu">
         <span class="icon">☰</span><span class="label">Menu</span>
@@ -2116,8 +2116,8 @@
 
   <script>
     const SAVE_KEY = "briar-crown-v1-save";
-    const BUILD_VERSION = "1.7.9.2.1";
-    const BUILD_NAME = "Playable Heroes — Full-Body Character Card Hotfix";
+    const BUILD_VERSION = "1.7.9.2.4";
+    const BUILD_NAME = "Scene Family One — Tavern Door Focus";
 
     const itemInfo = {
       "minor healing tonic": "A small crimson tonic. Restores up to 6 HP during combat.",
@@ -2258,35 +2258,34 @@
     const rooms = {
       square: {
         name: "Willowmere Square",
-        description: "Willowmere gathers beneath a bright late-morning sky, but uneasy rumors travel faster than the market carts. A stone well stands beneath the village willow. The Briar Lantern Tavern lies north, Merrin's forge glows east, Saint Orla's chapel waits west, and the king's road descends south toward the sealed castle.",
+        description: "Willowmere gathers beneath a bright late-morning sky, its market wrapping around the old stone well beside a clear stream. The Briar Lantern Tavern lies north, Merrin's forge east, Saint Orla's chapel west, and the king's road climbs toward distant Ironthorn to the south.",
         exits: { north: "tavernApproach", east: "forgeLane", west: "chapelRoad", south: "castleRoad" },
         actions: ["look at notice board", "look at well"],
         hotspots: [
-          { label: "Notice Board", command: "look at notice board", x: 18, y: 64, w: 24, h: 35 },
-          { label: "Well", command: "look at well", x: 52, y: 61, w: 25, h: 32 },
-          { label: "Tavern", command: "walk to tavern door", x: 33, y: 32, w: 34, h: 48 },
-          { label: "Apothecary", command: "walk to apothecary", x: 78, y: 36, w: 33, h: 50 }
+          { label: "Notice Board", command: "look at notice board", x: 50, y: 46, w: 10, h: 24 },
+          { label: "Well", command: "look at well", x: 18, y: 58, w: 16, h: 18 },
+          { label: "Tavern", command: "walk to tavern door", x: 73, y: 39, w: 23, h: 34 },
+          { label: "Apothecary", command: "walk to apothecary", x: 4, y: 43, w: 12, h: 34 }
         ]
       },
       tavernApproach: {
         name: "Approaching the Briar Lantern",
-        description: "You walk along the cobblestone path toward the tavern. The smell of woodsmoke and warm bread grows stronger. The oak door waits ahead, and a rutted forest road curves east around the tavern toward the dark treeline.",
+        description: "You follow the sunlit cobblestones to the Briar Lantern. Flower boxes spill over the timbered walls, warm lamplight glows behind the windows, and the heavy oak entrance waits beneath the hanging tree-and-lantern sign.",
         exits: { south: "square", north: "tavernDoor", east: "forestEdge" },
         actions: ["walk to tavern door", "go east", "go south"],
         hotspots: [
-          { label: "Tavern Door", command: "walk to tavern door", x: 61, y: 48, w: 35, h: 55 },
-          { label: "Forest Road", command: "east", x: 86, y: 60, w: 22, h: 34 },
-          { label: "Square", command: "south", x: 22, y: 82, w: 32, h: 20 }
+          { label: "Tavern Door", command: "walk to tavern door", x: 38, y: 45, w: 15, h: 46 },
+          { label: "Square", command: "south", x: 0, y: 82, w: 29, h: 18 }
         ]
       },
       tavernDoor: {
         name: "At the Briar Lantern Door",
-        description: "You stand directly before the tavern's heavy oak door. Firelight glows around its frame. Open the door before entering; Willowmere Square lies behind you.",
+        description: "You stand directly before the Briar Lantern's heavy oak door. Warm light glows beyond the threshold while late-morning sun catches the flower boxes and old timberwork. Open the door to enter.",
         exits: { south: "tavernApproach" },
         actions: ["open door", "go south"],
         hotspots: [
-          { label: "Tavern Door", command: "open door", x: 43, y: 51, w: 30, h: 48 },
-          { label: "Square", command: "south", x: 56, y: 82, w: 30, h: 20 }
+          { label: "Tavern Door", command: "open door", x: 48, y: 60, w: 30, h: 54 },
+          { label: "Square", command: "south", x: 12, y: 88, w: 24, h: 18 }
         ]
       },
       apothecaryApproach: {
@@ -2324,14 +2323,14 @@
       },
       tavern: {
         name: "The Briar Lantern",
-        description: "The full tavern common room opens around you. The innkeeper works behind the bar to the north, a broad fireplace glows to the west, stairs climb along the eastern wall, and the entrance is behind you to the south. Sawdust and scuff marks beneath the stairs reward a closer look.",
+        description: "The Briar Lantern opens into a bright, timbered common room. The innkeeper works behind the long bar, a broad hearth burns beneath the stairs, travelers crowd the tables, and daylight still reaches in from Willowmere. Worn floorboards beneath the staircase reward a closer look.",
         exits: { south: "tavernDoor" },
         actions: ["look north", "look east", "look west", "look south", "talk to innkeeper", "look at fireplace", "talk to travelers", "go outside"],
         hotspots: [
-          { label: "Innkeeper", command: "talk to innkeeper", x: 78, y: 48, w: 22, h: 34 },
-          { label: "Scuffed Floor", command: "look at cellar door", x: 51, y: 78, w: 38, h: 22 },
-          { label: "Fireplace", command: "look west", x: 17, y: 47, w: 27, h: 36 },
-          { label: "Entrance", command: "look south", x: 46, y: 27, w: 18, h: 38 }
+          { label: "Innkeeper", command: "talk to innkeeper", x: 90, y: 49, w: 18, h: 34 },
+          { label: "Scuffed Floor", command: "look at cellar door", x: 51, y: 82, w: 34, h: 18 },
+          { label: "Fireplace", command: "look west", x: 35, y: 55, w: 20, h: 32 },
+          { label: "Entrance", command: "look south", x: 5, y: 54, w: 12, h: 50 }
         ]
       },
       tavernCellar: {
@@ -2425,61 +2424,58 @@
       },
       chapelRoad: {
         name: "West Chapel Road",
-        description: "You follow a lantern-lit road west from Willowmere. The cottages thin, yew branches meet overhead, and old headstones begin to appear beside the stones. Saint Orla's chapel yard lies farther west; Willowmere Square is east.",
+        description: "You follow the sunlit chapel road west from Willowmere. The cottages thin, old headstones begin to appear beside the stone wall, and Saint Orla's bell tower rises above the trees. The chapel yard lies ahead; Willowmere Square is east.",
         exits: { east: "square", west: "chapelYard" },
         actions: ["go west", "go east", "look at chapel", "look at roadside graves", "take pilgrim charm"],
         hotspots: [
-          { label: "Chapel", command: "look at chapel", x: 67, y: 37, w: 42, h: 45 },
-          { label: "Chapel Road", command: "go west", x: 56, y: 62, w: 40, h: 48 },
-          { label: "Roadside Graves", command: "look at roadside graves", x: 24, y: 69, w: 30, h: 28 },
-          { label: "Pilgrim Charm", command: "take pilgrim charm", x: 43, y: 74, w: 18, h: 15 },
-          { label: "Willowmere", command: "go east", x: 18, y: 84, w: 30, h: 18 }
+          { label: "Chapel", command: "look at chapel", x: 58, y: 34, w: 40, h: 62 },
+          { label: "Chapel Road", command: "go west", x: 31, y: 60, w: 25, h: 35 },
+          { label: "Roadside Graves", command: "look at roadside graves", x: 79, y: 57, w: 34, h: 38 },
+          { label: "Pilgrim Charm", command: "take pilgrim charm", x: 42, y: 69, w: 14, h: 15 },
+          { label: "Willowmere", command: "go east", x: 7, y: 83, w: 14, h: 20 }
         ]
       },
       chapelYard: {
         name: "Chapel Yard",
-        description: "Crooked headstones crowd the path to Saint Orla's chapel. The chapel stands north beyond an iron gate, Willowmere Square lies east, and an older cemetery path continues west beneath the yew trees.",
+        description: "Weathered headstones and flowering ivy crowd the sunlit path to Saint Orla's chapel. The chapel rises just ahead, Willowmere lies back east, and the oldest cemetery stones continue west beneath the trees.",
         exits: { north: "chapelApproach", east: "chapelRoad", west: "oldCemeteryPath" },
         actions: ["look at graves", "approach chapel"],
         hotspots: [
-          { label: "Chapel", command: "approach chapel", x: 70, y: 35, w: 43, h: 52 },
-          { label: "Graves", command: "look at graves", x: 6, y: 68, w: 42, h: 29 }
+          { label: "Chapel", command: "approach chapel", x: 62, y: 38, w: 45, h: 68 },
+          { label: "Graves", command: "look at graves", x: 80, y: 71, w: 35, h: 42 }
         ]
       },
       chapelApproach: {
         name: "At Saint Orla's Chapel",
-        description: "You stand beneath the weathered stone arch of Saint Orla's chapel. The old door hangs open, and moonlight spills across the threshold. The chapel yard lies south. Enter the chapel when you are ready.",
+        description: "You stand before Saint Orla's weathered stone entrance in full daylight. The heavy wooden door waits beneath the pointed arch, flowers and ivy climb the surrounding graves, and the chapel yard lies behind you. Enter when you are ready.",
         exits: { south: "chapelYard" },
         actions: ["enter chapel", "look inside"],
         hotspots: [
-          { label: "Open Chapel Door", command: "enter chapel", x: 53, y: 38, w: 38, h: 48 },
-          { label: "Chapel Yard", command: "go south", x: 22, y: 88, w: 30, h: 16 }
+          { label: "Chapel Door", command: "enter chapel", x: 44, y: 66, w: 18, h: 42 },
+          { label: "Chapel Yard", command: "go south", x: 8, y: 82, w: 16, h: 22 }
         ]
       },
       oldCemeteryPath: {
         name: "Old Cemetery Path",
-        description: "The path winds among the oldest graves. Saint Orla's chapel yard lies east, while a lower path returns south toward Chapel Road. A collapsed boundary wall blocks the abandoned western road.",
+        description: "The path winds among the oldest graves, past a weathered angel and rows of leaning stones. Saint Orla's chapel yard lies east, while the lower path returns south toward Chapel Road.",
         exits: { east: "chapelYard", south: "chapelRoad" },
-        actions: ["go east", "go south", "look at old graves", "look at collapsed wall"],
+        actions: ["go east", "go south", "look at old graves"],
         hotspots: [
-          { label: "Old Graves", command: "look at old graves", x: 55, y: 60, w: 55, h: 50 },
-          { label: "Collapsed Wall", command: "look at collapsed wall", x: 20, y: 74, w: 30, h: 22 },
-          { label: "Chapel Yard", command: "go east", x: 78, y: 30, w: 36, h: 45 },
-          { label: "Chapel Road", command: "go south", x: 56, y: 91, w: 44, h: 15 }
+          { label: "Old Graves", command: "look at old graves", x: 25, y: 35, w: 50, h: 48 },
+          { label: "Chapel Yard", command: "go east", x: 72, y: 60, w: 24, h: 34 },
+          { label: "Chapel Road", command: "go south", x: 56, y: 84, w: 30, h: 18 }
         ]
       },
       chapel: {
         name: "Saint Orla's Chapel",
-        description: "Daylight filters through a cracked stained-glass window. A stone statue of Saint Orla holds out one empty hand. A coin-shaped hollow marks her palm.",
+        description: "Late-morning daylight pours through the tall stained-glass windows and mixes with candlelight around Saint Orla's altar. Her stone statue holds out one empty hand, and a coin-shaped hollow marks the open palm.",
         exits: { south: "chapelApproach" },
         actions: ["look at statue", "look at altar", "look at candles", "look at stained glass", "look at stone chest", "use fairy coin on statue", "go south"],
         hotspots: [
-          { label: "Statue", command: "look at statue", x: 66, y: 40, w: 34, h: 60 },
-          { label: "Altar", command: "look at altar", x: 57, y: 73, w: 36, h: 18 },
-          { label: "Candles", command: "look at candles", x: 28, y: 58, w: 22, h: 26 },
-          { label: "Stained Glass", command: "look at stained glass", x: 5, y: 30, w: 14, h: 48 },
-          { label: "Stone Chest", command: "look at stone chest", x: 88, y: 67, w: 24, h: 27 },
-          { label: "Chapel Door", command: "go south", x: 20, y: 91, w: 28, h: 14 }
+          { label: "Statue", command: "look at statue", x: 55, y: 32, w: 20, h: 42 },
+          { label: "Altar", command: "look at altar", x: 55, y: 60, w: 30, h: 25 },
+          { label: "Candles", command: "look at candles", x: 77, y: 69, w: 28, h: 25 },
+          { label: "Stained Glass", command: "look at stained glass", x: 70, y: 25, w: 17, h: 38 }
         ]
       },
       crypt: {
@@ -2488,11 +2484,10 @@
         exits: { up: "chapel" },
         actions: ["look at stone coffin", "search burial shelf", "open stone coffin", "open reliquary", "use silver token on reliquary", "go up"],
         hotspots: [
-          { label: "Stone Coffin", command: "open stone coffin", x: 76, y: 58, w: 23, h: 34 },
-          { label: "Burial Shelf", command: "search burial shelf", x: 23, y: 51, w: 25, h: 28 },
-          { label: "Reliquary", command: "open reliquary", x: 57, y: 40, w: 17, h: 17 },
-          { label: "Altar", command: "look at altar", x: 50, y: 35, w: 26, h: 22 },
-          { label: "Stairs", command: "up", x: 18, y: 27, w: 18, h: 26 }
+          { label: "Stone Coffin", command: "open stone coffin", x: 80, y: 55, w: 19, h: 35 },
+          { label: "Burial Shelf", command: "search burial shelf", x: 0, y: 29, w: 20, h: 30 },
+          { label: "Reliquary", command: "open reliquary", x: 46, y: 36, w: 14, h: 16 },
+          { label: "Altar", command: "look at altar", x: 43, y: 28, w: 20, h: 22 }
         ]
       },
       forestEdge: {
@@ -2713,8 +2708,8 @@
         exits:{ north:"tavernDoor", south:"square" }, actions:["go north","go south","walk to tavern door"]
       });
       rooms.tavernApproach.hotspots = [
-        {label:"Briar Lantern Door",command:"go north",x:61,y:48,w:35,h:55},
-        {label:"Willowmere Square",command:"go south",x:22,y:82,w:32,h:20}
+        {label:"Briar Lantern Door",command:"go north",x:47,y:61,w:18,h:45},
+        {label:"Willowmere Square",command:"go south",x:5,y:82,w:12,h:22}
       ];
       Object.assign(rooms.forgeLane, {
         description:"Forge Lane runs east from Willowmere Square. Merrin's open forge entrance is north beside the road, East Road continues east, and the square lies west.",
@@ -3354,9 +3349,9 @@
     let commandHistoryIndex = 0;
 
     const sceneImageMap = {
-      square: "assets/scenes/square-v1724.webp",
-      tavernApproach: "assets/scenes/tavern-approach-v1790.webp",
-      tavernDoor: "assets/scenes/tavern-door-v1790.webp",
+      square: "assets/scenes/square-v17922.webp",
+      tavernApproach: "assets/scenes/tavern-approach-v17922.webp",
+      tavernDoor: "assets/scenes/tavern-door-v17924.webp",
       apothecaryApproach: "assets/scenes/apothecary-approach-v1724.webp",
       apothecaryDoor: "assets/scenes/apothecary-door-v1724.webp",
       apothecary: "assets/scenes/apothecary-center-v1724.webp",
@@ -3365,16 +3360,16 @@
       eastRoad: "assets/scenes/east-road-v1724.webp",
       forgeDoor: "assets/scenes/forge-door-v1724.webp",
       blacksmith: "assets/scenes/forge-interior-v1724.webp",
-      chapelRoad: "assets/scenes/chapel-road-day-v1790.webp",
-      chapelYard: "assets/scenes/chapel-yard-day-v1790.webp",
-      chapelApproach: "assets/scenes/chapel-approach-day-v1790.webp",
-      oldCemeteryPath: "assets/scenes/old-cemetery-day-v1790.webp",
-      chapel: "assets/scenes/chapel-interior-v1790.webp",
+      chapelRoad: "assets/scenes/chapel-route-v17922.webp",
+      chapelYard: "assets/scenes/chapel-yard-v17923.webp",
+      chapelApproach: "assets/scenes/chapel-approach-v17923.webp",
+      oldCemeteryPath: "assets/scenes/old-cemetery-v17923.webp",
+      chapel: "assets/scenes/chapel-interior-v17922.webp",
       castleRoad: "assets/scenes/kings-road-day-v1790.webp",
       thornHedgePass: "assets/scenes/thorn-hedge-pass-day-v1790.webp",
       brokenWatchCrossing: "assets/scenes/broken-watch-crossing-v1729.webp",
       outerGateApproach: "assets/scenes/outer-gate-approach-day-v1790.webp",
-      tavern: "assets/scenes/tavern-center-v1772.webp",
+      tavern: "assets/scenes/tavern-interior-v17922.webp",
       forestEdge: "assets/scenes/forest-edge-v1724.webp",
       willowTrail: "assets/scenes/willow-trail-v1724.webp",
       flowerClearing: "assets/scenes/flower-clearing-day-v1790.webp",
@@ -3393,6 +3388,32 @@
       crypt: "assets/scenes/chapel-crypt-v1724.webp",
       castleGate: "assets/scenes/ironthorn-gate-v1773.webp"
     };
+
+    const sceneVisualFamilies = Object.freeze({
+      willowmere: { status:"cinematic-v17923-aligned", lighting:"late-morning daylight" },
+      tavern: { status:"cinematic-v17924-focus", lighting:"warm daytime interior" },
+      chapel: { status:"cinematic-v17923-focus", lighting:"daylight exterior / stained daylight interior" }
+    });
+    const sceneLegacyFallbacks = Object.freeze({
+      "assets/scenes/square-v17922.webp": "assets/scenes/square-v1724.webp",
+      "assets/scenes/tavern-approach-v17922.webp": "assets/scenes/tavern-approach-v1790.webp",
+      "assets/scenes/tavern-interior-v17922.webp": "assets/scenes/tavern-center-v1772.webp",
+      "assets/scenes/tavern-door-v17924.webp": "assets/scenes/tavern-door-v1790.webp",
+      "assets/scenes/chapel-route-v17922.webp": "assets/scenes/chapel-road-day-v1790.webp",
+      "assets/scenes/chapel-yard-v17923.webp": "assets/scenes/chapel-yard-day-v1790.webp",
+      "assets/scenes/chapel-approach-v17923.webp": "assets/scenes/chapel-approach-day-v1790.webp",
+      "assets/scenes/old-cemetery-v17923.webp": "assets/scenes/old-cemetery-day-v1790.webp",
+      "assets/scenes/chapel-interior-v17922.webp": "assets/scenes/chapel-interior-v1790.webp"
+    });
+    const sceneLegacyRetainedAssets = Object.freeze([
+      "assets/scenes/tavern-door-v1790.webp",
+      "assets/scenes/tavern-north-v1790.webp",
+      "assets/scenes/tavern-east-v1790.webp",
+      "assets/scenes/tavern-west-v1790.webp",
+      "assets/scenes/tavern-south-v1790.webp",
+      "assets/scenes/chapel-yard-day-v1790.webp",
+      "assets/scenes/chapel-approach-day-v1790.webp"
+    ]);
 
     const sceneTourRooms = ["square", "forgeLane", "eastRoad", "forgeDoor", "blacksmith", "chapelRoad", "chapelYard", "chapelApproach", "oldCemeteryPath", "chapel", "castleRoad", "thornHedgePass", "brokenWatchCrossing", "outerGateApproach", "tavernApproach", "tavernDoor", "tavern", "apothecaryApproach", "apothecaryDoor", "apothecary", "apothecaryBackRoom", "forestEdge", "willowTrail", "flowerClearing", "fallenLog", "whisperingForest", "cottageApproach", "cottage", "cellar", "moonfen", "hutExterior", "hutInterior", "moonwell", "tavernCellar", "secretTunnel", "secretAlcove", "crypt", "castleGate"];
 
@@ -3463,54 +3484,53 @@
     };
 
     const tavernViewImages = {
-      center: "assets/scenes/tavern-center-v1772.webp",
-      north: "assets/scenes/tavern-north-v1790.webp",
-      east: "assets/scenes/tavern-east-v1790.webp",
-      west: "assets/scenes/tavern-west-v1790.webp",
-      south: "assets/scenes/tavern-south-v1790.webp"
+      center: "assets/scenes/tavern-interior-v17922.webp",
+      north: "assets/scenes/tavern-north-v17923.webp",
+      east: "assets/scenes/tavern-east-v17923.webp",
+      west: "assets/scenes/tavern-west-v17923.webp",
+      south: "assets/scenes/tavern-south-v17923.webp"
     };
     const tavernViewNames = { center:"Common Room", north:"Bar & Innkeeper", east:"Stairs & Cellar", west:"Hearth", south:"Entrance" };
     const tavernViewDescriptions = {
-      center:"The full common room surrounds you: the innkeeper at the bar, travelers near the hearth, stairs climbing along the east wall, and the entrance behind you.",
-      north:"You turn toward the bar. The innkeeper stands behind the polished counter beneath rows of bottles; Rowan and the lower stairs remain in view.",
-      east:"You turn toward the main staircase and the worn floor beneath it. The hearth and a few travelers sit off to the right.",
-      west:"You face the broad stone hearth. Travelers warm themselves around nearby tables beneath the old hunting crest.",
-      south:"You face the tavern entrance. Daylight from Willowmere spills through the open doorway while the common room continues behind you."
+      center:"The full common room surrounds you: the innkeeper at the bar, travelers near the hearth, stairs climbing along the east wall, and the bright entrance at the far left.",
+      north:"You focus on the bar. The innkeeper stands behind the polished counter beneath rows of bottles, with the staircase at the edge of your view.",
+      east:"You focus on the main staircase and the worn floor beneath it. The hearth burns to the left while the bar remains just to the right.",
+      west:"You focus on the broad stone hearth. Travelers warm themselves around nearby tables beneath the Briar Lantern's old blue-and-gold banner.",
+      south:"You look back toward the bright Willowmere entrance at the left edge of the common room; nearby tables, the hearth, and the foot of the stairs remain in view."
     };
     const tavernViewActions = {
       center:["look north","look east","look west","look south","talk to innkeeper"],
       north:["talk to innkeeper","look at bar","look at bottles","look around"],
       east:["look at scuffed floor","look at stairs","look at fireplace","look around"],
-      west:["look at fireplace","talk to travelers","look at crest","look around"],
+      west:["look at fireplace","talk to travelers","look at banner","look around"],
       south:["look at door","go outside","leave tavern","look around"]
     };
     const tavernViewHotspots = {
       center:[
-        {label:"Innkeeper",command:"talk to innkeeper",x:78,y:48,w:22,h:34},
-        {label:"Scuffed Floor",command:"look at cellar door",x:51,y:78,w:38,h:22},
-        {label:"Fireplace",command:"look west",x:17,y:47,w:27,h:36},
-        {label:"Entrance",command:"look south",x:46,y:27,w:18,h:38},
-        {label:"Leave Tavern",command:"go outside",x:46,y:9,w:24,h:14}
+        {label:"Innkeeper",command:"talk to innkeeper",x:90,y:49,w:18,h:34},
+        {label:"Scuffed Floor",command:"look at cellar door",x:51,y:82,w:24,h:16},
+        {label:"Fireplace",command:"look west",x:35,y:56,w:20,h:32},
+        {label:"Entrance",command:"look south",x:5,y:54,w:12,h:50}
       ],
       north:[
-        {label:"Innkeeper",command:"talk to innkeeper",x:67,y:48,w:24,h:36},
-        {label:"Bar",command:"look at bar",x:64,y:67,w:52,h:24},
-        {label:"Bottles",command:"look at bottles",x:69,y:26,w:42,h:24},
-        {label:"Stairs",command:"look at stairs",x:34,y:35,w:25,h:45}
+        {label:"Innkeeper",command:"talk to innkeeper",x:84,y:45,w:22,h:42},
+        {label:"Bar",command:"look at bar",x:66,y:72,w:68,h:27},
+        {label:"Bottles",command:"look at bottles",x:64,y:26,w:34,h:34},
+        {label:"Stairs",command:"look at stairs",x:8,y:25,w:18,h:55}
       ],
       east:[
-        {label:"Scuffed Floor",command:"look at cellar door",x:51,y:82,w:38,h:20},
-        {label:"Stairs",command:"look at stairs",x:51,y:39,w:34,h:54},
-        {label:"Fireplace",command:"look at fireplace",x:86,y:59,w:24,h:30}
+        {label:"Scuffed Floor",command:"look at cellar door",x:44,y:80,w:24,h:20},
+        {label:"Stairs",command:"look at stairs",x:50,y:40,w:38,h:66},
+        {label:"Fireplace",command:"look at fireplace",x:17,y:66,w:26,h:38}
       ],
       west:[
-        {label:"Fireplace",command:"look at fireplace",x:38,y:48,w:36,h:42},
-        {label:"Travelers",command:"talk to travelers",x:56,y:72,w:55,h:28},
-        {label:"Crest",command:"look at crest",x:53,y:19,w:24,h:22}
+        {label:"Fireplace",command:"look at fireplace",x:50,y:58,w:24,h:37},
+        {label:"Travelers",command:"talk to travelers",x:18,y:63,w:36,h:41},
+        {label:"Inn Banner",command:"look at banner",x:49,y:23,w:15,h:28}
       ],
       south:[
-        {label:"Tavern Door",command:"go outside",x:53,y:43,w:26,h:48},
-        {label:"Common Room",command:"look around",x:50,y:66,w:62,h:44}
+        {label:"Tavern Door",command:"go outside",x:6,y:34,w:16,h:58},
+        {label:"Common Room",command:"look around",x:43,y:48,w:78,h:68}
       ]
     };
     rooms.tavern.hotspots=tavernViewHotspots.center.map(h=>({...h}));
@@ -3575,7 +3595,7 @@
         south: "A sleeping cat curls beside pots of rosemary and mint."
       },
       chapelRoad: {
-        west: "The lantern-lit road continues toward Saint Orla's graveyard and chapel.",
+        west: "The sunlit road continues toward Saint Orla's graveyard and chapel.",
         east: "Willowmere Square lies behind you beyond the chapel road.",
         north: "Yew branches and a low cemetery wall border the road.",
         south: "Old cottages and bramble-filled gardens leave no public path south."
@@ -3587,7 +3607,7 @@
         south: "A narrow path winds among weathered headstones."
       },
       chapelApproach: {
-        north: "The open chapel doorway waits directly before you. Use ENTER CHAPEL to cross the threshold.",
+        north: "Saint Orla's chapel entrance waits directly before you. Use ENTER CHAPEL to cross the threshold.",
         east: "The chapel's stone wall is wrapped in ivy and old memorial plaques.",
         west: "A row of narrow stained-glass windows catches the light.",
         south: "The path returns through the chapel yard toward Willowmere Square."
@@ -3600,7 +3620,7 @@
       },
       chapel: {
         north: "Saint Orla's stone statue stands before the altar with one hand extended.",
-        south: "The open chapel door leads back to the moonlit yard.",
+        south: "The chapel door leads back to the sunlit yard.",
         east: "A cracked stained-glass window shows a fairy carrying a fragment of sunlight.",
         west: "Rows of old wooden pews face the altar."
       },
@@ -3687,7 +3707,7 @@
         south: "The southern graveyard path ends at a locked iron service gate.",
       },
       chapelApproach: {
-        north: "The open chapel doorway is directly ahead. Use ENTER CHAPEL to cross the threshold.",
+        north: "Saint Orla's chapel entrance is directly ahead. Use ENTER CHAPEL to cross the threshold.",
         east: "The chapel wall and old memorial stones block the way east.",
         west: "The chapel wall runs west beneath narrow stained-glass windows."
       },
@@ -4291,7 +4311,7 @@
           return addLog("The loose brick still sits proud of the hearth. You could MOVE BRICK.");
         }
         if (/stairs/.test(target)) return addLog("The stairs climb to rented rooms. A painted sign warns: NO CREDIT, NO CURSES, NO DRAGONS.");
-        if (/crest/.test(target)) return addLog("A green shield with a golden crossed emblem hangs high above the hearth, its edges darkened by years of smoke.");
+        if (/crest|banner/.test(target)) return addLog("A faded blue banner with the Briar Lantern's golden tree emblem hangs above the hearth, its lower edge darkened by years of smoke.");
         if (/ledger/.test(target)) return addLog("The innkeeper's ledger records rooms, meals, and several unpaid tabs under suspiciously heroic names.");
         if (/bell/.test(target)) return addLog("A small brass service bell sits near the taps. The innkeeper is already watching you.");
       }
@@ -6572,7 +6592,7 @@
         const replacement = { label: "Trapdoor", command, x: 49, y: 78, w: 28, h: 16 };
         if (index >= 0) spots[index] = replacement; else spots.push(replacement);
       }
-      if (state.room === "chapel" && state.flags.cryptOpen) spots.push({ label: "Stairs", command: "down", x: 34, y: 76, w: 20, h: 20 });
+      if (state.room === "chapel" && state.flags.cryptOpen) spots.push({ label: "Stairs", command: "down", x: 51, y: 81, w: 25, h: 18 });
       if (state.room === "tavernDoor") {
         const door = spots.find(s => s.label === "Tavern Door");
         if (door && state.flags.tavernDoorOpen) door.command = "enter tavern";
@@ -6642,13 +6662,13 @@
       if (state.room === "crypt") {
         const coffin=spots.find(x=>x.label==="Stone Coffin");
         if(coffin){
-          coffin.x=76;coffin.y=58;coffin.w=23;coffin.h=34;
+          coffin.x=80;coffin.y=55;coffin.w=19;coffin.h=35;
           if(state.flags.cryptSkeletonDefeated){coffin.label=state.flags.cryptCoffinLooted?"Empty Coffin":"Open Coffin";coffin.command=state.flags.cryptCoffinLooted?"look at empty coffin":"search open coffin";}
         }
         const shelf=spots.find(x=>x.label==="Burial Shelf");
         if(shelf&&state.flags.cryptBurialShelfAttempted){shelf.label=state.flags.cryptBurialShelfLooted?"Empty Burial Shelf":"Searched Burial Shelf";shelf.command="look at burial shelf";}
         const rel=spots.find(x=>x.label==="Reliquary");
-        if(rel){rel.x=57;rel.y=40;rel.w=17;rel.h=17;rel.label=state.flags.reliquaryOpen?"Open Reliquary":"Reliquary";rel.command=state.flags.reliquaryOpen?(state.flags.sigilTaken?"look at open reliquary":"take sun sigil"):"inspect reliquary";}
+        if(rel){rel.x=46;rel.y=36;rel.w=14;rel.h=16;rel.label=state.flags.reliquaryOpen?"Open Reliquary":"Reliquary";rel.command=state.flags.reliquaryOpen?(state.flags.sigilTaken?"look at open reliquary":"take sun sigil"):"inspect reliquary";}
       }
       const hiddenHotspots = [
         ["secretTunnel","tunnelBonesInspected",/Old Bones/i],
@@ -7527,7 +7547,7 @@
       }
       renderAll();
       showTitleScreen();
-      if ("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js?build=17921").catch(() => {});
+      if ("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js?build=17924").catch(() => {});
     }
 
     document.getElementById("export-save-btn").addEventListener("click",exportGame);
